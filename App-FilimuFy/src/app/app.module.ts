@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '../modules/material.module';
+import { MenuNavComponent } from './shared/menu-nav/menu-nav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuNavComponent
   ],
   imports: [
     BrowserModule,
