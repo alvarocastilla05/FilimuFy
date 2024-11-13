@@ -64,3 +64,11 @@ nav {
     background: linear-gradient(to right, #E95573, #20B7E5);
     color: white;
 }
+
+.romboide {
+    transform: skew(-30deg);    /* Transformación para hacer que el fondo sea un romboide */
+  }
+
+.textoAntiRomboide {
+    transform: skew(30deg);     /* Transformación inversa que anula la inclinación del texto*/
+}
