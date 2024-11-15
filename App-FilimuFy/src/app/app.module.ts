@@ -7,11 +7,20 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '../modules/material.module';
 import { MenuNavComponent } from './shared/menu-nav/menu-nav.component';
+import { PeliculasListComponent } from './components/peliculas-list/peliculas-list.component';
+import { provideHttpClient } from '@angular/common/http';
+import { PeliculaCardComponent } from './components/pelicula-card/pelicula-card.component';
+import { ImagenPipe } from './pipes/imagen.pipe';
+import { ScreenComponent } from './components/screen/screen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuNavComponent
+    MenuNavComponent,
+    PeliculasListComponent,
+    PeliculaCardComponent,
+    ImagenPipe,
+    ScreenComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +29,8 @@ import { MenuNavComponent } from './shared/menu-nav/menu-nav.component';
     MaterialModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })
