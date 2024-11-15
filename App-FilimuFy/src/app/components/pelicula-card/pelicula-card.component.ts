@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class PeliculaCardComponent {
 
-  peliculaCarteleraImg = 'https://image.tmdb.org/t/p/original/9TFSqghEHrlBMRR63yTx80Orxva.jpg'
-
 }
