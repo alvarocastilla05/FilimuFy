@@ -1,15 +1,12 @@
 <div class="p-2" style="width: 15rem;">
     <img src="{{peliculaDetalle!.poster_path | imagen}}" class="rounded-4 card-img-top sombra" alt="{{peliculaDetalle!.title}}">
     <div class="card-body px-0 pt-2">
-        <div class="text-white bg-black rounded-4 freeman mt-1 py-1 text-center">
-            <h6 class="m-0"><i class="bi bi-star-fill text-warning"></i>  {{peliculaDetalle!.vote_average}}/10</h6>
+        <div class="text-white fondoNegro rounded-4 freeman mt-1 py-1 text-center">
+            <h6 class="m-0"><i class="bi bi-star-fill text-warning"></i>  {{peliculaDetalle!.vote_average | number:'1.0-1' }} /10</h6>
         </div>
         <h5 class="card-title freeman text-start pt-2 m-0">{{peliculaDetalle!.title}}</h5>
-        <p class="card-text gris freeman m-0">{{peliculaDetalle!.release_date}} - <span *ngFor="let genre of peliculaDetalle!.genres">{{ genre.name }}</span></p>
+        <p class="card-text gris freeman m-0">{{peliculaDetalle!.release_date | date:'yyyy'}} - <span *ngFor="let genre of peliculaDetalle!.genres; let i = index">{{ genre.name }}<span *ngIf="i < peliculaDetalle!.genres.length - 1">, </span></span></p>
+
         <p class="card-text gris freeman m-0">{{peliculaDetalle!.runtime}} min</p>
     </div>
 </div>
-
-
-
-

@@ -1,4 +1,9 @@
-
-@for (item of listaPeliculas; track $index) {
-    <app-pelicula-card [peliculaId]="item.id"></app-pelicula-card>
-}
+<div class="container mt-5 pt-5">
+    <div class="row mt-5">
+        @for (pelicula of listaPeliculas; track pelicula.id) {
+            <div class="col-md-3 col-12 p-2 my-3">
+                <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+            </div>
+        }
+    </div>
+</div>

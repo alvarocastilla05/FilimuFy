@@ -20,8 +20,7 @@ import { ScreenComponent } from './components/screen/screen.component';
     PeliculasListComponent,
     PeliculaCardComponent,
     ImagenPipe,
-    ScreenComponent,
-    
+    ScreenComponent
   ],
   imports: [
     BrowserModule,
