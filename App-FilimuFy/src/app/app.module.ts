@@ -12,6 +12,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { PeliculaCardComponent } from './components/pelicula-card/pelicula-card.component';
 import { ImagenPipe } from './pipes/imagen.pipe';
 import { ScreenComponent } from './components/screen/screen.component';
+import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ScreenComponent } from './components/screen/screen.component';
     PeliculasListComponent,
     PeliculaCardComponent,
     ImagenPipe,
-    ScreenComponent
+    ScreenComponent,
+    PeliculaDetailsComponent
   ],
   imports: [
     BrowserModule,

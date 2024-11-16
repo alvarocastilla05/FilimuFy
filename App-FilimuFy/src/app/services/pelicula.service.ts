@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {Pelicula, PeliculaListResponse } from '../interfaces/pelicula-list.interfaces';
 import { PeliculaDetailResponse } from '../interfaces/pelicula-detail.interfaces';
 import { GenreListResponse } from '../interfaces/genero.interfaces';
+import { CreditosListResponse } from '../interfaces/credito.interfaces';
 
 const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 
@@ -24,5 +25,9 @@ export class PeliculaService {
 
   getGeneroById(id: number): Observable<GenreListResponse>{
     return this.http.get<GenreListResponse>(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+  }
+
+  getCreditosById(id: number): Observable<CreditosListResponse>{
+    return this.http.get<CreditosListResponse>(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`);
   }
 }
