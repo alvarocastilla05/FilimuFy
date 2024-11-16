@@ -5,6 +5,7 @@ import {Pelicula, PeliculaListResponse } from '../interfaces/pelicula-list.inter
 import { PeliculaDetailResponse } from '../interfaces/pelicula-detail.interfaces';
 import { GenreListResponse } from '../interfaces/genero.interfaces';
 import { CreditosListResponse } from '../interfaces/credito.interfaces';
+import { VIdeoListResponse } from '../interfaces/videoPelis.interfaces';
 
 const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 
@@ -29,5 +30,9 @@ export class PeliculaService {
 
   getCreditosById(id: number): Observable<CreditosListResponse>{
     return this.http.get<CreditosListResponse>(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`);
+  }
+
+  getVideoById(id: string): Observable<VIdeoListResponse>{
+    return this.http.get<VIdeoListResponse>(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`);
   }
 }

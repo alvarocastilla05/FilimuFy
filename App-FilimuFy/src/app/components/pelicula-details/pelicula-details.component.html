@@ -1,29 +1,17 @@
 <!--backrop_path es la img del fondo, hay que usar la pipe de img-->
 <!--Para la lista de actore deberas de hacer un @for de lista de creditos y así sacas la lista de los que han participado-->
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <img [src]="pelicula!.backdrop_path | imagen" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{pelicula!.title}}</h5>
-          <p class="card-text">{{pelicula!.overview}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-md-12">
-      <h3>Actores</h3>
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3" *ngFor="let actor of listaCreditos">
-              <div class="card">
-                <img src="{{actor.profile_path! | imagen}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{actor.name}}</h5>
+<!--En la linea siguiente es para ver un video y funcio, pero hay un problema no se como sacar los trailers,
+ ya que no todos tienen los trailers en la misma posicion-->
+ <!--button (click)="seleccionarVideo(videos[0])">Ver Video</button-->
+
+
+
+
+
+
+
+
 
 
 
