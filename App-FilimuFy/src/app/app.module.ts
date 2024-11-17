@@ -7,14 +7,24 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '../modules/material.module';
 import { MenuNavComponent } from './shared/menu-nav/menu-nav.component';
-import { PeliculaCardComponent } from './components/pelicula-card/pelicula-card.component';
+import { PeliculasListComponent } from './components/peliculas-list/peliculas-list.component';
 import { provideHttpClient } from '@angular/common/http';
+import { PeliculaCardComponent } from './components/pelicula-card/pelicula-card.component';
+import { ImagenPipe } from './pipes/imagen.pipe';
+import { ScreenComponent } from './components/screen/screen.component';
+import { SerieCardComponent } from './components/serie-card/serie-card.component';
+import { SerieListComponent } from './components/serie-list/serie-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuNavComponent,
-    PeliculaCardComponent
+    PeliculasListComponent,
+    PeliculaCardComponent,
+    ImagenPipe,
+    ScreenComponent,
+    SerieCardComponent,
+    SerieListComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,8 +33,8 @@ import { provideHttpClient } from '@angular/common/http';
     MaterialModule
   ],
   providers: [
-    provideHttpClient(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })
