@@ -25,7 +25,6 @@ import { SerieListComponent } from './components/serie-list/serie-list.component
     ScreenComponent,
     SerieCardComponent,
     SerieListComponent,
-
   ],
   imports: [
     BrowserModule,
