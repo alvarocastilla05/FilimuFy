@@ -18,10 +18,10 @@
     font-family: 'freeman';
 }
 
-/*@font-face {
+@font-face {
     font-family: 'poppins';
     src: url(../../fonts/Poppins-Medium.ttf);
-}*/
+}
 
 .freeman {
     font-family: 'poppins';

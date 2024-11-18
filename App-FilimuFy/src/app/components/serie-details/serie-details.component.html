@@ -47,29 +47,36 @@
     </div>
 
     <!--PARTE INFERIOR -------------------->
-    <div class="container w-75 mt-5">
+    <div class="container w-75">
         <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
-
-        <div class="container mt-5">
-            <div class="row" style="overflow: auto; white-space: nowrap;">
-                <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
-                @for (actor of listaCreditos; track actor) {
+    
+        <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
+          <div class="row d-flex flex-nowrap mt-1" style="
+            overflow: auto; 
+            white-space: nowrap; 
+            display: flex;
+            overflow-x: scroll;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x proximity; 
+            margin: 50px auto 0;">
+            <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
+            @for (actor of listaCreditos; track actor) {
+              <div class="col-md-3 col-12 p-2 my-3">
                 <div class="p-2" style="width: 15rem;">
-                    <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
-                        <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
-                            alt="{{actor.name}}">
-                        <div class="card-body px-0 pt-2">
-                            <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
-                            <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
-                        </div>
-                    </a>
+                  <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                      <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
+                          alt="{{actor.name}}">
+                      <div class="card-body px-0 pt-2">
+                          <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
+                          <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
+                      </div>
+                  </a>
                 </div>
-                }
-                
-                </div>
-            </div>
+              </div>
+            }
+          </div>
         </div>
-    </div>
+      </div>
 
     <div class="container w-75 mt-5">
         <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
