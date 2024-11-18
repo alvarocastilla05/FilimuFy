@@ -1,0 +1,33 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
+@font-face {
+    font-family: 'jockeyOne';
+    src: url(../../fonts/JockeyOne-Regular.ttf);
+}
+
+.jockeyOne {
+    font-family: 'jockeyOne';
+}
+
+@font-face {
+    font-family: 'freeman';
+    src: url(../../fonts/Freeman-Regular.ttf);
+}
+
+.freeman {
+    font-family: 'freeman';
+}
+
+/* CARD DE PELÍCULA ---------------------------------------------------------------------------------------------------- */
+
+h6 {
+    font-size: 18px;
+}
+
+.gris {
+    color: #7A7A7A;
+}
+
+.sombra {
+    box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
+}

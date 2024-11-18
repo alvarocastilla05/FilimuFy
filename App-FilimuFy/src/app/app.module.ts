@@ -14,6 +14,8 @@ import { ImagenPipe } from './pipes/imagen.pipe';
 import { ScreenComponent } from './components/screen/screen.component';
 import { SerieCardComponent } from './components/serie-card/serie-card.component';
 import { SerieListComponent } from './components/serie-list/serie-list.component';
+import { ActorCardComponent } from './components/actor-card/actor-card.component';
+import { ActorListComponent } from './components/actor-list/actor-list.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { SerieListComponent } from './components/serie-list/serie-list.component
     ScreenComponent,
     SerieCardComponent,
     SerieListComponent,
+    ActorCardComponent,
+    ActorListComponent,
   ],
   imports: [
     BrowserModule,
