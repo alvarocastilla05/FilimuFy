@@ -34,20 +34,39 @@
           </span>
         </h4>
       </div>
-      <!--Duración-->
-      <h4 class="poppins text-white p-3">Duración: {{pelicula!.runtime | horasMin}}</h4>
+      <!--Duración, Valoración y Status-->
+      <div class="d-flex">
+        <h4 class="m-0 poppins text-white p-3 me-3">Duración: {{pelicula!.runtime | horasMin}}</h4>
+        <h4 class="m-0 poppins text-white p-3 me-3">
+          <i class="bi bi-star-fill text-warning"></i> {{pelicula!.vote_average |number:'1.0-1' }} /10
+        </h4>
+        <h4 class="m-0 poppins text-white p-3">
+          <i class="bi bi-circle-fill tamanhoCirculo" [style]="pelicula!.status | statusColor"></i> {{pelicula!.status}}
+        </h4>
+      </div>
+      
       <!--Proveedores-->
-      <h4 class="m-0 freeman gris">
-        <span *ngFor="let plataforma of plataformas; let i = index">{{plataforma.logo_path}}
-          <!--span *ngIf="i < pelicula!.genres.length - 1">/ </span-->
-        </span>
-      </h4>
+      <!--@if((this.listaProveedores.length > 0 || this.listaProveedores.length != undefined) || 
+        (this.listaProveedoresPago.length > 0 || this.listaProveedoresPago.length != undefined)) {-->
+        <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
+          <div *ngFor="let proveedor of listaProveedores;">
+            <img [ngClass]="'rounded-4 mx-2'" [style.width]="75+'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
+          </div>
+          <div *ngFor="let proveedor of listaProveedoresPago;">
+            <img [ngClass]="'rounded-4 mx-2'" [style.width]="75+'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
+          </div>
+        </div>
+      <!--}-->
+
       <!--Descripción-->
       <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
       <!--Tráiler-->
-      <div class="p-3" *ngIf="selectedVideo">
-        <a type="button" class="btn fondoRosa p-3 rounded-3" [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
-          <h5 class="m-0 freeman text-white"><i class="bi bi-play-fill"></i> Reproducir tráiler</h5>
+      <div class="p-3 pt-2" *ngIf="selectedVideo">
+        <a type="button" class="btn d-inline-flex fondoRosa p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
+          [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
+          <h5 class="m-0 freeman text-white align-middle d-flex align-items-center">
+            <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir tráiler
+          </h5>
         </a>
       </div>
 
@@ -55,31 +74,68 @@
   </div>
 
   <!--PARTE INFERIOR -------------------->
-  <div class="container w-75 mt-5">
-    <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+  <div class="container-fluid d-flex mt-4 pb-5">
 
-    <div class="container mt-5">
-      <div class="row" style="overflow: auto; white-space: nowrap;">
-        <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
-        @for (actor of listaCreditos; track actor) {
-          <div class="p-2" style="width: 15rem;">
-            <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
-                <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
-                    alt="{{actor.name}}">
-                <div class="card-body px-0 pt-2">
-                    <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
-                    <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
-                </div>
-            </a>
-          </div>
-        }
+    <!--Reparto principal-->
+    <div class="container w-75">
+      <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+  
+      <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
+        <div class="row d-flex flex-nowrap mt-1" style="
+          overflow: auto; 
+          white-space: nowrap; 
+          display: flex;
+          overflow-x: scroll;
+          overscroll-behavior-x: contain;
+          scroll-snap-type: x proximity; 
+          margin: 50px auto 0;">
+          <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
+          @for (actor of listaCreditos; track actor) {
+            <div class="col-md-3 col-12 p-2 my-3">
+              <div class="p-2" style="width: 15rem;">
+                <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                    <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
+                        alt="{{actor.name}}">
+                    <div class="card-body px-0 pt-2">
+                        <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
+                        <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
+                    </div>
+                </a>
+              </div>
+            </div>
+          }
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="container w-25">
-    <div>
-      
+    <!--Datos de la película-->
+    <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
+      <div class="mb-4">
+        <h4 class="jockeyOne text-black">Título original:</h4>
+        <h5 class="freeman text-white">{{pelicula!.original_title}}</h5>
+      </div>
+      <div class="mb-4">
+        <h4 class="jockeyOne text-black">Idioma original:</h4>
+        <h5 class="freeman text-white">{{pelicula!.spoken_languages[0].english_name}}</h5>
+      </div>
+      <div class="mb-4">
+        <h4 class="jockeyOne text-black">Presupuesto:</h4>
+        <h5 class="freeman text-white">{{pelicula!.budget | currency: 'USD'}}</h5>
+      </div>
+      <div class="mb-4">
+        <h4 class="jockeyOne text-black">Ingresos:</h4>
+        <h5 class="freeman text-white">{{pelicula!.revenue | currency: 'USD'}}</h5>
+      </div>
+      <div>
+        <h4 class="jockeyOne text-black">Palabras clave:</h4>
+        <div class="d-flex flex-wrap">
+          <div *ngFor="let keyword of keywords;">
+            <a class="palabraClave text-decoration-none">
+              <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
+            </a>
+          </div>
+        <div>
+      </div>
     </div>
   </div>
 

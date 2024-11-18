@@ -48,3 +48,26 @@
 .azulOscuro{
     color: #001743;
 }
+
+.tamanhoCirculo{
+    font-size: 16px;
+}
+
+/* DATOS DE LA PELÍCULA ----------------------------------------------------------------------------------------- */
+
+.grisClaroFondo{
+    background-color: #EDEDED;
+}
+
+.degradado{
+    background: linear-gradient(180deg, #E95573, #20B7E5);
+}
+
+.fondoNegro{
+    background-color: #000A1E;
+}
+
+.palabraClave:hover h6{
+    background-color: rgb(255, 193, 7, 1);
+    color: black !important;
+}

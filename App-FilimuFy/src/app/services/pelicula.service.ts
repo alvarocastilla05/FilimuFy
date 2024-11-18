@@ -8,6 +8,7 @@ import { CreditosListResponse } from '../interfaces/credito.interfaces';
 import { VIdeoListResponse } from '../interfaces/videoPelis.interfaces';
 import { ProveedoreesPeliListResponse } from '../interfaces/proveedorPeli.interfaces';
 import { FechaSalidaResponse } from '../interfaces/releaseDateCertifications.interfaces';
+import { KeywordsListResponse } from '../interfaces/pelicula-keywords.interfaces';
 
 const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 
@@ -46,4 +47,7 @@ export class PeliculaService {
     return this.http.get<ProveedoreesPeliListResponse>(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${API_KEY}`);
   }
   
+  getKeywordsById(id: number): Observable<KeywordsListResponse>{
+    return this.http.get<KeywordsListResponse>(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${API_KEY}`);
+  }
 }

@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { PeliculaDetailResponse } from '../../interfaces/pelicula-detail.interfaces';
 import { Cast, CreditosListResponse } from '../../interfaces/credito.interfaces';
 import { Video, VIdeoListResponse } from '../../interfaces/videoPelis.interfaces';
-import { Flatrate, ProveedorPeliResponse } from '../../interfaces/proveedorPeli.interfaces';
+import { Buy, Flatrate } from '../../interfaces/proveedorPeli.interfaces';
 import { Region } from '../../interfaces/releaseDateCertifications.interfaces';
+import { Keyword } from '../../interfaces/pelicula-keywords.interfaces';
 
 @Component({
   selector: 'app-pelicula-details',
@@ -21,10 +22,11 @@ export class PeliculaDetailsComponent implements OnInit{
   video: VIdeoListResponse | undefined;
   videos: Video[] = [];
   selectedVideo: Video | undefined;
-  proveedor: ProveedorPeliResponse | undefined;
-  plataformas: Flatrate[] = [];
+  listaProveedores: Flatrate[] = [];
+  listaProveedoresPago: Buy[] = [];
   regionList: Region[] = [];
   certificationEsp: Region | undefined;
+  keywords: Keyword[] = [];
 
   constructor(
     private peliculaService: PeliculaService, 
@@ -43,6 +45,10 @@ export class PeliculaDetailsComponent implements OnInit{
       this.listaCreditos = respuesta.cast;
     });
 
+    this.peliculaService.getKeywordsById(parseInt(this.peliculaId!)).subscribe(respuesta => {
+      this.keywords = respuesta.keywords;
+    });
+
     this.peliculaService.getVideoById(this.peliculaId!).subscribe(respuesta => {
       this.video = respuesta;  
       this.videos = respuesta.results;  
@@ -53,9 +59,9 @@ export class PeliculaDetailsComponent implements OnInit{
     }
   });
 
-  this.peliculaService.getProveedor(parseInt(this.peliculaId!)).subscribe(respuesta => {
-    this.proveedor = respuesta;
-    this.plataformas = respuesta.flatrate;
+  this.peliculaService.getProveedoresById(parseInt(this.peliculaId!)).subscribe(respuesta => {
+    this.listaProveedores = respuesta.results.ES.flatrate;
+    this.listaProveedoresPago = respuesta.results.ES.buy;
   });
 
   this.peliculaService.getCertificationById(parseInt(this.peliculaId!)).subscribe(resp => {
