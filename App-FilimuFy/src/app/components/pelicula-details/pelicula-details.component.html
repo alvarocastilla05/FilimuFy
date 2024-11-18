@@ -8,8 +8,8 @@
 <!--Los proveedores no he sido capaz de mostrarlos, estan hechos en el ts y todo pero no soy capaz de que se vean-->
 
 
-<div class="container-fluid">
-  <div class="row p-4 fondoCubierto fondoNegroTransparente" [ngStyle]="{'background-image' : 'url(' + (pelicula!.backdrop_path | imagen) + ')'}">
+<div class="container-fluid position-relative">
+  <div class="row p-4 fondoCubierto" [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
 
     <div class="w-25">
       <img src="{{pelicula!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
@@ -53,6 +53,7 @@
 
   </div>
 </div>
+
 
 
 
