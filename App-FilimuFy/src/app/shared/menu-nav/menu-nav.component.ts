@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class MenuNavComponent {
 
+  // HEADER 
+  logoFilimuFy = 'https://cdn-icons-png.flaticon.com/512/4221/4221360.png';
+  
 }

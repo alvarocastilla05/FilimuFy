@@ -15,6 +15,8 @@ import { ScreenComponent } from './components/screen/screen.component';
 import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula-details.component';
 import { HorasMinPipe } from './pipes/horasMin.pipe';
 import { AverageColorPipe } from './pipes/averageColor.pipe';
+import { SerieCardComponent } from './components/serie-card/serie-card.component';
+import { SerieListComponent } from './components/serie-list/serie-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AverageColorPipe } from './pipes/averageColor.pipe';
     HorasMinPipe,
     AverageColorPipe,
     ScreenComponent,
-    PeliculaDetailsComponent
+    PeliculaDetailsComponent,
+    SerieCardComponent,
+    SerieListComponent,
   ],
   imports: [
     BrowserModule,

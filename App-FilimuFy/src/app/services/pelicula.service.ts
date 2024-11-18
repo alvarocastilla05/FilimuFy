@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Pelicula, PeliculaListResponse } from '../interfaces/pelicula-list.interfaces';
+import { PeliculaListResponse } from '../interfaces/pelicula-list.interfaces';
 import { PeliculaDetailResponse } from '../interfaces/pelicula-detail.interfaces';
 import { GenreListResponse } from '../interfaces/genero.interfaces';
 import { CreditosListResponse } from '../interfaces/credito.interfaces';
 import { VIdeoListResponse } from '../interfaces/videoPelis.interfaces';
 import { ProveedorPeliResponse } from '../interfaces/proveedorPeli.interfaces';
+import { FechaSalidaResponse } from '../interfaces/releaseDateCertifications.interfaces';
 
 const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 
@@ -39,5 +40,9 @@ export class PeliculaService {
 
   getProveedor(id: number): Observable<ProveedorPeliResponse>{
     return this.http.get<ProveedorPeliResponse>(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${API_KEY}`);
+  }
+
+  getCertificationById(id: number): Observable<FechaSalidaResponse>{
+    return this.http.get<FechaSalidaResponse>(`https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${API_KEY}`);
   }
 }

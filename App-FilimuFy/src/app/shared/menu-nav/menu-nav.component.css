@@ -1,3 +1,74 @@
+/* TIPOGRAFÍA (JOCKEY ONE) --------------------------------------------------------------------------------------------- */
+
+@font-face {
+    font-family: 'jockeyOne';
+    src: url(../../fonts/JockeyOne-Regular.ttf);
+}
+
+.jockeyOne {
+    font-family: 'jockeyOne';
+}
+
+/* HEADER -------------------------------------------------------------------------------------------------------------- */
+
 header {
     background-color: #000A1E;
+}
+
+img {
+    width: 60px;
+}
+
+.h1Header {
+    font-size: 40px;
+}
+
+.textFilimuFy {
+    background: linear-gradient(to right, #E95573, #20B7E5);
+    background-clip: text;  /* Esta propiedad recorta el fondo para aplicarlo solo al texto */
+    color: transparent;
+}
+
+input {
+    font-size: 20px;
+}
+
+input::placeholder {
+    color: #aaaaaa;
+    font-size: 20px;
+}  
+
+.widthSearchrBar {
+    width: 37%;
+}
+
+.btnSearchrBar {
+    width: 41.6px;
+    height: 41.6px;
+    background-color: #E95573;
+    color: white;
+}
+
+.btnSearchrBar:hover {
+    background-color: #20B7E5;
+    color: white;
+}
+
+.iconoPerfil {
+    font-size: 45px;
+}
+
+/* NAVBAR -------------------------------------------------------------------------------------------------------------- */
+
+nav {
+    background: linear-gradient(to right, #E95573, #20B7E5);
+    color: white;
+}
+
+.romboide {
+    transform: skew(-30deg);    /* Transformación para hacer que el fondo sea un romboide */
+  }
+
+.textoAntiRomboide {
+    transform: skew(30deg);     /* Transformación inversa que anula la inclinación del texto*/
 }
