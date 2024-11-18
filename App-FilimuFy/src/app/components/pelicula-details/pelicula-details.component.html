@@ -1,14 +1,60 @@
-<!--backrop_path es la img del fondo, hay que usar la pipe de img-->
-<!--Para la lista de actore deberas de hacer un @for de lista de creditos y así sacas la lista de los que han participado-->
+<!--backdrop_path es la img del fondo, hay que usar la pipe de img-->
+<!--Para la lista de actores deberas de hacer un @for de lista de creditos y así sacas la lista de los que han participado-->
 <!--En la siguiente linea aparece el enlace para ver el trailer, solo habria que ponerlo bonito-->
 <!--div *ngIf="selectedVideo">
     <a [href]="'https://www.youtube.com/embed/' + selectedVideo.key">Ver Video</a>
   </div-->
 
-<!--Los proveedore no he sido capaz de mostrarlos, estan hechos en el ts y todo pero no soy capaz de que se vean-->
+<!--Los proveedores no he sido capaz de mostrarlos, estan hechos en el ts y todo pero no soy capaz de que se vean-->
 
 
+<div class="container-fluid">
+  <div class="row bg-dark p-4" [ngStyle]="{'background' : 'url({{pelicula!.backdrop_path | imagen}})'}">
+    <div class="w-25">
+      <img src="{{pelicula!.poster_path | imagen}}" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
+    </div>
 
+    <!--PARTE SUPERIOR DERECHA-->
+    <div class="container w-75 mb-3 p-4">
+
+      <!--Título y año de estreno-->
+      <h1 class="mb-4 jockeyOne text-white">{{pelicula!.title}} 
+        <span class="gris">({{pelicula!.release_date | date:'yyyy'}})</span>
+      </h1>
+      
+      <!--PEGI y Géneros-->
+      <div class="container w-100 px-3 d-flex align-items-center">
+        <h3 class="m-0 me-4 bg-danger p-2 rounded-3 freeman text-white">+18</h3>
+        <h4 class="m-0 freeman gris">
+          <span *ngFor="let genre of pelicula!.genres; let i = index">{{ genre.name }}
+            <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
+          </span>
+        </h4>
+      </div>
+      <!--Duración-->
+      <h4 class="poppins text-white p-3">Duración: {{pelicula!.runtime | horasMin}}</h4>
+
+      <h4 class="m-0 freeman gris">
+        <span *ngFor="let plataforma of plataformas; let i = index">{{plataforma.logo_path}}
+          <!--span *ngIf="i < pelicula!.genres.length - 1">/ </span-->
+        </span>
+      </h4>
+
+      <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
+
+      <div class="p-3" *ngIf="selectedVideo">
+        <a type="button" class="btn fondoRosa p-3 rounded-3" [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
+          <h5 class="m-0 freeman text-white"><i class="bi bi-play-fill"></i> Reproducir tráiler</h5>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div>
+  </div>
+</div>
 
 
 

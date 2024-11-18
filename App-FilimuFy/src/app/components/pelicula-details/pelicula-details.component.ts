@@ -23,8 +23,6 @@ export class PeliculaDetailsComponent implements OnInit{
   proveedor: ProveedorPeliResponse | undefined;
   plataformas: Flatrate[] = [];
 
-  
-
   constructor(
     private peliculaService: PeliculaService, 
     private route: ActivatedRoute

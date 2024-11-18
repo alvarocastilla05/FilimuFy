@@ -13,6 +13,8 @@ import { PeliculaCardComponent } from './components/pelicula-card/pelicula-card.
 import { ImagenPipe } from './pipes/imagen.pipe';
 import { ScreenComponent } from './components/screen/screen.component';
 import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula-details.component';
+import { HorasMinPipe } from './pipes/horasMin.pipe';
+import { AverageColorPipe } from './pipes/averageColor.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula
     PeliculasListComponent,
     PeliculaCardComponent,
     ImagenPipe,
+    HorasMinPipe,
+    AverageColorPipe,
     ScreenComponent,
     PeliculaDetailsComponent
   ],
