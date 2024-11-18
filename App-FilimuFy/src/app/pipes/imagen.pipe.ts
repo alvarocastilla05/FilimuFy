@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ImagenPipe implements PipeTransform {
 
   transform(img: string): String {
-   let url: string = 'https://media.themoviedb.org/t/p/w220_and_h330_face/';
+   let url: string = 'https://image.tmdb.org/t/p/original/';
 
     return url + img;
   }
