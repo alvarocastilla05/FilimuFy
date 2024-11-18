@@ -16,6 +16,7 @@ import { SerieCardComponent } from './components/serie-card/serie-card.component
 import { SerieListComponent } from './components/serie-list/serie-list.component';
 import { ActorCardComponent } from './components/actor-card/actor-card.component';
 import { ActorListComponent } from './components/actor-list/actor-list.component';
+import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ActorListComponent } from './components/actor-list/actor-list.component
     SerieListComponent,
     ActorCardComponent,
     ActorListComponent,
+    SerieDetailsComponent,
   ],
   imports: [
     BrowserModule,

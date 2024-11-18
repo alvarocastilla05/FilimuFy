@@ -1,4 +1,5 @@
 <div class="p-2" style="width: 15rem;">
+  <a [routerLink]="['/series', serieId]" class="text-decoration-none text-black">
     <img src="{{serieDetalle!.poster_path | imagen}}" class="rounded-4 card-img-top sombra" alt="{{serieDetalle!.name}}">
     <div class="card-body px-0 pt-2">
       <div class="text-white bg-black rounded-4 freeman mt-1 py-1 text-center">
@@ -17,5 +18,6 @@
         </span>
       </p>
     </div>
+  </a>
   </div>
   
