@@ -40,3 +40,11 @@
 .tamanhoPlay{
     font-size: 30px;
 }
+
+.fondoCubierto{
+    background-size: cover;
+}
+
+.fondoNegroTransparente{
+    background-color: rgb(0, 0, 0, 0.5) !important;
+}

@@ -4,7 +4,7 @@
             alt="{{peliculaDetalle!.title}}">
         <div class="card-body px-0 pt-2">
             <div class="text-white rounded-4 freeman mt-1 py-1 text-center" 
-                style="{{peliculaDetalle!.vote_average | averageColor}}">
+                [style]="peliculaDetalle!.vote_average | averageColor">
                 <h6 class="m-0"><i class="bi bi-star-fill text-warning"></i> {{peliculaDetalle!.vote_average |
                     number:'1.0-1' }} /10</h6>
             </div>

@@ -9,9 +9,10 @@
 
 
 <div class="container-fluid">
-  <div class="row bg-dark p-4" [ngStyle]="{'background' : 'url({{pelicula!.backdrop_path | imagen}})'}">
+  <div class="row p-4 fondoCubierto fondoNegroTransparente" [ngStyle]="{'background-image' : 'url(' + (pelicula!.backdrop_path | imagen) + ')'}">
+
     <div class="w-25">
-      <img src="{{pelicula!.poster_path | imagen}}" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
+      <img src="{{pelicula!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
     </div>
 
     <!--PARTE SUPERIOR DERECHA-->
@@ -50,9 +51,6 @@
 
     </div>
 
-  </div>
-
-  <div>
   </div>
 </div>
 
