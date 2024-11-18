@@ -1,0 +1,106 @@
+<div class="container-fluid mt-3">
+
+    <!--PARTE SUPERIOR -------------------->
+    <div class="row p-4 fondoCubierto"
+        [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65)), url(' + (serie!.backdrop_path | imagen) + ')'}">
+
+        <!--PARTE SUPERIOR IZQUIERDA-->
+        <div class="w-25">
+            <img src="{{serie!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">
+        </div>
+
+        <!--PARTE SUPERIOR DERECHA-->
+        <div class="container w-75 mb-3 p-4">
+
+            <!--Título y año de estreno-->
+            <h1 class="mb-4 jockeyOne text-white">{{serie!.name}}
+                <span class="gris">({{serie!.first_air_date| date:'yyyy'}})</span>
+            </h1>
+            <!--PEGI y Géneros-->
+            <div class="container w-100 px-3 d-flex align-items-center">
+                <h3 class="m-0 me-4 bg-danger p-2 rounded-3 freeman text-white" [innerHTML]="getCertification()"></h3>
+                <h4 class="m-0 freeman gris">
+                    <span *ngFor="let genre of serie!.genres; let i = index">{{ genre.name }}
+                        <span *ngIf="i < serie!.genres.length - 1">/ </span>
+                    </span>
+                </h4>
+            </div>
+            <!--Duración-->
+            <h4 class="poppins text-white p-3">Numero Temporadas: {{serie!.number_of_seasons}}</h4>
+            <!--Proveedores-->
+            <h4 class="m-0 freeman gris">
+                <!--span *ngFor="let plataforma of plataformas; let i = index">{{plataforma.logo_path}}
+            <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
+          </span-->
+            </h4>
+            <!--Descripción-->
+            <h5 class="poppins text-white p-3">{{serie!.overview}}</h5>
+            <!--Tráiler-->
+            <div class="p-3" *ngIf="selectedVideo">
+                <a type="button" class="btn fondoRosa p-3 rounded-3"
+                    [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
+                    <h5 class="m-0 freeman text-white"><i class="bi bi-play-fill"></i> Reproducir tráiler</h5>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!--PARTE INFERIOR -------------------->
+    <div class="container w-75 mt-5">
+        <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+
+        <div class="container mt-5">
+            <div class="row" style="overflow: auto; white-space: nowrap;">
+                <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
+                @for (actor of listaCreditos; track actor) {
+                <div class="p-2" style="width: 15rem;">
+                    <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                        <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
+                            alt="{{actor.name}}">
+                        <div class="card-body px-0 pt-2">
+                            <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
+                            <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
+                        </div>
+                    </a>
+                </div>
+                }
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container w-75 mt-5">
+        <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-12" *ngFor="let season of serie!.seasons">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{season.poster_path! | imagen}}" class="img-fluid rounded-start sombra" alt="{{season.name}}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{season.name}}</h5>
+                                    <p class="card-text">{{season.overview}}</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Fecha de estreno: {{season.air_date | date}}</small>
+                                    </p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Número de episodios: {{season.episode_count}}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+
+
+
+
