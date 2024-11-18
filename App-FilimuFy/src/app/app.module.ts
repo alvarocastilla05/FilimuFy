@@ -18,6 +18,8 @@ import { AverageColorPipe } from './pipes/averageColor.pipe';
 import { SerieCardComponent } from './components/serie-card/serie-card.component';
 import { SerieListComponent } from './components/serie-list/serie-list.component';
 import { StatusColorPipe } from './pipes/statusColor.pipe';
+import { ActorCardComponent } from './components/actor-card/actor-card.component';
+import { ActorListComponent } from './components/actor-list/actor-list.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { StatusColorPipe } from './pipes/statusColor.pipe';
     PeliculaDetailsComponent,
     SerieCardComponent,
     SerieListComponent,
+    ActorCardComponent,
+    ActorListComponent,
   ],
   imports: [
     BrowserModule,
