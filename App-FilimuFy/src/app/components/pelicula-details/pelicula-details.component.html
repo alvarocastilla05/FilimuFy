@@ -8,9 +8,12 @@
 <!--Los proveedores no he sido capaz de mostrarlos, estan hechos en el ts y todo pero no soy capaz de que se vean-->
 
 
-<div class="container-fluid position-relative">
-  <div class="row p-4 fondoCubierto" [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
+<div class="container-fluid">
 
+  <!--PARTE SUPERIOR -------------------->
+  <div class="row p-4 fondoCubierto" [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
+
+    <!--PARTE SUPERIOR IZQUIERDA-->
     <div class="w-25">
       <img src="{{pelicula!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
     </div>
@@ -22,7 +25,6 @@
       <h1 class="mb-4 jockeyOne text-white">{{pelicula!.title}} 
         <span class="gris">({{pelicula!.release_date | date:'yyyy'}})</span>
       </h1>
-      
       <!--PEGI y Géneros-->
       <div class="container w-100 px-3 d-flex align-items-center">
         <h3 class="m-0 me-4 bg-danger p-2 rounded-3 freeman text-white">+18</h3>
@@ -34,15 +36,15 @@
       </div>
       <!--Duración-->
       <h4 class="poppins text-white p-3">Duración: {{pelicula!.runtime | horasMin}}</h4>
-
+      <!--Proveedores-->
       <h4 class="m-0 freeman gris">
         <span *ngFor="let plataforma of plataformas; let i = index">{{plataforma.logo_path}}
           <!--span *ngIf="i < pelicula!.genres.length - 1">/ </span-->
         </span>
       </h4>
-
+      <!--Descripción-->
       <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
-
+      <!--Tráiler-->
       <div class="p-3" *ngIf="selectedVideo">
         <a type="button" class="btn fondoRosa p-3 rounded-3" [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
           <h5 class="m-0 freeman text-white"><i class="bi bi-play-fill"></i> Reproducir tráiler</h5>
@@ -50,8 +52,35 @@
       </div>
 
     </div>
-
   </div>
+
+  <!--PARTE INFERIOR -------------------->
+  <div class="container w-75 mt-5">
+    <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+
+    <div class="container mt-5">
+      <div class="row" style="overflow: auto; white-space: nowrap;">
+        <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
+        @for (actor of listaCreditos; track actor) {
+          <div class="p-2" style="width: 15rem;">
+            <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
+                    alt="{{actor.name}}">
+                <div class="card-body px-0 pt-2">
+                    <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
+                    <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
+                </div>
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container w-25">
+    
+  </div>
+
 </div>
 
 

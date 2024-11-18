@@ -45,6 +45,6 @@
     background-size: cover;
 }
 
-.fondoNegroTransparente{
-    background-color: rgb(0, 0, 0, 0.5) !important;
+.azulOscuro{
+    color: #001743;
 }
