@@ -8,7 +8,7 @@
 <!--Los proveedores no he sido capaz de mostrarlos, estan hechos en el ts y todo pero no soy capaz de que se vean-->
 
 
-<div class="container-fluid">
+<div class="container-fluid mt-3">
 
   <!--PARTE SUPERIOR -------------------->
   <div class="row p-4 fondoCubierto" [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
@@ -27,7 +27,7 @@
       </h1>
       <!--PEGI y Géneros-->
       <div class="container w-100 px-3 d-flex align-items-center">
-        <h3 class="m-0 me-4 bg-danger p-2 rounded-3 freeman text-white">+18</h3>
+        <h3 class="m-0 me-4 bg-danger p-2 rounded-3 freeman text-white" [innerHTML]="getCertification()"></h3>
         <h4 class="m-0 freeman gris">
           <span *ngFor="let genre of pelicula!.genres; let i = index">{{ genre.name }}
             <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
@@ -78,7 +78,9 @@
   </div>
 
   <div class="container w-25">
-    
+    <div>
+      
+    </div>
   </div>
 
 </div>
