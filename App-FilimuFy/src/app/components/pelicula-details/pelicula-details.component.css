@@ -1,0 +1,73 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
+@font-face {
+    font-family: 'jockeyOne';
+    src: url(../../fonts/JockeyOne-Regular.ttf);
+}
+
+.jockeyOne {
+    font-family: 'jockeyOne';
+}
+
+@font-face {
+    font-family: 'freeman';
+    src: url(../../fonts/Freeman-Regular.ttf);
+}
+
+.freeman {
+    font-family: 'freeman';
+}
+
+@font-face {
+    font-family: 'poppins';
+    src: url(../../fonts/Poppins-Medium.ttf);
+}
+
+.freeman {
+    font-family: 'poppins';
+}
+
+/* INFORMACIÓN DE LA PELÍCULA ----------------------------------------------------------------------------------------- */
+
+.gris{
+    color: #909090;
+}
+
+.fondoRosa{
+    background-color: #E05A78 !important;
+}
+
+.tamanhoPlay{
+    font-size: 30px;
+}
+
+.fondoCubierto{
+    background-size: cover;
+}
+
+.azulOscuro{
+    color: #001743;
+}
+
+.tamanhoCirculo{
+    font-size: 16px;
+}
+
+/* DATOS DE LA PELÍCULA ----------------------------------------------------------------------------------------- */
+
+.grisClaroFondo{
+    background-color: #EDEDED;
+}
+
+.degradado{
+    background: linear-gradient(180deg, #E95573, #20B7E5);
+}
+
+.fondoNegro{
+    background-color: #000A1E;
+}
+
+.palabraClave:hover h6{
+    background-color: rgb(255, 193, 7, 1);
+    color: black !important;
+}

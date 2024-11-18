@@ -12,8 +12,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { PeliculaCardComponent } from './components/pelicula-card/pelicula-card.component';
 import { ImagenPipe } from './pipes/imagen.pipe';
 import { ScreenComponent } from './components/screen/screen.component';
+import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula-details.component';
+import { HorasMinPipe } from './pipes/horasMin.pipe';
+import { AverageColorPipe } from './pipes/averageColor.pipe';
 import { SerieCardComponent } from './components/serie-card/serie-card.component';
 import { SerieListComponent } from './components/serie-list/serie-list.component';
+import { StatusColorPipe } from './pipes/statusColor.pipe';
 import { ActorCardComponent } from './components/actor-card/actor-card.component';
 import { ActorListComponent } from './components/actor-list/actor-list.component';
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
@@ -25,7 +29,11 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
     PeliculasListComponent,
     PeliculaCardComponent,
     ImagenPipe,
+    HorasMinPipe,
+    AverageColorPipe,
+    StatusColorPipe,
     ScreenComponent,
+    PeliculaDetailsComponent,
     SerieCardComponent,
     SerieListComponent,
     ActorCardComponent,
