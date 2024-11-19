@@ -19,11 +19,13 @@ export class MenuNavComponent {
     this.rutaActual = this.router.url;
   }
 
-  getRutaSeleccionada() {
+  getRutaSeleccionada(pagina: string) {
     let rutaActual = this.router.url;
 
-    if(rutaActual.includes('peliculas')) {
-
+    if(rutaActual.includes(pagina)) {
+      return true;
+    } else {
+      return false;
     }
   }
 

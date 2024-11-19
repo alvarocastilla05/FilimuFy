@@ -16,7 +16,7 @@
         </div>
     </header> 
 
-    @if (rutaActual.includes("peliculas")) {
+    @if (getRutaSeleccionada("peliculas") === true) {
         <nav class="w-100 d-flex justify-content-around align-items-center">
             <div class="px-5 py-2 bg-warning romboide">
                 <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
@@ -34,7 +34,7 @@
                 </h4>
             </div>
         </nav>
-    } @else if(rutaActual.includes("series")) {
+    } @else if(getRutaSeleccionada("series") === true) {
         <nav class="w-100 d-flex justify-content-around align-items-center">
             <div class="px-5 py-2">
                 <h4 class="mb-0 py-1 jockeyOne">
@@ -52,7 +52,7 @@
                 </h4>
             </div>
         </nav>
-    } @else if(rutaActual.includes("actores")) {
+    } @else if(getRutaSeleccionada("actores") === true) {
         <nav class="w-100 d-flex justify-content-around align-items-center">
             <div class="px-5 py-2">
                 <h4 class="mb-0 py-1 jockeyOne">
