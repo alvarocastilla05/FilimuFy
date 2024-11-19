@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: 'peliculas', component: PeliculasListComponent},
   {path: '', redirectTo: 'peliculas', pathMatch: 'full'},
   {path: 'series', component: SerieListComponent},
-  {path: 'peliculas/:id', component: PeliculaDetailsComponent}
+  {path: 'peliculas/:id', component: PeliculaDetailsComponent},
   {path: 'actores', component: ActorListComponent},
 ]
 
