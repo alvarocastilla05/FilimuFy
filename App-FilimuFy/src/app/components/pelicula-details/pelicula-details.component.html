@@ -1,7 +1,8 @@
 <div class="container-fluid mt-3">
 
   <!--PARTE SUPERIOR -------------------->
-  <div class="row p-4 fondoCubierto" [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
+  <div class="row p-4 fondoCubierto" 
+    [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
 
     <!--PARTE SUPERIOR IZQUIERDA-->
     <div class="w-25">
@@ -36,17 +37,14 @@
       </div>
       
       <!--Proveedores-->
-      <!--@if((this.listaProveedores.length > 0 || this.listaProveedores.length != undefined) || 
-        (this.listaProveedoresPago.length > 0 || this.listaProveedoresPago.length != undefined)) {-->
-        <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
-          <div *ngFor="let proveedor of listaProveedores;">
-            <img [ngClass]="'rounded-4 mx-2'" [style.width]="75+'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
-          </div>
-          <div *ngFor="let proveedor of listaProveedoresPago;">
-            <img [ngClass]="'rounded-4 mx-2'" [style.width]="75+'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
-          </div>
+      <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
+        <div *ngFor="let proveedor of listaProveedores;">
+          <img [ngClass]="'rounded-4 mx-2'" [style.width]="75+'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
         </div>
-      <!--}-->
+        <div *ngFor="let proveedor of listaProveedoresPago;">
+          <img [ngClass]="'rounded-4 mx-2'" [style.width]="75+'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
+        </div>
+      </div>
 
       <!--Descripción-->
       <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
@@ -130,9 +128,3 @@
   </div>
 
 </div>
-
-
-
-
-
-

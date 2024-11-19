@@ -12,7 +12,7 @@
         <!--PARTE SUPERIOR DERECHA-->
         <div class="container w-75 mb-3 p-4">
 
-            <!--Título y año de estreno-->
+            <!--Nombre y año de estreno-->
             <h1 class="mb-4 jockeyOne text-white">{{serie!.name}}
                 <span class="gris">({{serie!.first_air_date| date:'yyyy'}})</span>
             </h1>
@@ -25,21 +25,40 @@
                     </span>
                 </h4>
             </div>
-            <!--Duración-->
-            <h4 class="poppins text-white p-3">Numero Temporadas: {{serie!.number_of_seasons}}</h4>
+            <!--Nº de temporadas, Valoración y Estado-->
+            <div class="d-flex">
+                <h4 class="m-0 poppins text-white p-3 me-3">
+                    <span *ngIf="serie!.number_of_seasons === 1">
+                        {{serie!.number_of_seasons}} temporada
+                  </span>
+                  <span *ngIf="serie!.number_of_seasons !== 1">
+                        {{serie!.number_of_seasons}} temporadas
+                  </span>
+                </h4>
+                <h4 class="m-0 poppins text-white p-3 me-3">
+                  <i class="bi bi-star-fill text-warning"></i> {{serie!.vote_average|number:'1.0-1' }} /10
+                </h4>
+                <h4 class="m-0 poppins text-white p-3">
+                  <i class="bi bi-circle-fill tamanhoCirculo" [style]="serie!.status | statusColor"></i> {{serie!.status}}
+                </h4>
+            </div>
+
             <!--Proveedores-->
-            <h4 class="m-0 freeman gris">
-                <!--span *ngFor="let plataforma of plataformas; let i = index">{{plataforma.logo_path}}
-            <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
-          </span-->
-            </h4>
+            <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
+                <div *ngFor="let proveedor of listaProveedores;">
+                    <img [ngClass]="'rounded-4 mx-2'" [style.width]="75+'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
+                </div>
+            </div>
+
             <!--Descripción-->
             <h5 class="poppins text-white p-3">{{serie!.overview}}</h5>
             <!--Tráiler-->
-            <div class="p-3" *ngIf="selectedVideo">
-                <a type="button" class="btn fondoRosa p-3 rounded-3"
-                    [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
-                    <h5 class="m-0 freeman text-white"><i class="bi bi-play-fill"></i> Reproducir tráiler</h5>
+            <div class="p-3 pt-2" *ngIf="selectedVideo">
+                <a type="button" class="btn d-inline-flex fondoRosa p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
+                  [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
+                  <h5 class="m-0 freeman text-white align-middle d-flex align-items-center">
+                    <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir tráiler
+                  </h5>
                 </a>
             </div>
 
@@ -47,43 +66,89 @@
     </div>
 
     <!--PARTE INFERIOR -------------------->
-    <div class="container w-75">
-        <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+    <div class="container-fluid d-flex mt-4 pb-5">
     
-        <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
-          <div class="row d-flex flex-nowrap mt-1" style="
-            overflow: auto; 
-            white-space: nowrap; 
-            display: flex;
-            overflow-x: scroll;
-            overscroll-behavior-x: contain;
-            scroll-snap-type: x proximity; 
-            margin: 50px auto 0;">
-            <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
-            @for (actor of listaCreditos; track actor) {
-              <div class="col-md-3 col-12 p-2 my-3">
-                <div class="p-2" style="width: 15rem;">
-                  <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
-                      <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
-                          alt="{{actor.name}}">
-                      <div class="card-body px-0 pt-2">
-                          <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
-                          <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
-                      </div>
-                  </a>
+        <!--Reparto principal-->
+        <div class="container w-75">
+            <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+        
+            <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
+            <div class="row d-flex flex-nowrap mt-1" style="
+                overflow: auto; 
+                white-space: nowrap; 
+                display: flex;
+                overflow-x: scroll;
+                overscroll-behavior-x: contain;
+                scroll-snap-type: x proximity; 
+                margin: 50px auto 0;">
+                <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
+                @for (actor of listaCreditos; track actor) {
+                <div class="col-md-3 col-12 p-2 my-3">
+                    <div class="p-2" style="width: 15rem;">
+                    <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                        <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
+                            alt="{{actor.name}}">
+                        <div class="card-body px-0 pt-2">
+                            <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
+                            <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
+                        </div>
+                    </a>
+                    </div>
                 </div>
-              </div>
-            }
-          </div>
+                }
+            </div>
+            </div>
         </div>
-      </div>
+    
+        <!--Datos de la serie-->
+        <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
+            <div class="mb-4">
+                <h4 class="jockeyOne text-black">Titulo original:</h4>
+                <h5 class="freeman text-white">{{serie!.original_name}}</h5>
+            </div>
+            <div class="mb-4">
+                <h4 class="jockeyOne text-black">Idioma original:</h4>
+                <h5 class="freeman text-white">{{serie!.spoken_languages[0].english_name}}</h5>
+            </div>
+            <div class="mb-4">
+                <h4 class="jockeyOne text-black">Tipo:</h4>
+                <h5 class="freeman text-white">{{serie!.type}}</h5>
+            </div>
+            <div class="mb-4">
+                <h4 class="jockeyOne text-black">Creador(es):</h4>
+                @if(serie!.created_by.length != 0){
+                    <div *ngFor="let creador of serie!.created_by;">
+                        <h5 class="freeman text-white">{{creador!.original_name}}</h5>
+                    </div>
+                }@else{
+                    <h5 class="freeman text-white">-</h5>
+                }
+            </div>
+            <div>
+                <h4 class="jockeyOne text-black">Palabras clave:</h4>
+                <div class="d-flex flex-wrap">
+                    @if(keywords.length != 0){
+                        <div *ngFor="let keyword of keywords;">
+                            <a class="palabraClave text-decoration-none">
+                                <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
+                            </a>
+                        </div>
+                    }@else {
+                        <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="container w-75 mt-5">
-        <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
-        <div class="container mt-3">
-            <div class="row">
-                <div class="col-12" *ngFor="let season of serie!.seasons">
-                    <div class="card mb-3">
+    <!--SECCIÓN DE TEMPORADAS -------------------->
+    <div class="container-fluid d-flex">
+        <div class="container-fluid">
+            <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
+
+            <div class="row d-flex">
+                <div class="col-md-3 col-12 p-2 my-3" *ngFor="let season of serie!.seasons">
+                    <div class="card mb-3" style="width: 450px;">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img src="{{season.poster_path! | imagen}}" class="img-fluid rounded-start sombra" alt="{{season.name}}">
@@ -103,11 +168,38 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
+
+        <!--div class="container mt-5">
+            <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
+            <div class="container mt-3">
+                <div class="row">
+                    <div class="col-12" *ngFor="let season of serie!.seasons">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{season.poster_path! | imagen}}" class="img-fluid rounded-start sombra" alt="{{season.name}}">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{season.name}}</h5>
+                                        <p class="card-text">{{season.overview}}</p>
+                                        <p class="card-text">
+                                            <small class="text-muted">Fecha de estreno: {{season.air_date | date}}</small>
+                                        </p>
+                                        <p class="card-text">
+                                            <small class="text-muted">Número de episodios: {{season.episode_count}}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div-->
     </div>
-                    
 
-
-
-
+</div>

@@ -7,6 +7,7 @@ import { Cast, CreditosListResponse } from '../../interfaces/credito.interfaces'
 import { Pais } from '../../interfaces/contentRatingsCertifications.interfaces';
 import { Region } from '../../interfaces/proveedorSerie.interfaces';
 import { Keyword } from '../../interfaces/serie-keywords.interfaces';
+import { Buy, Flatrate } from '../../interfaces/proveedorPeli.interfaces';
 
 @Component({
   selector: 'app-serie-details',
@@ -26,6 +27,8 @@ export class SerieDetailsComponent implements OnInit{
   paisesList: Pais[] = [];
   regionList: Region | undefined;
   keywords: Keyword[] = [];
+  listaProveedores: Flatrate[] = [];
+  listaProveedoresPago: Buy[] = [];
 
   constructor(
     private serieService: TVShowService,
@@ -66,6 +69,11 @@ export class SerieDetailsComponent implements OnInit{
     this.serieService.getKeywordsById(parseInt(this.serieId!)).subscribe(respuesta => {
       this.keywords = respuesta.results;
     });
+
+    this.serieService.getProveedoresById(parseInt(this.serieId!)).subscribe(respuesta => {
+      this.listaProveedores = respuesta.results.ES.flatrate;
+    });
+
   }
 
   seleccionarVideo(video: VideoSerie) {
