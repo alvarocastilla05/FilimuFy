@@ -1,30 +1,30 @@
 <div class="container mt-5">
-    <h1 class="jockeyOne">Peliculas</h1>
-    <div class="row mt-5">
+    <h1 class="jockeyOne m-0">Películas</h1>
+    <div class="row">
         @for (pelicula of listaPeliculas; track pelicula.id) {
-            <div class="col-md-3 col-12 p-2 my-3">
+            <div class="col-md-3 col-12 p-2 my-3 mt-2">
                 <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
             </div>
         }
     </div>
 </div>
 
-<div class="container mt-5 pt-5">
-    <h1 class="jockeyOne">Series</h1>
-    <div class="row mt-5">
+<div class="container mt-5">
+    <h1 class="jockeyOne m-0">Series</h1>
+    <div class="row">
         @for (item of listaSeries; track $index) {
-            <div class="col-md-3 col-12 p-2 my-3">
+            <div class="col-md-3 col-12 p-2 my-3 mt-2">
                 <app-serie-card [serieId]="item.id"></app-serie-card>
             </div>
         }
     </div>
 </div>
 
-<div class="container mt-5 pt-5">
-    <h1 class="jockeyOne">Actores</h1>
-    <div class="row mt-5">
+<div class="container my-5">
+    <h1 class="jockeyOne m-0">Actores</h1>
+    <div class="row">
         @for (item of listaActores; track $index) {
-            <div class="col-md-3 col-12 p-2 my-3">
+            <div class="col-md-3 col-12 p-2 my-3 mt-2">
                 <app-actor-card [actorId]="item"></app-actor-card>
             </div>
         }

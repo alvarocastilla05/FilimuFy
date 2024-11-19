@@ -14,11 +14,11 @@ import { Actor } from '../../interfaces/actores-list.interface';
 })
 export class ActorDetailsComponent implements OnInit{
 
-
   actorId: string | null = '';
   actor: ActorDetailResponse | undefined;
   listaPeliculas: Pelicula[] = [];
   pelicula: PeliculaListResponse | undefined;
+  actorPelis: Actor | undefined;
 
   constructor(
     private actorService: ActorService,
@@ -40,8 +40,10 @@ export class ActorDetailsComponent implements OnInit{
       console.log(this.listaPeliculas);
     });
 
+    this.actorService.getActores().subscribe(respuesta => {
+      this.actorPelis = respuesta.results.find(actor => actor.id === parseInt(this.actorId!));
+    })
 
-    
   }
 
 }

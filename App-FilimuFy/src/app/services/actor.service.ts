@@ -23,7 +23,7 @@ export class ActorService {
   }
 
 
-  getActorById(id: number): Observable<ActorDetailResponse>{
+  getActorById(id: number): Observable<ActorDetailResponse> {
     return this.http.get<ActorDetailResponse>(`https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}`);
   }
 

@@ -1,65 +1,99 @@
-<div class="container mt-5">
-    <div class="card">
-      <div class="row g-0">
-        <!-- Actor Profile Picture -->
-        <div class="col-md-4">
-          <img id="profile-picture" src="{{actor!.profile_path | imagen}}" class="img-fluid rounded-start" alt="Actor Profile">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <!-- Actor Name -->
-            <h3 id="actor-name" class="card-title">{{actor?.name}}</h3>
-            <!-- Department -->
-            <p id="known-for" class="text-muted">Known for: <span></span></p>
-            <!-- Movies List -->
-            <p><strong>Movies:</strong></p>
-            <ul id="movies-list" class="list-group list-group-flush">
-              <li *ngFor="let pelicula of listaPeliculas">
-                {{ pelicula.title }}
-              </li>
-            </ul>
+<div class="container-fluid mt-3">
 
+  <!--PARTE SUPERIOR -------------------->
+  <div class="row p-4 fondoNegro">
 
-            <div class="row">
-              <div class="col-6">
-                <!-- Birthday -->
-                <p><strong>Birthday:</strong> <span id="birthday">{{actor?.birthday}}</span></p>
-              </div>
-              <div class="col-6">
-                <!-- Place of Birth -->
-                <p><strong>Place of Birth:</strong> <span id="place-of-birth">{{actor?.place_of_birth}}</span></p>
-              </div>
-            </div>
+    <!--PARTE SUPERIOR IZQUIERDA-->
+    <div class="w-25">
+      <img id="profile-picture" src="{{actor!.profile_path | imagen}}" width="25%" 
+        class="rounded-4 card-img-top" alt="{{actor!.name}}">
+    </div>
 
-
-            <!-- Biography -->
-            <p><strong>Biography:</strong></p>
-            <p id="biography">{{actor!.biography}}</p>
-
-
-            <div class="row">
-              <div class="col-6">
-                <!-- Popularity -->
-                <p><strong>Popularity:</strong> <span id="popularity">{{actor?.popularity}}</span></p>
-              </div>
-              <div class="col-6">
-                <!-- Homepage -->
-                <p><strong>Homepage:</strong> <a id="homepage" href="#" target="_blank">{{actor?.homepage}}</a></p>
-              </div>
-            </div>
-
-
-            <!-- Also Known As -->
-            <p><strong>Also Known As:</strong></p>
-            <ul id="also-known-as" class="list-group list-group-flush">
-              <li class="list-group-item">{{actor?.also_known_as}}</li>
-            </ul>
-
-           
-            
-           
-           
-        </div>
+    <!--PARTE SUPERIOR DERECHA-->
+    <div class="container w-75 mb-3 p-4">
+      <!--Nombre-->
+      <h1 class="mb-4 jockeyOne text-white">{{actor!.name | uppercase}}</h1>
+      <!--Biografía-->
+      <div class="mx-3">
+        <h5 class="m-0 poppins text-white">{{actor!.biography}}</h5>
       </div>
     </div>
+
   </div>
+
+  <!--PARTE INFERIOR -------------------->
+  <div class="container-fluid d-flex mt-4 pb-5">
+    
+    <!--Datos de la serie-->
+    <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
+      <div class="mb-4">
+          <h4 class="jockeyOne text-black">Fecha de nacimiento:</h4>
+          @if(actor!.birthday !== ''){
+              <h5 class="freeman text-white">{{actor!.birthday | date:'dd/MM/yyyy'}}</h5>
+          }@else {
+              <h5 class="freeman text-white">-</h5>
+          }
+      </div>
+      <div class="mb-4">
+          <h4 class="jockeyOne text-black">Lugar de nacimiento:</h4>
+          @if(actor!.place_of_birth !== ''){
+              <h5 class="freeman text-white">{{actor!.place_of_birth}}</h5>
+          }@else {
+              <h5 class="freeman text-white">-</h5>
+          }
+      </div>
+      <div class="mb-4">
+          <h4 class="jockeyOne text-black">Conocido por:</h4>
+          @if(actor!.known_for_department !== ''){
+              <h5 class="freeman text-white">{{actor!.known_for_department}}</h5>
+          }@else {
+              <h5 class="freeman text-white">-</h5>
+          }
+      </div>
+      <div class="mb-4">
+          <h4 class="jockeyOne text-black">Popularidad:</h4>
+          @if(actor!.popularity != null){
+              <h5 class="freeman text-white">{{actor!.popularity}}</h5>
+          }@else{
+              <h5 class="freeman text-white">-</h5>
+          }
+      </div>
+      <div>
+          <h4 class="jockeyOne text-black">También conocido como:</h4>
+          @if(actor!.also_known_as.length != 0){
+              <div *ngFor="let nombre of actor!.also_known_as;">
+                <h5 class="freeman text-white">{{nombre}}</h5>
+              </div>
+          }@else {
+              <h5 class="freeman text-white">{{actor!.name}}</h5>
+          }
+      </div>
+    </div>
+
+    <!--Reparto principal-->
+    <div class="container w-75">
+      <h2 class="m-0 jockeyOne azulOscuro ms-4 p-2 pb-0">Conocido por</h2>
+        
+      <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
+        <div class="row d-flex flex-nowrap mt-0" style="
+            overflow: auto; 
+            white-space: nowrap; 
+            display: flex;
+            overflow-x: scroll;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x proximity; 
+            margin: 50px auto 0;">
+            @for (peli of actorPelis!.known_for; track peli.id) {
+            <div class="col-md-3 col-12 p-2 my-3">
+                @if(peli.media_type === 'movie'){
+                  <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
+                }@else if(peli.media_type === 'tv'){
+                  <app-serie-card [serieId]="peli.id"></app-serie-card>
+                }
+            </div>
+            }
+        </div>
+      </div>
+
+  </div>
+</div>
