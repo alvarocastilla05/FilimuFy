@@ -49,6 +49,25 @@
     color: #001743;
 }
 
-.sombra {
-    box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
+.tamanhoCirculo{
+    font-size: 16px;
+}
+
+/* DATOS DE LA SERIE ----------------------------------------------------------------------------------------- */
+
+.grisClaroFondo{
+    background-color: #EDEDED;
+}
+
+.degradado{
+    background: linear-gradient(180deg, #E95573, #20B7E5);
+}
+
+.fondoNegro{
+    background-color: #000A1E;
+}
+
+.palabraClave:hover h6{
+    background-color: rgb(255, 193, 7, 1);
+    color: black !important;
 }

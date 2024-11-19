@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SerieDetailResponse } from '../../interfaces/serie-detail.interface';
 import { TVShowService } from '../../services/tvshow.service';
 import { ActivatedRoute } from '@angular/router';
-import { Region } from '../../interfaces/releaseDateCertifications.interfaces';
 import { VideoSerie, VideoSerieListResponse } from '../../interfaces/videoSeries.interfaces';
 import { Cast, CreditosListResponse } from '../../interfaces/credito.interfaces';
+import { Pais } from '../../interfaces/contentRatingsCertifications.interfaces';
+import { Region } from '../../interfaces/proveedorSerie.interfaces';
+import { Keyword } from '../../interfaces/serie-keywords.interfaces';
 
 @Component({
   selector: 'app-serie-details',
@@ -15,13 +17,15 @@ export class SerieDetailsComponent implements OnInit{
 
   serieId: string | null = '';
   serie: SerieDetailResponse | undefined;
-  regionList: Region[] = [];
   video: VideoSerieListResponse | undefined;
   videos: VideoSerie[] = [];
   selectedVideo: VideoSerie | undefined;
   certificationEsp: Region | undefined;
   credito: CreditosListResponse | undefined;
   listaCreditos: Cast[] = [];
+  paisesList: Pais[] = [];
+  regionList: Region | undefined;
+  keywords: Keyword[] = [];
 
   constructor(
     private serieService: TVShowService,
@@ -41,15 +45,27 @@ export class SerieDetailsComponent implements OnInit{
       this.videos = respuesta.results;  
 
       const trailer = this.videos.find(video => video.type === 'Trailer');
-    if (trailer) {
-      this.seleccionarVideo(trailer);
-    }
-  });
+      if (trailer) {
+        this.seleccionarVideo(trailer);
+      }
+    });
 
-  this.serieService.getCreditosSerieById(parseInt(this.serieId!)).subscribe(respuesta => {
-    this.credito = respuesta;
-    this.listaCreditos = respuesta.cast;
-  });
+    this.serieService.getCreditosSerieById(parseInt(this.serieId!)).subscribe(respuesta => {
+      this.credito = respuesta;
+      this.listaCreditos = respuesta.cast;
+    });
+
+    this.serieService.getCertificationById(parseInt(this.serieId!)).subscribe(resp => {
+      this.paisesList = resp.results;
+    });
+
+    this.serieService.getProveedoresById(parseInt(this.serieId!)).subscribe(resp => {
+      this.regionList = resp.results;
+    });
+
+    this.serieService.getKeywordsById(parseInt(this.serieId!)).subscribe(respuesta => {
+      this.keywords = respuesta.results;
+    });
   }
 
   seleccionarVideo(video: VideoSerie) {
@@ -57,21 +73,14 @@ export class SerieDetailsComponent implements OnInit{
   }
 
   getCertification() {
-    let certificacion = "N/A";  // Valor predeterminado si no se encuentra certificación
-  
-    // Busca la región de España (ES) o Gran Bretaña (GB)
-    const region = this.regionList.find(region => region.iso_3166_1 === 'ES' || region.iso_3166_1 === 'GB');
-    
-    // Si encuentra la región y tiene datos en release_dates:
-    if (region && region.release_dates && region.release_dates.length > 0) {
-      const cert = region.release_dates[0].certification;
-      if(cert === "A") {
-        certificacion = cert;
-      } else {
-        certificacion = cert === "" ? "N/A" : "+" + cert;
-      }
+    let esp;
+
+    if (this.paisesList.find(pais => pais.iso_3166_1 === 'ES')) {
+      esp = this.paisesList.find(pais => pais.iso_3166_1 === 'ES');
+      return '+'+esp!.rating;
+    } else {
+      return 'N/A';
     }
-    return certificacion;
   }
 
 }
