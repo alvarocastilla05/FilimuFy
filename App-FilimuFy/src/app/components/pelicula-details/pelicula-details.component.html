@@ -1,17 +1,8 @@
-<!--backdrop_path es la img del fondo, hay que usar la pipe de img-->
-<!--Para la lista de actores deberas de hacer un @for de lista de creditos y así sacas la lista de los que han participado-->
-<!--En la siguiente linea aparece el enlace para ver el trailer, solo habria que ponerlo bonito-->
-<!--div *ngIf="selectedVideo">
-    <a [href]="'https://www.youtube.com/embed/' + selectedVideo.key">Ver Video</a>
-  </div-->
-
-<!--Los proveedores no he sido capaz de mostrarlos, estan hechos en el ts y todo pero no soy capaz de que se vean-->
-
-
 <div class="container-fluid mt-3">
 
   <!--PARTE SUPERIOR -------------------->
-  <div class="row p-4 fondoCubierto" [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
+  <div class="row p-4 fondoCubierto" 
+    [ngStyle]="{'background-image' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65)), url(' + (pelicula!.backdrop_path | imagen) + ')'}">
 
     <!--PARTE SUPERIOR IZQUIERDA-->
     <div class="w-25">
@@ -27,11 +18,16 @@
       </h1>
       <!--PEGI y Géneros-->
       <div class="container w-100 px-3 d-flex align-items-center">
-        <h3 class="m-0 me-4 bg-danger p-2 rounded-3 freeman text-white" [innerHTML]="getCertification()"></h3>
+        <h3 class="m-0 me-4 p-2 rounded-3 freeman text-white" 
+          [style]="getCertification() | edadFondoColor" [innerHTML]="getCertification()"></h3>
         <h4 class="m-0 freeman gris">
-          <span *ngFor="let genre of pelicula!.genres; let i = index">{{ genre.name }}
-            <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
-          </span>
+          @if(pelicula!.genres.length != 0){
+            <span *ngFor="let genre of pelicula!.genres; let i = index">{{ genre.name }}
+              <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
+            </span>
+          }@else {
+            Géneros sin especificar
+          }
         </h4>
       </div>
       <!--Duración, Valoración y Status-->
@@ -47,7 +43,6 @@
       
       <!--Proveedores-->
       @if((listaProveedores && listaProveedores.length > 0) || (listaProveedoresPago && listaProveedoresPago.length > 0)) {
-      <!--div *ngIf="(listaProveedores && listaProveedores.length > 0) || (listaProveedoresPago && listaProveedoresPago.length > 0); else sinProveedores"-->
         <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
           <div *ngFor="let proveedor of listaProveedores">
             <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
@@ -57,16 +52,15 @@
           </div>
         </div>
       } @else {
-        
+        <!--No hace nada-->
       }
-      <!--/div-->
-      
-      <!--ng-template #sinProveedores>
-        < No muestra nada cuando no hay proveedores >
-      </ng-template-->
 
       <!--Descripción-->
-      <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
+      @if(pelicula!.overview !== ''){
+        <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
+      }@else {
+        <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
+      }
       <!--Tráiler-->
       <div class="p-3 pt-2" *ngIf="selectedVideo">
         <a type="button" class="btn d-inline-flex fondoRosa p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
@@ -119,37 +113,51 @@
     <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
       <div class="mb-4">
         <h4 class="jockeyOne text-black">Título original:</h4>
-        <h5 class="freeman text-white">{{pelicula!.original_title}}</h5>
+        @if(pelicula!.original_title !== ''){
+          <h5 class="freeman text-white">{{pelicula!.original_title}}</h5>
+        }@else {
+          <h5 class="freeman text-white">-</h5>
+        }
       </div>
       <div class="mb-4">
         <h4 class="jockeyOne text-black">Idioma original:</h4>
-        <h5 class="freeman text-white">{{pelicula!.spoken_languages[0].english_name}}</h5>
+        @if(pelicula!.spoken_languages.length != 0){
+          <h5 class="freeman text-white">{{pelicula!.spoken_languages[0].english_name}}</h5>
+        }@else {
+          <h5 class="freeman text-white">-</h5>
+        }
       </div>
       <div class="mb-4">
         <h4 class="jockeyOne text-black">Presupuesto:</h4>
-        <h5 class="freeman text-white">{{pelicula!.budget | currency: 'USD'}}</h5>
+        @if(pelicula!.budget != null){
+          <h5 class="freeman text-white">{{pelicula!.budget | currency: 'USD'}}</h5>
+        }@else {
+          <h5 class="freeman text-white">-</h5>
+        }
       </div>
       <div class="mb-4">
         <h4 class="jockeyOne text-black">Ingresos:</h4>
-        <h5 class="freeman text-white">{{pelicula!.revenue | currency: 'USD'}}</h5>
+        @if(pelicula!.revenue != null){
+          <h5 class="freeman text-white">{{pelicula!.revenue | currency: 'USD'}}</h5>
+        }@else {
+          <h5 class="freeman text-white">-</h5>
+        }
       </div>
       <div>
         <h4 class="jockeyOne text-black">Palabras clave:</h4>
         <div class="d-flex flex-wrap">
-          <div *ngFor="let keyword of keywords;">
-            <a class="palabraClave text-decoration-none">
-              <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
-            </a>
-          </div>
+          @if(keywords.length != 0){
+            <div *ngFor="let keyword of keywords;">
+              <a class="palabraClave text-decoration-none">
+                <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
+              </a>
+            </div>
+          }@else {
+            <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
+          }
         <div>
       </div>
     </div>
   </div>
 
 </div>
-
-
-
-
-
-

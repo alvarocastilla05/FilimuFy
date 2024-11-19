@@ -1,8 +1,8 @@
-<div class="container mt-5 pt-5">
+<div class="container mt-5">
     <div class="row mt-5">
-        @for (item of listaSeries; track $index) {
+        @for (serie of listaSeries; track serie.id) {
             <div class="col-md-3 col-12 p-2 my-3">
-                <app-serie-card [serieId]="item.id"></app-serie-card>
+                <app-serie-card [serieId]="serie.id"></app-serie-card>
             </div>
         }
     </div>
