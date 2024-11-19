@@ -1,0 +1,58 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="row g-0">
+        <!-- Actor Profile Picture -->
+        <div class="col-md-4">
+          <img id="profile-picture" src="{{actor!.profile_path | imagen}}" class="img-fluid rounded-start" alt="Actor Profile">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <!-- Actor Name -->
+            <h3 id="actor-name" class="card-title">{{actor?.name}}</h3>
+            <!-- Department -->
+            <p id="known-for" class="text-muted">Known for: <span></span></p>
+
+
+            <div class="row">
+              <div class="col-6">
+                <!-- Birthday -->
+                <p><strong>Birthday:</strong> <span id="birthday">{{actor?.birthday}}</span></p>
+              </div>
+              <div class="col-6">
+                <!-- Place of Birth -->
+                <p><strong>Place of Birth:</strong> <span id="place-of-birth">{{actor?.place_of_birth}}</span></p>
+              </div>
+            </div>
+
+
+            <!-- Biography -->
+            <p><strong>Biography:</strong></p>
+            <p id="biography">{{actor!.biography}}</p>
+
+
+            <div class="row">
+              <div class="col-6">
+                <!-- Popularity -->
+                <p><strong>Popularity:</strong> <span id="popularity">{{actor?.popularity}}</span></p>
+              </div>
+              <div class="col-6">
+                <!-- Homepage -->
+                <p><strong>Homepage:</strong> <a id="homepage" href="#" target="_blank">{{actor?.homepage}}</a></p>
+              </div>
+            </div>
+
+
+            <!-- Also Known As -->
+            <p><strong>Also Known As:</strong></p>
+            <ul id="also-known-as" class="list-group list-group-flush">
+              <li class="list-group-item">{{actor?.also_known_as}}</li>
+            </ul>
+
+           
+            
+           
+           
+        </div>
+      </div>
+    </div>
+  </div>

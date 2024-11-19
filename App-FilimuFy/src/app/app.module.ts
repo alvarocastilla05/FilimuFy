@@ -20,6 +20,7 @@ import { SerieListComponent } from './components/serie-list/serie-list.component
 import { StatusColorPipe } from './pipes/statusColor.pipe';
 import { ActorCardComponent } from './components/actor-card/actor-card.component';
 import { ActorListComponent } from './components/actor-list/actor-list.component';
+import { ActorDetailsComponent } from './components/actor-details/actor-details.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ActorListComponent } from './components/actor-list/actor-list.component
     SerieListComponent,
     ActorCardComponent,
     ActorListComponent,
+    ActorDetailsComponent,
   ],
   imports: [
     BrowserModule,

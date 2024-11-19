@@ -5,12 +5,14 @@ import { SerieListComponent } from './components/serie-list/serie-list.component
 import { ActorListComponent } from './components/actor-list/actor-list.component';
 
 import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula-details.component';
+import { ActorDetailsComponent } from './components/actor-details/actor-details.component';
 
 const routes: Routes = [
   {path: 'peliculas', component: PeliculasListComponent},
   {path: '', redirectTo: 'peliculas', pathMatch: 'full'},
   {path: 'series', component: SerieListComponent},
-  {path: 'peliculas/:id', component: PeliculaDetailsComponent}
+  {path: 'peliculas/:id', component: PeliculaDetailsComponent},
+  {path: 'actores/:id', component: ActorDetailsComponent},
   {path: 'actores', component: ActorListComponent},
 ]
 
