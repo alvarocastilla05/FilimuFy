@@ -22,7 +22,7 @@
                   {{serieDetalle!.number_of_seasons}} temporadas
                 </span>
               </p>
-              <p class="card-text gris freeman m-0" [innerHTML]="getCertification()"></p>
+              <p class="card-text gris freeman m-0" [style]="getCertification() | edadColor" [innerHTML]="getCertification()"></p>
             </div>
         </div>
     </a>

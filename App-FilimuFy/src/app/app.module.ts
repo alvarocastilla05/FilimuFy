@@ -21,6 +21,9 @@ import { StatusColorPipe } from './pipes/statusColor.pipe';
 import { ActorCardComponent } from './components/actor-card/actor-card.component';
 import { ActorListComponent } from './components/actor-list/actor-list.component';
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
+import { EdadColorPipe } from './pipes/EdadColor.pipe';
+import { EdadFondoColorPipe } from './pipes/EdadFondoColor.pipe';
+import { StatusSeriesColorPipe } from './pipes/statusSeriesColor.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
     HorasMinPipe,
     AverageColorPipe,
     StatusColorPipe,
+    StatusSeriesColorPipe,
+    EdadColorPipe,
+    EdadFondoColorPipe,
     ScreenComponent,
     PeliculaDetailsComponent,
     SerieCardComponent,

@@ -71,3 +71,24 @@
     background-color: rgb(255, 193, 7, 1);
     color: black !important;
 }
+
+/*TARJETAS DE TEMPORADA ----------------------------------------------------------------------------------------- */
+
+.negro{
+    color: #000A1E;
+}
+
+.degradadoTemporada{
+    background: linear-gradient(to right, #27B4DF, #6c74a7);
+}
+
+.sombra {
+    box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
+}
+
+.truncarLineas{
+  display: -webkit-box;          /*Esta propiedad permite establecer un diseño de caja.*/
+  -webkit-line-clamp: 5;         /*Esta propiedad sirve para truncar el texto después de 5 líneas.*/
+  -webkit-box-orient: vertical;  /*Esta propiedad sirve para establecerla orientación del contenido dentro de la caja.*/
+  overflow: hidden;              /*Esta propiedad permite ocultar el contenido desbordado.*/
+}

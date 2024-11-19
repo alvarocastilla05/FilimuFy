@@ -15,7 +15,7 @@
             </p>
             <div class="d-flex">
                 <p class="card-text gris freeman m-0 me-2">{{peliculaDetalle!.runtime | horasMin}}</p>
-                <p class="card-text gris freeman m-0" [innerHTML]="getCertification()"></p>
+                <p class="card-text gris freeman m-0" [style]="getCertification() | edadColor" [innerHTML]="getCertification()"></p>
             </div>
         </div>
     </a>
