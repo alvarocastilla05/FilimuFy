@@ -24,6 +24,7 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { EdadColorPipe } from './pipes/EdadColor.pipe';
 import { EdadFondoColorPipe } from './pipes/EdadFondoColor.pipe';
 import { StatusSeriesColorPipe } from './pipes/statusSeriesColor.pipe';
+import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-incio.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { StatusSeriesColorPipe } from './pipes/statusSeriesColor.pipe';
     ActorCardComponent,
     ActorListComponent,
     SerieDetailsComponent,
+    PantallaIncioComponent
   ],
   imports: [
     BrowserModule,
