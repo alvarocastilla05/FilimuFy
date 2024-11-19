@@ -16,25 +16,79 @@
         <div class="pe-3 pt-1 w-25 text-end">
             <i class="bi bi-person-circle text-white iconoPerfil"></i>
         </div>
-    </header>
-    <nav class="w-100 d-flex justify-content-around align-items-center">
-        <div class="px-5 py-2 bg-warning romboide">
-            <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
-                <a class="text-decoration-none text-black" routerLink="/peliculas"><i
-                        class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
-            </h4>
-        </div>
-        <div class="px-5 py-2">
-            <h4 class="mb-0 py-1 jockeyOne">
-                <a class="text-decoration-none text-white" routerLink="/series"><i
-                        class="bi bi-display me-1"></i>&nbsp;Series populares</a>
-            </h4>
-        </div>
-        <div class="px-5 py-2">
-            <h4 class="mb-0 py-1 jockeyOne">
-                <a class="text-decoration-none text-white" routerLink="/actores"><i
-                        class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
-            </h4>
-        </div>
-    </nav>
+    </header> 
+
+    @if (getRutaSeleccionada("peliculas") === true) {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2 bg-warning romboide">
+                <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
+                    <a class="text-decoration-none text-black" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    } @else if(getRutaSeleccionada("series") === true) {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2 bg-warning romboide">
+                <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
+                    <a class="text-decoration-none text-black" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    } @else if(getRutaSeleccionada("actores") === true) {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2 bg-warning romboide">
+                <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
+                    <a class="text-decoration-none text-black" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    } @else {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    }
 </div>

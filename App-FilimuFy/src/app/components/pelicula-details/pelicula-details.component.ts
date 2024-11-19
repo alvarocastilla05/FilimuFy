@@ -55,42 +55,42 @@ export class PeliculaDetailsComponent implements OnInit{
       this.videos = respuesta.results;  
 
       const trailer = this.videos.find(video => video.type === 'Trailer');
-    if (trailer) {
-      this.seleccionarVideo(trailer);
-    }
-  });
+      if (trailer) {
+        this.seleccionarVideo(trailer);
+      }
+    });
 
-  this.peliculaService.getProveedoresById(parseInt(this.peliculaId!)).subscribe(respuesta => {
-    this.listaProveedores = respuesta.results.ES.flatrate;
-    this.listaProveedoresPago = respuesta.results.ES.buy;
-  });
+    this.peliculaService.getProveedoresById(parseInt(this.peliculaId!)).subscribe(respuesta => {
+      this.listaProveedores = respuesta.results.ES.flatrate;
+      this.listaProveedoresPago = respuesta.results.ES.buy;
+    });
 
-  this.peliculaService.getCertificationById(parseInt(this.peliculaId!)).subscribe(resp => {
-    this.regionList = resp.results;
-  });
-  
-}
-
-seleccionarVideo(video: Video) {
-  this.selectedVideo = video;
-}
-
-getCertification() {
-  let certificacion = "N/A";  // Valor predeterminado si no se encuentra certificación
-
-  // Busca la región de España (ES) o Gran Bretaña (GB)
-  const region = this.regionList.find(region => region.iso_3166_1 === 'ES' || region.iso_3166_1 === 'GB');
-  
-  // Si encuentra la región y tiene datos en release_dates:
-  if (region && region.release_dates && region.release_dates.length > 0) {
-    const cert = region.release_dates[0].certification;
-    if(cert === "A") {
-      certificacion = cert;
-    } else {
-      certificacion = cert === "" ? "N/A" : "+" + cert;
-    }
+    this.peliculaService.getCertificationById(parseInt(this.peliculaId!)).subscribe(resp => {
+      this.regionList = resp.results;
+    });
+    
   }
-  return certificacion;
-}
+
+  seleccionarVideo(video: Video) {
+    this.selectedVideo = video;
+  }
+
+  getCertification() {
+    let certificacion = "N/A";  // Valor predeterminado si no se encuentra certificación
+
+    // Busca la región de España (ES) o Gran Bretaña (GB)
+    const region = this.regionList.find(region => region.iso_3166_1 === 'ES' || region.iso_3166_1 === 'GB');
+    
+    // Si encuentra la región y tiene datos en release_dates:
+    if (region && region.release_dates && region.release_dates.length > 0) {
+      const cert = region.release_dates[0].certification;
+      if(cert === "A") {
+        certificacion = cert;
+      } else {
+        certificacion = cert === "" ? "N/A" : "+" + cert;
+      }
+    }
+    return certificacion;
+  }
 
 }

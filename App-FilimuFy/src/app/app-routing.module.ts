@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PeliculasListComponent } from './components/peliculas-list/peliculas-list.component';
 import { SerieListComponent } from './components/serie-list/serie-list.component';
 import { ActorListComponent } from './components/actor-list/actor-list.component';
+import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula-details.component';
 import { ActorDetailsComponent } from './components/actor-details/actor-details.component';
 import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-incio.component';
@@ -15,6 +16,8 @@ const routes: Routes = [
   {path: 'peliculas/:id', component: PeliculaDetailsComponent},
   {path: 'actores/:id', component: ActorDetailsComponent},
   {path: 'actores', component: ActorListComponent},
+  {path: 'series/:id', component: SerieDetailsComponent},
+  {path: '', redirectTo: 'peliculas', pathMatch: 'full'}
 ]
 
 @NgModule({
