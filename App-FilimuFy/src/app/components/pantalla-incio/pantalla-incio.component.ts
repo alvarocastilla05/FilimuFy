@@ -25,17 +25,17 @@ export class PantallaIncioComponent implements OnInit{
   ngOnInit(): void {
     this.peliculaService.getPeliculas()
       .subscribe(resp => {
-        this.listaPeliculas = resp.results.slice(0, 5);
+        this.listaPeliculas = resp.results.slice(0, 4);
       });
   
     this.serieService.getSeries()
       .subscribe(resp2 => {
-        this.listaSeries = resp2.results.slice(0, 5);
+        this.listaSeries = resp2.results.slice(0, 4);
       });
   
     this.actorService.getActores()
       .subscribe(resp3 => {
-        this.listaActores = resp3.results.slice(0, 5);
+        this.listaActores = resp3.results.slice(0, 4);
       });
   }
   

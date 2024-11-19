@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'jockeyOne';
+    src: url(../../fonts/JockeyOne-Regular.ttf);
+}
+
+.jockeyOne {
+    font-family: 'jockeyOne';
+}
+
+@font-face {
+    font-family: 'freeman';
+    src: url(../../fonts/Freeman-Regular.ttf);
+}
+
+.freeman {
+    font-family: 'freeman';
+}
