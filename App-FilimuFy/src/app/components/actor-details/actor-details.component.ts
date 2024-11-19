@@ -4,6 +4,7 @@ import { ActorService } from '../../services/actor.service';
 import { ActivatedRoute } from '@angular/router';
 import { PeliculaDetailResponse } from '../../interfaces/pelicula-detail.interfaces';
 import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula-list.interfaces';
+import { Actor } from '../../interfaces/actores-list.interface';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class ActorDetailsComponent implements OnInit{
 
   actorId: string | null = '';
   actor: ActorDetailResponse | undefined;
-  knownForDisplay: string[] = [];
+  listaPeliculas: Pelicula[] = [];
+  pelicula: PeliculaListResponse | undefined;
 
   constructor(
     private actorService: ActorService,
@@ -31,6 +33,13 @@ export class ActorDetailsComponent implements OnInit{
     this.actorService.getActorById(parseInt(this.actorId!)).subscribe(respuesta => {
       this.actor = respuesta;
     });
+
+    this.actorService.getPeliculasActorById(parseInt(this.actorId!)).subscribe(respuesta => {
+      this.listaPeliculas = respuesta.results;
+      debugger
+      console.log(this.listaPeliculas);
+    });
+
 
     
   }

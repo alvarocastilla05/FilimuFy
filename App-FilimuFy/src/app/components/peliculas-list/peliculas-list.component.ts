@@ -11,17 +11,33 @@ import { Genre, PeliculaDetailResponse } from '../../interfaces/pelicula-detail.
 export class PeliculasListComponent implements OnInit{
 
   listaPeliculas: Pelicula[] = [];
+  currentPage: number = 1; // Página inicial
+  loading: boolean = false; // Estado de carga
 
-  constructor(private peliculaService: PeliculaService) { }
+  constructor(
+    private peliculaService: PeliculaService
+  ) { }
 
   ngOnInit(): void {
-    this.peliculaService.getPeliculas()
+    // Cargar las primeras películas al inicializar el componente
+    this.cargarPeliculas();
+  }
+
+  cargarPeliculas(): void {
+    if (this.loading) return; // Prevenir solicitudes simultáneas
+    this.loading = true;
+
+    this.peliculaService.getPeliculas(this.currentPage)
       .subscribe(resp => {
-        this.listaPeliculas = resp.results;
+        // Agregar las nuevas películas a la lista existente
+        this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
+        this.currentPage++; // Avanzar a la siguiente página
+        this.loading = false; // Terminar el estado de carga
+      }, error => {
+        console.error('Error al cargar películas:', error);
+        this.loading = false; // Manejo del error
       });
   }
 
-  
-    
-  
+ 
 }

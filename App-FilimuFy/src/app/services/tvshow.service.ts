@@ -13,8 +13,8 @@ export class TVShowService {
 
   constructor(private http: HttpClient) { }
 
-  getSeries(): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}`);
+  getSeries(page: number = 1): Observable<TVShowListResponse>{
+    return this.http.get<TVShowListResponse>(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${page}`);
   }
 
   getSerieById(id: number): Observable<SerieDetailResponse>{

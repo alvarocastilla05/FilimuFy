@@ -11,6 +11,13 @@
             <h3 id="actor-name" class="card-title">{{actor?.name}}</h3>
             <!-- Department -->
             <p id="known-for" class="text-muted">Known for: <span></span></p>
+            <!-- Movies List -->
+            <p><strong>Movies:</strong></p>
+            <ul id="movies-list" class="list-group list-group-flush">
+              <li *ngFor="let pelicula of listaPeliculas">
+                {{ pelicula.title }}
+              </li>
+            </ul>
 
 
             <div class="row">

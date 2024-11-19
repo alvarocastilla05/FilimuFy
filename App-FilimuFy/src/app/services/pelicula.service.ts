@@ -19,8 +19,8 @@ export class PeliculaService {
 
   constructor(private http: HttpClient) { }
 
-  getPeliculas(): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
+  getPeliculas(page: number = 1): Observable<PeliculaListResponse>{
+    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`);
   }
 
   getPeliculaById(id: number): Observable<PeliculaDetailResponse>{
