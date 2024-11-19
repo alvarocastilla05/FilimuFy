@@ -1,14 +1,17 @@
 <div class="p-2" style="width: 15rem;">
   <a [routerLink]="['/actores', actorId?.id]" class="text-decoration-none text-black">
-
-  <img src="{{actorId!.profile_path | imagen}}" class="rounded-4 card-img-top sombra" [alt]="actorId?.name">
-  <div class="card-body px-0 pt-2">
-    <h5 class="card-title freeman text-start pt-2 m-0">{{ actorId?.name }}</h5>
-    <p class="card-text gris freeman m-0">
-      - <span *ngFor="let work of actorId?.known_for; let i = index">
-          {{ work.name || work.title }}<span *ngIf="i < actorId!.known_for.length - 1">, </span>
+    @if(actorId!.profile_path == "") {
+      <img [src]="placeholderFoto" class="rounded-4 card-img-top sombra" [alt]="actorId?.name">
+    } @else {
+      <img src="{{actorId!.profile_path | imagen}}" class="rounded-4 card-img-top sombra" [alt]="actorId?.name">
+    }
+    <div class="card-body px-0 pt-2">
+      <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{ actorId?.name }}</h5>
+      <p class="card-text gris freeman m-0 puntosSuspensivos">
+        <span *ngFor="let work of actorId?.known_for; let i = index">
+          {{ work.name || work.title }}<span *ngIf="i < actorId!.known_for.length - 1"> / </span>
         </span>
-    </p>
-  </div>
+      </p>
+    </div>
   </a>
 </div>

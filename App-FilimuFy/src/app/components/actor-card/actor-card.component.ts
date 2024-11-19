@@ -13,6 +13,7 @@ export class ActorCardComponent {
   @Input() actorId: Actor | undefined;
   actorDetalle: Actor | undefined;
   knownForDisplay: string[] = [];
+  placeholderFoto = '../../images/PlaceholderDeFoto.jpg'
 
   constructor(private actorService: ActorService) { }
 
