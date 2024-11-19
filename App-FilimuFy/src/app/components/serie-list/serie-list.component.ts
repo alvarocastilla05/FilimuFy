@@ -11,12 +11,33 @@ export class SerieListComponent implements OnInit{
 
   listaSeries: TVShow[] = [];
 
-  constructor(private tvShowService: TVShowService) { }
-  
+  currentPage: number = 1; // Página inicial
+  loading: boolean = false; // Estado de carga
+
+  constructor(
+    private serieService: TVShowService
+  ) { }
+
   ngOnInit(): void {
-    this.tvShowService.getSeries()
+    // Cargar las primeras películas al inicializar el componente
+    this.cargarSeries();
+  }
+
+  cargarSeries(): void {
+    if (this.loading) return; // Prevenir solicitudes simultáneas
+    this.loading = true;
+
+    this.serieService.getSeries(this.currentPage)
       .subscribe(resp => {
-        this.listaSeries = resp.results;
+        // Agregar las nuevas películas a la lista existente
+        this.listaSeries = [...this.listaSeries, ...resp.results];
+        this.currentPage++; // Avanzar a la siguiente página
+        this.loading = false; // Terminar el estado de carga
+      }, error => {
+        console.error('Error al cargar Series:', error);
+        this.loading = false; // Manejo del error
       });
   }
+
+ 
 }

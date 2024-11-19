@@ -20,6 +20,7 @@ import { SerieListComponent } from './components/serie-list/serie-list.component
 import { StatusColorPipe } from './pipes/statusColor.pipe';
 import { ActorCardComponent } from './components/actor-card/actor-card.component';
 import { ActorListComponent } from './components/actor-list/actor-list.component';
+import { ActorDetailsComponent } from './components/actor-details/actor-details.component';
 import { SerieDetailsComponent } from './components/serie-details/serie-details.component';
 import { EdadColorPipe } from './pipes/EdadColor.pipe';
 import { EdadFondoColorPipe } from './pipes/EdadFondoColor.pipe';
@@ -45,6 +46,7 @@ import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-inc
     SerieListComponent,
     ActorCardComponent,
     ActorListComponent,
+    ActorDetailsComponent,
     SerieDetailsComponent,
     PantallaIncioComponent
   ],
