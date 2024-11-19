@@ -1,0 +1,32 @@
+<h1>Peliculas</h1>
+<div class="container mt-5">
+    <div class="row mt-5">
+        @for (pelicula of listaPeliculas; track pelicula.id) {
+            <div class="col-md-3 col-12 p-2 my-3">
+                <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+            </div>
+        }
+    </div>
+</div>
+
+<h1>Series</h1>
+<div class="container mt-5 pt-5">
+    <div class="row mt-5">
+        @for (item of listaSeries; track $index) {
+            <div class="col-md-3 col-12 p-2 my-3">
+                <app-serie-card [serieId]="item.id"></app-serie-card>
+            </div>
+        }
+    </div>
+</div>
+
+<h1>Actores</h1>
+<div class="container mt-5 pt-5">
+    <div class="row mt-5">
+        @for (item of listaActores; track $index) {
+            <div class="col-md-3 col-12 p-2 my-3">
+                <app-actor-card [actorId]="item"></app-actor-card>
+            </div>
+        }
+    </div>
+</div>
