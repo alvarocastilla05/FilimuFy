@@ -40,12 +40,32 @@ export class ActorDetailsComponent implements OnInit{
       console.log(this.listaPeliculas);
     });
 
-    this.actorService.getActores().subscribe(respuesta => {
+    /*this.actorService.getActores().subscribe(respuesta => {
       this.actorPelis = respuesta.results.find(actor => actor.id === parseInt(this.actorId!));
-    });
+    });*/
+
+    this.buscarActorEnPaginas(parseInt(this.actorId!));
 
   }
 
+  }
+
+  buscarActorEnPaginas(actorId: number): void {
+    let pagina = 1;
+
+    const buscar = () => {
+      this.actorService.getActores(pagina).subscribe(respuesta => {
+        const actor = respuesta.results.find(a => a.id === actorId);
+        if (actor) {
+          this.actorPelis = actor;
+        } else if (pagina < respuesta.total_pages) {
+          pagina++;
+          buscar();
+        }
+      });
+    };
+
+    buscar();
   }
 
   trackById(index: number, item: any): number {
