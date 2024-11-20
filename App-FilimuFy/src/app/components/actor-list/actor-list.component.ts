@@ -10,13 +10,28 @@ import { ActorService } from '../../services/actor.service';
 export class ActorListComponent {
 
   listaActores: Actor[] = [];
+  currentPage: number = 1; // Página inicial
+  loading: boolean = false; // Estado de carga
 
   constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
-    this.actorService.getActores()
+    this.cargarActores();
+  }
+
+  cargarActores(): void {
+    if (this.loading) return; // Prevenir solicitudes simultáneas
+    this.loading = true;
+
+    this.actorService.getActores(this.currentPage)
       .subscribe(resp => {
-        this.listaActores = resp.results;
+        // Agregar las nuevas películas a la lista existente
+        this.listaActores = [...this.listaActores, ...resp.results];
+        this.currentPage++; // Avanzar a la siguiente página
+        this.loading = false; // Terminar el estado de carga
+      }, error => {
+        console.error('Error al cargar Actores:', error);
+        this.loading = false; // Manejo del error
       });
   }
 }

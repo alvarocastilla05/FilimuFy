@@ -18,8 +18,8 @@ export class ActorService {
   constructor(private http: HttpClient) { }
 
 
-  getActores(): Observable<ActorListResponse>{
-    return this.http.get<ActorListResponse>(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}`);
+  getActores(page: number = 1): Observable<ActorListResponse>{
+    return this.http.get<ActorListResponse>(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&page=${page}`);
   }
 
 
