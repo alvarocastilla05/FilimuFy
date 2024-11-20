@@ -6,7 +6,11 @@
 
         <!--PARTE SUPERIOR IZQUIERDA-->
         <div class="w-25">
-            <img src="{{serie!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">
+            @if(serie!.poster_path != null) {
+                <img src="{{serie!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">
+            } @else {
+                <img [src]="imgPlaceholderPelSer" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">  
+            }
         </div>
 
         <!--PARTE SUPERIOR DERECHA-->
@@ -98,6 +102,7 @@
                 @for (actor of listaCreditos; track actor) {
                 <div class="col-md-3 col-12 p-2 my-3">
                     <div class="p-2" style="width: 15rem;">
+
                     <a [routerLink]="['/actores', actor.id]" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
                         <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra"
                             alt="{{actor.name}}">
@@ -176,7 +181,13 @@
                     <div class="card mb-1 degradadoTemporada rounded-3 sombra" style="width: 700px; height: 250px">
                         <div class="row g-0">
                             <div style="max-width: 175px">
-                                <img src="{{season.poster_path! | imagen}}" [style.height]="250+'px'" class="img-fluid rounded-start" alt="{{season.name}}">
+
+                                @if(season.poster_path != null) {
+                                    <img src="{{season.poster_path! | imagen}}" [style.height]="250+'px'" class="img-fluid rounded-start" alt="{{season.name}}">
+                                } @else {
+                                    <img [src]="imgPlaceholderPelSer" [style.height]="250+'px'" class="img-fluid rounded-start" alt="{{season.name}}"> 
+                                }
+
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">

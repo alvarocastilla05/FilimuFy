@@ -5,8 +5,13 @@
 
     <!--PARTE SUPERIOR IZQUIERDA-->
     <div class="w-25">
-      <img id="profile-picture" src="{{actor!.profile_path | imagen}}" width="25%" class="rounded-4 card-img-top"
-        alt="{{actor!.name}}">
+        @if(actor!.profile_path != null) {
+          <img id="profile-picture" src="{{actor!.profile_path | imagen}}" width="25%" 
+            class="rounded-4 card-img-top" alt="{{actor!.name}}">
+        } @else {
+          <img id="profile-picture" [src]="placeholderFoto" width="25%" 
+            class="rounded-4 card-img-top" alt="{{actor!.name}}">
+        }
     </div>
 
     <!--PARTE SUPERIOR DERECHA-->
