@@ -6,7 +6,11 @@
 
     <!--PARTE SUPERIOR IZQUIERDA-->
     <div class="w-25">
-      <img src="{{pelicula!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
+      @if(pelicula!.poster_path != null) {
+        <img src="{{pelicula!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
+      } @else {
+        <img [src]="imgPlaceholderPelSer" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
+      }
     </div>
 
     <!--PARTE SUPERIOR DERECHA-->
