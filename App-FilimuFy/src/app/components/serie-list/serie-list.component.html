@@ -1,11 +1,10 @@
-<div class="container mt-5">
+<div class="container mt-5 pb-4">
     <div class="row mt-5">
         @for (serie of listaSeries; track serie.id) {
             <div class="col-md-3 col-12 p-2 my-3">
                 <app-serie-card [serieId]="serie.id"></app-serie-card>
             </div>
         }
-    <button class="btn btn-primary btn-block btn-lg m-3 sombra azulOscuro justify-content-center freeman" (click)="cargarSeries()">Más Series</button>
-
+        <button class="btn btn-primary btn-block btn-lg m-3 sombra azulOscuro justify-content-center jockeyOne" (click)="cargarSeries()">Mostrar más series</button>
     </div>
 </div>

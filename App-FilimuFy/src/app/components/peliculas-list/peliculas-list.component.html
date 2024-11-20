@@ -1,10 +1,10 @@
-<div class="container mt-5">
+<div class="container mt-5 pb-4">
     <div class="row mt-5">
         @for (pelicula of listaPeliculas; track pelicula.id) {
             <div class="col-md-3 col-12 p-2 my-3">
                 <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
             </div>
         }
-            <button class="btn btn-primary btn-block btn-lg m-3 sombra azulOscuro justify-content-center freeman" (click)="cargarPeliculas()">Más Películas</button>
+        <button class="btn btn-primary btn-block btn-lg m-3 sombra azulOscuro justify-content-center jockeyOne" (click)="cargarPeliculas()">Mostrar más películas</button>
     </div>
 </div>
