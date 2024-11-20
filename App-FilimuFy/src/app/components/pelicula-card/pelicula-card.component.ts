@@ -14,6 +14,7 @@ export class PeliculaCardComponent implements OnInit{
   peliculaDetalle: PeliculaDetailResponse | undefined;
   regionList: Region[] = [];
   certificationEsp: Region | undefined;
+  imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
 
   constructor(private peliculaService: PeliculaService) { }
 
