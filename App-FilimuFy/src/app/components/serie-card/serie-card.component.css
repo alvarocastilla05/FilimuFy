@@ -37,3 +37,11 @@ h6 {
     overflow: hidden; 
     text-overflow: ellipsis;
 }
+
+#tarjeta{
+    transition-duration: 0.2s;
+}
+
+#tarjeta:hover{
+    transform: scale(1.07);
+}
