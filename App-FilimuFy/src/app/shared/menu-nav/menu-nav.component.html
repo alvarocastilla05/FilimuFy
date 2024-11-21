@@ -14,15 +14,34 @@
             </form>
         </div>
         <div class="pe-3 pt-1 w-25 text-end">
+
             @if(isLoggedIn()) {
-                <button><img [src]="userPhoto" alt="Avatar" class="rounded-circle border border-2 border-white bg-white" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover"/>
-                <button class="btn btnCerrarSesion" (click)="logout()">Cerrar sesión</button>
-                <!--button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                    Popover on top
-                </button-->
-            </button>
+                
+                <div class="row">
+                    <div class="col">
+                        <div ngbDropdown class="d-inline-block">
+
+                            @if (userPhoto != '') {
+                                <img [src]="userPhoto" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
+                            }@else {
+                                <img [src]="userPhotoMono" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
+                            }
+
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <div style="width: 400px;">
+                                    <li>{{userName}}</li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <button ngbDropdownItem class="btn btnCerrarSesion" (click)="logout()"><i class="bi bi-power"></i>&nbsp;Cerrar sesión</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             } @else {
-                <button class="btn btnIniciarSesion" (click)="createRequestToken()">Iniciar sesión</button>
+                <button class="btn btnIniciarSesion" (click)="createRequestToken()">
+                    <h5 class="m-0 jockeyOne"><i class="bi bi-person-fill"></i>&nbsp;Iniciar sesión</h5>
+                </button>
             }
         </div>
     </header> 

@@ -59,13 +59,14 @@ input::placeholder {
 }
 
 .btnIniciarSesion {
-    background-color: #E95573;
+    background: linear-gradient(to right, #E95573, #6c74a7);
     color: white;
+    transition-duration: 0.01s;
 }
 
 .btnIniciarSesion:hover {
-    background-color: #20B7E5;
-    color: white;
+    background: linear-gradient(to right, #FFC107, #FFC107);
+    color: black;
 }
 
 .btnCerrarSesion {
