@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountDetailsResponse } from '../interfaces/autenticacion/account-details.interface';
+import { AccountDetailsResponse } from '../../interfaces/autenticacion/account-details.interface';
 
-const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
+const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd";
 
 @Injectable({
   providedIn: 'root'

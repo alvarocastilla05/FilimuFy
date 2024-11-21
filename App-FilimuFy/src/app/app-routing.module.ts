@@ -7,6 +7,7 @@ import { SerieDetailsComponent } from './components/serie-details/serie-details.
 import { PeliculaDetailsComponent } from './components/pelicula-details/pelicula-details.component';
 import { ActorDetailsComponent } from './components/actor-details/actor-details.component';
 import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-incio.component';
+import { ApprovedComponent } from './shared/approved/approved.component';
 
 const routes: Routes = [
   {path: 'peliculas', component: PeliculasListComponent},
@@ -17,7 +18,7 @@ const routes: Routes = [
   {path: 'actores/:id', component: ActorDetailsComponent},
   {path: 'actores', component: ActorListComponent},
   {path: 'series/:id', component: SerieDetailsComponent},
-  {path: '', redirectTo: 'peliculas', pathMatch: 'full'}
+  {path: 'approved', component: ApprovedComponent}
 ]
 
 @NgModule({

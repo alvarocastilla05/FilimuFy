@@ -14,7 +14,16 @@
             </form>
         </div>
         <div class="pe-3 pt-1 w-25 text-end">
-            <i class="bi bi-person-circle text-white iconoPerfil"></i>
+            @if(isLoggedIn()) {
+                <button><img [src]="userPhoto" alt="Avatar" class="rounded-circle border border-2 border-white bg-white" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover"/>
+                <button class="btn btnCerrarSesion" (click)="logout()">Cerrar sesión</button>
+                <!--button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    Popover on top
+                </button-->
+            </button>
+            } @else {
+                <button class="btn btnIniciarSesion" (click)="createRequestToken()">Iniciar sesión</button>
+            }
         </div>
     </header> 
 

@@ -58,6 +58,26 @@ input::placeholder {
     font-size: 45px;
 }
 
+.btnIniciarSesion {
+    background-color: #E95573;
+    color: white;
+}
+
+.btnIniciarSesion:hover {
+    background-color: #20B7E5;
+    color: white;
+}
+
+.btnCerrarSesion {
+    background-color: #20B7E5;
+    color: white;
+}
+
+.btnCerrarSesion:hover {
+    background-color: #E95573;
+    color: white;
+}
+
 /* NAVBAR -------------------------------------------------------------------------------------------------------------- */
 
 nav {
