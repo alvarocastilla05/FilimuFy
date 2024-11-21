@@ -20,7 +20,11 @@
       <h1 class="mb-4 jockeyOne text-white">{{actor!.name | uppercase}}</h1>
       <!--Biografía-->
       <div class="mx-3">
-        <h5 class="m-0 poppins text-white">{{actor!.biography}}</h5>
+        @if(actor!.biography !== '') {
+          <h5 class="m-0 poppins text-white">{{actor!.biography}}</h5>
+        }@else {
+          <h5 class="m-0 poppins text-white">Biografía no disponible.</h5>
+        }
       </div>
     </div>
 
@@ -37,6 +41,14 @@
         </h5>
         <ng-template #noData>
           <h5 class="freeman text-white">-</h5>
+        </ng-template>
+      </div>
+      <div class="mb-4">
+        <h4 class="jockeyOne text-black" *ngIf="actor?.deathday; else noData2">Fecha de defunción:</h4>
+        <h5 class="freeman text-white">{{ actor?.deathday| date:'dd/MM/yyyy' }}
+        </h5>
+        <ng-template #noData2>
+          <!--No hace nada-->
         </ng-template>
       </div>
       <div class="mb-4">
