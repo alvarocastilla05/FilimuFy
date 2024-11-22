@@ -27,6 +27,7 @@ import { EdadFondoColorPipe } from './pipes/EdadFondoColor.pipe';
 import { StatusSeriesColorPipe } from './pipes/statusSeriesColor.pipe';
 import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-incio.component';
 import { ApprovedComponent } from './shared/approved/approved.component';
+import { AvatarFotoPipe } from './pipes/avatarFoto.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ApprovedComponent } from './shared/approved/approved.component';
     ActorDetailsComponent,
     SerieDetailsComponent,
     PantallaIncioComponent,
-    ApprovedComponent
+    ApprovedComponent,
+    AvatarFotoPipe
   ],
   imports: [
     BrowserModule,

@@ -21,11 +21,7 @@
                     <div class="col">
                         <div ngbDropdown class="d-inline-block">
 
-                            @if (userPhoto == '') {
-                                <img [src]="userPhoto" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
-                            }@else {
-                                <img [src]="userPhotoMono" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
-                            }
+                            <img [src]="userPhoto | avatar" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
 
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                                 <div style="width: 400px;">
