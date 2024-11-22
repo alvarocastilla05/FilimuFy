@@ -13,7 +13,11 @@ export class GeneroService {
 
   constructor(private http: HttpClient) { }
 
-  getGeneros(): Observable<GeneroListResponse>{
+  getGenerosPelicula(): Observable<GeneroListResponse>{
     return this.http.get<GeneroListResponse>(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+  }
+
+  getGenerosSerie(): Observable<GeneroListResponse>{
+    return this.http.get<GeneroListResponse>(`https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}`);
   }
 }

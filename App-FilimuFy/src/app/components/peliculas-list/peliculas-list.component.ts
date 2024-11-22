@@ -28,7 +28,7 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     this.cargarPeliculas();
 
     // Cargar los géneros al inicializar el componente
-    this.generoService.getGeneros().subscribe(resp => {
+    this.generoService.getGenerosPelicula().subscribe(resp => {
       this.listaGeneros = resp.genres;
     }, error => {
       console.error('Error al cargar géneros:', error);
