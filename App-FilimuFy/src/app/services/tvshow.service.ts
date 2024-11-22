@@ -50,4 +50,11 @@ export class TVShowService {
     return this.http.get<KeywordsSeriesListResponse>(`https://api.themoviedb.org/3/tv/${id}/keywords?api_key=${API_KEY}`);
   }
 
+  searchSeries(query: string) {
+    return this.http.get<any>(
+      `https://api.themoviedb.org/3/search/tv?query=${query}&api_key=${API_KEY}`
+    );
+  }
+  
+
 }

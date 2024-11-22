@@ -50,4 +50,11 @@ export class PeliculaService {
   getKeywordsById(id: number): Observable<KeywordsListResponse>{
     return this.http.get<KeywordsListResponse>(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${API_KEY}`);
   }
+
+  searchPeliculas(query: string) {
+    return this.http.get<any>(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`
+    );
+  }
+  
 }

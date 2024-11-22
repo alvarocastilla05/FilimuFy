@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { PeliculaService } from '../../services/pelicula.service';
 import { TVShowService } from '../../services/tvshow.service';
+import { Pelicula } from '../../interfaces/pelicula-list.interfaces';
+import { TVShow } from '../../interfaces/tv.interface';
 
 @Component({
   selector: 'app-menu-nav',
@@ -21,7 +23,9 @@ export class MenuNavComponent implements OnInit{
   myControl = new FormControl();
   options: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
-  nombre: string | undefined
+  nombre: string | undefined;
+  pelisPorNombre: Pelicula[] = [];
+  seriesPorNombre: TVShow[] = [];
 
   @Output() nombreSeleccionado = new EventEmitter<string>();
 
@@ -64,12 +68,24 @@ export class MenuNavComponent implements OnInit{
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  //Filtrar por nombre de pelicula o serie
   filtrarPorNombre() {
-    if(this.nombre){
-      this.nombreSeleccionado.emit(this.nombre);
-    }else{
-      alert('Nombre no encontrado')
+    if (this.nombre) {
+      // Filtrar películas por nombre
+      this.peliculaService.searchPeliculas(this.nombre).subscribe((response) => {
+        this.pelisPorNombre = response.results;
+      });
+
+      // Filtrar series por nombre
+      this.serieService.searchSeries(this.nombre).subscribe((response) => {
+        this.seriesPorNombre = response.results;
+      });
+
+      // Navegar al componente de búsqueda con resultados
+      this.router.navigate(['/search'], {
+        queryParams: { query: this.nombre },
+      });
+    } else {
+      alert('Por favor, ingresa un término de búsqueda.');
     }
   }
 
