@@ -13,6 +13,7 @@ export class PeliculasListComponent implements OnInit{
   listaPeliculas: Pelicula[] = [];
   currentPage: number = 1; // Página inicial
   loading: boolean = false; // Estado de carga
+  listaGeneros: Genre[] = [];
 
   constructor(
     private peliculaService: PeliculaService
