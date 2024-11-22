@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Pelicula } from '../../interfaces/pelicula-list.interfaces';
 import { PeliculaService } from '../../services/pelicula.service';
 import { Genre, PeliculaDetailResponse } from '../../interfaces/pelicula-detail.interfaces';
@@ -8,11 +8,12 @@ import { Genre, PeliculaDetailResponse } from '../../interfaces/pelicula-detail.
   templateUrl: './peliculas-list.component.html',
   styleUrl: './peliculas-list.component.css'
 })
-export class PeliculasListComponent implements OnInit{
+export class PeliculasListComponent implements OnInit, OnChanges{
 
   listaPeliculas: Pelicula[] = [];
   currentPage: number = 1; // Página inicial
   loading: boolean = false; // Estado de carga
+  @Input() nombre: string | undefined;
 
   constructor(
     private peliculaService: PeliculaService
@@ -21,6 +22,14 @@ export class PeliculasListComponent implements OnInit{
   ngOnInit(): void {
     // Cargar las primeras películas al inicializar el componente
     this.cargarPeliculas();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['nombre']){
+      this.listaPeliculas = [];
+      this.currentPage = 1;
+      this.cargarPeliculas();
+    }
   }
 
   cargarPeliculas(): void {
