@@ -58,6 +58,27 @@ input::placeholder {
     font-size: 45px;
 }
 
+.btnIniciarSesion {
+    background: linear-gradient(to right, #E95573, #6c74a7);
+    color: white;
+    transition-duration: 0.01s;
+}
+
+.btnIniciarSesion:hover {
+    background: linear-gradient(to right, #FFC107, #FFC107);
+    color: black;
+}
+
+.btnCerrarSesion {
+    background-color: #20B7E5;
+    color: white;
+}
+
+.btnCerrarSesion:hover {
+    background-color: #E95573;
+    color: white;
+}
+
 /* NAVBAR -------------------------------------------------------------------------------------------------------------- */
 
 nav {

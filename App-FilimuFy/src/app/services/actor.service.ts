@@ -5,9 +5,7 @@ import { Actor, ActorListResponse } from '../interfaces/actores-list.interface';
 import { ActorDetailResponse } from '../interfaces/actor-detail.interface';
 import { PeliculaListResponse } from '../interfaces/pelicula-list.interfaces';
 
-
 const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
-
 
 @Injectable({
   providedIn: 'root'
