@@ -16,6 +16,8 @@ const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
   providedIn: 'root'
 })
 export class PeliculaService {
+ 
+  
 
   constructor(private http: HttpClient) { }
 
@@ -50,4 +52,11 @@ export class PeliculaService {
   getKeywordsById(id: number): Observable<KeywordsListResponse>{
     return this.http.get<KeywordsListResponse>(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${API_KEY}`);
   }
+
+  getPeliculasPorGenero(currentPage: number, genreId: number[] | undefined): Observable<PeliculaListResponse>{
+    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}`);
+
+  }
+
+ 
 }
