@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Pelicula } from '../../interfaces/pelicula-list.interfaces';
+import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { PeliculaService } from '../../services/pelicula.service';
-import { Genre, PeliculaDetailResponse } from '../../interfaces/pelicula-detail.interfaces';
 
 @Component({
   selector: 'app-peliculas-list',

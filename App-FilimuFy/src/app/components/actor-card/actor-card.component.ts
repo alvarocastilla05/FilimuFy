@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ActorDetailResponse } from '../../interfaces/actor-detail.interface';
+import { ActorDetailResponse } from '../../interfaces/actor/actor-detail.interface';
 import { ActorService } from '../../services/actor.service';
-import { Actor, KnownFor } from '../../interfaces/actores-list.interface';
+import { Actor, KnownFor } from '../../interfaces/actor/actores-list.interface';
 
 @Component({
   selector: 'app-actor-card',

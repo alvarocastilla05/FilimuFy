@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
 import { ActivatedRoute } from '@angular/router';
-import { PeliculaDetailResponse } from '../../interfaces/pelicula-detail.interfaces';
-import { Cast, CreditosListResponse } from '../../interfaces/credito.interfaces';
-import { Video, VIdeoListResponse } from '../../interfaces/videoPelis.interfaces';
-import { Buy, Flatrate } from '../../interfaces/proveedorPeli.interfaces';
-import { Region } from '../../interfaces/releaseDateCertifications.interfaces';
-import { Keyword } from '../../interfaces/pelicula-keywords.interfaces';
-import { Actor } from '../../interfaces/actores-list.interface';
+import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
+import { Cast, CreditosListResponse } from '../../interfaces/otros/credito.interfaces';
+import { Video, VIdeoListResponse } from '../../interfaces/pelicula/videoPelis.interfaces';
+import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
+import { Region } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
+import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces';
+import { Actor } from '../../interfaces/actor/actores-list.interface';
 
 @Component({
   selector: 'app-pelicula-details',

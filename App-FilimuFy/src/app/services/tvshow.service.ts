@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TVShowListResponse } from '../interfaces/tv.interface';
-import { SerieDetailResponse } from '../interfaces/serie-detail.interface';
-import { VideoSerieListResponse } from '../interfaces/videoSeries.interfaces';
-import { CreditosListResponse } from '../interfaces/credito.interfaces';
-import { RatingsListResponse } from '../interfaces/contentRatingsCertifications.interfaces';
-import { ProveedoreesSerieListResponse } from '../interfaces/proveedorSerie.interfaces';
-import { KeywordsSeriesListResponse } from '../interfaces/serie-keywords.interfaces';
+import { TVShowListResponse } from '../interfaces/serie/tv.interface';
+import { SerieDetailResponse } from '../interfaces/serie/serie-detail.interface';
+import { VideoSerieListResponse } from '../interfaces/serie/videoSeries.interfaces';
+import { CreditosListResponse } from '../interfaces/otros/credito.interfaces';
+import { RatingsListResponse } from '../interfaces/serie/contentRatingsCertifications.interfaces';
+import { ProveedoreesSerieListResponse } from '../interfaces/serie/proveedorSerie.interfaces';
+import { KeywordsSeriesListResponse } from '../interfaces/serie/serie-keywords.interfaces';
 
 const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 

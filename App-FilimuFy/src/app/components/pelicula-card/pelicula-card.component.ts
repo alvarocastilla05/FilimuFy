@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PeliculaDetailResponse } from '../../interfaces/pelicula-detail.interfaces';
+import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
 import { PeliculaService } from '../../services/pelicula.service';
-import { Region, ReleaseDate } from '../../interfaces/releaseDateCertifications.interfaces';
+import { Region, ReleaseDate } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
 
 @Component({
   selector: 'app-pelicula-card',
@@ -45,5 +45,7 @@ export class PeliculaCardComponent implements OnInit{
     }
     return certificacion;
   }
+
+  
   
 }

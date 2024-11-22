@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SerieDetailResponse } from '../../interfaces/serie-detail.interface';
+import { SerieDetailResponse } from '../../interfaces/serie/serie-detail.interface';
 import { TVShowService } from '../../services/tvshow.service';
-import { Pais } from '../../interfaces/contentRatingsCertifications.interfaces';
+import { Pais } from '../../interfaces/serie/contentRatingsCertifications.interfaces';
 
 @Component({
   selector: 'app-serie-card',
