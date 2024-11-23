@@ -22,35 +22,35 @@ export class PeliculaService {
   constructor(private http: HttpClient) { }
 
   getPeliculas(page: number = 1): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`);
+    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}&language=es-ES`);
   }
 
   getPeliculaById(id: number): Observable<PeliculaDetailResponse>{
-    return this.http.get<PeliculaDetailResponse>(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`);
+    return this.http.get<PeliculaDetailResponse>(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=es-ES`);
   }
 
   getGeneroById(id: number): Observable<GenreListResponse>{
-    return this.http.get<GenreListResponse>(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+    return this.http.get<GenreListResponse>(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=es-ES`);
   }
 
   getCreditosById(id: number): Observable<CreditosListResponse>{
-    return this.http.get<CreditosListResponse>(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`);
+    return this.http.get<CreditosListResponse>(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=es-ES`);
   }
 
   getVideoById(id: string): Observable<VIdeoListResponse>{
-    return this.http.get<VIdeoListResponse>(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`);
+    return this.http.get<VIdeoListResponse>(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=es-ES`);
   }
 
   getCertificationById(id: number): Observable<FechaSalidaResponse>{
-    return this.http.get<FechaSalidaResponse>(`https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${API_KEY}`);
+    return this.http.get<FechaSalidaResponse>(`https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${API_KEY}&language=es-ES`);
   }
 
   getProveedoresById(id: number): Observable<ProveedoreesPeliListResponse>{
-    return this.http.get<ProveedoreesPeliListResponse>(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${API_KEY}`);
+    return this.http.get<ProveedoreesPeliListResponse>(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${API_KEY}&language=es-ES`);
   }
   
   getKeywordsById(id: number): Observable<KeywordsListResponse>{
-    return this.http.get<KeywordsListResponse>(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${API_KEY}`);
+    return this.http.get<KeywordsListResponse>(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${API_KEY}&language=es-ES`);
   }
 
   searchPeliculas(query: string) {

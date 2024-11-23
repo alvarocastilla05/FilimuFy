@@ -17,12 +17,12 @@ export class ActorService {
 
 
   getActores(page: number = 1): Observable<ActorListResponse>{
-    return this.http.get<ActorListResponse>(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&page=${page}`);
+    return this.http.get<ActorListResponse>(`https://api.themoviedb.org/3/person/popular?api_key=${API_KEY}&page=${page}&language=es-ES`);
   }
 
 
   getActorById(id: number): Observable<ActorDetailResponse> {
-    return this.http.get<ActorDetailResponse>(`https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}`);
+    return this.http.get<ActorDetailResponse>(`https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}&language=es-ES`);
   }
 
   getPeliculasActorById(id: number): Observable<PeliculaListResponse>{
