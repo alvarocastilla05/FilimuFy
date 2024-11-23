@@ -46,7 +46,7 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
-  cargarPeliculas(): void {
+  /*cargarPeliculas(): void {
     if (this.loading) return; // Prevenir solicitudes simultáneas
     this.loading = true;
   }
