@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActorDetailResponse } from '../../interfaces/actor/actor-detail.interface';
 import { ActorService } from '../../services/actor.service';
 import { ActivatedRoute } from '@angular/router';

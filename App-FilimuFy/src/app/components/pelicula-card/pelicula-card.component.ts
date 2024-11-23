@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
 import { PeliculaService } from '../../services/pelicula.service';
-import { Region, ReleaseDate } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
+import { Region } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
 
 @Component({
   selector: 'app-pelicula-card',

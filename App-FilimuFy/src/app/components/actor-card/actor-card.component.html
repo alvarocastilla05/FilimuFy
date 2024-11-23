@@ -1,19 +1,37 @@
-<div id="tarjeta" class="p-2" style="width: 15rem;">
-  <a [routerLink]="['/actores', actorId?.id]" class="text-decoration-none text-black">
-    @if(actorId!.profile_path != null) {
-      <img src="{{actorId!.profile_path | imagen}}" class="rounded-4 card-img-top sombra" 
-        height="336px" [alt]="actorId?.name">
-    } @else {
-      <img [src]="placeholderFoto" class="rounded-4 card-img-top sombra" 
-        height="336px" [alt]="actorId?.name">
-    }
-    <div class="card-body px-0 pt-2">
-      <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{ actorId?.name }}</h5>
-      <p class="card-text gris freeman m-0 puntosSuspensivos">
-        <span *ngFor="let work of actorId?.known_for; let i = index">
-          {{ work.name || work.title }}<span *ngIf="i < actorId!.known_for.length - 1"> / </span>
-        </span>
-      </p>
-    </div>
-  </a>
-</div>
+@if(actorCreditos === undefined) {
+  <div id="tarjeta" class="p-2" style="width: 15rem;">
+    <a [routerLink]="['/actores', actorId?.id]" class="text-decoration-none text-black">
+      @if(actorId!.profile_path != null) {
+        <img src="{{actorId!.profile_path | imagen}}" class="rounded-4 card-img-top sombra" 
+          height="336px" [alt]="actorId?.name">
+      } @else {
+        <img [src]="placeholderFoto" class="rounded-4 card-img-top sombra" 
+          height="336px" [alt]="actorId?.name">
+      }
+      <div class="card-body px-0 pt-2">
+        <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{ actorId?.name }}</h5>
+          <p class="card-text gris freeman m-0 puntosSuspensivos">
+            <span *ngFor="let work of actorId?.known_for; let i = index">
+              {{ work.name || work.title }}<span *ngIf="i < actorId!.known_for.length - 1"> / </span>
+            </span>
+          </p>  
+      </div>
+    </a>
+  </div>
+} @else { 
+  <div id="tarjeta" class="p-2" style="width: 15rem;">
+    <a [routerLink]="['/actores', actorCreditos!.id]" class="text-decoration-none text-black">
+      @if(actorCreditos!.profile_path != null) {
+        <img [src]="actorCreditos!.profile_path | imagen" class="rounded-4 card-img-top sombra" 
+          height="336px" [alt]="actorCreditos!.name">
+      } @else {
+        <img [src]="placeholderFoto" class="rounded-4 card-img-top sombra" 
+          height="336px" [alt]="actorCreditos!.name">
+      }
+      <div class="card-body px-0 pt-2">
+        <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{ actorCreditos!.name }}</h5>
+          <p class="card-text gris freeman m-0 puntosSuspensivos">{{actorCreditos!.character}}</p> 
+      </div>
+    </a>
+  </div>
+}

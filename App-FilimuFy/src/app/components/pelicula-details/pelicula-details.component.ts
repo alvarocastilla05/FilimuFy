@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
 import { ActivatedRoute } from '@angular/router';
 import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
@@ -7,7 +7,6 @@ import { Video, VIdeoListResponse } from '../../interfaces/pelicula/videoPelis.i
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
 import { Region } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces';
-import { Actor } from '../../interfaces/actor/actores-list.interface';
 
 @Component({
   selector: 'app-pelicula-details',

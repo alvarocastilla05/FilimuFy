@@ -94,24 +94,9 @@
           overscroll-behavior-x: contain;
           scroll-snap-type: x proximity; 
           margin: 50px auto 0;">
-          <!-- ¡PENDIENTE DE CAMBIAR CUANDO SE INCLUYA EL CARD COMPONENT DE ACTORES! -->
-          @for (actor of listaCreditos; track actor) {
-            <div class="col-md-3 col-12 p-2 my-3">
-              <div class="p-2" style="width: 15rem;">
-                <a [routerLink]="['/actores', actor.id]" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
-                  @if(actor.profile_path != null) {
-                    <img src="{{actor.profile_path! | imagen}}" class="rounded-4 card-img-top sombra" [alt]="actor.name">
-                  } @else {
-                    <img [src]="placeholderFoto" class="rounded-4 card-img-top sombra" height="336px" [alt]="actor.name">
-                  }
-                    <div class="card-body px-0 pt-2">
-                        <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{actor.name}}</h5>
-                        <p class="card-text gris freeman m-0 puntosSuspensivos">{{actor.character}}</p>
-                    </div>
-                </a>
-              </div>
-            </div>
-          }
+          <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
+            <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
+          </div>
         </div>
       </div>
     </div>
