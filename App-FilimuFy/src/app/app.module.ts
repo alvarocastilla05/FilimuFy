@@ -28,6 +28,8 @@ import { StatusSeriesColorPipe } from './pipes/statusSeriesColor.pipe';
 import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-incio.component';
 import { ApprovedComponent } from './shared/approved/approved.component';
 import { AvatarFotoPipe } from './pipes/avatarFoto.pipe';
+import { FormsModule } from '@angular/forms';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -52,13 +54,15 @@ import { AvatarFotoPipe } from './pipes/avatarFoto.pipe';
     SerieDetailsComponent,
     PantallaIncioComponent,
     ApprovedComponent,
-    AvatarFotoPipe
+    AvatarFotoPipe,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync(),

@@ -49,10 +49,14 @@ export class TVShowService {
   getKeywordsById(id: number): Observable<KeywordsSeriesListResponse>{
     return this.http.get<KeywordsSeriesListResponse>(`https://api.themoviedb.org/3/tv/${id}/keywords?api_key=${API_KEY}`);
   }
-
+  
+  searchSeries(query: string) {
+    return this.http.get<any>(
+      `https://api.themoviedb.org/3/search/tv?query=${query}&api_key=${API_KEY}`
+    );
+  }
+  
   getSeriesPorGenero(currentPage: number, genreId: number[] | undefined): Observable<TVShowListResponse>{
     return this.http.get<TVShowListResponse>(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}`);
-
   }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Pelicula } from '../../interfaces/pelicula-list.interfaces';
 import { Genre } from '../../interfaces/serie-detail.interface';
 import { PeliculaService } from '../../services/pelicula.service';
@@ -15,6 +15,9 @@ export class PeliculasListComponent implements OnInit, OnChanges {
   listaPeliculas: Pelicula[] = [];
   currentPage: number = 1; // Página inicial
   loading: boolean = false; // Estado de carga
+  
+  @Input() nombre: string | undefined;
+
   listaGeneros: Genre[] = [];
   selectedGenres: number[] = []; // Géneros seleccionados
 
@@ -35,10 +38,22 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['nombre']){
+      this.listaPeliculas = [];
+      this.currentPage = 1;
+      this.cargarPeliculas();
+    }
+  }
+
+  cargarPeliculas(): void {
+    if (this.loading) return; // Prevenir solicitudes simultáneas
+    this.loading = true;
+  }
+  /*ngOnChanges(): void {
     // Recargar las películas cuando haya cambios
     this.cargarPeliculas();
-  }
+  }*/
 
   cargarPeliculas(genreIds?: number[], append: boolean = false): void {
     this.loading = true;

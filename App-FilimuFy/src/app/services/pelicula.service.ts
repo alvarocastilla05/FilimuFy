@@ -53,10 +53,14 @@ export class PeliculaService {
     return this.http.get<KeywordsListResponse>(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${API_KEY}`);
   }
 
+  searchPeliculas(query: string) {
+    return this.http.get<any>(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`
+    );
+  }
+  
   getPeliculasPorGenero(currentPage: number, genreId: number[] | undefined): Observable<PeliculaListResponse>{
     return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}`);
 
   }
-
- 
 }
