@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PeliculaListResponse } from '../interfaces/pelicula-list.interfaces';
-import { PeliculaDetailResponse } from '../interfaces/pelicula-detail.interfaces';
-import { GenreListResponse } from '../interfaces/genero.interfaces';
-import { CreditosListResponse } from '../interfaces/credito.interfaces';
-import { VIdeoListResponse } from '../interfaces/videoPelis.interfaces';
-import { ProveedoreesPeliListResponse } from '../interfaces/proveedorPeli.interfaces';
-import { FechaSalidaResponse } from '../interfaces/releaseDateCertifications.interfaces';
-import { KeywordsListResponse } from '../interfaces/pelicula-keywords.interfaces';
+import { PeliculaListResponse } from '../interfaces/pelicula/pelicula-list.interfaces';
+import { PeliculaDetailResponse } from '../interfaces/pelicula/pelicula-detail.interfaces';
+import { GenreListResponse } from '../interfaces/otros/genero.interfaces';
+import { CreditosListResponse } from '../interfaces/otros/credito.interfaces';
+import { VIdeoListResponse } from '../interfaces/pelicula/videoPelis.interfaces';
+import { ProveedoreesPeliListResponse } from '../interfaces/pelicula/proveedorPeli.interfaces';
+import { FechaSalidaResponse } from '../interfaces/pelicula/releaseDateCertifications.interfaces';
+import { KeywordsListResponse } from '../interfaces/pelicula/pelicula-keywords.interfaces';
 
 const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 

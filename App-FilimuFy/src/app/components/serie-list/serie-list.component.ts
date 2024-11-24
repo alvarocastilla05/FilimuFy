@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TVShow } from '../../interfaces/tv.interface';
+import { TVShow } from '../../interfaces/serie/tv.interface';
 import { TVShowService } from '../../services/tvshow.service';
 import { Genre } from '../../interfaces/serie-detail.interface';
 import { GeneroService } from '../../services/genero.service';

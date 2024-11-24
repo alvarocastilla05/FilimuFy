@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActorDetailResponse } from '../../interfaces/actor-detail.interface';
+import { Component, OnInit } from '@angular/core';
+import { ActorDetailResponse } from '../../interfaces/actor/actor-detail.interface';
 import { ActorService } from '../../services/actor.service';
 import { ActivatedRoute } from '@angular/router';
-import { PeliculaDetailResponse } from '../../interfaces/pelicula-detail.interfaces';
-import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula-list.interfaces';
-import { Actor } from '../../interfaces/actores-list.interface';
+import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
+import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
+import { Actor } from '../../interfaces/actor/actores-list.interface';
 
 
 @Component({

@@ -4,7 +4,6 @@ import { Genre } from '../../interfaces/serie-detail.interface';
 import { PeliculaService } from '../../services/pelicula.service';
 import { GeneroService } from '../../services/genero.service';
 
-
 @Component({
   selector: 'app-peliculas-list',
   templateUrl: './peliculas-list.component.html',
