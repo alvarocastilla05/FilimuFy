@@ -96,7 +96,8 @@ nav {
 /* DROPDOWN USUARIO ---------------------------------------------------------------------------------------------------- */
 
 .fondoGris {
-    background-color: #E6E6E6;
+    background-color: #000A1E;
+    color: white;
 }
 
 .bordeRosa{
@@ -128,18 +129,20 @@ nav {
 }
 
 .g1:hover{
-    /*background: linear-gradient(to right, #e4637d, #F10132);*/
-    background: linear-gradient(to right, #E95573, #20B7E5);
-    color: white !important;
+    background-color: #e4637d;
+    color: white;
 }
 
 .g2:hover{
-    background: linear-gradient(to right, #FFC01E, #FB9403);
-    color: white !important;
+    background-color: #fbbd03;
+    color: white;
 }
 
 .g3:hover{
-
+    background-color: #00A785;
+    color: white;
 }
 
-
+.g1:hover>h4>i, .g2:hover>h4>i, .g3:hover>h4>i{
+    color: white !important;
+}
