@@ -5,8 +5,8 @@ import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { PeliculaService } from '../../services/pelicula.service';
 import { TVShowService } from '../../services/tvshow.service';
-import { Pelicula } from '../../interfaces/pelicula-list.interfaces';
-import { TVShow } from '../../interfaces/tv.interface';
+import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
+import { TVShow } from '../../interfaces/serie/tv.interface';
 
 @Component({
   selector: 'app-menu-nav',

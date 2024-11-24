@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Pelicula } from '../../interfaces/pelicula-list.interfaces';
-import { Genre } from '../../interfaces/serie-detail.interface';
 import { PeliculaService } from '../../services/pelicula.service';
 import { GeneroService } from '../../services/genero.service';
+import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
+import { Genre } from '../../interfaces/serie/serie-detail.interface';
 
 @Component({
   selector: 'app-peliculas-list',

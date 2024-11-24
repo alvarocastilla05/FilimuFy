@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TVShow } from '../../interfaces/serie/tv.interface';
 import { TVShowService } from '../../services/tvshow.service';
-import { Genre } from '../../interfaces/serie-detail.interface';
 import { GeneroService } from '../../services/genero.service';
+import { Genre } from '../../interfaces/serie/serie-detail.interface';
 
 @Component({
   selector: 'app-serie-list',
