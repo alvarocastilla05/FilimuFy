@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <h1 class="jockeyOne m-0">Resultados para "{{ query }}"</h1>
+  
+    <div *ngIf="listaPeliculas.length > 0" class="container mt-5">
+      <h1 class="jockeyOne m-0">Películas</h1>
+      <div class="row">
+        <div
+          class="col-md-3 col-12 p-2 my-3 mt-2"
+          *ngFor="let pelicula of listaPeliculas"
+        >
+          <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="listaSeries.length > 0" class="container mt-5">
+      <h1 class="jockeyOne m-0">Series</h1>
+      <div class="row">
+        <div
+          class="col-md-3 col-12 p-2 my-3 mt-2"
+          *ngFor="let serie of listaSeries"
+        >
+          <app-serie-card [serieId]="serie.id"></app-serie-card>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="listaPeliculas.length === 0 && listaSeries.length === 0" class="mt-5">
+      <h3>No se encontraron resultados.</h3>
+    </div>
+  </div>
+  

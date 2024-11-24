@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class ScreenComponent {
 
+  nombre: string | undefined;
+
+  onSearchClicked1(nombre: string) {
+    return this.nombre = nombre;
+  }
 }
