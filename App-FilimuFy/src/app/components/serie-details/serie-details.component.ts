@@ -93,4 +93,8 @@ export class SerieDetailsComponent implements OnInit{
     }
   }
 
+  isLoggedIn() {
+    return localStorage.getItem('logged_in') === 'true';
+  }
+
 }

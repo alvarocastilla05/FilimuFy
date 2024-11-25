@@ -24,18 +24,43 @@
                 <div class="col">
                     <div ngbDropdown class="d-inline-block">
 
-                        <img [src]="userPhoto | avatar" type="button" width="60px" height="60px" ngbDropdownToggle
-                            alt="Avatar" class="rounded-circle bg-white" />
-
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <div style="width: 400px;">
-                                <li>{{userName}}</li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <button ngbDropdownItem class="btn btnCerrarSesion" (click)="logout()"><i
-                                        class="bi bi-power"></i>&nbsp;Cerrar sesión</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="mt-1 bordeRosa rounded-3">
+                                <div style="width: 600px;">
+                                    <div class="row px-2">
+                                        <div class="container ps-4 pt-2 pe-0" style="width: 38%;">
+                                            <img [src]="userPhoto | avatar" [style.width]="200 + 'px'" [style.height]="200 + 'px'" class="rounded-3" [alt]="userName">
+                                            <h3 class="m-0 pt-1 jockeyOne azulOscuro text-center textFilimuFy puntosSuspensivos" 
+                                                style="width: 200px">{{userName}}</h3>
+                                        </div>
+                                        <div class="container mt-2 ps-0" style="width: 62%;">
+                                            <!--FAVORITOS-->
+                                            <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                                                <div class="fondoGris rounded-3 m-2 mt-1 p-1 me-2 g1">
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-suit-heart-fill corazon"></i>&nbsp;&nbsp;Favoritos</h4>
+                                                </div>
+                                            </a>
+                                            <!--MIS VALORACIONES-->
+                                            <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g2">
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-star-fill text-warning"></i>&nbsp;&nbsp;Mis valoraciones</h4>
+                                                </div>
+                                            </a>
+                                            <!--WATCHLISTS-->
+                                            <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g3">
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-bookmark-fill etiqueta"></i>&nbsp;&nbsp;Watchlists</h4>
+                                                </div>
+                                            </a>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnCerrarSesion w-50 mt-1 rounded-3 py-2" (click)="logout()">
+                                                    <h5 class="m-0 jockeyOne"><i class="bi bi-power"></i>&nbsp;Cerrar sesión</h5>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
