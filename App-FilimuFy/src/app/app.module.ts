@@ -30,6 +30,7 @@ import { ApprovedComponent } from './shared/approved/approved.component';
 import { AvatarFotoPipe } from './pipes/avatarFoto.pipe';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
+import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { SearchComponent } from './components/search/search.component';
     PantallaIncioComponent,
     ApprovedComponent,
     AvatarFotoPipe,
-    SearchComponent
+    SearchComponent,
+    FavoritosListComponent
   ],
   imports: [
     BrowserModule,
