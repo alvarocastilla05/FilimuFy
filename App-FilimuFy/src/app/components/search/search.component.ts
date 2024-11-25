@@ -14,6 +14,14 @@ export class SearchComponent implements OnInit {
   query: string = '';
   listaPeliculas: Pelicula[] = [];
   listaSeries: TVShow[] = [];
+  keyId: number | undefined;
+  keyName: string | undefined;
+
+  currentPage: number = 1; // Página inicial para keyId
+  loading: boolean = false; // Estado de carga
+
+  showPeliculas: boolean = true; // Mostrar películas al cargar la página
+  showSeries: boolean | undefined; // Mostrar series al cargar la página
 
   constructor(
     private route: ActivatedRoute,
@@ -24,18 +32,84 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.query = params['query'];
+      this.keyId = params['keyId']; // Convertir a número
+      this.keyName = params['keyName'];
+      this.currentPage = 1; // Reiniciar la página al cambiar los parámetros
+      this.listaPeliculas = []; // Reiniciar lista de películas
 
       if (this.query) {
-        // Buscar películas
-        this.peliculaService.searchPeliculas(this.query).subscribe((resp) => {
-          this.listaPeliculas = resp.results;
-        });
+        // Buscar películas y series
+        this.buscarPeliculas();
+        this.buscarSeries();
+      }
 
-        // Buscar series
-        this.serieService.searchSeries(this.query).subscribe((resp) => {
-          this.listaSeries = resp.results;
-        });
+      if (this.keyId) {
+        // Filtrar películas por keyId
+        this.filtrarPeliculasPorKeyId();
+        this.filtrarSeriesPorKeyId();
       }
     });
+  }
+
+  buscarPeliculas(): void {
+    this.peliculaService.searchPeliculas(this.query).subscribe((resp) => {
+      this.listaPeliculas = resp.results;
+    });
+  }
+
+  buscarSeries(): void {
+    this.serieService.searchSeries(this.query).subscribe((resp) => {
+      this.listaSeries = resp.results;
+    });
+  }
+
+  filtrarPeliculasPorKeyId(append: boolean = false): void {
+    this.loading = true; // Iniciar estado de carga
+    this.peliculaService.getPeliculasPorPalabraClave(this.keyId!, this.currentPage).subscribe(
+      (resp) => {
+        if (append) {
+          // Agregar nuevas películas a la lista existente
+          this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
+        } else {
+          // Reemplazar lista con los resultados actuales
+          this.listaPeliculas = resp.results;
+        }
+        this.loading = false; // Finalizar estado de carga
+      },
+      (error) => {
+        console.error('Error al filtrar películas:', error);
+        this.loading = false; // Manejar error
+      }
+    );
+  }
+
+  filtrarSeriesPorKeyId(append: boolean = false): void {
+    this.loading = true; // Iniciar estado de carga
+    this.serieService.getSeriesPorPalabraClave(this.keyId!, this.currentPage).subscribe(
+      (resp) => {
+        if (append) {
+          // Agregar nuevas series a la lista existente
+          this.listaSeries = [...this.listaSeries, ...resp.results];
+        } else {
+          // Reemplazar lista con los resultados actuales
+          this.listaSeries = resp.results;
+        }
+        this.loading = false; // Finalizar estado de carga
+      },
+      (error) => {
+        console.error('Error al filtrar series:', error);
+        this.loading = false; // Manejar error
+      }
+    );
+  }
+
+  cargarMasPeliculasFiltradas(): void {
+    this.currentPage++; // Incrementar la página
+    this.filtrarPeliculasPorKeyId(true); // Llamar a la función con `append = true`
+  }
+
+  cargarMasSeriesFiltradas(): void {
+    this.currentPage++; // Incrementar la página
+    this.filtrarSeriesPorKeyId(true); // Llamar a la función con `append = true`
   }
 }
