@@ -10,14 +10,13 @@ import { TVShow } from '../../interfaces/serie/tv.interface';
 })
 export class FavoritosListComponent implements OnInit, OnChanges {
 
+  idString: string = "";
   account_id: number | undefined;
   listaPeliculasFavs: Pelicula[] = [];
   listaSeriesFavs: TVShow[] = [];
   currentPagePeliculas: number = 1; // Página inicial de las pelis
   currentPageSeries: number = 1; // Página inicial de las series
   loading: boolean = false; // Estado de carga
-  
-  //@Input() nombre: string | undefined;
 
   constructor(
     private accountService: AccountService,
@@ -26,13 +25,14 @@ export class FavoritosListComponent implements OnInit, OnChanges {
   ngOnInit(): void {
 
     // Recoge el ID del usuario registrado.
-    this.accountService.getAccountDetails().subscribe(resp => {
-      this.account_id = resp.id;
-    });
+    this.idString = localStorage.getItem('account_id') ?? '';
+    //this.account_id = Math.floor(this.idString);
+
+    console.log("ID DE CUENTA: "+this.account_id);
 
     // Cargar las primeras películas al inicializar el componente
     this.cargarPeliculas();
-
+    //this.cargarSeries();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,9 +40,9 @@ export class FavoritosListComponent implements OnInit, OnChanges {
       this.listaPeliculasFavs = [];
       this.listaSeriesFavs = [];
       this.currentPagePeliculas = 1;
-      this.currentPageSeries = 1;
+      //this.currentPageSeries = 1;
       this.cargarPeliculas();
-      this.cargarSeries();
+      //this.cargarSeries();
     }
   }
   
@@ -61,7 +61,15 @@ export class FavoritosListComponent implements OnInit, OnChanges {
     });
   }
 
-  cargarSeries(append: boolean = false): void {
+  cargarMasPeliculas(): void {
+    this.currentPagePeliculas++;
+  }
+
+  trackById(index: number, item: any): number {
+    return item.id;
+  }
+
+  /*cargarSeries(append: boolean = false): void {
     this.loading = true;
     this.accountService.getSeriesFavoritas(this.currentPageSeries, this.account_id).subscribe(resp => {
       if (append) {
@@ -74,17 +82,9 @@ export class FavoritosListComponent implements OnInit, OnChanges {
       console.error('Error al cargar series favoritas:', error);
       this.loading = false;
     });
-  }
-  
-  cargarMasPeliculas(): void {
-    this.currentPagePeliculas++;
-  }
+  }*/
 
-  cargarMasSeries(): void {
+  /*cargarMasSeries(): void {
     this.currentPageSeries++;
-  }
-
-  trackById(index: number, item: any): number {
-    return item.id;
-  }
+  }*/
 }
