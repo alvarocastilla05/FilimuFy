@@ -7,10 +7,12 @@
             </div>
         </a>
         <div class="widthSearchrBar">
-            <form class="d-flex align-items-center w-100" role="search">
-                <input class="form-control me-2 rounded-5 w-100 jockeyOne" type="search"
-                    placeholder="Buscar en la plataforma..." aria-label="Search">
-                <button class="btn rounded-5 btnSearchrBar" type="submit"><i class="bi bi-search"></i></button>
+            <form class="d-flex align-items-center w-100" role="search" (ngSubmit)="filtrarPorNombre()">
+                <input class="form-control me-2 rounded-5 w-100 jockeyOne" type="text"
+                    placeholder="Buscar películas o series..." [(ngModel)]="nombre" name="search" />
+                <button class="btn rounded-5 btnSearchrBar" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
             </form>
         </div>
         <div class="pe-3 pt-1 w-25 text-end">
