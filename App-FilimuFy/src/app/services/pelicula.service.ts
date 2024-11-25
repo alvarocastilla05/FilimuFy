@@ -64,7 +64,7 @@ export class PeliculaService {
 
   }
 
-  getPeliculasPorPalabraClave(keywordId: number): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/keyword/${keywordId}/movies?api_key=${API_KEY}&language=es-ES`);
+  getPeliculasPorPalabraClave(keywordId: number, currentPage: number): Observable<PeliculaListResponse>{
+    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/keyword/${keywordId}/movies?api_key=${API_KEY}&page=${currentPage}&language=es-ES`);
   }
 }

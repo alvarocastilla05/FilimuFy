@@ -45,14 +45,7 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
-  /*cargarPeliculas(): void {
-    if (this.loading) return; // Prevenir solicitudes simultáneas
-    this.loading = true;
-  }
-  /*ngOnChanges(): void {
-    // Recargar las películas cuando haya cambios
-    this.cargarPeliculas();
-  }*/
+
 
   cargarPeliculas(genreIds?: number[], append: boolean = false): void {
     this.loading = true;

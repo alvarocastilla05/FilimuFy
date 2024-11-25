@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <h1 class="jockeyOne m-0" *ngIf="query">Resultados para "{{ query }}"</h1>
-  <h1 class="jockeyOne m-0" *ngIf="keyId && !query">Resultados para la palabra clave</h1>
+  <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para la "{{keyId}}"</h1>
 
   <div *ngIf="listaPeliculas.length > 0" class="container mt-5">
     <h1 class="jockeyOne m-0">Películas</h1>
@@ -24,6 +24,14 @@
         <app-serie-card [serieId]="serie.id"></app-serie-card>
       </div>
     </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3">
+    <button 
+      class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" 
+      (click)="cargarMasPeliculasFiltradas()">
+      Mostrar más películas
+    </button>
   </div>
 
   <div *ngIf="listaPeliculas.length === 0 && listaSeries.length === 0 && (query || keyId)" class="mt-5">

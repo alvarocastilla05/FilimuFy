@@ -7,11 +7,30 @@
     font-family: 'jockeyOne';
 }
 
-@font-face {
-    font-family: 'freeman';
-    src: url(../../fonts/Freeman-Regular.ttf);
+.sombra {
+    box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
+}
+.azulOscuro{
+    background-color: #000A1E;
 }
 
-.freeman {
-    font-family: 'freeman';
+.genero-btn {
+    background-color: #E95573;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+/* Color del botón al estar seleccionado */
+.btn-check:checked + .genero-btn {
+    background-color: #20B7E5;
+    color: white;
+    border: none;
+}
+
+.genero-btn:hover {
+    background-color: #20B7E5; 
+    color: white;
 }
