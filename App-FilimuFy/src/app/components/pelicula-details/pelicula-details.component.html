@@ -160,7 +160,7 @@
         <div class="d-flex flex-wrap">
           @if(keywords.length != 0){
             <div *ngFor="let keyword of keywords;">
-              <a class="palabraClave text-decoration-none">
+              <a [routerLink]="['/key', keyword.id]" class="palabraClave text-decoration-none">
                 <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
               </a>
             </div>

@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
   query: string = '';
   listaPeliculas: Pelicula[] = [];
   listaSeries: TVShow[] = [];
+  keyId: number | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +25,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.query = params['query'];
+      this.keyId = +params['keyId']; // Convertir a número
 
       if (this.query) {
         // Buscar películas
@@ -34,6 +36,10 @@ export class SearchComponent implements OnInit {
         // Buscar series
         this.serieService.searchSeries(this.query).subscribe((resp) => {
           this.listaSeries = resp.results;
+        });
+      } else if (this.keyId) {
+        this.peliculaService.getPeliculasPorPalabraClave(this.keyId).subscribe((resp) => {
+          this.listaPeliculas = resp.results;
         });
       }
     });

@@ -20,7 +20,8 @@ const routes: Routes = [
   {path: 'actores', component: ActorListComponent},
   {path: 'series/:id', component: SerieDetailsComponent},
   {path: 'approved', component: ApprovedComponent},
-  { path: 'search', component: SearchComponent }
+  { path: 'search', component: SearchComponent },
+  {path: 'key/:id', component: SearchComponent}
 ]
 
 @NgModule({

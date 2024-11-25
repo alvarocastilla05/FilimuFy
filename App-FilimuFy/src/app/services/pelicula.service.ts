@@ -63,4 +63,8 @@ export class PeliculaService {
     return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}`);
 
   }
+
+  getPeliculasPorPalabraClave(keywordId: number): Observable<PeliculaListResponse>{
+    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/keyword/${keywordId}/movies?api_key=${API_KEY}&language=es-ES`);
+  }
 }
