@@ -1,12 +1,12 @@
-<div class="container mt-5 pb-4">
+<div class="container mt-5 pb-4" style="width: 90%">
     <div class="row mt-5">
         <!-- Columna izquierda: Filtros y Géneros -->
-        <div class="col-md-3 col-12 mb-4">
+        <div class="col-md-3 col-12 mb-4 pe-5">
             <!-- Título de filtros -->
-            <h2 class="mb-4 jockeyOne">Filtros</h2>
+            <h1 class="mb-2 jockeyOne azul text-center"><i class="bi bi-funnel-fill"></i> Filtros</h1>
             <hr>
-            <h3 class="mb-3 jockeyOne">Géneros</h3>
-            <hr>
+            <h3 class="mb-2 jockeyOne">Géneros</h3>
+        
             <!-- Lista de géneros con flexbox -->
             <div class="d-flex flex-wrap gap-2">
                 <div *ngFor="let genero of listaGeneros; let i = index">
@@ -30,7 +30,7 @@
             <!-- Botón Filtrar -->
             <div class="d-flex justify-content-start mt-4">
                 <button 
-                    class="btn btn-success btn-lg w-100 jockeyOne sombra azulOscuro"
+                    class="btn btn-primary btn-lg w-100 jockeyOne sombra azulOscuro"
                     (click)="filtrarPorGenero()">
                     Filtrar
                 </button>

@@ -114,7 +114,7 @@
             <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
         
             <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
-                @if(listaCreditos.length != 0){
+                @if(listaCreditos.length > 4){
                     <div class="row d-flex flex-nowrap mt-1" style="
                         overflow: auto; 
                         white-space: nowrap; 
@@ -123,6 +123,12 @@
                         overscroll-behavior-x: contain;
                         scroll-snap-type: x proximity; 
                         margin: 50px auto 0;">
+                        <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
+                            <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
+                        </div>
+                    </div>
+                }@else if (listaCreditos.length > 0 && listaCreditos.length <= 4) {
+                    <div class="row d-flex flex-nowrap mt-1">
                         <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
                             <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
                         </div>
