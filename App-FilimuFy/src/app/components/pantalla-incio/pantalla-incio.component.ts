@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Pelicula } from '../../interfaces/pelicula-list.interfaces';
+import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { PeliculaService } from '../../services/pelicula.service';
 import { ActorService } from '../../services/actor.service';
 import { TVShowService } from '../../services/tvshow.service';
-import { TVShow } from '../../interfaces/tv.interface';
-import { Actor } from '../../interfaces/actores-list.interface';
+import { TVShow } from '../../interfaces/serie/tv.interface';
+import { Actor } from '../../interfaces/actor/actores-list.interface';
 
 @Component({
   selector: 'app-pantalla-incio',

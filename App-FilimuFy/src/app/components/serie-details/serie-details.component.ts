@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SerieDetailResponse } from '../../interfaces/serie-detail.interface';
+import { SerieDetailResponse } from '../../interfaces/serie/serie-detail.interface';
 import { TVShowService } from '../../services/tvshow.service';
 import { ActivatedRoute } from '@angular/router';
-import { VideoSerie, VideoSerieListResponse } from '../../interfaces/videoSeries.interfaces';
-import { Cast, CreditosListResponse } from '../../interfaces/credito.interfaces';
-import { Pais } from '../../interfaces/contentRatingsCertifications.interfaces';
-import { Region } from '../../interfaces/proveedorSerie.interfaces';
-import { Keyword } from '../../interfaces/serie-keywords.interfaces';
-import { Buy, Flatrate } from '../../interfaces/proveedorPeli.interfaces';
+import { VideoSerie, VideoSerieListResponse } from '../../interfaces/serie/videoSeries.interfaces';
+import { Cast, CreditosListResponse } from '../../interfaces/otros/credito.interfaces';
+import { Pais } from '../../interfaces/serie/contentRatingsCertifications.interfaces';
+import { Region } from '../../interfaces/serie/proveedorSerie.interfaces';
+import { Keyword } from '../../interfaces/serie/serie-keywords.interfaces';
+import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
 
 @Component({
   selector: 'app-serie-details',

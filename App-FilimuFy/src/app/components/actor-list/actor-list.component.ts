@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Actor } from '../../interfaces/actores-list.interface';
+import { Actor } from '../../interfaces/actor/actores-list.interface';
 import { ActorService } from '../../services/actor.service';
 
 @Component({
