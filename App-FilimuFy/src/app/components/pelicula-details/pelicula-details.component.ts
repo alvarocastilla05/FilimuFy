@@ -94,8 +94,4 @@ export class PeliculaDetailsComponent implements OnInit{
     return certificacion;
   }
 
-  isLoggedIn() {
-    return localStorage.getItem('logged_in') === 'true';
-  }
-
 }

@@ -9,15 +9,6 @@
     font-family: 'jockeyOne';
 }
 
-@font-face {
-    font-family: 'freeman';
-    src: url(../../fonts/Freeman-Regular.ttf);
-}
-
-.freeman {
-    font-family: 'freeman';
-}
-
 /* HEADER -------------------------------------------------------------------------------------------------------------- */
 
 header {
@@ -73,9 +64,19 @@ input::placeholder {
     transition-duration: 0.01s;
 }
 
-.btnIniciarSesion:hover{
+.btnIniciarSesion:hover {
     background: linear-gradient(to right, #FFC107, #FFC107);
     color: black;
+}
+
+.btnCerrarSesion {
+    background-color: #20B7E5;
+    color: white;
+}
+
+.btnCerrarSesion:hover {
+    background-color: #E95573;
+    color: white;
 }
 
 /* NAVBAR -------------------------------------------------------------------------------------------------------------- */
@@ -91,58 +92,4 @@ nav {
 
 .textoAntiRomboide {
     transform: skew(30deg);     /* Transformación inversa que anula la inclinación del texto*/
-}
-
-/* DROPDOWN USUARIO ---------------------------------------------------------------------------------------------------- */
-
-.fondoGris {
-    background-color: #000A1E;
-    color: white;
-}
-
-.bordeRosa{
-    border: 4px solid #E95573;
-}
-
-.corazon{
-    color: #E95573;
-}
-
-.etiqueta{
-    color: #00DBAF;
-}
-
-.puntosSuspensivos{
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
-}
-
-.btnCerrarSesion {
-    background-color: #E95573;
-    color: white;
-}
-
-.btnCerrarSesion:hover{
-    background-color: #FFC107;
-    color: black;
-}
-
-.g1:hover{
-    background-color: #e4637d;
-    color: white;
-}
-
-.g2:hover{
-    background-color: #fbbd03;
-    color: white;
-}
-
-.g3:hover{
-    background-color: #00A785;
-    color: white;
-}
-
-.g1:hover>h4>i, .g2:hover>h4>i, .g3:hover>h4>i{
-    color: white !important;
 }

@@ -72,36 +72,6 @@
     color: black !important;
 }
 
-/*AÑADIR A FAVORITO, VALORAR, AÑADIR A WATCHLISTS -------------------------------------------------------------- */
-
-.tamanhoIcono{
-    font-size: 24px;
-}
-
-.boton{
-    background-color: #909090;
-    color: white;
-}
-
-.corazon{
-    background-color: #e4637d;
-    color: white;
-}
-
-.estrella{
-    background-color: #fbbd03;
-    color: white;
-}
-
-.etiqueta{
-    background-color: #00A785;
-    color: white;
-}
-
-.sombraFuerte {
-    box-shadow: 4px 4px 4px rgb(0, 0, 0, 50%);
-}
-
 /*TARJETAS DE TEMPORADA ----------------------------------------------------------------------------------------- */
 
 .negro{

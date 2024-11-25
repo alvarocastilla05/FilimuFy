@@ -22,7 +22,7 @@
       </h1>
       <!--PEGI y Géneros-->
       <div class="container w-100 px-3 d-flex align-items-center">
-        <h3 class="m-0 me-4 p-2 rounded-3 freeman sombra text-white" 
+        <h3 class="m-0 me-4 p-2 rounded-3 freeman text-white" 
           [style]="getCertification() | edadFondoColor" [innerHTML]="getCertification()"></h3>
         <h4 class="m-0 freeman gris">
           @if(pelicula!.genres.length != 0){
@@ -65,34 +65,14 @@
       }@else {
         <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
       }
-      <!--Tráiler y opciones de usuario-->
-      <div class="container m-0 p-0 d-flex">
-
-        <div class="p-3 pt-2 me-4" *ngIf="selectedVideo">
-          <a type="button" class="btn d-inline-flex fondoRosa sombra p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
-            [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
-            <h5 class="m-0 freeman text-white align-middle d-flex align-items-center">
-              <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir tráiler
-            </h5>
-          </a>
-        </div>
-
-        @if(isLoggedIn()) {
-          <div class="m-0 p-3 pt-2 d-flex">
-            <!--Añadir a Favoritos-->
-            <button  type="button" class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center me-1">
-              <i class="bi bi-suit-heart-fill tamanhoIcono pt-1 p-2 pb-0"></i>
-            </button>
-            <!--Valorar-->
-            <button type="button" class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2 me-1">
-              <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
-            </button>
-            <!--Añadir a Watchlists-->
-            <button type="button" class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2">
-              <i class="bi bi-bookmark-fill tamanhoIcono py-0 p-2"></i>
-            </button>
-          </div>
-        }
+      <!--Tráiler-->
+      <div class="p-3 pt-2" *ngIf="selectedVideo">
+        <a type="button" class="btn d-inline-flex fondoRosa p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
+          [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
+          <h5 class="m-0 freeman text-white align-middle d-flex align-items-center">
+            <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir tráiler
+          </h5>
+        </a>
       </div>
 
     </div>
