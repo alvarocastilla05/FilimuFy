@@ -59,4 +59,10 @@ export class TVShowService {
   getSeriesPorGenero(currentPage: number, genreId: number[] | undefined): Observable<TVShowListResponse>{
     return this.http.get<TVShowListResponse>(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}`);
   }
+
+  getSeriesPorPalabraClave(keywordId: number, currentPage: number): Observable<TVShowListResponse> {
+    return this.http.get<TVShowListResponse>(
+      `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
+    );
+  }
 }

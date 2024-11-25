@@ -1,40 +1,85 @@
 <div class="container mt-5">
   <h1 class="jockeyOne m-0" *ngIf="query">Resultados para "{{ query }}"</h1>
-  <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para la "{{keyId}}"</h1>
+  <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para la "{{ keyName }}"</h1>
 
-  <div *ngIf="listaPeliculas.length > 0" class="container mt-5">
-    <h1 class="jockeyOne m-0">Películas</h1>
-    <div class="row">
-      <div
-        class="col-md-3 col-12 p-2 my-3 mt-2"
-        *ngFor="let pelicula of listaPeliculas"
+  <!-- Pestañas estilo Google -->
+  <ul class="nav nav-pills justify-content-center mb-5 pt-5">
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
+        (click)="showPeliculas = true; showSeries = false"
+        role="button"
       >
-        <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+        Películas
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
+        (click)="showPeliculas = false; showSeries = true"
+        role="button"
+      >
+        Series
+      </a>
+    </li>
+  </ul>
+  
+
+  <!-- Sección de Películas -->
+  <div *ngIf="showPeliculas">
+    <div *ngIf="listaPeliculas.length > 0">
+      <h2 class="jockeyOne">Películas</h2>
+      <div class="row d-flex justify-content-center">
+        <div
+          class="col-6 col-md-3 col-lg-3 p-3 my-3"
+          *ngFor="let pelicula of listaPeliculas"
+        >
+          <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <button
+          *ngIf="keyId"
+          class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
+          (click)="cargarMasPeliculasFiltradas()"
+        >
+          Mostrar más películas
+        </button>
       </div>
     </div>
   </div>
 
-  <div *ngIf="listaSeries.length > 0 && query" class="container mt-5">
-    <h1 class="jockeyOne m-0">Series</h1>
-    <div class="row">
-      <div
-        class="col-md-3 col-12 p-2 my-3 mt-2"
-        *ngFor="let serie of listaSeries"
-      >
-        <app-serie-card [serieId]="serie.id"></app-serie-card>
+  <!-- Sección de Series -->
+  <div *ngIf="showSeries">
+    <div *ngIf="listaSeries.length > 0">
+      <h2 class="jockeyOne">Series</h2>
+      <div class="row d-flex justify-content-center">
+        <div
+          class="col-6 col-md-3 col-lg-3 p-3 my-3"
+          *ngFor="let serie of listaSeries"
+        >
+          <app-serie-card [serieId]="serie.id"></app-serie-card>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <button
+          *ngIf="keyId"
+          class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
+          (click)="cargarMasSeriesFiltradas()"
+        >
+          Mostrar más series
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="d-flex justify-content-center mt-3">
-    <button 
-      class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" 
-      (click)="cargarMasPeliculasFiltradas()">
-      Mostrar más películas
-    </button>
-  </div>
-
-  <div *ngIf="listaPeliculas.length === 0 && listaSeries.length === 0 && (query || keyId)" class="mt-5">
+  <!-- Mensaje de "No se encontraron resultados" -->
+  <div
+    *ngIf="listaPeliculas.length === 0 && listaSeries.length === 0 && (query || keyId)"
+    class="mt-5 text-center"
+  >
     <h3>No se encontraron resultados.</h3>
   </div>
 </div>
