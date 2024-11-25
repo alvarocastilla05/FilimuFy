@@ -16,10 +16,25 @@
                     number:'1.0-1' }} /10</h6>
             </div>
             <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{peliculaDetalle!.title}}</h5>
-            <p class="card-text gris freeman m-0 puntosSuspensivos">{{peliculaDetalle!.release_date | date:'yyyy'}} - <span
-                    *ngFor="let genre of peliculaDetalle!.genres; let i = index">{{ genre.name }}<span
-                        *ngIf="i < peliculaDetalle!.genres.length - 1"> / </span></span>
-            </p>
+
+            <!--Año de estreno y géneros-->
+            @if(peliculaDetalle!.genres.length > 0 && peliculaDetalle!.release_date !== ''){
+                <p class="card-text gris freeman m-0 puntosSuspensivos">{{peliculaDetalle!.release_date | date:'yyyy'}} - <span
+                        *ngFor="let genre of peliculaDetalle!.genres; let i = index">{{ genre.name }}<span
+                            *ngIf="i < peliculaDetalle!.genres.length - 1"> / </span></span>
+                </p>
+            }@else if(peliculaDetalle!.genres.length > 0 && peliculaDetalle!.release_date === ''){
+                <p class="card-text gris freeman m-0 puntosSuspensivos">
+                    <span *ngFor="let genre of peliculaDetalle!.genres; let i = index">{{ genre.name }}
+                        <span *ngIf="i < peliculaDetalle!.genres.length - 1"> / </span>
+                    </span>
+                </p>
+            }@else if(peliculaDetalle!.genres.length == 0 && peliculaDetalle!.release_date === ''){
+                <p class="card-text gris freeman m-0 puntosSuspensivos">-</p>
+            }@else{
+                <p class="card-text gris freeman m-0 puntosSuspensivos">{{peliculaDetalle!.release_date | date:'yyyy'}}</p>
+            }
+
             <div class="d-flex">
                 <p class="card-text gris freeman m-0 me-2">{{peliculaDetalle!.runtime | horasMin}}</p>
                 <p class="card-text gris freeman m-0" [style]="getCertification() | edadColor" [innerHTML]="getCertification()"></p>
