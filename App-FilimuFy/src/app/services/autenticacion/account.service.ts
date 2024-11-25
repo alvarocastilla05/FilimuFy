@@ -25,6 +25,13 @@ export class AccountService {
     return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/account/${account_id}/favorite/movies?api_key=${API_KEY}&page=${page}&language=es-ES`);
   }
 
+  getUrlAddFavoritos(): string {
+    let sessionId = localStorage.getItem('session_id');
+    let accountId = parseInt(localStorage.getItem('account_id') ?? '0', 10);
+    let urlAddFavoritos = `https://api.themoviedb.org/3/account/${accountId}/favorite?api_key=${API_KEY}&session_id=${sessionId}`;
+    return urlAddFavoritos;
+  }
+
   getSeriesFavoritas(page: number = 1, account_id: number | undefined): Observable<TVShowListResponse>{
     return this.http.get<TVShowListResponse>(`https://api.themoviedb.org/3/account/${account_id}/favorite/tv?api_key=${API_KEY}&page=${page}&language=es-ES`);
   }

@@ -10,7 +10,6 @@ import { TVShow } from '../../interfaces/serie/tv.interface';
 })
 export class FavoritosListComponent implements OnInit, OnChanges {
 
-  idString: string = "";
   account_id: number | undefined;
   listaPeliculasFavs: Pelicula[] = [];
   listaSeriesFavs: TVShow[] = [];
@@ -25,10 +24,9 @@ export class FavoritosListComponent implements OnInit, OnChanges {
   ngOnInit(): void {
 
     // Recoge el ID del usuario registrado.
-    this.idString = localStorage.getItem('account_id') ?? '';
-    //this.account_id = Math.floor(this.idString);
-
+    this.account_id = parseInt(localStorage.getItem('account_id') ?? '0', 10);
     console.log("ID DE CUENTA: "+this.account_id);
+    console.log(this.listaPeliculasFavs);
 
     // Cargar las primeras películas al inicializar el componente
     this.cargarPeliculas();
@@ -87,4 +85,5 @@ export class FavoritosListComponent implements OnInit, OnChanges {
   /*cargarMasSeries(): void {
     this.currentPageSeries++;
   }*/
+ 
 }
