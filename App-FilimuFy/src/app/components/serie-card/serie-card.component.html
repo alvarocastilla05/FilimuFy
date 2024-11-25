@@ -16,10 +16,25 @@
                     number:'1.0-1' }} /10</h6>
             </div>
             <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{serieDetalle!.name}}</h5>
-            <p class="card-text gris freeman m-0 puntosSuspensivos">{{serieDetalle!.first_air_date | date:'yyyy'}} - <span
-              *ngFor="let genre of serieDetalle!.genres; let i = index">{{ genre.name }}<span
-                  *ngIf="i < serieDetalle!.genres.length - 1"> / </span></span>
-            </p>
+
+            <!--Año de estreno y géneros-->
+            @if(serieDetalle!.genres.length > 0 && serieDetalle!.first_air_date !== ''){
+              <p class="card-text gris freeman m-0 puntosSuspensivos">{{serieDetalle!.first_air_date | date:'yyyy'}} - <span
+                *ngFor="let genre of serieDetalle!.genres; let i = index">{{ genre.name }}<span
+                    *ngIf="i < serieDetalle!.genres.length - 1"> / </span></span>
+              </p>
+            }@else if(serieDetalle!.genres.length > 0 && serieDetalle!.first_air_date === ''){
+              <p class="card-text gris freeman m-0 puntosSuspensivos">
+                <span *ngFor="let genre of serieDetalle!.genres; let i = index">{{ genre.name }}
+                  <span *ngIf="i < serieDetalle!.genres.length - 1"> / </span>
+                </span>
+              </p>
+            }@else if(serieDetalle!.genres.length == 0 && serieDetalle!.first_air_date === ''){
+              <p class="card-text gris freeman m-0 puntosSuspensivos">-</p>
+            }@else {
+              <p class="card-text gris freeman m-0 puntosSuspensivos">{{serieDetalle!.first_air_date | date:'yyyy'}}</p>
+            }
+
             <div class="d-flex">
               <p class="card-text gris freeman m-0 me-2">
                 <span *ngIf="serieDetalle!.number_of_seasons === 1">

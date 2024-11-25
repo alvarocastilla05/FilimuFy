@@ -7,9 +7,14 @@
     font-family: 'jockeyOne';
 }
 
+.azul{
+    color: #001743;
+}
+
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }
+
 .azulOscuro{
     background-color: #000A1E;
 }
