@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
 import { Cast, CreditosListResponse } from '../../interfaces/otros/credito.interfaces';
 import { Video, VIdeoListResponse } from '../../interfaces/pelicula/videoPelis.interfaces';
@@ -17,7 +17,7 @@ import { AccountService } from '../../services/autenticacion/account.service';
 })
 export class PeliculaDetailsComponent implements OnInit{
 
-  estadoFav = false;
+  estadoFav: boolean = false;
 
   peliculaId: string | null = '';
   pelicula: PeliculaDetailResponse | undefined;
@@ -75,7 +75,7 @@ export class PeliculaDetailsComponent implements OnInit{
       this.regionList = resp.results;
     });
     
-    this.cambioEstiloBotonFavorito();
+    this.inicializarEstadoFav();
   }
 
   seleccionarVideo(video: Video) {
@@ -104,13 +104,60 @@ export class PeliculaDetailsComponent implements OnInit{
     return localStorage.getItem('logged_in') === 'true';
   }
 
-  // Método para agregar una película a los favoritos.
-  async addQuitFavoritos(peliculaId: number): Promise<Favoritos_WatchlistResponse> {
+
+
+
+
+
+
+
+
+
+
+
+  
+    // Método para obtener el estado inicial de favoritos
+  async obtenerEstadoFavorito(peliculaId: number): Promise<boolean> {
+    const urlEstadoFavorito = this.accountService.getUrlEstadoFavorito(peliculaId);
+    try {
+      const response = await fetch(urlEstadoFavorito);
+      if (!response.ok) {
+        throw new Error(`Error al obtener estado de favorito: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.favorite;  // Si está en favoritos, devuelve true
+    } catch (error) {
+      console.error('Error al obtener estado de favoritos:', error);
+      return false;
+    }
+  }
+
+  // Método que se ejecuta cuando la página se carga o el componente se inicializa
+  async inicializarEstadoFav(): Promise<void> {
+    if (this.peliculaId) {
+      this.estadoFav = await this.obtenerEstadoFavorito(parseInt(this.peliculaId!));
+    }
+  }
+
+  // Método para alternar el estado de favorito
+  async toggleFavoritos(peliculaId: number): Promise<void> {
+    this.estadoFav = !this.estadoFav;  // Cambia entre true o false
+    try {
+      const result = await this.addOrRemoveFavoritos(peliculaId);
+      console.log('Estado de favoritos actualizado:', result);
+    } catch (error) {
+      console.error('Error al actualizar favoritos:', error);
+    }
+  }
+
+  // Método para añadir o quitar de favoritos
+  async addOrRemoveFavoritos(peliculaId: number): Promise<any> {
     const urlAddFavoritos = this.accountService.getUrlAddFavoritos();
     const data = {
       media_type: "movie",  // Cambiar a "tv" si es una serie
       media_id: peliculaId,
-      favorite: this.estadoFav  // Variable true añade favorito.
+      favorite: this.estadoFav, // true para añadir, false para quitar
     };
 
     try {
@@ -123,35 +170,20 @@ export class PeliculaDetailsComponent implements OnInit{
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const errorMessage = await response.text();
+        throw new Error(`Error al añadir/quitar favorito: ${response.status} - ${errorMessage}`);
       }
 
-      const result: Favoritos_WatchlistResponse = await response.json();
+      const result = await response.json();
       return result;
     } catch (error) {
-      console.error('Error al añadir favorito:', error);
+      console.error('Error en la operación de favorito:', error);
       throw error;
     }
   }
 
-  cambioEstiloBotonFavorito() {
-    const boton = document.getElementById('favorito') as HTMLButtonElement;
-
-    if (this.estadoFav) {
-      // Restaurar el color original
-      boton.style.backgroundColor = '#909090';
-      boton.style.color = 'white';
-      this.addQuitFavoritos(parseInt(this.peliculaId!));
-    } else {
-      // Cambiar el color del botón
-      boton.style.backgroundColor = '#e4637d';
-      boton.style.color = 'white';
-      this.addQuitFavoritos(parseInt(this.peliculaId!));
-    }
-
-    // Alternar el estado de color
-    this.estadoFav = !this.estadoFav;
+  // Método del botón para manejar el clic
+  onFavoritosBotonClick(peliculaId: number): void {
+    this.toggleFavoritos(peliculaId);
   }
-
-
 }

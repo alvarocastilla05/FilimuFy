@@ -46,7 +46,7 @@ export class FavoritosListComponent implements OnInit, OnChanges {
   
   cargarPeliculas(append: boolean = false): void {
     this.loading = true;
-    this.accountService.getPeliculasFavoritas(this.currentPagePeliculas, this.account_id).subscribe(resp => {
+    this.accountService.getPeliculasFavoritas(this.currentPagePeliculas).subscribe(resp => {
       if (append) {
         this.listaPeliculasFavs = [...this.listaPeliculasFavs, ...resp.results];
       } else {
