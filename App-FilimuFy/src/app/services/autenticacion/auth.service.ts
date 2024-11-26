@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateRequestTokenResponse } from '../../interfaces/autenticacion/create-request-token.interface';
 import { CreateSessionResponse } from '../../interfaces/autenticacion/create-session.interface';
+import { environment } from '../../../environments/environment';
 
-const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd";
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +15,14 @@ export class AuthService {
   // STEP 1
   createRequestToken(): Observable<CreateRequestTokenResponse> {
     return this.http.get<CreateRequestTokenResponse>(
-      `https://api.themoviedb.org/3/authentication/token/new?api_key=${API_KEY}`
+      `${environment.apiBaseUrl}/authentication/token/new?api_key=${environment.apiKey}`
     );
   }
 
   // STEP 3
   createSession(): Observable<CreateSessionResponse> {
     return this.http.post<CreateSessionResponse>(
-      `https://api.themoviedb.org/3/authentication/session/new?api_key=${API_KEY}`,
+      `${environment.apiBaseUrl}/authentication/session/new?api_key=${environment.apiKey}`,
       {
         request_token: localStorage.getItem('token'),
       }

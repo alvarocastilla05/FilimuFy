@@ -9,8 +9,8 @@ import { VIdeoListResponse } from '../interfaces/pelicula/videoPelis.interfaces'
 import { ProveedoreesPeliListResponse } from '../interfaces/pelicula/proveedorPeli.interfaces';
 import { FechaSalidaResponse } from '../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { KeywordsListResponse } from '../interfaces/pelicula/pelicula-keywords.interfaces';
+import { environment } from '../../environments/environment';
 
-const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 
 @Injectable({
   providedIn: 'root'
@@ -22,51 +22,51 @@ export class PeliculaService {
   constructor(private http: HttpClient) { }
 
   getPeliculas(page: number = 1): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}&language=es-ES`);
+    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/movie/popular?api_key=${environment.apiKey}&page=${page}&language=es-ES`);
   }
 
   getPeliculaById(id: number): Observable<PeliculaDetailResponse>{
-    return this.http.get<PeliculaDetailResponse>(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<PeliculaDetailResponse>(`${environment.apiBaseUrl}/movie/${id}?api_key=${environment.apiKey}&language=es-ES`);
   }
 
   getGeneroById(id: number): Observable<GenreListResponse>{
-    return this.http.get<GenreListResponse>(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<GenreListResponse>(`${environment.apiBaseUrl}/genre/movie/list?api_key=${environment.apiKey}&language=es-ES`);
   }
 
   getCreditosById(id: number): Observable<CreditosListResponse>{
-    return this.http.get<CreditosListResponse>(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<CreditosListResponse>(`${environment.apiBaseUrl}/movie/${id}/credits?api_key=${environment.apiKey}&language=es-ES`);
   }
 
   getVideoById(id: string): Observable<VIdeoListResponse>{
-    return this.http.get<VIdeoListResponse>(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<VIdeoListResponse>(`${environment.apiBaseUrl}/movie/${id}/videos?api_key=${environment.apiKey}&language=es-ES`);
   }
 
   getCertificationById(id: number): Observable<FechaSalidaResponse>{
-    return this.http.get<FechaSalidaResponse>(`https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<FechaSalidaResponse>(`${environment.apiBaseUrl}/movie/${id}/release_dates?api_key=${environment.apiKey}&language=es-ES`);
   }
 
   getProveedoresById(id: number): Observable<ProveedoreesPeliListResponse>{
-    return this.http.get<ProveedoreesPeliListResponse>(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<ProveedoreesPeliListResponse>(`${environment.apiBaseUrl}/movie/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
   }
   
   getKeywordsById(id: number): Observable<KeywordsListResponse>{
-    return this.http.get<KeywordsListResponse>(`https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<KeywordsListResponse>(`${environment.apiBaseUrl}/movie/${id}/keywords?api_key=${environment.apiKey}&language=es-ES`);
   }
 
   searchPeliculas(query: string) {
     return this.http.get<any>(
-      `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`
+      `${environment.apiBaseUrl}/search/movie?query=${query}&api_key=${environment.apiKey}`
     );
   }
   
   getPeliculasPorGenero(currentPage: number, genreId: number[] | undefined): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}`);
+    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}`);
 
   }
 
   getPeliculasPorPalabraClave(keywordId: number, currentPage: number): Observable<PeliculaListResponse> {
     return this.http.get<PeliculaListResponse>(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
+      `${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
     );
   }
 }
