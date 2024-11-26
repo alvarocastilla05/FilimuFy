@@ -105,3 +105,17 @@
     background-color: #00A785;
     color: white;
 }
+
+/*VALORAR PELÍCULA -------------------------------------------------------------- */
+
+.bordeAmarillo{
+    border: 4px solid #fbbd03;
+}
+
+.bordeRosa{
+    border: 4px solid #ff6383;
+}
+
+.degradado2{
+    background: linear-gradient(to right, #ff7b00, #fbbd03);
+}
