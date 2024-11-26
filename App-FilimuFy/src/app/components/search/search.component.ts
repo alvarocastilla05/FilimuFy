@@ -75,12 +75,7 @@ export class SearchComponent implements OnInit {
           this.listaPeliculas = resp.results;
         }
         this.loading = false; // Finalizar estado de carga
-      },
-      (error) => {
-        console.error('Error al filtrar películas:', error);
-        this.loading = false; // Manejar error
-      }
-    );
+      });
   }
 
   filtrarSeriesPorKeyId(append: boolean = false): void {
@@ -95,12 +90,8 @@ export class SearchComponent implements OnInit {
           this.listaSeries = resp.results;
         }
         this.loading = false; // Finalizar estado de carga
-      },
-      (error) => {
-        console.error('Error al filtrar series:', error);
-        this.loading = false; // Manejar error
-      }
-    );
+      
+      });
   }
 
   cargarMasPeliculasFiltradas(): void {
