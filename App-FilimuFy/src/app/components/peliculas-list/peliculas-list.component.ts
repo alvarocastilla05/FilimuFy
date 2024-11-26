@@ -32,8 +32,6 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     // Cargar los géneros al inicializar el componente
     this.generoService.getGenerosPelicula().subscribe(resp => {
       this.listaGeneros = resp.genres;
-    }, error => {
-      console.error('Error al cargar géneros:', error);
     });
   }
 
@@ -57,9 +55,6 @@ export class PeliculasListComponent implements OnInit, OnChanges {
           this.listaPeliculas = resp.results;
         }
         this.loading = false;
-      }, error => {
-        console.error('Error al cargar películas:', error);
-        this.loading = false;
       });
     } else {
       this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
@@ -68,9 +63,6 @@ export class PeliculasListComponent implements OnInit, OnChanges {
         } else {
           this.listaPeliculas = resp.results;
         }
-        this.loading = false;
-      }, error => {
-        console.error('Error al cargar películas:', error);
         this.loading = false;
       });
     }

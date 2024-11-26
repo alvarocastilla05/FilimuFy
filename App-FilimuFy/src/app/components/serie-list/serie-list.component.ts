@@ -29,8 +29,6 @@ export class SerieListComponent implements OnInit{
     // Cargar los géneros al inicializar el componente
     this.generoService.getGenerosSerie().subscribe(resp => {
       this.listaGeneros = resp.genres;
-    }, error => {
-      console.error('Error al cargar géneros:', error);
     });
   }
 
@@ -49,9 +47,6 @@ export class SerieListComponent implements OnInit{
           this.listaSeries = resp.results;
         }
         this.loading = false;
-      }, error => {
-        console.error('Error al cargar series:', error);
-        this.loading = false;
       });
     } else {
       this.serieService.getSeries(this.currentPage).subscribe(resp => {
@@ -60,9 +55,6 @@ export class SerieListComponent implements OnInit{
         } else {
           this.listaSeries = resp.results;
         }
-        this.loading = false;
-      }, error => {
-        console.error('Error al cargar series:', error);
         this.loading = false;
       });
     }
