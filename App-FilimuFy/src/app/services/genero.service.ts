@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneroListResponse } from '../interfaces/generoPelis.interfaces';
+import { environment } from '../../environments/environment';
 
-const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
  
 
 @Injectable({
@@ -14,10 +14,10 @@ export class GeneroService {
   constructor(private http: HttpClient) { }
 
   getGenerosPelicula(): Observable<GeneroListResponse>{
-    return this.http.get<GeneroListResponse>(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<GeneroListResponse>(`${environment.apiBaseUrl}/genre/movie/list?api_key=${environment.apiKey}&language=es-ES`);
   }
 
   getGenerosSerie(): Observable<GeneroListResponse>{
-    return this.http.get<GeneroListResponse>(`https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}&language=es-ES`);
+    return this.http.get<GeneroListResponse>(`${environment.apiBaseUrl}/genre/tv/list?api_key=${environment.apiKey}&language=es-ES`);
   }
 }
