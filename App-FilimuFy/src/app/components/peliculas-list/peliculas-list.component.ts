@@ -49,26 +49,21 @@ export class PeliculasListComponent implements OnInit, OnChanges {
 
   cargarPeliculas(genreIds?: number[], append: boolean = false): void {
     this.loading = true;
-    /*this.listaPeliculas = this.listaPeliculas.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);*/
+  
+    if (!append) {
+      this.listaPeliculas = [];
+    }
+  
     if (genreIds && genreIds.length > 0) {
       this.peliculaService.getPeliculasPorGenero(this.currentPage, genreIds).subscribe(resp => {
-        if (append) {
-          this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
-        } else {
-          /*this.listaPeliculas.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);*/
-          this.listaPeliculas = resp.results;
-        }
+        let filteredPeliculas = resp.results.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);
+        this.listaPeliculas = append ? [...this.listaPeliculas, ...filteredPeliculas] : filteredPeliculas;
         this.loading = false;
-      })
+      });
     } else {
       this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
-        if (append) {
-          /*this.listaPeliculas.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);*/
-          this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
-        } else {
-          /*this.listaPeliculas.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);*/
-          this.listaPeliculas = resp.results;
-        }
+        let filteredPeliculas = resp.results.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);
+        this.listaPeliculas = append ? [...this.listaPeliculas, ...filteredPeliculas] : filteredPeliculas;
         this.loading = false;
       });
     }
