@@ -4,87 +4,97 @@ import { TVShowService } from '../../services/tvshow.service';
 import { GeneroService } from '../../services/genero.service';
 import { Genre } from '../../interfaces/serie/serie-detail.interface';
 import { Flatrate } from '../../interfaces/serie/proveedorSerie.interfaces';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-serie-list',
   templateUrl: './serie-list.component.html',
   styleUrl: './serie-list.component.css'
 })
-export class SerieListComponent implements OnInit{
-
+export class SerieListComponent implements OnInit {
   listaSeries: TVShow[] = [];
+  todasLasSeries: TVShow[] = [];
   listaProveedores: Flatrate[] = [];
-  currentPage: number = 1; // Página inicial
-  loading: boolean = false; // Estado de carga
+  currentPage: number = 1;
+  paginaParaProveedores: number = 1;
+  loading: boolean = false;
   listaGeneros: Genre[] = [];
-  selectedGenres: number[] = []; // Géneros seleccionados
+  selectedGenres: number[] = [];
 
   constructor(
     private serieService: TVShowService,
     private generoService: GeneroService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    // Cargar las primeras películas al inicializar el componente
+    console.log('Inicializando componente SerieListComponent...');
     this.cargarSeries();
-
-    // Cargar los géneros al inicializar el componente
     this.generoService.getGenerosSerie().subscribe(resp => {
       this.listaGeneros = resp.genres;
+      console.log('Lista de géneros cargada:', this.listaGeneros);
     });
-
-    this.cargarTodasLasSeriesYProveedores();
-    console.log(this.listaProveedores);
+    this.cargarTodasLasSeries();
+    this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
+    console.log('Lista de proveedores:', this.listaProveedores);
   }
 
+  cargarTodasLasSeries(append: boolean = false): void {
+    this.loading = true;
+    let paginaActual = this.paginaParaProveedores;
 
-  cargarTodasLasSeriesYProveedores(): void {
-    let paginaActual = 1;
-    let hasMorePages = true;
-
-    // Lista temporal para almacenar todas las series obtenidas
-    const todasLasSeries: TVShow[] = [];
-
-    // Función para iterar por las páginas
     const cargarPagina = (): void => {
-      this.serieService.getSeries(paginaActual).subscribe(resp => {
-        todasLasSeries.push(...resp.results); // Agregar series de la página actual
-        hasMorePages = paginaActual < resp.total_pages; // Verificar si hay más páginas
+      this.serieService.getSeries(paginaActual).subscribe(
+        resp => {
+          if (append || this.todasLasSeries.length > 0) {
+            this.todasLasSeries = [...this.todasLasSeries, ...resp.results];
+          } else {
+            this.todasLasSeries = resp.results;
+          }
+          console.log(`Series de la página ${paginaActual}:`, resp.results);
 
-        if (hasMorePages) {
-          paginaActual++;
-          cargarPagina(); // Recursivo para la siguiente página
-        } else {
-          // Cuando se han cargado todas las series, cargamos los proveedores
-          this.cargarProveedoresDeSeries(todasLasSeries);
+          if (paginaActual < 100) {
+            paginaActual++;
+            cargarPagina();
+          } else {
+            this.loading = false;
+            console.log('Se han cargado todas las series:', this.todasLasSeries);
+          }
+        },
+        error => {
+          console.error('Error al cargar las series:', error);
+          this.loading = false;
         }
-      });
+      );
     };
 
     cargarPagina();
   }
 
-  cargarProveedoresDeSeries(series: TVShow[]): void {
-    series.forEach(serie => {
-      this.serieService.getProveedoresById(serie.id!).subscribe(respuesta => {
-        if (respuesta.results.ES?.flatrate) {
-          const nuevosProveedores = respuesta.results.ES.flatrate;
+  cargarProveedoresDeTodasLasSeries(series: TVShow[]): void {
+    const peticiones = series.map(serie =>
+      this.serieService.getProveedoresById(serie.id!) // Observable para obtener los proveedores por serie
+    );
   
-          // Añadir solo los proveedores que no estén ya en la lista
-          nuevosProveedores.forEach(proveedor => {
-            if (!this.listaProveedores.some(p => p.provider_id === proveedor.provider_id)) {
-              this.listaProveedores.push(proveedor);
+    forkJoin(peticiones).subscribe(respuestas => {
+      const proveedoresUnicos = new Map<number, Flatrate>();
+  
+      respuestas.forEach(respuesta => {
+        if (respuesta.results.ES?.flatrate) {
+          respuesta.results.ES.flatrate.forEach(proveedor => {
+            if (!proveedoresUnicos.has(proveedor.provider_id)) {
+              proveedoresUnicos.set(proveedor.provider_id, proveedor);
             }
           });
         }
       });
-    });
-  }
   
-
-  ngOnChanges(): void {
-    // Recargar las películas cuando haya cambios
-    this.cargarSeries();
+      // Convertimos el Map a un array y lo asignamos a listaProveedores
+      this.listaProveedores = Array.from(proveedoresUnicos.values());
+  
+      console.log('Todos los proveedores únicos:', this.listaProveedores);
+    }, error => {
+      console.error('Error al cargar los proveedores:', error);
+    });
   }
 
   cargarSeries(genreIds?: number[], append: boolean = false): void {
@@ -97,8 +107,8 @@ export class SerieListComponent implements OnInit{
           this.listaSeries = resp.results;
         }
         this.loading = false;
-
-        this.cargarProveedores();
+        this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
+        console.log('Lista de series filtrada por género:', this.listaSeries);
       });
     } else {
       this.serieService.getSeries(this.currentPage).subscribe(resp => {
@@ -108,20 +118,10 @@ export class SerieListComponent implements OnInit{
           this.listaSeries = resp.results;
         }
         this.loading = false;
-
-        this.cargarProveedores();
+        this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
+        console.log('Lista de series:', this.listaSeries);
       });
     }
-  }
-
-  cargarProveedores(): void {
-    this.listaSeries.forEach(serie => {
-      this.serieService.getProveedoresById(serie.id!).subscribe(respuesta => {
-        if (respuesta.results.ES?.flatrate) {
-          this.listaProveedores.push(...respuesta.results.ES.flatrate);
-        }
-      });
-    });
   }
 
   onGenreChange(event: any): void {
@@ -134,7 +134,7 @@ export class SerieListComponent implements OnInit{
   }
 
   filtrarPorGenero(): void {
-    this.currentPage = 1; // Reiniciar la página al filtrar
+    this.currentPage = 1;
     this.cargarSeries(this.selectedGenres);
   }
 
