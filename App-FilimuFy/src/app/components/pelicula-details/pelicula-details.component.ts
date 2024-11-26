@@ -136,13 +136,25 @@ export class PeliculaDetailsComponent implements OnInit{
   // Método que se ejecuta cuando la página se carga o el componente se inicializa
   async inicializarEstadoFav(): Promise<void> {
     if (this.peliculaId) {
-      this.estadoFav = await this.obtenerEstadoFavorito(parseInt(this.peliculaId!));
+      // Intenta obtener el estado de favoritos desde localStorage
+      const estadoFavGuardado = localStorage.getItem(`favorito-${this.peliculaId}`);
+      
+      if (estadoFavGuardado !== null) {
+        this.estadoFav = JSON.parse(estadoFavGuardado);  // Recuperar el estado almacenado
+      } else {
+        // Si no existe en localStorage, obtiene el estado desde la API
+        this.estadoFav = await this.obtenerEstadoFavorito(parseInt(this.peliculaId!));
+      }
     }
   }
 
   // Método para alternar el estado de favorito
   async toggleFavoritos(peliculaId: number): Promise<void> {
     this.estadoFav = !this.estadoFav;  // Cambia entre true o false
+
+    // Guardar en localStorage el estado de favoritos
+    localStorage.setItem(`favorito-${peliculaId}`, JSON.stringify(this.estadoFav));
+
     try {
       const result = await this.addOrRemoveFavoritos(peliculaId);
       console.log('Estado de favoritos actualizado:', result);
