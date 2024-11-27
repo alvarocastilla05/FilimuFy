@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountService } from '../../services/autenticacion/account.service';
 import { AuthService } from '../../services/autenticacion/auth.service';
-import { AvatarFotoPipe } from '../../pipes/avatarFoto.pipe';
 
 @Component({
   selector: 'app-approved',
@@ -24,6 +23,7 @@ export class ApprovedComponent {
         this.accountService.getAccountDetails().subscribe((response) => {
           localStorage.setItem('user_name', response.username);
           localStorage.setItem('user_photo', response.avatar.tmdb.avatar_path);
+          localStorage.setItem('account_id', response.id.toString());
           localStorage.setItem('logged_in', 'true');
 
           window.location.href = 'http://localhost:4200/inicio';

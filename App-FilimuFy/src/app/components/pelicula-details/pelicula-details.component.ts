@@ -7,6 +7,7 @@ import { Video, VIdeoListResponse } from '../../interfaces/pelicula/videoPelis.i
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
 import { Region } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces';
+import { AccountService } from '../../services/autenticacion/account.service';
 
 @Component({
   selector: 'app-pelicula-details',
@@ -14,6 +15,8 @@ import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces'
   styleUrl: './pelicula-details.component.css'
 })
 export class PeliculaDetailsComponent implements OnInit{
+
+  estadoFav: boolean = false;
 
   peliculaId: string | null = '';
   pelicula: PeliculaDetailResponse | undefined;
@@ -32,6 +35,7 @@ export class PeliculaDetailsComponent implements OnInit{
 
   constructor(
     private peliculaService: PeliculaService, 
+    private accountService: AccountService,
     private route: ActivatedRoute
   ) { }
 
@@ -70,6 +74,7 @@ export class PeliculaDetailsComponent implements OnInit{
       this.regionList = resp.results;
     });
     
+    this.inicializarEstadoFav();
   }
 
   seleccionarVideo(video: Video) {
@@ -98,4 +103,99 @@ export class PeliculaDetailsComponent implements OnInit{
     return localStorage.getItem('logged_in') === 'true';
   }
 
+
+
+
+
+
+
+
+
+
+
+  // BOTÓN FAVORITOS ------------------------------------------------------------------------------------------------------------------------
+
+  async obtenerEstadoFavorito(peliculaId: number): Promise<boolean> {
+    const urlEstadoFavorito = this.accountService.getUrlEstadoFavorito(peliculaId);
+    try {
+      const response = await fetch(urlEstadoFavorito);
+      if (!response.ok) {
+        throw new Error(`Error al obtener estado de favorito: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      return data.favorite;  // Si está en favoritos, devuelve true
+    } catch (error) {
+      console.error('Error al obtener estado de favoritos:', error);
+      return false;  // Si ocurre un error, consideramos que no está en favoritos
+    }
+  }
+
+  async inicializarEstadoFav(): Promise<void> {
+    if (this.peliculaId) {
+      // Primero, intenta obtener el estado desde localStorage
+      const estadoFavGuardado = localStorage.getItem(`favorito-${this.peliculaId}`);
+  
+      if (estadoFavGuardado !== null) {
+        this.estadoFav = JSON.parse(estadoFavGuardado);  // Si hay estado en localStorage, úsalo
+      } else {
+        // Si no existe en localStorage, obtiene el estado de la API de TMDB
+        this.estadoFav = await this.obtenerEstadoFavorito(parseInt(this.peliculaId!));
+        localStorage.setItem(`favorito-${this.peliculaId}`, JSON.stringify(this.estadoFav)); // Guarda en localStorage
+      }
+    }
+  }
+
+  async toggleFavoritos(peliculaId: number): Promise<void> {
+    this.estadoFav = !this.estadoFav;  // Alterna el estado
+  
+    // Guarda en localStorage el nuevo estado
+    localStorage.setItem(`favorito-${peliculaId}`, JSON.stringify(this.estadoFav));
+  
+    try {
+      // Llama al método para añadir o quitar de favoritos
+      const result = await this.addOrRemoveFavoritos(peliculaId);
+      console.log('Estado de favoritos actualizado:', result);
+    } catch (error) {
+      console.error('Error al actualizar favoritos:', error);
+    }
+  }
+
+  async addOrRemoveFavoritos(peliculaId: number): Promise<any> {
+    const urlAddFavoritos = this.accountService.getUrlAddFavoritos();
+    const data = {
+      media_type: "movie",  // Cambiar a "tv" si es una serie
+      media_id: peliculaId,
+      favorite: this.estadoFav, // true para añadir, false para quitar
+    };
+  
+    try {
+      const response = await fetch(urlAddFavoritos, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Error al añadir/quitar favorito: ${response.status} - ${errorMessage}`);
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en la operación de favorito:', error);
+      throw error;
+    }
+  }
+  
+  // Método del botón para manejar el clic
+  onFavoritosBotonClick(peliculaId: number): void {
+    this.toggleFavoritos(peliculaId);
+  }
+
+  //-----------------------------------------------------------------------------------------------------------------------------------------
+  
 }
