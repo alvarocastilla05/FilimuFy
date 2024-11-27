@@ -10,14 +10,13 @@ import { ProveedoreesPeliListResponse } from '../interfaces/pelicula/proveedorPe
 import { FechaSalidaResponse } from '../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { KeywordsListResponse } from '../interfaces/pelicula/pelicula-keywords.interfaces';
 import { environment } from '../../environments/environment';
+import { RatedPeliculasResponse } from '../interfaces/pelicula/rated-peliculas.interfaces';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeliculaService {
- 
-  
 
   constructor(private http: HttpClient) { }
 
@@ -67,6 +66,13 @@ export class PeliculaService {
   getPeliculasPorPalabraClave(keywordId: number, currentPage: number): Observable<PeliculaListResponse> {
     return this.http.get<PeliculaListResponse>(
       `${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
+    );
+  }
+
+  getRatedPeliculas(): Observable<RatedPeliculasResponse>{
+    return this.http.get<RatedPeliculasResponse>(
+      //{{API_URL}}account/{{ACCOUNT_ID}}/rated/movies{{API_REQ}}&session_id={{SESSION_ID}}
+      `${environment.apiBaseUrl}account/${environment.accountId}/rated/movies?api_key=${environment.apiKey}&session_id=${environment.accountId}&language=es-ES`
     );
   }
 }

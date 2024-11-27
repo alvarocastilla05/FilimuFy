@@ -7,6 +7,7 @@ import { Video, VIdeoListResponse } from '../../interfaces/pelicula/videoPelis.i
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
 import { Region } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces';
+import { RatedPelicula, RatedPeliculasResponse } from '../../interfaces/pelicula/rated-peliculas.interfaces';
 
 @Component({
   selector: 'app-pelicula-details',
@@ -30,7 +31,9 @@ export class PeliculaDetailsComponent implements OnInit{
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
 
-  rating: number = 10;
+  listaPeliculasValoradas: RatedPelicula[] = [];
+
+  rating: number = 0;
 
   constructor(
     private peliculaService: PeliculaService, 
@@ -94,6 +97,15 @@ export class PeliculaDetailsComponent implements OnInit{
       }
     }
     return certificacion;
+  }
+
+  //Valorar una película.
+  getPeliculaRated(){
+    if(this.rating != 0){
+      this.listaPeliculasValoradas.push(this.listaPeliculasValoradas.concat());
+    }
+
+    
   }
 
   isLoggedIn() {

@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <h1 class="jockeyOne m-0" *ngIf="query">Resultados para "{{ query }}"</h1>
-  <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para la "{{ keyName }}"</h1>
+  <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para "{{ keyName }}"</h1>
 
   <!-- Pestañas estilo Google -->
   <ul class="nav nav-pills justify-content-center mb-5 pt-5">
@@ -21,7 +21,6 @@
       </a>
     </li>
   </ul>
-  
 
   <!-- Sección de Películas -->
   <div *ngIf="showPeliculas">
@@ -44,6 +43,10 @@
           Mostrar más películas
         </button>
       </div>
+    </div>
+    <!--Mensaje de "Sin resultados"-->
+    <div *ngIf="listaPeliculas.length === 0 && (query || keyId)" class="mt-5 pt-5 text-center poppins">
+      <h4>No se han encontrado resultados relacionados con películas.</h4>
     </div>
   </div>
 
@@ -69,13 +72,10 @@
         </button>
       </div>
     </div>
+    <!--Mensaje de "Sin resultados"-->
+    <div *ngIf="listaSeries.length === 0 && (query || keyId)" class="mt-5 pt-5 text-center poppins">
+      <h4>No se han encontrado resultados relacionados con series.</h4>
+    </div>
   </div>
 
-  <!-- Mensaje de "No se encontraron resultados" -->
-  <div
-    *ngIf="listaPeliculas.length === 0 && listaSeries.length === 0 && (query || keyId)"
-    class="mt-5 text-center"
-  >
-    <h3>No se encontraron resultados.</h3>
-  </div>
 </div>
