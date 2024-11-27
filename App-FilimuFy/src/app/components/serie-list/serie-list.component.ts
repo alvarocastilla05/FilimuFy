@@ -5,6 +5,7 @@ import { GeneroService } from '../../services/genero.service';
 import { Genre } from '../../interfaces/serie/serie-detail.interface';
 import { Flatrate } from '../../interfaces/serie/proveedorSerie.interfaces';
 import { forkJoin } from 'rxjs';
+import { ProveedorService } from '../../services/proveedor.service';
 
 @Component({
   selector: 'app-serie-list',
@@ -20,10 +21,12 @@ export class SerieListComponent implements OnInit {
   loading: boolean = false;
   listaGeneros: Genre[] = [];
   selectedGenres: number[] = [];
+  selectedProviders: number[] = [];
 
   constructor(
     private serieService: TVShowService,
-    private generoService: GeneroService
+    private generoService: GeneroService,
+    private proveedorService: ProveedorService
   ) {}
 
   ngOnInit(): void {
@@ -33,11 +36,20 @@ export class SerieListComponent implements OnInit {
       this.listaGeneros = resp.genres;
       console.log('Lista de géneros cargada:', this.listaGeneros);
     });
+    /*
     this.cargarTodasLasSeries();
     this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
-    console.log('Lista de proveedores:', this.listaProveedores);
+    */
+    this.cargarProveedores();
+    console.log('Lista de proveedores cargada:', this.listaProveedores);
   }
 
+  cargarProveedores() {
+    this.proveedorService.getProveedoresSeries().subscribe(resp => {
+      this.listaProveedores.push(...resp.results);
+    });
+  }
+  /*
   cargarTodasLasSeries(append: boolean = false): void {
     this.loading = true;
     let paginaActual = this.paginaParaProveedores;
@@ -52,12 +64,13 @@ export class SerieListComponent implements OnInit {
           }
           console.log(`Series de la página ${paginaActual}:`, resp.results);
 
-          if (paginaActual < 100) {
+          if (paginaActual < 40) {
             paginaActual++;
             cargarPagina();
           } else {
             this.loading = false;
             console.log('Se han cargado todas las series:', this.todasLasSeries);
+            this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
           }
         },
         error => {
@@ -96,7 +109,7 @@ export class SerieListComponent implements OnInit {
       console.error('Error al cargar los proveedores:', error);
     });
   }
-
+  */
   cargarSeries(genreIds?: number[], append: boolean = false): void {
     this.loading = true;
     if (genreIds && genreIds.length > 0) {
@@ -107,7 +120,7 @@ export class SerieListComponent implements OnInit {
           this.listaSeries = resp.results;
         }
         this.loading = false;
-        this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
+        //this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
         console.log('Lista de series filtrada por género:', this.listaSeries);
       });
     } else {
@@ -118,7 +131,7 @@ export class SerieListComponent implements OnInit {
           this.listaSeries = resp.results;
         }
         this.loading = false;
-        this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
+        //this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
         console.log('Lista de series:', this.listaSeries);
       });
     }

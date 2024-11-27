@@ -27,6 +27,16 @@
                     </label>
                 </div>
             </div>
+            <div class="d-flex pt-4 flex-wrap gap-2">
+                <div *ngFor="let proveedor of listaProveedores; let i = index">
+                  <label 
+                        class="btn jockeyOne w-100 text-center" 
+                        for="proveedor-{{i}}"
+                    >
+                    <img [ngClass]="'rounded-4'" [style.width]="50 + 'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
+                    </label>
+                </div>
+            </div>
             <!-- Botón Filtrar -->
             <div class="d-flex justify-content-start mt-4">
                 <button 
