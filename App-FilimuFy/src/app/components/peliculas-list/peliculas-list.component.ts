@@ -47,27 +47,30 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
-  cargarPeliculas(genreIds?: number[], append: boolean = false): void {
-    this.loading = true;
-  
-    if (!append) {
-      this.listaPeliculas = [];
-    }
-  
-    if (genreIds && genreIds.length > 0) {
-      this.peliculaService.getPeliculasPorGenero(this.currentPage, genreIds).subscribe(resp => {
-        let filteredPeliculas = resp.results.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);
-        this.listaPeliculas = append ? [...this.listaPeliculas, ...filteredPeliculas] : filteredPeliculas;
-        this.loading = false;
-      });
-    } else {
-      this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
-        let filteredPeliculas = resp.results.filter(pelicula => pelicula.vote_average >= this.minVal && pelicula.vote_average <= this.maxVal);
-        this.listaPeliculas = append ? [...this.listaPeliculas, ...filteredPeliculas] : filteredPeliculas;
-        this.loading = false;
-      });
-    }
+cargarPeliculas(genreIds?: number[], append: boolean = false): void {
+  this.loading = true;
+
+  if (!append) {
+    this.listaPeliculas = [];
   }
+
+  if (genreIds && genreIds.length > 0) {
+    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal).subscribe(resp => {
+      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
+      this.loading = false;
+    });
+  } else if (this.minVal !== undefined && this.maxVal !== undefined) {
+    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal).subscribe(resp => {
+      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
+      this.loading = false;
+    });
+  } else {
+    this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
+      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
+      this.loading = false;
+    });
+  }
+}
 
   onGenreChange(event: any): void {
     const genreId = +event.target.value;
@@ -78,7 +81,7 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
-  filtrarPorGenero(): void {
+  filtrar(): void {
     this.currentPage = 1; // Reiniciar la página al filtrar
     this.cargarPeliculas(this.selectedGenres);
   }
