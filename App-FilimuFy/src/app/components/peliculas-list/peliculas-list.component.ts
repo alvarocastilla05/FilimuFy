@@ -1,8 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
 import { GeneroService } from '../../services/genero.service';
-import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
+import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { Genre } from '../../interfaces/serie/serie-detail.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-peliculas-list',
@@ -19,6 +20,12 @@ export class PeliculasListComponent implements OnInit, OnChanges {
 
   listaGeneros: Genre[] = [];
   selectedGenres: number[] = []; // Géneros seleccionados
+
+  minVal: number = 0;
+  maxVal: number = 10;
+
+  minDur: number = 0;
+  maxDur: number = 390;
 
   constructor(
     private peliculaService: PeliculaService,
@@ -43,30 +50,30 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
+cargarPeliculas(genreIds?: number[], append: boolean = false): void {
+  this.loading = true;
 
-
-  cargarPeliculas(genreIds?: number[], append: boolean = false): void {
-    this.loading = true;
-    if (genreIds && genreIds.length > 0) {
-      this.peliculaService.getPeliculasPorGenero(this.currentPage, genreIds).subscribe(resp => {
-        if (append) {
-          this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
-        } else {
-          this.listaPeliculas = resp.results;
-        }
-        this.loading = false;
-      });
-    } else {
-      this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
-        if (append) {
-          this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
-        } else {
-          this.listaPeliculas = resp.results;
-        }
-        this.loading = false;
-      });
-    }
+  if (!append) {
+    this.listaPeliculas = [];
   }
+
+  if (genreIds && genreIds.length > 0) {
+    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
+      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
+      this.loading = false;
+    });
+  } else if (this.minVal !== undefined && this.maxVal !== undefined) {
+    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
+      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
+      this.loading = false;
+    });
+  } else {
+    this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
+      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
+      this.loading = false;
+    });
+  }
+}
 
   onGenreChange(event: any): void {
     const genreId = +event.target.value;
@@ -77,7 +84,7 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
-  filtrarPorGenero(): void {
+  filtrar(): void {
     this.currentPage = 1; // Reiniciar la página al filtrar
     this.cargarPeliculas(this.selectedGenres);
   }
@@ -90,4 +97,5 @@ export class PeliculasListComponent implements OnInit, OnChanges {
   trackById(index: number, item: any): number {
     return item.id;
   }
+
 }

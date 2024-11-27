@@ -27,39 +27,28 @@
                     </label>
                 </div>
             </div>
-            <h3 class="mb-2 pt-4 jockeyOne">Proveedores</h3>
-              <div class="d-flex flex-wrap gap-2">
-                <div *ngFor="let proveedor of listaProveedores; let i = index">
-                  <!-- Checkbox estilizado para los proveedores -->
-                  <input 
-                    class="btn-check" 
-                    type="checkbox" 
-                    id="proveedor-{{i}}" 
-                    [value]="proveedor.provider_id"
-                    (change)="onProviderChange($event)"
-                  >
-                  <!-- Botón estilizado con el logo del proveedor -->
-                  <label 
-                    class="btn jockeyOne w-100 text-center d-flex flex-column align-items-center justify-content-center" 
-                    for="proveedor-{{i}}"
-                  >
-                    <img 
-                      [ngClass]="'rounded-4'" 
-                      [style.width]="'50px'" 
-                      [src]="proveedor.logo_path | imagen" 
-                      [alt]="proveedor.provider_name" 
-                      class="mb-2"
-                    >
-                  </label>
-                </div>
-              </div>
 
+            <!--Rango de valoración-->
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">Rango de valoración</h3>
+            <div class="w-100 mt-4">
+              <mat-slider min="0" max="10" step="1" [discrete]="true" style="width: 90%;">
+                <input [(ngModel)]="minVal" matSliderStartThumb>
+                <input [(ngModel)]="maxVal" matSliderEndThumb>
+              </mat-slider>
+            </div>
 
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">Duración</h3>
+            <div class="w-100 mt-4">
+              <mat-slider min="0" max="390" step="15" [discrete]="true" style="width: 90%;">
+                <input [(ngModel)]="minDur" matSliderStartThumb>
+                <input [(ngModel)]="maxDur" matSliderEndThumb>
+              </mat-slider>
+            </div>
             <!-- Botón Filtrar -->
             <div class="d-flex justify-content-start mt-4">
                 <button 
                     class="btn btn-primary btn-lg w-100 jockeyOne sombra azulOscuro"
-                    (click)="filtrarPorGenero()">
+                    (click)="filtrar()">
                     Filtrar
                 </button>
             </div>

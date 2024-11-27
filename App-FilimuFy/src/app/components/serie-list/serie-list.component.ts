@@ -23,6 +23,14 @@ export class SerieListComponent implements OnInit {
   selectedGenres: number[] = [];
   selectedProviders: number[] = [];
 
+  minVal: number = 0;
+  maxVal: number = 10;
+
+  minDur: number = 0;
+  maxDur: number = 390;
+
+
+
   constructor(
     private serieService: TVShowService,
     private generoService: GeneroService,
@@ -69,18 +77,7 @@ export class SerieListComponent implements OnInit {
   }
   
   cargarSeriesPorProveedores(): void {
-    if (this.selectedProviders.length === 0) {
-      console.log('No hay proveedores seleccionados');
-      return;
-    }
-  
-    this.loading = true;
-  
-    this.serieService.getSeriesPorProveedores(this.currentPage, this.selectedProviders).subscribe(resp => {
-      this.listaSeries = resp.results;
-      this.loading = false;
-      console.log('Series filtradas por proveedores:', this.listaSeries);
-    });
+    
   }
   
 
@@ -148,24 +145,26 @@ export class SerieListComponent implements OnInit {
   */
   cargarSeries(genreIds?: number[], append: boolean = false): void {
     this.loading = true;
+  
+    if (!append) {
+      this.listaSeries = [];
+    }
+  
     if (genreIds && genreIds.length > 0) {
-      this.serieService.getSeriesPorGenero(this.currentPage, genreIds).subscribe(resp => {
-        if (append) {
-          this.listaSeries = [...this.listaSeries, ...resp.results];
-        } else {
-          this.listaSeries = resp.results;
-        }
+      this.serieService.getSeriePorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
+        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
         this.loading = false;
         //this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
         console.log('Lista de series filtrada por género:', this.listaSeries);
       });
-    } else {
+    } else if(this.minVal !== undefined && this.maxVal !== undefined){
+      this.serieService.getSeriePorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
+        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
+        this.loading = false;
+      });
+    }else {
       this.serieService.getSeries(this.currentPage).subscribe(resp => {
-        if (append) {
-          this.listaSeries = [...this.listaSeries, ...resp.results];
-        } else {
-          this.listaSeries = resp.results;
-        }
+        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
         this.loading = false;
         //this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
         console.log('Lista de series:', this.listaSeries);
@@ -182,8 +181,8 @@ export class SerieListComponent implements OnInit {
     }
   }
 
-  filtrarPorGenero(): void {
-    this.currentPage = 1;
+  filtrar(): void {
+    this.currentPage = 1; // Reiniciar la página al filtrar
     this.cargarSeries(this.selectedGenres);
   }
 
