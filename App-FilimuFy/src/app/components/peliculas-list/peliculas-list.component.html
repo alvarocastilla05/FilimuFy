@@ -38,6 +38,15 @@
               </mat-slider>
             </div>
 
+            <!--Rango de valoración-->
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">Duración</h3>
+            <div class="w-100 mt-4">
+              <mat-slider min="0" max="390" step="15" [discrete]="true" style="width: 90%;">
+                <input [(ngModel)]="minDur" matSliderStartThumb>
+                <input [(ngModel)]="maxDur" matSliderEndThumb>
+              </mat-slider>
+            </div>
+
 
 
             <!-- Botón Filtrar -->
