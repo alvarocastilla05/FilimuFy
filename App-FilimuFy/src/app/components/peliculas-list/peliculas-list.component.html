@@ -47,6 +47,22 @@
               </mat-slider>
             </div>
 
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">Proveedores</h3>
+            <div class="d-flex flex-wrap gap-2">
+              <div *ngFor="let proveedor of listaProveedores; let i = index">
+                <input 
+                  class="btn-check" 
+                  type="checkbox" 
+                  id="proveedor-{{i}}" 
+                  [value]="proveedor.provider_id"
+                  (change)="onProviderChange($event)">
+                <label 
+                  class="btn jockeyOne w-100 text-center" 
+                  for="proveedor-{{i}}">
+                  <img [ngClass]="'rounded-4'" [style.width]="50 + 'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
+                </label>
+              </div>
+            </div>
 
 
             <!-- Botón Filtrar -->

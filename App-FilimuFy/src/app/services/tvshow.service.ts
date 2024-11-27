@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class TVShowService {
-
+  
   constructor(private http: HttpClient) { }
 
   getSeries(page: number = 1): Observable<TVShowListResponse>{
@@ -66,7 +66,31 @@ export class TVShowService {
     );
   }
 
-  getSeriePorGeneroYRango(currentPage: number, genreId: number[] | undefined, minVal: number, maxVal: number, minDur: number, maxDur: number): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${minVal}&vote_average.lte=${maxVal}&with_runtime.gte=${minDur}&with_runtime.lte=${maxDur}`);
+  getSerieFiltradas(
+    page: number,
+    genreIds: number[],
+    minVal: number,
+    maxVal: number,
+    minDur: number,
+    maxDur: number,
+    providerIds?: number[]
+  ): Observable<TVShowListResponse> {
+    let url = `${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${page}`;
+  
+    if (genreIds.length > 0) {
+      url += `&with_genres=${genreIds.join(',')}`;
+    }
+    url += `&vote_average.gte=${minVal}&vote_average.lte=${maxVal}`;
+    url += `&with_runtime.gte=${minDur}&with_runtime.lte=${maxDur}`;
+    if (providerIds && providerIds.length > 0) {
+      url += `&with_watch_providers=${providerIds.join(',')}`;
+    }
+    url += `&watch_region=ES`;
+  
+    return this.http.get<TVShowListResponse>(url);
   }
+  
+
+  
+  
 }

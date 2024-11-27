@@ -4,6 +4,8 @@ import { GeneroService } from '../../services/genero.service';
 import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { Genre } from '../../interfaces/serie/serie-detail.interface';
 import { Observable } from 'rxjs';
+import { Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
+import { ProveedorService } from '../../services/proveedor.service';
 
 @Component({
   selector: 'app-peliculas-list',
@@ -13,13 +15,12 @@ import { Observable } from 'rxjs';
 export class PeliculasListComponent implements OnInit, OnChanges {
 
   listaPeliculas: Pelicula[] = [];
+  listaProveedores: Flatrate[] = [];
   currentPage: number = 1; // Página inicial
   loading: boolean = false; // Estado de carga
-  
-  @Input() nombre: string | undefined;
-
   listaGeneros: Genre[] = [];
   selectedGenres: number[] = []; // Géneros seleccionados
+  selectedProviders: number[] = []; // Proveedores seleccionados
 
   minVal: number = 0;
   maxVal: number = 10;
@@ -27,9 +28,17 @@ export class PeliculasListComponent implements OnInit, OnChanges {
   minDur: number = 0;
   maxDur: number = 390;
 
+  @Input() nombre: string | undefined;
+
+  
+  
+
+  
+
   constructor(
     private peliculaService: PeliculaService,
-    private generoService: GeneroService
+    private generoService: GeneroService,
+    private proveedorService: ProveedorService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +49,24 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     this.generoService.getGenerosPelicula().subscribe(resp => {
       this.listaGeneros = resp.genres;
     });
+
+    this.cargarProveedores();
+  }
+
+  cargarProveedores() {
+    this.proveedorService.getProveedoresPeliculas().subscribe(proveedores => {
+      this.listaProveedores = proveedores;
+      console.log('Proveedores en España:', this.listaProveedores);
+    });
+  }
+
+  onProviderChange(event: any): void {
+    const providerId = +event.target.value;
+    if (event.target.checked) {
+      this.selectedProviders.push(providerId);
+    } else {
+      this.selectedProviders = this.selectedProviders.filter(id => id !== providerId);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,29 +77,33 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
-cargarPeliculas(genreIds?: number[], append: boolean = false): void {
+cargarPeliculas(genreIds?: number[], providerIds?: number[],  append: boolean = false): void {
   this.loading = true;
 
   if (!append) {
     this.listaPeliculas = [];
   }
 
-  if (genreIds && genreIds.length > 0) {
-    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
-      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
-      this.loading = false;
-    });
-  } else if (this.minVal !== undefined && this.maxVal !== undefined) {
-    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
-      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
-      this.loading = false;
-    });
-  } else {
-    this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
-      this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
-      this.loading = false;
-    });
+  const hasGenres = genreIds && genreIds.length > 0;
+  const hasProviders = providerIds && providerIds.length > 0;
+
+  this.peliculaService.getPelisFiltradas(
+    this.currentPage,
+    hasGenres ? genreIds : [],
+    this.minVal,
+    this.maxVal,
+    this.minDur,
+    this.maxDur,
+    hasProviders ? providerIds : []
+  ).subscribe((resp: PeliculaListResponse) => {
+    this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
+    this.loading = false;
+  }, error => {
+    this.loading = false;
+    console.error('Error al cargar las películas:', error);
   }
+
+  )
 }
 
   onGenreChange(event: any): void {
@@ -86,12 +117,12 @@ cargarPeliculas(genreIds?: number[], append: boolean = false): void {
 
   filtrar(): void {
     this.currentPage = 1; // Reiniciar la página al filtrar
-    this.cargarPeliculas(this.selectedGenres);
+    this.cargarPeliculas(this.selectedGenres, this.selectedProviders);
   }
 
   cargarMasPeliculas(): void {
     this.currentPage++;
-    this.cargarPeliculas(this.selectedGenres, true);
+    this.cargarPeliculas(this.selectedGenres, this.selectedProviders, true);
   }
 
   trackById(index: number, item: any): number {
