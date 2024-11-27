@@ -71,6 +71,6 @@ export class PeliculaService {
   }
 
   getPeliculasPorGeneroYRango(currentPage: number, genreId: number[] | undefined, min: number, max: number): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${min}&vote_average.lte=${max}`);
+    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${min}&vote_average.lte=${max}`);
   }
 }

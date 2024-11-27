@@ -10,7 +10,6 @@ import { ProveedoreesSerieListResponse } from '../interfaces/serie/proveedorSeri
 import { KeywordsSeriesListResponse } from '../interfaces/serie/serie-keywords.interfaces';
 import { environment } from '../../environments/environment';
 
-const API_KEY = "330dac319c12144e2cfd7dfb4bfcb9fd"
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +67,6 @@ export class TVShowService {
   }
 
   getSeriePorGeneroYRango(currentPage: number, genreId: number[] | undefined, min: number, max: number): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${min}&vote_average.lte=${max}`);
+    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${min}&vote_average.lte=${max}`);
   }
 }
