@@ -14,10 +14,8 @@ import { ProveedorService } from '../../services/proveedor.service';
 })
 export class SerieListComponent implements OnInit {
   listaSeries: TVShow[] = [];
-  todasLasSeries: TVShow[] = [];
   listaProveedores: Flatrate[] = [];
   currentPage: number = 1;
-  paginaParaProveedores: number = 1;
   loading: boolean = false;
   listaGeneros: Genre[] = [];
   selectedGenres: number[] = [];
@@ -49,7 +47,6 @@ export class SerieListComponent implements OnInit {
     this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
     */
     this.cargarProveedores();
-    console.log('Lista de proveedores cargada:', this.listaProveedores);
   }
 
   cargarProveedores() {

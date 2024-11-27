@@ -1,8 +1,8 @@
-export interface ProveedoresTVListResponse {
-    results: DatosProviderSeries[]
+export interface ProveedoresFilmsListResponse {
+    results: DatosProviderPelis[]
   }
   
-  export interface DatosProviderSeries {
+  export interface DatosProviderPelis {
     display_priorities: DisplayPriorities
     display_priority: number
     logo_path: string
