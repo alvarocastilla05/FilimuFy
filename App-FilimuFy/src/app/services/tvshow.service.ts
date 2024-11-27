@@ -65,4 +65,14 @@ export class TVShowService {
       `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
     );
   }
+
+  getSeriesPorProveedores(page: number, providerIds: number[]): Observable<TVShowListResponse> {
+    const providerString = providerIds.join(',');
+    return this.http.get<TVShowListResponse>(
+      `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${page}&with_watch_providers=${providerString}&watch_region=ES&language=es-ES`
+    );
+  }
+
+  
+  
 }

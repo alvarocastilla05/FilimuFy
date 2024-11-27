@@ -27,16 +27,34 @@
                     </label>
                 </div>
             </div>
-            <div class="d-flex pt-4 flex-wrap gap-2">
+            <h3 class="mb-2 pt-4 jockeyOne">Proveedores</h3>
+              <div class="d-flex flex-wrap gap-2">
                 <div *ngFor="let proveedor of listaProveedores; let i = index">
+                  <!-- Checkbox estilizado para los proveedores -->
+                  <input 
+                    class="btn-check" 
+                    type="checkbox" 
+                    id="proveedor-{{i}}" 
+                    [value]="proveedor.provider_id"
+                    (change)="onProviderChange($event)"
+                  >
+                  <!-- Botón estilizado con el logo del proveedor -->
                   <label 
-                        class="btn jockeyOne w-100 text-center" 
-                        for="proveedor-{{i}}"
+                    class="btn jockeyOne w-100 text-center d-flex flex-column align-items-center justify-content-center" 
+                    for="proveedor-{{i}}"
+                  >
+                    <img 
+                      [ngClass]="'rounded-4'" 
+                      [style.width]="'50px'" 
+                      [src]="proveedor.logo_path | imagen" 
+                      [alt]="proveedor.provider_name" 
+                      class="mb-2"
                     >
-                    <img [ngClass]="'rounded-4'" [style.width]="50 + 'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
-                    </label>
+                  </label>
                 </div>
-            </div>
+              </div>
+
+
             <!-- Botón Filtrar -->
             <div class="d-flex justify-content-start mt-4">
                 <button 

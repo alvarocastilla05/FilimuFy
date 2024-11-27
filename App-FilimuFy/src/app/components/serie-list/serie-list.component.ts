@@ -45,10 +45,46 @@ export class SerieListComponent implements OnInit {
   }
 
   cargarProveedores() {
-    this.proveedorService.getProveedoresSeries().subscribe(resp => {
-      this.listaProveedores.push(...resp.results);
+    this.proveedorService.getProveedoresSeries().subscribe(proveedores => {
+      this.listaProveedores = proveedores;
+      console.log('Proveedores en España:', this.listaProveedores);
     });
   }
+
+  onProviderChange(event: any): void {
+    const providerId = +event.target.value; // Convierte el ID del proveedor a número
+    if (event.target.checked) {
+      this.selectedProviders.push(providerId); // Añade el ID del proveedor seleccionado
+    } else {
+      // Elimina el proveedor de la lista si se desmarca
+      this.selectedProviders = this.selectedProviders.filter(id => id !== providerId);
+    }
+    console.log('Proveedores seleccionados:', this.selectedProviders);
+  }
+  
+  
+  filtrarPorProveedores(): void {
+    this.currentPage = 1; // Reinicia la paginación
+    this.cargarSeriesPorProveedores();
+  }
+  
+  cargarSeriesPorProveedores(): void {
+    if (this.selectedProviders.length === 0) {
+      console.log('No hay proveedores seleccionados');
+      return;
+    }
+  
+    this.loading = true;
+  
+    this.serieService.getSeriesPorProveedores(this.currentPage, this.selectedProviders).subscribe(resp => {
+      this.listaSeries = resp.results;
+      this.loading = false;
+      console.log('Series filtradas por proveedores:', this.listaSeries);
+    });
+  }
+  
+
+  
   /*
   cargarTodasLasSeries(append: boolean = false): void {
     this.loading = true;
