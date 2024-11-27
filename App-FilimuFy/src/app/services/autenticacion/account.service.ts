@@ -30,13 +30,16 @@ export class AccountService {
     return `https://api.themoviedb.org/3/account/${ACCOUNT_ID}/favorite/movies?api_key=${API_KEY}&session_id=${SESSION_ID}&movie_id=${peliculaId}`;
   }
 
-  getUrlAddFavoritos(): string {
-    let urlAddFavoritos = `https://api.themoviedb.org/3/account/${ACCOUNT_ID}/favorite?api_key=${API_KEY}&session_id=${SESSION_ID}`;
-    return urlAddFavoritos;
-  }
-
   getSeriesFavoritas(page: number = 1): Observable<TVShowListResponse>{
     return this.http.get<TVShowListResponse>(`https://api.themoviedb.org/3/account/${ACCOUNT_ID}/favorite/tv?api_key=${API_KEY}&session_id=${SESSION_ID}&page=${page}&language=es-ES`);
   }
   
+  getUrlEstadoFavoritoTV(serieId: number): string {
+    return `https://api.themoviedb.org/3/account/${ACCOUNT_ID}/favorite/tv?api_key=${API_KEY}&session_id=${SESSION_ID}&movie_id=${serieId}`;
+  }
+
+  getUrlAddFavoritos(): string {
+    let urlAddFavoritos = `https://api.themoviedb.org/3/account/${ACCOUNT_ID}/favorite?api_key=${API_KEY}&session_id=${SESSION_ID}`;
+    return urlAddFavoritos;
+  }
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountService } from '../../services/autenticacion/account.service';
 import { AuthService } from '../../services/autenticacion/auth.service';
-import { AvatarFotoPipe } from '../../pipes/avatarFoto.pipe';
 
 @Component({
   selector: 'app-approved',

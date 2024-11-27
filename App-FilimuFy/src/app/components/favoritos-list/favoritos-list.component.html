@@ -1,20 +1,78 @@
-<div class="container mt-5">
-    <h1 class="jockeyOne m-0">Películas Favoritas</h1>
-    <div *ngIf="!loading">
-        <div class="row">
-            <!-- Respetar el bucle original para las cartas -->
-            <div *ngFor="let pelicula of listaPeliculasFavs; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
-            <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
-            </div>
+<div class="container mt-5 pb-4">
+  <h1 class="jockeyOne m-0"><i class="bi bi-suit-heart-fill corazon"></i>&nbsp;&nbsp;Favoritos</h1>
+
+  <!-- Pestañas estilo Google -->
+  <ul class="nav nav-pills justify-content-center mb-5 pt-5">
+    <li class="nav-item w-25 me-5">
+      <a class="nav-link"
+        [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
+        (click)="showPeliculas = true; showSeries = false"
+        role="button">
+        <h4 class="m-0 freeman text-center">Películas</h4>
+      </a>
+    </li>
+    <li class="nav-item w-25 ms-5">
+      <a class="nav-link"
+        [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
+        (click)="showPeliculas = false; showSeries = true"
+        role="button">
+        <h4 class="m-0 freeman text-center">Series</h4>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Sección de Películas -->
+  <div *ngIf="showPeliculas">
+    <div *ngIf="listaPeliculas.length > 0">
+      <!--h2 class="jockeyOne">Películas</h2-->
+      <div class="row d-flex justify-content-center">
+        <div
+          class="col-6 col-md-3 col-lg-3 p-3 my-3"
+          *ngFor="let pelicula of listaPeliculas"
+        >
+          <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
         </div>
-    
-        <!-- Botón para cargar más películas -->
-        <div class="d-flex justify-content-center mt-3">
-            <button 
-            class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" 
-            (click)="cargarMasPeliculas()">
-            Mostrar más películas
-            </button>
-        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <button
+          class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
+          (click)="cargarMasPeliculas()"
+        >
+          Mostrar más películas
+        </button>
+      </div>
     </div>
+    <!--Mensaje de "Sin resultados"-->
+    <div *ngIf="listaPeliculas.length === 0" class="mt-5 pt-5 text-center poppins">
+      <h4>No se han encontrado resultados relacionados con películas.</h4>
+    </div>
+  </div>
+
+  <!-- Sección de Series -->
+  <div *ngIf="showSeries">
+    <div *ngIf="listaSeries.length > 0">
+      <!--h2 class="jockeyOne">Series</h2-->
+      <div class="row d-flex justify-content-center">
+        <div
+          class="col-6 col-md-3 col-lg-3 p-3 my-3"
+          *ngFor="let serie of listaSeries"
+        >
+          <app-serie-card [serieId]="serie.id"></app-serie-card>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <button
+          class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
+          (click)="cargarMasSeries()"
+        >
+          Mostrar más series
+        </button>
+      </div>
+    </div>
+    <!--Mensaje de "Sin resultados"-->
+    <div *ngIf="listaSeries.length === 0" class="mt-5 pt-5 text-center poppins">
+      <h4>No se han encontrado resultados relacionados con series.</h4>
+    </div>
+  </div>
+
 </div>

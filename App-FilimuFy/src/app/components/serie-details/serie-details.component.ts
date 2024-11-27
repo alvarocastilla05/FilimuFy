@@ -8,6 +8,7 @@ import { Pais } from '../../interfaces/serie/contentRatingsCertifications.interf
 import { Region } from '../../interfaces/serie/proveedorSerie.interfaces';
 import { Keyword } from '../../interfaces/serie/serie-keywords.interfaces';
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
+import { AccountService } from '../../services/autenticacion/account.service';
 
 @Component({
   selector: 'app-serie-details',
@@ -15,6 +16,8 @@ import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interface
   styleUrl: './serie-details.component.css'
 })
 export class SerieDetailsComponent implements OnInit{
+
+  estadoFav: boolean = false;
 
   serieId: string | null = '';
   serie: SerieDetailResponse | undefined;
@@ -34,11 +37,12 @@ export class SerieDetailsComponent implements OnInit{
 
   constructor(
     private serieService: TVShowService,
-    private activatedRoute: ActivatedRoute
+    private accountService: AccountService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.serieId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.serieId = this.route.snapshot.paramMap.get('id');
 
     this.serieService.getSerieById(parseInt(this.serieId!)).subscribe((response) => {
       this.serie = response;
@@ -76,6 +80,7 @@ export class SerieDetailsComponent implements OnInit{
       this.listaProveedores = respuesta.results.ES.flatrate;
     });
 
+    this.inicializarEstadoFav();
   }
 
   seleccionarVideo(video: VideoSerie) {
@@ -96,5 +101,92 @@ export class SerieDetailsComponent implements OnInit{
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
   }
+
+
+
+  // BOTÓN FAVORITOS ------------------------------------------------------------------------------------------------------------------------
+
+  async obtenerEstadoFavorito(serieId: number): Promise<boolean> {
+    const urlEstadoFavorito = this.accountService.getUrlEstadoFavoritoTV(serieId);
+    try {
+      const response = await fetch(urlEstadoFavorito);
+      if (!response.ok) {
+        throw new Error(`Error al obtener estado de favorito: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.favorite;  // Si está en favoritos, devuelve true
+    } catch (error) {
+      console.error('Error al obtener estado de favoritos:', error);
+      return false;  // Si ocurre un error, consideramos que no está en favoritos
+    }
+  }
+
+  async inicializarEstadoFav(): Promise<void> {
+    if (this.serieId) {
+      // Primero, intenta obtener el estado desde localStorage
+      const estadoFavGuardado = localStorage.getItem(`favorito-${this.serieId}`);
+
+      if (estadoFavGuardado !== null) {
+        this.estadoFav = JSON.parse(estadoFavGuardado);  // Si hay estado en localStorage, úsalo
+      } else {
+        // Si no existe en localStorage, obtiene el estado de la API de TMDB
+        this.estadoFav = await this.obtenerEstadoFavorito(parseInt(this.serieId!));
+        localStorage.setItem(`favorito-${this.serieId}`, JSON.stringify(this.estadoFav)); // Guarda en localStorage
+      }
+    }
+  }
+
+  async toggleFavoritos(serieId: number): Promise<void> {
+    this.estadoFav = !this.estadoFav;  // Alterna el estado
+
+    // Guarda en localStorage el nuevo estado
+    localStorage.setItem(`favorito-${serieId}`, JSON.stringify(this.estadoFav));
+
+    try {
+      // Llama al método para añadir o quitar de favoritos
+      const result = await this.addOrRemoveFavoritos(serieId);
+      console.log('Estado de favoritos actualizado:', result);
+    } catch (error) {
+      console.error('Error al actualizar favoritos:', error);
+    }
+  }
+
+  async addOrRemoveFavoritos(serieId: number): Promise<any> {
+    const urlAddFavoritos = this.accountService.getUrlAddFavoritos();
+    const data = {
+      media_type: "tv",  // Cambiar a "movie" si es una peli
+      media_id: serieId,
+      favorite: this.estadoFav, // true para añadir, false para quitar
+    };
+
+    try {
+      const response = await fetch(urlAddFavoritos, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Error al añadir/quitar favorito: ${response.status} - ${errorMessage}`);
+      }
+
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en la operación de favorito:', error);
+      throw error;
+    }
+  }
+
+  // Método del botón para manejar el clic
+  onFavoritosBotonClick(serieId: number): void {
+    this.toggleFavoritos(serieId);
+  }
+
+  //-----------------------------------------------------------------------------------------------------------------------------------------
 
 }
