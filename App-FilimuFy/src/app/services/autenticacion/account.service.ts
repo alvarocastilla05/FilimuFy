@@ -21,7 +21,7 @@ export class AccountService {
   getAccountDetails(): Observable<AccountDetailsResponse> {
     return this.http.get<AccountDetailsResponse>(
 
-      `${environment.apiBaseUrl}/account?api_key=${environment.apiKey}&session_id=${sessionId}`
+      `${environment.apiBaseUrl}/account?api_key=${environment.apiKey}&session_id=${SESSION_ID}`
 
     );
   }
