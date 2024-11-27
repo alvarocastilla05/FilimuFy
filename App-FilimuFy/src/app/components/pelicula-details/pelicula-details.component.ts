@@ -30,6 +30,8 @@ export class PeliculaDetailsComponent implements OnInit{
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
 
+  rating: number = 10;
+
   constructor(
     private peliculaService: PeliculaService, 
     private route: ActivatedRoute
