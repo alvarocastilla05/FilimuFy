@@ -17,6 +17,11 @@ export class SerieListComponent implements OnInit{
   listaGeneros: Genre[] = [];
   selectedGenres: number[] = []; // Géneros seleccionados
 
+  minVal: number = 0;
+  maxVal: number = 10;
+
+
+
   constructor(
     private serieService: TVShowService,
     private generoService: GeneroService
@@ -39,22 +44,24 @@ export class SerieListComponent implements OnInit{
 
   cargarSeries(genreIds?: number[], append: boolean = false): void {
     this.loading = true;
+  
+    if (!append) {
+      this.listaSeries = [];
+    }
+  
     if (genreIds && genreIds.length > 0) {
-      this.serieService.getSeriesPorGenero(this.currentPage, genreIds).subscribe(resp => {
-        if (append) {
-          this.listaSeries = [...this.listaSeries, ...resp.results];
-        } else {
-          this.listaSeries = resp.results;
-        }
+      this.serieService.getSeriePorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal).subscribe(resp => {
+        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
         this.loading = false;
       });
-    } else {
+    } else if(this.minVal !== undefined && this.maxVal !== undefined){
+      this.serieService.getSeriePorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal).subscribe(resp => {
+        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
+        this.loading = false;
+      });
+    }else {
       this.serieService.getSeries(this.currentPage).subscribe(resp => {
-        if (append) {
-          this.listaSeries = [...this.listaSeries, ...resp.results];
-        } else {
-          this.listaSeries = resp.results;
-        }
+        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
         this.loading = false;
       });
     }
@@ -69,7 +76,7 @@ export class SerieListComponent implements OnInit{
     }
   }
 
-  filtrarPorGenero(): void {
+  filtrar(): void {
     this.currentPage = 1; // Reiniciar la página al filtrar
     this.cargarSeries(this.selectedGenres);
   }
