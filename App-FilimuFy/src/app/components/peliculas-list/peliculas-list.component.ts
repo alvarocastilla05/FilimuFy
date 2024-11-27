@@ -24,6 +24,9 @@ export class PeliculasListComponent implements OnInit, OnChanges {
   minVal: number = 0;
   maxVal: number = 10;
 
+  minDur: number = 0;
+  maxDur: number = 390;
+
   constructor(
     private peliculaService: PeliculaService,
     private generoService: GeneroService
@@ -55,12 +58,12 @@ cargarPeliculas(genreIds?: number[], append: boolean = false): void {
   }
 
   if (genreIds && genreIds.length > 0) {
-    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal).subscribe(resp => {
+    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
       this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
       this.loading = false;
     });
   } else if (this.minVal !== undefined && this.maxVal !== undefined) {
-    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal).subscribe(resp => {
+    this.peliculaService.getPeliculasPorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
       this.listaPeliculas = append ? [...this.listaPeliculas, ...resp.results] : resp.results;
       this.loading = false;
     });

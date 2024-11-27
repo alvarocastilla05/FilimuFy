@@ -66,7 +66,7 @@ export class TVShowService {
     );
   }
 
-  getSeriePorGeneroYRango(currentPage: number, genreId: number[] | undefined, min: number, max: number): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${min}&vote_average.lte=${max}`);
+  getSeriePorGeneroYRango(currentPage: number, genreId: number[] | undefined, minVal: number, maxVal: number, minDur: number, maxDur: number): Observable<TVShowListResponse>{
+    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${minVal}&vote_average.lte=${maxVal}&with_runtime.gte=${minDur}&with_runtime.lte=${maxDur}`);
   }
 }

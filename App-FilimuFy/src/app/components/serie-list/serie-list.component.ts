@@ -20,6 +20,9 @@ export class SerieListComponent implements OnInit{
   minVal: number = 0;
   maxVal: number = 10;
 
+  minDur: number = 0;
+  maxDur: number = 390;
+
 
 
   constructor(
@@ -50,12 +53,12 @@ export class SerieListComponent implements OnInit{
     }
   
     if (genreIds && genreIds.length > 0) {
-      this.serieService.getSeriePorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal).subscribe(resp => {
+      this.serieService.getSeriePorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
         this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
         this.loading = false;
       });
     } else if(this.minVal !== undefined && this.maxVal !== undefined){
-      this.serieService.getSeriePorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal).subscribe(resp => {
+      this.serieService.getSeriePorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
         this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
         this.loading = false;
       });

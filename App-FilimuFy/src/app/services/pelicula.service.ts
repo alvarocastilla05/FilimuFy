@@ -70,7 +70,8 @@ export class PeliculaService {
     );
   }
 
-  getPeliculasPorGeneroYRango(currentPage: number, genreId: number[] | undefined, min: number, max: number): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${min}&vote_average.lte=${max}`);
+  getPeliculasPorGeneroYRango(currentPage: number, genreId: number[] | undefined, minVal: number, maxVal: number, minDur: number, maxDur: number): Observable<PeliculaListResponse>{
+    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_genres=${genreId}&vote_average.gte=${minVal}&vote_average.lte=${maxVal}&with_runtime.gte=${minDur}&with_runtime.lte=${maxDur}`);
   }
+
 }
