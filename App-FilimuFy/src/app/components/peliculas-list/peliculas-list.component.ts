@@ -56,6 +56,7 @@ export class PeliculasListComponent implements OnInit, OnChanges {
   cargarProveedores() {
     this.proveedorService.getProveedoresPeliculas().subscribe(proveedores => {
       this.listaProveedores = proveedores;
+      console.log('Proveedores en España:', this.listaProveedores);
     });
   }
 
