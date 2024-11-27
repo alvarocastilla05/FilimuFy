@@ -70,17 +70,15 @@ export class SerieListComponent implements OnInit {
     console.log('Proveedores seleccionados:', this.selectedProviders);
   }
   
-  
-  filtrarPorProveedores(): void {
-    this.currentPage = 1; // Reinicia la paginación
-    this.cargarSeriesPorProveedores();
+  onGenreChange(event: any): void {
+    const genreId = +event.target.value;
+    if (event.target.checked) {
+      this.selectedGenres.push(genreId);
+    } else {
+      this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
+    }
+    console.log('Géneros seleccionados:', this.selectedGenres);
   }
-  
-  cargarSeriesPorProveedores(): void {
-    
-  }
-  
-
   
   /*
   cargarTodasLasSeries(append: boolean = false): void {
@@ -143,52 +141,47 @@ export class SerieListComponent implements OnInit {
     });
   }
   */
-  cargarSeries(genreIds?: number[], append: boolean = false): void {
+  cargarSeries(genreIds?: number[], providerIds?: number[], append: boolean = false): void {
     this.loading = true;
   
     if (!append) {
       this.listaSeries = [];
     }
   
-    if (genreIds && genreIds.length > 0) {
-      this.serieService.getSeriePorGeneroYRango(this.currentPage, genreIds, this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
-        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
-        this.loading = false;
-        //this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
-        console.log('Lista de series filtrada por género:', this.listaSeries);
-      });
-    } else if(this.minVal !== undefined && this.maxVal !== undefined){
-      this.serieService.getSeriePorGeneroYRango(this.currentPage, [], this.minVal, this.maxVal, this.minDur, this.maxDur).subscribe(resp => {
-        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
-        this.loading = false;
-      });
-    }else {
-      this.serieService.getSeries(this.currentPage).subscribe(resp => {
-        this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
-        this.loading = false;
-        //this.cargarProveedoresDeTodasLasSeries(this.todasLasSeries);
-        console.log('Lista de series:', this.listaSeries);
-      });
-    }
+    // Verificar si hay géneros o proveedores seleccionados
+    const hasGenres = genreIds && genreIds.length > 0;
+    const hasProviders = providerIds && providerIds.length > 0;
+  
+    // Construir la lógica según los filtros activos
+    this.serieService.getSerieFiltradas(
+      this.currentPage,
+      hasGenres ? genreIds : [], // Si hay géneros, pasarlos; de lo contrario, una lista vacía
+      this.minVal,
+      this.maxVal,
+      this.minDur,
+      this.maxDur,
+      hasProviders ? providerIds : [] // Si hay proveedores, pasarlos; de lo contrario, una lista vacía
+    ).subscribe(resp => {
+      // Combinar resultados si estamos agregando más series
+      this.listaSeries = append ? [...this.listaSeries, ...resp.results] : resp.results;
+      this.loading = false;
+      console.log('Lista de series filtrada:', this.listaSeries);
+    }, error => {
+      this.loading = false;
+      console.error('Error al cargar las series:', error);
+    });
   }
-
-  onGenreChange(event: any): void {
-    const genreId = +event.target.value;
-    if (event.target.checked) {
-      this.selectedGenres.push(genreId);
-    } else {
-      this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
-    }
-  }
+  
 
   filtrar(): void {
     this.currentPage = 1; // Reiniciar la página al filtrar
-    this.cargarSeries(this.selectedGenres);
+    this.cargarSeries(this.selectedGenres, this.selectedProviders); // Llama a cargarSeries con los géneros seleccionados
   }
+  
 
   cargarMasSeries(): void {
     this.currentPage++;
-    this.cargarSeries(this.selectedGenres, true);
+    this.cargarSeries(this.selectedGenres, this.selectedProviders, true);
   }
 
   trackById(index: number, item: any): number {
