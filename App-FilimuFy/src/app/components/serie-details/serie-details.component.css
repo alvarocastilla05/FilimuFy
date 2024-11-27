@@ -49,6 +49,10 @@
     color: #001743;
 }
 
+.anchuraCalificacion{
+    min-width: 57px;
+}
+
 .tamanhoCirculo{
     font-size: 16px;
 }

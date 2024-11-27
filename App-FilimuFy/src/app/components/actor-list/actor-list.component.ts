@@ -29,9 +29,6 @@ export class ActorListComponent {
         this.listaActores = [...this.listaActores, ...resp.results];
         this.currentPage++; // Avanzar a la siguiente página
         this.loading = false; // Terminar el estado de carga
-      }, error => {
-        console.error('Error al cargar Actores:', error);
-        this.loading = false; // Manejo del error
       });
   }
 }
