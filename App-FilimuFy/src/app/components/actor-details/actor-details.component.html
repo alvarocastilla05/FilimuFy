@@ -79,7 +79,7 @@
   <h2 class="m-0 jockeyOne azulOscuro ms-4 p-2 pb-0">Conocido por</h2>
 
   <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
-    @if(actorPelis?.known_for!.length > 4){
+    @if(actorPelis.length > 4){
       <div class="row d-flex flex-nowrap mt-0 ms-4" style="
           overflow: auto; 
           white-space: nowrap; 
@@ -88,7 +88,7 @@
           overscroll-behavior-x: contain;
           scroll-snap-type: x proximity; 
           margin: 50px auto 0;">
-        <div *ngFor="let peli of actorPelis?.known_for; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
+        <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
           <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
             <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
           </ng-container>
@@ -97,9 +97,9 @@
           </ng-template>
         </div>
       </div>
-    }@else if (actorPelis?.known_for!.length > 0 && actorPelis?.known_for!.length <= 4) {
+    }@else if (actorPelis!.length > 0 && actorPelis.length <= 4) {
       <div class="row d-flex flex-nowrap mt-0 ms-4">
-        <div *ngFor="let peli of actorPelis?.known_for; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
+        <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
           <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
             <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
           </ng-container>
