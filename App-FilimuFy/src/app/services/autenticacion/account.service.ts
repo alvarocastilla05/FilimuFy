@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountDetailsResponse } from '../../interfaces/autenticacion/account-details.interface';
-import { PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
-import { TVShowListResponse } from '../../interfaces/serie/tv.interface';
+import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
+import { TVShow, TVShowListResponse } from '../../interfaces/serie/tv.interface';
 import { environment } from '../../../environments/environment';
 
 
@@ -45,5 +45,13 @@ export class AccountService {
   getUrlAddFavoritos(): string {
     let urlAddFavoritos = `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite?api_key=${environment.apiKey}&session_id=${SESSION_ID}`;
     return urlAddFavoritos;
+  }
+
+  getFavoritosPeli(): Observable<{ results: Pelicula[] }> {
+    return this.http.get<{ results: Pelicula[] }>(`${environment.apiBaseUrl}/account/{account_id}/favorite/movies?api_key=${environment.apiKey}&session_id=${SESSION_ID}`);
+  }
+
+  getFavoritosSerie(): Observable<{ results: TVShow[] }> {
+    return this.http.get<{ results: TVShow[] }>(`${environment.apiBaseUrl}/account/{account_id}/favorite/tv?api_key=${environment.apiKey}&session_id=${SESSION_ID}`);
   }
 }
