@@ -95,14 +95,15 @@
           </button>
           <!--Añadir a Watchlists-->
           <button type="button"
-            class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2">
+            class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2 me-1">
             <i class="bi bi-bookmark-fill tamanhoIcono py-0 p-2"></i>
           </button>
           <!--Valorar-->
           <div ngbDropdown placement="end" class="d-inline-block">
             <button type="button" ngbDropdownToggle
-              class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2 me-1">
-              <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
+                style="width: 57.6px; height: 57.6px;"
+                class="btn rounded rounded-circle boton sombraFuerte p-2 text-center d-flex align-items-center ms-2 me-1">
+                <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
             </button>
             <!--Dropdown menu-->
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="ms-2 fondoBlanco bordeAmarillo sombra2">
@@ -111,7 +112,7 @@
                   <h3 class="jockeyOne azulOscuro">¡Valora esta película!</h3>
                   <h5 class="freeman mb-4 text-black">¿Qué te ha parecido {{pelicula!.title}}?</h5>
                   <div class="d-flex">
-                    <ngb-rating [(ngModel)]="rating" (rateChange)="setRating($event)"> <!--INCLUIR: [(rate)]="rating"-->
+                    <ngb-rating [(ngModel)]="rating" (rateChange)="setRating($event)">
                       <ng-template let-fill="fill" let-index="index">
                         <h2>
                           <i class="text-warning me-1 bi-star{{ fill === 100 ? '-fill' : '' }}" [class.filled]="fill === 100" [class.low]="index < 3"></i>

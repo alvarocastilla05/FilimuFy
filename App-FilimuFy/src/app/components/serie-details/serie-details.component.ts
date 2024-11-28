@@ -110,6 +110,8 @@ export class SerieDetailsComponent implements OnInit{
 
   setRating(rating: number) {
     this.serieService.setSerieRating(parseInt(this.serieId!), rating).subscribe();
+    
+    
   }
 
   deleteRating() {

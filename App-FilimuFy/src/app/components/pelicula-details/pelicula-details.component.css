@@ -101,9 +101,17 @@
     color: white;
 }
 
+.dropdown-toggle::after{
+    display: none !important;
+}
+
 .etiqueta{
     background-color: #00A785;
     color: white;
+}
+
+.sombraFuerte {
+    box-shadow: 4px 4px 4px rgb(0, 0, 0, 50%);
 }
 
 /*VALORAR PELÍCULA -------------------------------------------------------------- */

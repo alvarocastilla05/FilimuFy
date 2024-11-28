@@ -9,6 +9,7 @@ import { ActorDetailsComponent } from './components/actor-details/actor-details.
 import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-incio.component';
 import { ApprovedComponent } from './shared/approved/approved.component';
 import { SearchComponent } from './components/search/search.component';
+import { MisValoracionesListComponent } from './components/mis-valoraciones-list/mis-valoraciones-list.component';
 
 const routes: Routes = [
   {path: 'peliculas', component: PeliculasListComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'actores', component: ActorListComponent},
   {path: 'series/:id', component: SerieDetailsComponent},
   {path: 'approved', component: ApprovedComponent},
-  { path: 'search', component: SearchComponent },
+  {path: 'valoraciones', component: MisValoracionesListComponent},
+  {path: 'search', component: SearchComponent },
   {path: 'key/:id', component: SearchComponent}
 ]
 

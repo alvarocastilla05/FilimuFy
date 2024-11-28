@@ -101,6 +101,34 @@ export class PeliculaDetailsComponent implements OnInit{
     return certificacion;
   }
 
+  /*async addToRatedMovies(peliculaId: number): Promise<any> {
+    const urlAddPelicula = this.peliculaService.getUrlPostPeliculaRated(peliculaId);
+    const data = {
+      value: this.rating,  // Valor de la valoración
+    };
+  
+    try {
+      const response = await fetch(urlAddPelicula, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Error al valorar: ${response.status} - ${errorMessage}`);
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en la operación de valoración:', error);
+      throw error;
+    }
+  }*/
+
   getPeliculaRating(peliculaId: number): void {
     this.peliculaService.getPeliculaRating(peliculaId).subscribe(response => {
       if (response.rated) {
@@ -111,6 +139,7 @@ export class PeliculaDetailsComponent implements OnInit{
 
   setRating(rating: number) {
     this.peliculaService.setPeliculaRating(parseInt(this.peliculaId!), rating).subscribe();
+
   }
 
   deleteRating() {

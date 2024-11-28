@@ -10,7 +10,8 @@ import { ProveedoreesPeliListResponse } from '../interfaces/pelicula/proveedorPe
 import { FechaSalidaResponse } from '../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { KeywordsListResponse } from '../interfaces/pelicula/pelicula-keywords.interfaces';
 import { environment } from '../../environments/environment';
-import { RatedPeliculasResponse } from '../interfaces/pelicula/rated-peliculas.interfaces';
+import { RatedPelicula, RatedPeliculasResponse } from '../interfaces/pelicula/rated-peliculas.interfaces';
+import { AccountService } from './autenticacion/account.service';
 
 
 @Injectable({
@@ -69,21 +70,19 @@ export class PeliculaService {
     );
   }
 
-  getRatedPeliculas(): Observable<RatedPeliculasResponse>{
-    return this.http.get<RatedPeliculasResponse>(
-      //{{API_URL}}account/{{ACCOUNT_ID}}/rated/movies{{API_REQ}}&session_id={{SESSION_ID}}
-      `${environment.apiBaseUrl}account/${environment.accountId}/rated/movies?api_key=${environment.apiKey}&session_id=${environment.accountId}&language=es-ES`
-    );
-  }
-
   getPeliculaRating(peliculaId: number): Observable<any> {
     const url = `${environment.apiBaseUrl}/movie/${peliculaId}/account_states?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
     return this.http.get(url);
   }
 
-  setPeliculaRating(peliculaId: number, rating: number): Observable<any> {
+  getUrlPostPeliculaRated(peliculaId: number): string {
+    let url = `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return url;
+  }
+
+  setPeliculaRating(peliculaId: number, rating: number): Observable<RatedPelicula> {
     const url = `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
-    return this.http.post(url, { value: rating });
+    return this.http.post<RatedPelicula>(url, { value: rating });
   }
 
   deletePeliculaRating(peliculaId: number): Observable<any>{

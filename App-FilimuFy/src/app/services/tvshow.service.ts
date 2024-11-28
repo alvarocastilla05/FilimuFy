@@ -67,15 +67,8 @@ export class TVShowService {
     );
   }
 
-  /*getRatedSeries(): Observable<RatedSeriesResponse>{
-    return this.http.get<RatedSeriesResponse>(
-      //{{API_URL}}account/{{ACCOUNT_ID}}/rated/tv{{API_REQ}}&session_id={{SESSION_ID}}
-      `${environment.apiBaseUrl}account/${environment.accountId}/rated/tv?api_key=${environment.apiKey}&session_id=${environment.accountId}&language=es-ES`
-    );
-  }*/
-
   getSerieRating(peliculaId: number): Observable<any> {
-    const url = `${environment.apiBaseUrl}/movie/${peliculaId}/account_states?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    const url = `${environment.apiBaseUrl}/tv/${peliculaId}/account_states?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
     return this.http.get(url);
   }
 
