@@ -86,7 +86,6 @@ export class PeliculaService {
     return this.http.post(url, { value: rating });
   }
 
-
   deletePeliculaRating(peliculaId: number): Observable<any>{
     return this.http.delete<any>(
       `${environment.apiBaseUrl}movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`

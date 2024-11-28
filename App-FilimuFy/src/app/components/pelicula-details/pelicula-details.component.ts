@@ -117,8 +117,6 @@ export class PeliculaDetailsComponent implements OnInit{
     this.peliculaService.setPeliculaRating(parseInt(this.peliculaId!), 0).subscribe();
   }
 
-
-
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
   }

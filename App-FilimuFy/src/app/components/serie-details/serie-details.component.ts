@@ -8,6 +8,7 @@ import { Pais } from '../../interfaces/serie/contentRatingsCertifications.interf
 import { Region } from '../../interfaces/serie/proveedorSerie.interfaces';
 import { Keyword } from '../../interfaces/serie/serie-keywords.interfaces';
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
+import { RatedSerie } from '../../interfaces/serie/rated-series.interfaces';
 
 @Component({
   selector: 'app-serie-details',
@@ -31,6 +32,10 @@ export class SerieDetailsComponent implements OnInit{
   listaProveedoresPago: Buy[] = [];
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
+
+  listaSeriesValoradas: RatedSerie[] = [];
+
+  rating: number = 0;
 
   constructor(
     private serieService: TVShowService,
@@ -76,6 +81,8 @@ export class SerieDetailsComponent implements OnInit{
       this.listaProveedores = respuesta.results.ES.flatrate;
     });
 
+    this.getSerieRating(parseInt(this.serieId!));
+
   }
 
   seleccionarVideo(video: VideoSerie) {
@@ -91,6 +98,22 @@ export class SerieDetailsComponent implements OnInit{
     } else {
       return 'N/A';
     }
+  }
+
+  getSerieRating(serieId: number): void {
+    this.serieService.getSerieRating(serieId).subscribe(response => {
+      if(response.rated){
+        this.rating = response.rated.value;
+      }
+    })
+  }
+
+  setRating(rating: number) {
+    this.serieService.setSerieRating(parseInt(this.serieId!), rating).subscribe();
+  }
+
+  deleteRating() {
+    this.serieService.setSerieRating(parseInt(this.serieId!), 0).subscribe();
   }
 
   isLoggedIn() {
