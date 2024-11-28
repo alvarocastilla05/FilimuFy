@@ -37,7 +37,7 @@
               </mat-slider>
             </div>
 
-            <h3 class="mb-2 mt-4 jockeyOne pb-1">Duración</h3>
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">Duración (min)</h3>
             <div class="w-100 mt-4">
               <mat-slider min="0" max="390" step="15" [discrete]="true" style="width: 90%;">
                 <input [(ngModel)]="minDur" matSliderStartThumb>
@@ -46,7 +46,7 @@
             </div>
             
             <h3 class="mb-2 mt-4 jockeyOne pb-1">Proveedores</h3>
-            <div class="d-flex flex-wrap gap-2">
+            <div class="scroll-container d-flex flex-wrap gap-2">
               <div *ngFor="let proveedor of listaProveedores; let i = index">
                 <input 
                   class="btn-check" 

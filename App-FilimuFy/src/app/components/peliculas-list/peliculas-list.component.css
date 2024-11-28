@@ -39,3 +39,23 @@
     background-color: #20B7E5; 
     color: white;
 }  
+
+.scroll-container {
+    max-height: calc(4 * 90px); /* Ajusta según la altura de una fila */
+    overflow-y: auto;
+    padding-right: 10px; /* Espacio para evitar que el scroll tape el contenido */
+  }
+  
+  .scroll-container::-webkit-scrollbar {
+    width: 6px; /* Ancho de la barra de scroll */
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb {
+    background-color: #cccccc; /* Color del thumb */
+    border-radius: 3px; /* Bordes redondeados */
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: #888888; /* Color al pasar el cursor */
+  }
+  
