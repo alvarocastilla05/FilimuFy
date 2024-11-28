@@ -94,4 +94,6 @@ export class PeliculaService {
     return this.http.get<PeliculaListResponse>(url);
   }
 
+  
+
 }

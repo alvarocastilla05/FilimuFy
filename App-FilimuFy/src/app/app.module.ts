@@ -32,6 +32,8 @@ import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
 import { WatchlistListComponent } from './components/watchlist-list/watchlist-list.component';
+import { ListasUsuarioComponent } from './components/listas-usuario/listas-usuario.component';
+import { ListaDetailsComponent } from './components/lista-details/lista-details.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { WatchlistListComponent } from './components/watchlist-list/watchlist-li
     AvatarFotoPipe,
     SearchComponent,
     FavoritosListComponent,
-    WatchlistListComponent
+    WatchlistListComponent,
+    ListasUsuarioComponent,
+    ListaDetailsComponent
     
 
   ],

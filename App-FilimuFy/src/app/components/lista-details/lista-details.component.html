@@ -1,0 +1,55 @@
+<div class="container mt-5 pb-4">
+    <h1 class="jockeyOne">
+      <i class="bi bi-bookmark-fill etiqueta"></i>&nbsp;&nbsp;Detalles de la Lista
+    </h1>
+  
+    <!-- Detalles de la Lista -->
+    <div *ngIf="listaDetalles">
+      <div class="mb-4">
+        <h3 class="jockeyOne">{{ listaDetalles.name }}</h3>
+        <p class="poppins">{{ listaDetalles.description }}</p>
+      </div>
+  
+      <hr />
+  
+      <!-- Elementos de la Lista -->
+      <div *ngIf="listaDetalles.items?.length > 0">
+        <div class="row d-flex justify-content-center">
+          <div
+            class="col-6 col-md-3 col-lg-3 p-3 my-3"
+            *ngFor="let item of listaDetalles.items"
+          >
+            <div class="card sombra">
+              <img
+                src="{{item!.poster_path | imagen}}"
+                class="card-img-top"
+                [alt]="item.title || item.name"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ item.title || item.name }}</h5>
+                <button
+                class="btn btn-danger btn-sm w-100 mt-2"
+                (click)="eliminarElemento(item.id)"
+              >
+                Eliminar
+              </button>
+              
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mensaje si no hay elementos -->
+      <div *ngIf="listaDetalles.items?.length === 0" class="text-center mt-5">
+        <h4>No hay elementos en esta lista.</h4>
+      </div>
+    </div>
+  
+    <!-- Mensaje de Cargando -->
+    <div *ngIf="!listaDetalles" class="text-center mt-5">
+      <p>Cargando detalles de la lista...</p>
+    </div>
+  </div>
+  

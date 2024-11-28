@@ -11,6 +11,8 @@ import { ApprovedComponent } from './shared/approved/approved.component';
 import { SearchComponent } from './components/search/search.component';
 import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
 import { WatchlistListComponent } from './components/watchlist-list/watchlist-list.component';
+import { ListasUsuarioComponent } from './components/listas-usuario/listas-usuario.component';
+import { ListaDetailsComponent } from './components/lista-details/lista-details.component';
 
 const routes: Routes = [
   {path: 'peliculas', component: PeliculasListComponent},
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path: 'watchlist', component: WatchlistListComponent},
   { path: 'search', component: SearchComponent },
   {path: 'key/:id', component: SearchComponent},
+  {path: 'listas', component: ListasUsuarioComponent},
+  { path: 'listas/:id', component: ListaDetailsComponent }
 
 ]
 
