@@ -18,6 +18,7 @@ import { AccountService } from '../../services/autenticacion/account.service';
 export class SerieDetailsComponent implements OnInit{
 
   estadoFav: boolean = false;
+  estadoWatchlist: boolean = false;
 
   serieId: string | null = '';
   serie: SerieDetailResponse | undefined;
@@ -81,6 +82,7 @@ export class SerieDetailsComponent implements OnInit{
     });
 
     this.checkFavorito(parseInt(this.serieId!));
+    this.checkWatchlist(parseInt(this.serieId!));
 
     
   }
@@ -155,6 +157,58 @@ export class SerieDetailsComponent implements OnInit{
       console.log('Estado de favoritos actualizado:', result);
     }).catch(error => {
       console.error('Error al actualizar favoritos:', error);
+    });
+  }
+
+  //Boton Watchlist ------------------------------------------------------------------------------------------------------------------------
+
+  checkWatchlist(serieId: number): void {
+    this.accountService.getWatchlistSerie().subscribe(response => {
+      const watchlist = response.results;
+      this.estadoWatchlist = watchlist.some(serie => serie.id === serieId);
+    });
+  }
+
+  async addOrRemoveWatchlist(serieId: number): Promise<any> {
+    const urlAddWatchlist = this.accountService.getUrlAddWatchlist();
+    const data = {
+      media_type: "tv",  // Cambiar a "movie" si es una peli
+      media_id: serieId,
+      watchlist: this.estadoWatchlist, // true para añadir, false para quitar
+    };
+  
+    try {
+      const response = await fetch(urlAddWatchlist, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Error al añadir/quitar watchlist: ${response.status} - ${errorMessage}`);
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en la operación de watchlist:', error);
+      throw error;
+    }
+  }
+
+  onWatchlistBotonClick(serieId: number): void {
+    this.toggleWatchlist(serieId);
+  }
+
+  toggleWatchlist(serieId: number): void {
+    this.estadoWatchlist = !this.estadoWatchlist;
+    this.addOrRemoveWatchlist(serieId).then(result => {
+      console.log('Estado de watchlist actualizado:', result);
+    }).catch(error => {
+      console.error('Error al actualizar watchlist:', error);
     });
   }
 }

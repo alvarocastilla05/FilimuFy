@@ -55,12 +55,12 @@ export class AccountService {
     return this.http.get<{ results: TVShow[] }>(`${environment.apiBaseUrl}/account/{account_id}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}`);
   }
 
-  getWatchlistPeli(): Observable<{ results: Pelicula[] }> {
-    return this.http.get<{ results: Pelicula[] }>(`${environment.apiBaseUrl}/account/{account_id}/watchlist/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}`);
+  getWatchlistPeli(page: number = 1): Observable<{ results: Pelicula[] }> {
+    return this.http.get<{ results: Pelicula[] }>(`${environment.apiBaseUrl}/account/{account_id}/watchlist/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
   }
 
-  getWatchlistSerie(): Observable<{ results: TVShow[] }> {
-    return this.http.get<{ results: TVShow[] }>(`${environment.apiBaseUrl}/account/{account_id}/watchlist/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}`);
+  getWatchlistSerie(page: number = 1): Observable<{ results: TVShow[] }> {
+    return this.http.get<{ results: TVShow[] }>(`${environment.apiBaseUrl}/account/{account_id}/watchlist/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
   } 
 
   getUrlAddWatchlist(): string {

@@ -31,6 +31,7 @@ import { AvatarFotoPipe } from './pipes/avatarFoto.pipe';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
+import { WatchlistListComponent } from './components/watchlist-list/watchlist-list.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,10 @@ import { FavoritosListComponent } from './components/favoritos-list/favoritos-li
     ApprovedComponent,
     AvatarFotoPipe,
     SearchComponent,
-    FavoritosListComponent
+    FavoritosListComponent,
+    WatchlistListComponent
+    
+
   ],
   imports: [
     BrowserModule,

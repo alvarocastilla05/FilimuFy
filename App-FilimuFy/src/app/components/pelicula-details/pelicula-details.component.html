@@ -96,7 +96,8 @@
             </button>
             <!--Añadir a Watchlists-->
             <button type="button" class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2"
-            (click)="onWatchlistBotonClick(pelicula!.id)">
+            (click)="onWatchlistBotonClick(pelicula!.id)"
+            [ngClass]="estadoWatchlist ? 'etiqueta' : 'boton'">
               <i class="bi bi-bookmark-fill tamanhoIcono py-0 p-2"></i>
             </button>
           </div>

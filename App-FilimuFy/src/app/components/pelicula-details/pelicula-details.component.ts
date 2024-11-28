@@ -17,6 +17,7 @@ import { AccountService } from '../../services/autenticacion/account.service';
 export class PeliculaDetailsComponent implements OnInit{
 
   estadoFav: boolean = false;
+  estadoWatchlist: boolean = false;
 
   peliculaId: string | null = '';
   pelicula: PeliculaDetailResponse | undefined;
@@ -75,6 +76,7 @@ export class PeliculaDetailsComponent implements OnInit{
     });
 
     this.checkFavorito(parseInt(this.peliculaId!));
+    this.checkWatchlist(parseInt(this.peliculaId!));
 
     
   }
@@ -172,7 +174,7 @@ export class PeliculaDetailsComponent implements OnInit{
   checkWatchlist(peliculaId: number): void {
     this.accountService.getWatchlistPeli().subscribe(response => {
       const watchlist = response.results;
-      this.estadoFav = watchlist.some(pelicula => pelicula.id === peliculaId);
+      this.estadoWatchlist = watchlist.some(pelicula => pelicula.id === peliculaId);
     });
   }
 
@@ -181,7 +183,7 @@ export class PeliculaDetailsComponent implements OnInit{
     const data = {
       media_type: "movie",  // Cambiar a "tv" si es una serie
       media_id: peliculaId,
-      watchlist: this.estadoFav, // true para añadir, false para quitar
+      watchlist: this.estadoWatchlist, // true para añadir, false para quitar
     };
   
     try {
@@ -211,7 +213,7 @@ export class PeliculaDetailsComponent implements OnInit{
   }
 
   toggleWatchlist(peliculaId: number): void {
-    this.estadoFav = !this.estadoFav;
+    this.estadoWatchlist = !this.estadoWatchlist;
     this.addOrRemoveWatchlist(peliculaId).then(result => {
       console.log('Estado de watchlist actualizado:', result);
     }).catch(error => {
