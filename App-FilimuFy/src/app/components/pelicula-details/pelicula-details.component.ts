@@ -17,6 +17,7 @@ import { AccountService } from '../../services/autenticacion/account.service';
 export class PeliculaDetailsComponent implements OnInit{
 
   estadoFav: boolean = false;
+  estadoWatchlist: boolean = false;
 
   peliculaId: string | null = '';
   pelicula: PeliculaDetailResponse | undefined;
@@ -75,6 +76,7 @@ export class PeliculaDetailsComponent implements OnInit{
     });
 
     this.checkFavorito(parseInt(this.peliculaId!));
+    this.checkWatchlist(parseInt(this.peliculaId!));
 
     
   }
@@ -166,4 +168,58 @@ export class PeliculaDetailsComponent implements OnInit{
       console.error('Error al actualizar favoritos:', error);
     });
   }
+
+  // BOTON WATCHlIST ------------------------------------------------------------------------------------------------------------------------
+
+  checkWatchlist(peliculaId: number): void {
+    this.accountService.getWatchlistPeli().subscribe(response => {
+      const watchlist = response.results;
+      this.estadoWatchlist = watchlist.some(pelicula => pelicula.id === peliculaId);
+    });
+  }
+
+  async addOrRemoveWatchlist(peliculaId: number): Promise<any> {
+    const urlAddWatchlist = this.accountService.getUrlAddWatchlist();
+    const data = {
+      media_type: "movie",  // Cambiar a "tv" si es una serie
+      media_id: peliculaId,
+      watchlist: this.estadoWatchlist, // true para añadir, false para quitar
+    };
+  
+    try {
+      const response = await fetch(urlAddWatchlist, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Error al añadir/quitar watchlist: ${response.status} - ${errorMessage}`);
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en la operación de watchlist:', error);
+      throw error;
+    }
+  } 
+
+  onWatchlistBotonClick(peliculaId: number): void {
+    this.toggleWatchlist(peliculaId);
+  }
+
+  toggleWatchlist(peliculaId: number): void {
+    this.estadoWatchlist = !this.estadoWatchlist;
+    this.addOrRemoveWatchlist(peliculaId).then(result => {
+      console.log('Estado de watchlist actualizado:', result);
+    }).catch(error => {
+      console.error('Error al actualizar watchlist:', error);
+    });
+  }
+
+  
 }

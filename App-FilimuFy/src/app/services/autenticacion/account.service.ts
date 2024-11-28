@@ -21,37 +21,53 @@ export class AccountService {
   getAccountDetails(): Observable<AccountDetailsResponse> {
     return this.http.get<AccountDetailsResponse>(
 
-      `${environment.apiBaseUrl}/account?api_key=${environment.apiKey}&session_id=${SESSION_ID}`
+      `${environment.apiBaseUrl}/account?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
 
     );
   }
 
   getPeliculasFavoritas(page: number = 1): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/movies?api_key=${environment.apiKey}&session_id=${SESSION_ID}&page=${page}&language=es-ES`);
+    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
   }
 
   getUrlEstadoFavorito(peliculaId: number): string {
-    return `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/movies?api_key=${environment.apiKey}&session_id=${SESSION_ID}&movie_id=${peliculaId}`;
+    return `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&movie_id=${peliculaId}`;
   }
 
   getSeriesFavoritas(page: number = 1): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/tv?api_key=${environment.apiKey}&session_id=${SESSION_ID}&page=${page}&language=es-ES`);
+    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
   }
   
   getUrlEstadoFavoritoTV(serieId: number): string {
-    return `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/tv?api_key=${environment.apiKey}&session_id=${SESSION_ID}&movie_id=${serieId}`;
+    return `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&movie_id=${serieId}`;
   }
 
   getUrlAddFavoritos(): string {
-    let urlAddFavoritos = `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite?api_key=${environment.apiKey}&session_id=${SESSION_ID}`;
+    let urlAddFavoritos = `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
     return urlAddFavoritos;
   }
 
   getFavoritosPeli(): Observable<{ results: Pelicula[] }> {
-    return this.http.get<{ results: Pelicula[] }>(`${environment.apiBaseUrl}/account/{account_id}/favorite/movies?api_key=${environment.apiKey}&session_id=${SESSION_ID}`);
+    return this.http.get<{ results: Pelicula[] }>(`${environment.apiBaseUrl}/account/{account_id}/favorite/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}`);
   }
 
   getFavoritosSerie(): Observable<{ results: TVShow[] }> {
-    return this.http.get<{ results: TVShow[] }>(`${environment.apiBaseUrl}/account/{account_id}/favorite/tv?api_key=${environment.apiKey}&session_id=${SESSION_ID}`);
+    return this.http.get<{ results: TVShow[] }>(`${environment.apiBaseUrl}/account/{account_id}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}`);
   }
+
+  getWatchlistPeli(page: number = 1): Observable<{ results: Pelicula[] }> {
+    return this.http.get<{ results: Pelicula[] }>(`${environment.apiBaseUrl}/account/{account_id}/watchlist/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
+  }
+
+  getWatchlistSerie(page: number = 1): Observable<{ results: TVShow[] }> {
+    return this.http.get<{ results: TVShow[] }>(`${environment.apiBaseUrl}/account/{account_id}/watchlist/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
+  } 
+
+  getUrlAddWatchlist(): string {
+    return `${environment.apiBaseUrl}/account/{account_id}/watchlist?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+  }
+
+  getWatchlistSerieUrl(serieId: number): string {
+    return `${environment.apiBaseUrl}/account/{account_id}/watchlist/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&tv_id=${serieId}`;
+  } 
 }
