@@ -9,6 +9,7 @@ import { Region } from '../../interfaces/serie/proveedorSerie.interfaces';
 import { Keyword } from '../../interfaces/serie/serie-keywords.interfaces';
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
+import { Ad8 } from '../../interfaces/serie/proveedorSerieAds.interfaces';
 
 @Component({
   selector: 'app-serie-details',
@@ -18,6 +19,8 @@ import { AccountService } from '../../services/autenticacion/account.service';
 export class SerieDetailsComponent implements OnInit{
 
   estadoFav: boolean = false;
+
+  regionAdsList: Ad8[] = [];
 
   serieId: string | null = '';
   serie: SerieDetailResponse | undefined;
@@ -78,6 +81,10 @@ export class SerieDetailsComponent implements OnInit{
 
     this.serieService.getProveedoresById(parseInt(this.serieId!)).subscribe(respuesta => {
       this.listaProveedores = respuesta.results.ES.flatrate;
+    });
+
+    this.serieService.getProveedoresAdsById(parseInt(this.serieId!)).subscribe(resp => {
+      this.regionAdsList = resp.results.ES.ads;
     });
 
     this.checkFavorito(parseInt(this.serieId!));

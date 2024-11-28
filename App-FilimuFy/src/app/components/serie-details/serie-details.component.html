@@ -57,9 +57,12 @@
             </div>
 
             <!--Proveedores-->
-            @if(listaProveedores && listaProveedores.length > 0) {
+            @if(listaProveedores && listaProveedores.length > 0 || regionAdsList && regionAdsList.length > 0) {
                 <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
                   <div *ngFor="let proveedor of listaProveedores">
+                    <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
+                  </div>
+                  <div *ngFor="let proveedor of regionAdsList">
                     <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
                   </div>
                 </div>

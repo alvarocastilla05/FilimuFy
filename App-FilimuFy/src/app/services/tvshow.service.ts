@@ -9,6 +9,7 @@ import { RatingsListResponse } from '../interfaces/serie/contentRatingsCertifica
 import { ProveedoreesSerieListResponse } from '../interfaces/serie/proveedorSerie.interfaces';
 import { KeywordsSeriesListResponse } from '../interfaces/serie/serie-keywords.interfaces';
 import { environment } from '../../environments/environment';
+import { ProveedoreesSerieAdsListResponse } from '../interfaces/serie/proveedorSerieAds.interfaces';
 
 
 @Injectable({
@@ -45,6 +46,10 @@ export class TVShowService {
   getProveedoresById(id: number): Observable<ProveedoreesSerieListResponse>{
     return this.http.get<ProveedoreesSerieListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
   }
+
+  getProveedoresAdsById(id: number): Observable<ProveedoreesSerieAdsListResponse>{
+    return this.http.get<ProveedoreesSerieAdsListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
+  }  
 
   getKeywordsById(id: number): Observable<KeywordsSeriesListResponse>{
     return this.http.get<KeywordsSeriesListResponse>(`${environment.apiBaseUrl}/tv/${id}/keywords?api_key=${environment.apiKey}&language=es-ES`);
