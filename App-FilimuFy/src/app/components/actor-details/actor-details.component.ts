@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
 import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { Actor } from '../../interfaces/actor/actores-list.interface';
+import { Cast } from '../../interfaces/combined-list.interface';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ActorDetailsComponent implements OnInit{
   actor: ActorDetailResponse | undefined;
   listaPeliculas: Pelicula[] = [];
   pelicula: PeliculaListResponse | undefined;
-  actorPelis: Actor | undefined;
+  actorPelis: Cast[] = [];
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
 
   constructor(
@@ -29,28 +30,20 @@ export class ActorDetailsComponent implements OnInit{
 
   ngOnInit(): void {
     this.actorId = this.route.snapshot.paramMap.get('id');
-
-    if(this.actorId){
-
-    this.actorService.getActorById(parseInt(this.actorId!)).subscribe(respuesta => {
-      this.actor = respuesta;
-    });
-
-    this.actorService.getPeliculasActorById(parseInt(this.actorId!)).subscribe(respuesta => {
-      this.listaPeliculas = respuesta.results;
-      console.log(this.listaPeliculas);
-    });
-
-    /*this.actorService.getActores().subscribe(respuesta => {
-      this.actorPelis = respuesta.results.find(actor => actor.id === parseInt(this.actorId!));
-    });*/
-
-    this.buscarActorEnPaginas(parseInt(this.actorId!));
-
+  
+    if (this.actorId) {
+      this.actorService.getActorById(parseInt(this.actorId)).subscribe(respuesta => {
+        this.actor = respuesta;
+      });
+  
+      this.actorService.getCombinedCredits(parseInt(this.actorId)).subscribe(respuesta => {
+        this.actorPelis = respuesta.cast;
+        console.log('Trabajos del actor:', this.actorPelis);
+      });
+    }
   }
-
-  }
-
+  
+/*
   buscarActorEnPaginas(actorId: number): void {
     let pagina = 1;
 
@@ -68,7 +61,7 @@ export class ActorDetailsComponent implements OnInit{
 
     buscar();
   }
-
+*/
   trackById(index: number, item: any): number {
     return item.id;
   }
