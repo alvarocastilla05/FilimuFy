@@ -75,4 +75,21 @@ export class PeliculaService {
       `${environment.apiBaseUrl}account/${environment.accountId}/rated/movies?api_key=${environment.apiKey}&session_id=${environment.accountId}&language=es-ES`
     );
   }
+
+  getPeliculaRating(peliculaId: number): Observable<any> {
+    const url = `${environment.apiBaseUrl}/movie/${peliculaId}/account_states?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return this.http.get(url);
+  }
+
+  setPeliculaRating(peliculaId: number, rating: number): Observable<any> {
+    const url = `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return this.http.post(url, { value: rating });
+  }
+
+
+  deletePeliculaRating(peliculaId: number): Observable<any>{
+    return this.http.delete<any>(
+      `${environment.apiBaseUrl}movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
+    );
+  }
 }

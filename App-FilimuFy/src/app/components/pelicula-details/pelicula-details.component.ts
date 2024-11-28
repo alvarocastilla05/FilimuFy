@@ -74,6 +74,8 @@ export class PeliculaDetailsComponent implements OnInit{
     this.peliculaService.getCertificationById(parseInt(this.peliculaId!)).subscribe(resp => {
       this.regionList = resp.results;
     });
+
+    this.getPeliculaRating(parseInt(this.peliculaId!));
     
   }
 
@@ -99,14 +101,23 @@ export class PeliculaDetailsComponent implements OnInit{
     return certificacion;
   }
 
-  //Valorar una película.
-  getPeliculaRated(){
-    if(this.rating != 0){
-      this.listaPeliculasValoradas.push(this.listaPeliculasValoradas.concat());
-    }
-
-    
+  getPeliculaRating(peliculaId: number): void {
+    this.peliculaService.getPeliculaRating(peliculaId).subscribe(response => {
+      if (response.rated) {
+        this.rating = response.rated.value;
+      }
+    });
   }
+
+  setRating(rating: number) {
+    this.peliculaService.setPeliculaRating(parseInt(this.peliculaId!), rating).subscribe();
+  }
+
+  deleteRating() {
+    this.peliculaService.setPeliculaRating(parseInt(this.peliculaId!), 0).subscribe();
+  }
+
+
 
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
