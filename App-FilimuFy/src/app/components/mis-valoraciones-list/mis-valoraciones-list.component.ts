@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RatedPelicula } from '../../interfaces/pelicula/rated-peliculas.interfaces';
 import { RatedSerie } from '../../interfaces/serie/rated-series.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
+import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
+import { TVShow } from '../../interfaces/serie/tv.interface';
 
 @Component({
   selector: 'app-mis-valoraciones-list',
@@ -11,8 +13,8 @@ import { AccountService } from '../../services/autenticacion/account.service';
 export class MisValoracionesListComponent {
 
   account_id: number | undefined;
-  listaPeliculas: RatedPelicula[] = [];
-  listaSeries: RatedSerie[] = [];
+  listaPeliculas: Pelicula[] = [];
+  listaSeries: TVShow[] = [];
   currentPage: number = 1; // Página inicial para keyId
   loading: boolean = false; // Estado de carga
 
@@ -38,7 +40,7 @@ export class MisValoracionesListComponent {
   
   cargarPeliculas(append: boolean = false): void {
     this.loading = true;
-    this.accountService.getRatedPeliculas(this.currentPage).subscribe(resp => {
+    this.accountService.getRatedPeliculas().subscribe(resp => {
       if (append) {
         this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
       } else {
@@ -46,23 +48,17 @@ export class MisValoracionesListComponent {
         console.log(this.listaPeliculas);
       }
       this.loading = false;
-    }, error => {
-      console.error('Error al cargar películas valoradas:', error);
-      this.loading = false;
     });
   }
 
   cargarSeries(append: boolean = false): void {
     this.loading = true;
-    this.accountService.getRatedSeries(this.currentPage).subscribe(resp => {
+    this.accountService.getRatedSeries().subscribe(resp => {
       if (append) {
         this.listaSeries = [...this.listaSeries, ...resp.results];
       } else {
         this.listaSeries = resp.results;
       }
-      this.loading = false;
-    }, error => {
-      console.error('Error al cargar series valoradas:', error);
       this.loading = false;
     });
   }
