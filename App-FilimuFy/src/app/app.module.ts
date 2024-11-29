@@ -31,6 +31,8 @@ import { AvatarFotoPipe } from './pipes/avatarFoto.pipe';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { MisValoracionesListComponent } from './components/mis-valoraciones-list/mis-valoraciones-list.component';
+import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
+import { WatchlistListComponent } from './components/watchlist-list/watchlist-list.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { MisValoracionesListComponent } from './components/mis-valoraciones-list
     ApprovedComponent,
     AvatarFotoPipe,
     SearchComponent,
-    MisValoracionesListComponent
+    MisValoracionesListComponent,
+    FavoritosListComponent,
+    WatchlistListComponent,
   ],
   imports: [
     BrowserModule,

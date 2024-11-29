@@ -5,6 +5,7 @@ import { Actor, ActorListResponse } from '../interfaces/actor/actores-list.inter
 import { ActorDetailResponse } from '../interfaces/actor/actor-detail.interface';
 import { PeliculaListResponse } from '../interfaces/pelicula/pelicula-list.interfaces';
 import { environment } from '../../environments/environment';
+import { CombinedListResponse } from '../interfaces/combined-list.interface';
 
 
 @Injectable({
@@ -28,4 +29,9 @@ export class ActorService {
   getPeliculasActorById(id: number): Observable<PeliculaListResponse>{
     return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/person/${id}/movie_credits?api_key=${environment.apiKey}`);
   }
+
+  getCombinedCredits(id: number): Observable<CombinedListResponse> {
+    return this.http.get<CombinedListResponse>(`${environment.apiBaseUrl}/person/${id}/combined_credits?api_key=${environment.apiKey}&language=es-ES`);
+  }
+  
 }

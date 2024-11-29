@@ -10,6 +10,8 @@ import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-inc
 import { ApprovedComponent } from './shared/approved/approved.component';
 import { SearchComponent } from './components/search/search.component';
 import { MisValoracionesListComponent } from './components/mis-valoraciones-list/mis-valoraciones-list.component';
+import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
+import { WatchlistListComponent } from './components/watchlist-list/watchlist-list.component';
 
 const routes: Routes = [
   {path: 'peliculas', component: PeliculasListComponent},
@@ -23,7 +25,12 @@ const routes: Routes = [
   {path: 'approved', component: ApprovedComponent},
   {path: 'valoraciones', component: MisValoracionesListComponent},
   {path: 'search', component: SearchComponent },
-  {path: 'key/:id', component: SearchComponent}
+  {path: 'key/:id', component: SearchComponent},
+  {path: 'favoritos', component: FavoritosListComponent},
+  {path: 'watchlist', component: WatchlistListComponent},
+
+
+
 ]
 
 @NgModule({

@@ -10,13 +10,14 @@ import { ProveedoreesSerieListResponse } from '../interfaces/serie/proveedorSeri
 import { KeywordsSeriesListResponse } from '../interfaces/serie/serie-keywords.interfaces';
 import { environment } from '../../environments/environment';
 import { RatedSeriesResponse } from '../interfaces/serie/rated-series.interfaces';
+import { ProveedoreesSerieAdsListResponse } from '../interfaces/serie/proveedorSerieAds.interfaces';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TVShowService {
-
+  
   constructor(private http: HttpClient) { }
 
   getSeries(page: number = 1): Observable<TVShowListResponse>{
@@ -47,6 +48,10 @@ export class TVShowService {
     return this.http.get<ProveedoreesSerieListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
   }
 
+  getProveedoresAdsById(id: number): Observable<ProveedoreesSerieAdsListResponse>{
+    return this.http.get<ProveedoreesSerieAdsListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
+  }  
+
   getKeywordsById(id: number): Observable<KeywordsSeriesListResponse>{
     return this.http.get<KeywordsSeriesListResponse>(`${environment.apiBaseUrl}/tv/${id}/keywords?api_key=${environment.apiKey}&language=es-ES`);
   }
@@ -67,6 +72,7 @@ export class TVShowService {
     );
   }
 
+
   getSerieRating(peliculaId: number): Observable<any> {
     const url = `${environment.apiBaseUrl}/tv/${peliculaId}/account_states?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
     return this.http.get(url);
@@ -82,4 +88,32 @@ export class TVShowService {
       `${environment.apiBaseUrl}/tv/${serieId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
     );
   }
+
+  getSerieFiltradas(
+    page: number,
+    genreIds: number[],
+    minVal: number,
+    maxVal: number,
+    minDur: number,
+    maxDur: number,
+    providerIds?: number[]
+  ): Observable<TVShowListResponse> {
+    let url = `${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${page}`;
+  
+    if (genreIds.length > 0) {
+      url += `&with_genres=${genreIds.join(',')}`;
+    }
+    url += `&vote_average.gte=${minVal}&vote_average.lte=${maxVal}`;
+    url += `&with_runtime.gte=${minDur}&with_runtime.lte=${maxDur}`;
+    if (providerIds && providerIds.length > 0) {
+      url += `&with_watch_providers=${providerIds.join(',')}`;
+    }
+    url += `&watch_region=ES`;
+  
+    return this.http.get<TVShowListResponse>(url);
+  }
+  
+
+  
+  
 }

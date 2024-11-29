@@ -8,6 +8,7 @@ import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interface
 import { Region } from '../../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces';
 import { RatedPelicula, RatedPeliculasResponse } from '../../interfaces/pelicula/rated-peliculas.interfaces';
+import { AccountService } from '../../services/autenticacion/account.service';
 
 @Component({
   selector: 'app-pelicula-details',
@@ -15,6 +16,9 @@ import { RatedPelicula, RatedPeliculasResponse } from '../../interfaces/pelicula
   styleUrl: './pelicula-details.component.css'
 })
 export class PeliculaDetailsComponent implements OnInit{
+
+  estadoFav: boolean = false;
+  estadoWatchlist: boolean = false;
 
   peliculaId: string | null = '';
   pelicula: PeliculaDetailResponse | undefined;
@@ -37,6 +41,7 @@ export class PeliculaDetailsComponent implements OnInit{
 
   constructor(
     private peliculaService: PeliculaService, 
+    private accountService: AccountService,
     private route: ActivatedRoute
   ) { }
 
@@ -75,7 +80,11 @@ export class PeliculaDetailsComponent implements OnInit{
       this.regionList = resp.results;
     });
 
+
     this.getPeliculaRating(parseInt(this.peliculaId!));
+    this.checkFavorito(parseInt(this.peliculaId!));
+    this.checkWatchlist(parseInt(this.peliculaId!));
+
     
   }
 
@@ -151,4 +160,119 @@ export class PeliculaDetailsComponent implements OnInit{
     return localStorage.getItem('logged_in') === 'true';
   }
 
+
+
+
+
+
+
+
+
+
+
+  // BOTÓN FAVORITOS ------------------------------------------------------------------------------------------------------------------------
+
+  checkFavorito(peliculaId: number): void {
+    this.accountService.getFavoritosPeli().subscribe(response => {
+      const favoritos = response.results;
+      this.estadoFav = favoritos.some(pelicula => pelicula.id === peliculaId);
+    });
+  }
+
+  async addOrRemoveFavoritos(peliculaId: number): Promise<any> {
+    const urlAddFavoritos = this.accountService.getUrlAddFavoritos();
+    const data = {
+      media_type: "movie",  // Cambiar a "tv" si es una serie
+      media_id: peliculaId,
+      favorite: this.estadoFav, // true para añadir, false para quitar
+    };
+  
+    try {
+      const response = await fetch(urlAddFavoritos, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Error al añadir/quitar favorito: ${response.status} - ${errorMessage}`);
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en la operación de favorito:', error);
+      throw error;
+    }
+  }
+
+  onFavoritosBotonClick(peliculaId: number): void {
+    this.toggleFavoritos(peliculaId);
+  }
+
+  toggleFavoritos(peliculaId: number): void {
+    this.estadoFav = !this.estadoFav;
+    this.addOrRemoveFavoritos(peliculaId).then(result => {
+      console.log('Estado de favoritos actualizado:', result);
+    }).catch(error => {
+      console.error('Error al actualizar favoritos:', error);
+    });
+  }
+
+  // BOTON WATCHlIST ------------------------------------------------------------------------------------------------------------------------
+
+  checkWatchlist(peliculaId: number): void {
+    this.accountService.getWatchlistPeli().subscribe(response => {
+      const watchlist = response.results;
+      this.estadoWatchlist = watchlist.some(pelicula => pelicula.id === peliculaId);
+    });
+  }
+
+  async addOrRemoveWatchlist(peliculaId: number): Promise<any> {
+    const urlAddWatchlist = this.accountService.getUrlAddWatchlist();
+    const data = {
+      media_type: "movie",  // Cambiar a "tv" si es una serie
+      media_id: peliculaId,
+      watchlist: this.estadoWatchlist, // true para añadir, false para quitar
+    };
+  
+    try {
+      const response = await fetch(urlAddWatchlist, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Error al añadir/quitar watchlist: ${response.status} - ${errorMessage}`);
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en la operación de watchlist:', error);
+      throw error;
+    }
+  } 
+
+  onWatchlistBotonClick(peliculaId: number): void {
+    this.toggleWatchlist(peliculaId);
+  }
+
+  toggleWatchlist(peliculaId: number): void {
+    this.estadoWatchlist = !this.estadoWatchlist;
+    this.addOrRemoveWatchlist(peliculaId).then(result => {
+      console.log('Estado de watchlist actualizado:', result);
+    }).catch(error => {
+      console.error('Error al actualizar watchlist:', error);
+    });
+  }
+
+  
 }

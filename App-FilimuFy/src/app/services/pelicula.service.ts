@@ -91,3 +91,29 @@ export class PeliculaService {
     );
   }
 }
+
+  getPelisFiltradas(
+    page: number,
+    genreIds: number[],
+    minVal: number,
+    maxVal: number,
+    minDur: number,
+    maxDur: number,
+    providerIds?: number[]
+  ): Observable<PeliculaListResponse> {
+    let url = `${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${page}`;
+  
+    if (genreIds.length > 0) {
+      url += `&with_genres=${genreIds.join(',')}`;
+    }
+    url += `&vote_average.gte=${minVal}&vote_average.lte=${maxVal}`;
+    url += `&with_runtime.gte=${minDur}&with_runtime.lte=${maxDur}`;
+    if (providerIds && providerIds.length > 0) {
+      url += `&with_watch_providers=${providerIds.join(',')}`;
+    }
+    url += `&watch_region=ES`;
+  
+    return this.http.get<PeliculaListResponse>(url);
+  }
+
+}

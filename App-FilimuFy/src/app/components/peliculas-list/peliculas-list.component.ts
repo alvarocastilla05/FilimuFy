@@ -1,8 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
 import { GeneroService } from '../../services/genero.service';
-import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
+import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { Genre } from '../../interfaces/serie/serie-detail.interface';
+import { Observable } from 'rxjs';
+import { Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
+import { ProveedorService } from '../../services/proveedor.service';
 
 @Component({
   selector: 'app-peliculas-list',
@@ -12,17 +15,30 @@ import { Genre } from '../../interfaces/serie/serie-detail.interface';
 export class PeliculasListComponent implements OnInit, OnChanges {
 
   listaPeliculas: Pelicula[] = [];
+  listaProveedores: Flatrate[] = [];
   currentPage: number = 1; // Página inicial
   loading: boolean = false; // Estado de carga
-  
-  @Input() nombre: string | undefined;
-
   listaGeneros: Genre[] = [];
   selectedGenres: number[] = []; // Géneros seleccionados
+  selectedProviders: number[] = []; // Proveedores seleccionados
+
+  minVal: number = 0;
+  maxVal: number = 10;
+
+  minDur: number = 0;
+  maxDur: number = 390;
+
+  @Input() nombre: string | undefined;
+
+  
+  
+
+  
 
   constructor(
     private peliculaService: PeliculaService,
-    private generoService: GeneroService
+    private generoService: GeneroService,
+    private proveedorService: ProveedorService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +49,24 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     this.generoService.getGenerosPelicula().subscribe(resp => {
       this.listaGeneros = resp.genres;
     });
+
+    this.cargarProveedores();
+  }
+
+  cargarProveedores() {
+    this.proveedorService.getProveedoresPeliculas().subscribe(proveedores => {
+      this.listaProveedores = proveedores;
+      console.log('Proveedores en España:', this.listaProveedores);
+    });
+  }
+
+  onProviderChange(event: any): void {
+    const providerId = +event.target.value;
+    if (event.target.checked) {
+      this.selectedProviders.push(providerId);
+    } else {
+      this.selectedProviders = this.selectedProviders.filter(id => id !== providerId);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,30 +77,34 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
+cargarPeliculas(genreIds?: number[], providerIds?: number[],  append: boolean = false): void {
+  this.loading = true;
 
-
-  cargarPeliculas(genreIds?: number[], append: boolean = false): void {
-    this.loading = true;
-    if (genreIds && genreIds.length > 0) {
-      this.peliculaService.getPeliculasPorGenero(this.currentPage, genreIds).subscribe(resp => {
-        if (append) {
-          this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
-        } else {
-          this.listaPeliculas = resp.results;
-        }
-        this.loading = false;
-      });
-    } else {
-      this.peliculaService.getPeliculas(this.currentPage).subscribe(resp => {
-        if (append) {
-          this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
-        } else {
-          this.listaPeliculas = resp.results;
-        }
-        this.loading = false;
-      });
-    }
+  if (!append) {
+    this.listaPeliculas = [];
   }
+
+  const hasGenres = genreIds && genreIds.length > 0;
+  const hasProviders = providerIds && providerIds.length > 0;
+
+  this.peliculaService.getPelisFiltradas(
+    this.currentPage,
+    hasGenres ? genreIds : [],
+    this.minVal,
+    this.maxVal,
+    this.minDur,
+    this.maxDur,
+    hasProviders ? providerIds : []
+  ).subscribe((resp: PeliculaListResponse) => {
+    this.listaPeliculas = [...this.listaPeliculas, ...resp.results];
+    this.loading = false;
+  }, error => {
+    this.loading = false;
+    console.error('Error al cargar las películas:', error);
+  }
+
+  )
+}
 
   onGenreChange(event: any): void {
     const genreId = +event.target.value;
@@ -77,17 +115,18 @@ export class PeliculasListComponent implements OnInit, OnChanges {
     }
   }
 
-  filtrarPorGenero(): void {
+  filtrar(): void {
     this.currentPage = 1; // Reiniciar la página al filtrar
-    this.cargarPeliculas(this.selectedGenres);
+    this.cargarPeliculas(this.selectedGenres, this.selectedProviders);
   }
 
   cargarMasPeliculas(): void {
     this.currentPage++;
-    this.cargarPeliculas(this.selectedGenres, true);
+    this.cargarPeliculas(this.selectedGenres, this.selectedProviders, true);
   }
 
   trackById(index: number, item: any): number {
     return item.id;
   }
+
 }
