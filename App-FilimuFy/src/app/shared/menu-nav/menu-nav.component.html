@@ -26,35 +26,35 @@
                             <img [src]="userPhoto | avatar" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
 
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="mt-1 bordeRosa rounded-3">
-                                <div style="width: 600px;">
+                                <div style="width: 710px;">
                                     <div class="row px-2">
                                         <div class="container ps-4 pt-2 pe-0" style="width: 38%;">
-                                            <img [src]="userPhoto | avatar" [style.width]="200 + 'px'" [style.height]="200 + 'px'" class="rounded-3" [alt]="userName">
+                                            <img [src]="userPhoto | avatar" [style.width]="240 + 'px'" [style.height]="240 + 'px'" class="rounded-3" [alt]="userName">
                                             <h3 class="m-0 pt-1 jockeyOne azulOscuro text-center textFilimuFy puntosSuspensivos" 
-                                                style="width: 200px">{{userName}}</h3>
+                                                style="width: 240px">{{userName}}</h3>
                                         </div>
                                         <div class="container mt-2 ps-0" style="width: 62%;">
                                             <!--FAVORITOS-->
-                                            <a routerLink="/favoritos" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                                            <a routerLink="/favoritos" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 mt-1 p-1 me-2 g1">
                                                     <h4 class="m-0 p-2 freeman"><i class="bi bi-suit-heart-fill corazon"></i>&nbsp;&nbsp;Favoritos</h4>
                                                 </div>
                                             </a>
                                             <!--MIS VALORACIONES-->
-                                            <a [routerLink]="" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                                            <a [routerLink]="" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 p-1 me-2 g2">
                                                     <h4 class="m-0 p-2 freeman"><i class="bi bi-star-fill text-warning"></i>&nbsp;&nbsp;Mis valoraciones</h4>
                                                 </div>
                                             </a>
                                             <!--WATCHLISTS-->
-                                            <a routerLink="/watchlist" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
+                                            <a routerLink="/watchlist" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 p-1 me-2 g3">
                                                     <h4 class="m-0 p-2 freeman"><i class="bi bi-bookmark-fill etiqueta"></i>&nbsp;&nbsp;Watchlist</h4>
                                                 </div>
                                             </a>
-                                            <a routerLink="/listas" class="text-decoration-none text-black"> <!--PENDIENTE DE RELLENAR-->
-                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g3">
-                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;Mis Listas</h4>
+                                            <a routerLink="/listas" class="text-decoration-none text-black">
+                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g4">
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-list-ul lista"></i>&nbsp;&nbsp;Mis Listas</h4>
                                                 </div>
                                             </a>
                                             <div class="d-flex justify-content-center">
