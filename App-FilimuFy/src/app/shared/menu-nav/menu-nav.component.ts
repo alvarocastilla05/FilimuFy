@@ -29,7 +29,7 @@ export class MenuNavComponent implements OnInit{
   pelisPorNombre: Pelicula[] = [];
   seriesPorNombre: TVShow[] = [];
 
-  selectedLanguageAndRegion = '';
+  selectedLanguageAndRegion = 'es-ES,ES';
 
   @Output() nombreSeleccionado = new EventEmitter<string>();
 
