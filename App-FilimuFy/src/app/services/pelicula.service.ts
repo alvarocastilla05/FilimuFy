@@ -90,7 +90,7 @@ export class PeliculaService {
       `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
     );
   }
-}
+
 
   getPelisFiltradas(
     page: number,

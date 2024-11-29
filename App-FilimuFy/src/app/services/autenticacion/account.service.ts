@@ -6,9 +6,8 @@ import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicu
 import { TVShow, TVShowListResponse } from '../../interfaces/serie/tv.interface';
 import { environment } from '../../../environments/environment';
 import { RatedPeliculasResponse } from '../../interfaces/pelicula/rated-peliculas.interfaces';
-import { RatedSeriesResponse } from '../../interfaces/serie/rated-series.interfaces';
-import { PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
-import { TVShowListResponse } from '../../interfaces/serie/tv.interface';
+
+
 
 
 @Injectable({
@@ -41,23 +40,23 @@ export class AccountService {
   
 
   getPeliculasFavoritas(page: number = 1): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
+    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/account/${environment.accountId}/favorite/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
   }
 
   getUrlEstadoFavorito(peliculaId: number): string {
-    return `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&movie_id=${peliculaId}`;
+    return `${environment.apiBaseUrl}/account/${environment.accountId}/favorite/movies?api_key=${environment.apiKey}&session_id=${environment.sessionId}&movie_id=${peliculaId}`;
   }
 
   getSeriesFavoritas(page: number = 1): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
+    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/account/${environment.accountId}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`);
   }
   
   getUrlEstadoFavoritoTV(serieId: number): string {
-    return `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&movie_id=${serieId}`;
+    return `${environment.apiBaseUrl}/account/${environment.accountId}/favorite/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&movie_id=${serieId}`;
   }
 
   getUrlAddFavoritos(): string {
-    let urlAddFavoritos = `${environment.apiBaseUrl}/account/${ACCOUNT_ID}/favorite?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    let urlAddFavoritos = `${environment.apiBaseUrl}/account/${environment.accountId}/favorite?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
     return urlAddFavoritos;
   }
 
