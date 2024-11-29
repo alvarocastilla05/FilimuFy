@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PeliculaService } from '../../services/pelicula.service';
 import { ActivatedRoute } from '@angular/router';
 import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detail.interfaces';
@@ -33,6 +33,13 @@ export class PeliculaDetailsComponent implements OnInit{
   keywords: Keyword[] = [];
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
+
+
+  @Output() estadoFavRecarga = new EventEmitter<boolean>();
+
+  /*realizarEnvioAListPelicula() {
+    this.estadoFavRecarga.emit(this.estadoFav);
+  }*/
 
   constructor(
     private peliculaService: PeliculaService, 
@@ -128,6 +135,7 @@ export class PeliculaDetailsComponent implements OnInit{
 
   async addOrRemoveFavoritos(peliculaId: number): Promise<any> {
     const urlAddFavoritos = this.accountService.getUrlAddFavoritos();
+    this.estadoFavRecarga.emit(this.estadoFav);
     const data = {
       media_type: "movie",  // Cambiar a "tv" si es una serie
       media_id: peliculaId,
