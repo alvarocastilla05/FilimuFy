@@ -6,6 +6,7 @@ import { Genre } from '../../interfaces/serie/serie-detail.interface';
 import { Observable } from 'rxjs';
 import { Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
 import { ProveedorService } from '../../services/proveedor.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-peliculas-list',
@@ -38,7 +39,8 @@ export class PeliculasListComponent implements OnInit, OnChanges {
   constructor(
     private peliculaService: PeliculaService,
     private generoService: GeneroService,
-    private proveedorService: ProveedorService
+    private proveedorService: ProveedorService,
+    private configService: ConfigService
   ) { }
 
   ngOnInit(): void {
@@ -127,6 +129,10 @@ cargarPeliculas(genreIds?: number[], providerIds?: number[],  append: boolean = 
 
   trackById(index: number, item: any): number {
     return item.id;
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
 
 }

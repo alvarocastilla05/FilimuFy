@@ -6,6 +6,7 @@ import { PeliculaDetailResponse } from '../../interfaces/pelicula/pelicula-detai
 import { Pelicula, PeliculaListResponse } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { Actor } from '../../interfaces/actor/actores-list.interface';
 import { Cast } from '../../interfaces/combined-list.interface';
+import { ConfigService } from '../../services/config.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ActorDetailsComponent implements OnInit{
 
   constructor(
     private actorService: ActorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private configService: ConfigService
   ) { }
 
 
@@ -64,6 +66,10 @@ export class ActorDetailsComponent implements OnInit{
 */
   trackById(index: number, item: any): number {
     return item.id;
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
 
 }

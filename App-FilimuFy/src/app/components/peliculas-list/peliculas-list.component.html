@@ -3,11 +3,11 @@
         <!-- Columna izquierda: Filtros y Géneros -->
         <div class="col-md-3 col-12 mb-4 pe-5">
             <!-- Título -->
-            <h1 class="mb-2 jockeyOne azul text-center"><i class="bi bi-funnel-fill"></i> Filtros</h1>
+            <h1 class="mb-2 jockeyOne azul text-center"><i class="bi bi-funnel-fill"></i> {{getTexto('filter')}}</h1>
             <hr>
 
 
-            <h3 class="mb-2 jockeyOne">Géneros</h3>
+            <h3 class="mb-2 jockeyOne">{{getTexto('genre')}}</h3>
             <!-- Lista de géneros con flexbox -->
             <div class="d-flex flex-wrap gap-2 pb-2">
                 <div *ngFor="let genero of listaGeneros; let i = index">
@@ -30,7 +30,7 @@
             </div>
 
             <!--Rango de valoración-->
-            <h3 class="mb-2 mt-4 jockeyOne pb-1">Rango de valoración</h3>
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">{{getTexto('rating')}}</h3>
             <div class="w-100 mt-4">
               <mat-slider min="0" max="10" step="1" [discrete]="true" style="width: 90%;">
                 <input [(ngModel)]="minVal" matSliderStartThumb>
@@ -39,7 +39,7 @@
             </div>
 
             <!--Rango de Duración-->
-            <h3 class="mb-2 mt-4 jockeyOne pb-1">Duración (min)</h3>
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">{{getTexto('duration')}} (min)</h3>
             <div class="w-100 mt-4">
               <mat-slider min="0" max="390" step="15" [discrete]="true" style="width: 90%;">
                 <input [(ngModel)]="minDur" matSliderStartThumb>
@@ -47,7 +47,7 @@
               </mat-slider>
             </div>
 
-            <h3 class="mb-2 mt-4 jockeyOne pb-1">Proveedores</h3>
+            <h3 class="mb-2 mt-4 jockeyOne pb-1">{{getTexto('providers')}}</h3>
             <div class="scroll-container d-flex flex-wrap gap-2">
               <div *ngFor="let proveedor of listaProveedores; let i = index">
                 <input 
@@ -70,7 +70,7 @@
                 <button 
                     class="btn btn-primary btn-lg w-100 jockeyOne sombra azulOscuro"
                     (click)="filtrar()">
-                    Filtrar
+                    {{getTexto('filtrar')}}
                 </button>
             </div>
         </div>
@@ -99,7 +99,7 @@
           <button 
             class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" 
             (click)="cargarMasPeliculas()">
-            Mostrar más películas
+            {{getTexto('more')}}
           </button>
         </div>
       </div>

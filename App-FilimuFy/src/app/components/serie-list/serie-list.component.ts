@@ -6,6 +6,7 @@ import { Genre } from '../../interfaces/serie/serie-detail.interface';
 import { Flatrate } from '../../interfaces/serie/proveedorSerie.interfaces';
 import { forkJoin } from 'rxjs';
 import { ProveedorService } from '../../services/proveedor.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-serie-list',
@@ -32,7 +33,8 @@ export class SerieListComponent implements OnInit {
   constructor(
     private serieService: TVShowService,
     private generoService: GeneroService,
-    private proveedorService: ProveedorService
+    private proveedorService: ProveedorService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +77,10 @@ export class SerieListComponent implements OnInit {
       this.selectedGenres = this.selectedGenres.filter(id => id !== genreId);
     }
     console.log('Géneros seleccionados:', this.selectedGenres);
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
   
   /*

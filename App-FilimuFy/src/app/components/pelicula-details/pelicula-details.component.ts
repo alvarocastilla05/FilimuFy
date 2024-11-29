@@ -9,6 +9,7 @@ import { Region } from '../../interfaces/pelicula/releaseDateCertifications.inte
 import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
 import { ListasService } from '../../services/listas.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-pelicula-details',
@@ -40,7 +41,8 @@ export class PeliculaDetailsComponent implements OnInit {
     private peliculaService: PeliculaService,
     private accountService: AccountService,
     private listasService: ListasService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private configService: ConfigService
   ) { }
 
   ngOnInit(): void {
@@ -140,6 +142,10 @@ export class PeliculaDetailsComponent implements OnInit {
 
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
 
   

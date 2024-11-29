@@ -31,6 +31,7 @@ export class MenuNavComponent implements OnInit{
 
   selectedLanguageAndRegion = 'es-ES,ES';
 
+
   @Output() nombreSeleccionado = new EventEmitter<string>();
 
   constructor(
@@ -124,6 +125,11 @@ export class MenuNavComponent implements OnInit{
     // Recargar la página para aplicar los cambios
     window.location.reload();
   }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
+  }
+
 
   getSelectedLanguageFlag(): string {
     const language = this.selectedLanguageAndRegion?.split(',')[1];

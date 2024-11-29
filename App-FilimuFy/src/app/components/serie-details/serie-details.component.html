@@ -42,10 +42,10 @@
             <div class="d-flex">
                 <h4 class="m-0 poppins text-white p-3 me-3">
                   <span *ngIf="serie!.number_of_seasons === 1">
-                        {{serie!.number_of_seasons}} temporada
+                        {{serie!.number_of_seasons}} {{getTexto('temporada')}}
                   </span>
                   <span *ngIf="serie!.number_of_seasons !== 1">
-                        {{serie!.number_of_seasons}} temporadas
+                        {{serie!.number_of_seasons}} {{getTexto('temporadas')}}
                   </span>
                 </h4>
                 <h4 class="m-0 poppins text-white p-3 me-3">
@@ -74,7 +74,7 @@
             @if(serie!.overview !== ''){
                 <h5 class="poppins text-white p-3">{{serie!.overview}}</h5>
             }@else {
-                <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
+                <h5 class="poppins text-white p-3">{{getTexto('nosinopsis')}}</h5>
             }
             <!--Tráiler y opciones de usuario-->
             <div class="container m-0 p-0 d-flex">
@@ -119,7 +119,7 @@
     
         <!--Reparto principal-->
         <div class="container w-75">
-            <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+            <h2 class="m-0 jockeyOne azulOscuro">{{getTexto('reparto')}}</h2>
         
             <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
                 @if(listaCreditos.length > 4){
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                 }@else {
-                    <h5 class="poppins mt-5">No se han añadido personas al reparto principal de esta serie.</h5>
+                    <h5 class="poppins mt-5">{{getTexto('nocast')}}</h5>
                 }
             </div>
         </div>
@@ -150,7 +150,7 @@
         <!--Datos de la serie-->
         <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
             <div class="mb-4">
-                <h4 class="jockeyOne text-black">Titulo original:</h4>
+                <h4 class="jockeyOne text-black">{{getTexto('originalTitle')}}:</h4>
                 @if(serie!.original_name !== ''){
                     <h5 class="freeman text-white">{{serie!.original_name}}</h5>
                 }@else {
@@ -158,7 +158,7 @@
                 }
             </div>
             <div class="mb-4">
-                <h4 class="jockeyOne text-black">Idioma original:</h4>
+                <h4 class="jockeyOne text-black">{{getTexto('originalLanguage')}}:</h4>
                 @if(serie!.spoken_languages.length != 0){
                     <h5 class="freeman text-white">{{serie!.spoken_languages[0].english_name}}</h5>
                 }@else {
@@ -166,7 +166,7 @@
                 }
             </div>
             <div class="mb-4">
-                <h4 class="jockeyOne text-black">Tipo:</h4>
+                <h4 class="jockeyOne text-black">{{getTexto('tipo')}}:</h4>
                 @if(serie!.type !== ''){
                     <h5 class="freeman text-white">{{serie!.type}}</h5>
                 }@else {
@@ -174,7 +174,7 @@
                 }
             </div>
             <div class="mb-4">
-                <h4 class="jockeyOne text-black">Creador(es):</h4>
+                <h4 class="jockeyOne text-black">{{getTexto('creador')}}:</h4>
                 @if(serie!.created_by.length != 0){
                     <div *ngFor="let creador of serie!.created_by;">
                         <h5 class="freeman text-white">{{creador!.original_name}}</h5>
@@ -184,7 +184,7 @@
                 }
             </div>
             <div>
-                <h4 class="jockeyOne text-black">Palabras clave:</h4>
+                <h4 class="jockeyOne text-black">{{getTexto('keywords')}}:</h4>
                 <div class="d-flex flex-wrap">
                     @if(keywords.length != 0){
                         <div *ngFor="let keyword of keywords;">
@@ -193,7 +193,7 @@
                             </a>
                         </div>
                     }@else {
-                        <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
+                        <h5 class="freeman text-white">{{getTexto('nokeywords')}}</h5>
                     }
                 </div>
             </div>
@@ -203,7 +203,7 @@
     <!--SECCIÓN DE TEMPORADAS -------------------->
     <div class="container-fluid d-flex mb-5 pb-5">
         <div class="container-fluid">
-            <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
+            <h2 class="m-0 jockeyOne azulOscuro">{{getTexto('temporadas')}}</h2>
 
             <div class="row d-flex">
                 @if(serie!.seasons.length != 0){
@@ -249,7 +249,7 @@
                                         @if(season!.overview !== ''){
                                             <h6 class="m-0 poppins mt-3 text-white truncarLineas">{{season.overview}}</h6>
                                         }@else {
-                                            <h6 class="m-0 poppins mt-3 text-white">Sinopsis no disponible.</h6>
+                                            <h6 class="m-0 poppins mt-3 text-white">{{getTexto('nosinopsis')}}</h6>
                                         }
                                         <!--h4 class="m-0 mt-3 freeman text-white">
                                             SI QUEDA TIEMPO, INCLUIR NOMBRE Y FECHA DE ESTRENO DEL ÚLTIMO CAPÍTULO DE TEMPORADA. 
@@ -262,7 +262,7 @@
                         </div>
                     </div>
                 }@else {
-                    <h5 class="poppins mt-5 ms-4">No se han añadido temporadas a esta serie.</h5>
+                    <h5 class="poppins mt-5 ms-4">{{getTexto('noseasons')}}</h5>
                 }
             </div>
         </div>

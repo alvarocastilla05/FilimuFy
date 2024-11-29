@@ -1,5 +1,5 @@
 <div class="container mt-5 pb-4">
-  <h1 class="jockeyOne m-0"><i class="bi bi-suit-heart-fill corazon"></i>&nbsp;&nbsp;Favoritos</h1>
+  <h1 class="jockeyOne m-0"><i class="bi bi-suit-heart-fill corazon"></i>&nbsp;&nbsp;{{getTexto('favorites')}}</h1>
 
   <!-- Pestañas estilo Google -->
   <ul class="nav nav-pills justify-content-center mb-5 pt-5">
@@ -8,7 +8,7 @@
         [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
         (click)="showPeliculas = true; showSeries = false"
         role="button">
-        <h4 class="m-0 freeman text-center">Películas</h4>
+        <h4 class="m-0 freeman text-center">{{getTexto('movies')}}</h4>
       </a>
     </li>
     <li class="nav-item w-25 ms-5">
@@ -16,7 +16,7 @@
         [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
         (click)="showPeliculas = false; showSeries = true"
         role="button">
-        <h4 class="m-0 freeman text-center">Series</h4>
+        <h4 class="m-0 freeman text-center">{{getTexto('shows')}}</h4>
       </a>
     </li>
   </ul>
@@ -38,13 +38,13 @@
           class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
           (click)="cargarMasPeliculas()"
         >
-          Mostrar más películas
+        {{getTexto('more')}}
         </button>
       </div>
     </div>
     <!--Mensaje de "Sin resultados"-->
     <div *ngIf="listaPeliculas.length === 0" class="mt-5 pt-5 text-center poppins">
-      <h4>No se han encontrado resultados relacionados con películas.</h4>
+      <h4>{{getTexto('nofavmv')}}</h4>
     </div>
   </div>
 
@@ -65,13 +65,13 @@
           class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
           (click)="cargarMasSeries()"
         >
-          Mostrar más series
+          {{getTexto('more')}}
         </button>
       </div>
     </div>
     <!--Mensaje de "Sin resultados"-->
     <div *ngIf="listaSeries.length === 0" class="mt-5 pt-5 text-center poppins">
-      <h4>No se han encontrado resultados relacionados con series.</h4>
+      <h4>{{getTexto('nofavsh')}}</h4>
     </div>
   </div>
 

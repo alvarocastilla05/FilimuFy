@@ -40,7 +40,7 @@
       </div>
       <!--Duración, Valoración y Status-->
       <div class="d-flex">
-        <h4 class="m-0 poppins text-white p-3 me-3">Duración: {{pelicula!.runtime | horasMin}}</h4>
+        <h4 class="m-0 poppins text-white p-3 me-3">{{getTexto('duration')}}: {{pelicula!.runtime | horasMin}}</h4>
         <h4 class="m-0 poppins text-white p-3 me-3">
           <i class="bi bi-star-fill text-warning"></i> {{pelicula!.vote_average |number:'1.0-1' }} /10
         </h4>
@@ -67,7 +67,7 @@
       @if(pelicula!.overview !== ''){
         <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
       }@else {
-        <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
+        <h5 class="poppins text-white p-3"></h5>
       }
       <!--Tráiler y opciones de usuario-->
       <div class="container m-0 p-0 d-flex">
@@ -76,7 +76,7 @@
           <a type="button" class="btn d-inline-flex fondoRosa sombra p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
             [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
             <h5 class="m-0 freeman text-white align-middle d-flex align-items-center">
-              <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir tráiler
+              <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;{{getTexto('trailer')}}
             </h5>
           </a>
         </div>
@@ -146,7 +146,7 @@
 
     <!--Reparto principal-->
     <div class="container w-75">
-      <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
+      <h2 class="m-0 jockeyOne azulOscuro">{{getTexto('reparto')}}</h2>
   
       <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
         @if(listaCreditos.length > 4){
@@ -169,7 +169,7 @@
             </div>
           </div>
         }@else {
-          <h5 class="poppins mt-5">No se han añadido personas al reparto principal de esta película.</h5>
+          <h5 class="poppins mt-5">{{getTexto('nocast')}}</h5>
         }
       </div>
     </div>
@@ -177,7 +177,7 @@
     <!--Datos de la película-->
     <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Título original:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('originalTitle')}}:</h4>
         @if(pelicula!.original_title !== ''){
           <h5 class="freeman text-white">{{pelicula!.original_title}}</h5>
         }@else {
@@ -185,7 +185,7 @@
         }
       </div>
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Idioma original:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('originalLanguage')}}:</h4>
         @if(pelicula!.spoken_languages.length != 0){
           <h5 class="freeman text-white">{{pelicula!.spoken_languages[0].english_name}}</h5>
         }@else {
@@ -193,7 +193,7 @@
         }
       </div>
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Presupuesto:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('presupuesto')}}:</h4>
         @if(pelicula!.budget != null){
           <h5 class="freeman text-white">{{pelicula!.budget | currency: 'USD'}}</h5>
         }@else {
@@ -201,7 +201,7 @@
         }
       </div>
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Ingresos:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('ingresos')}}:</h4>
         @if(pelicula!.revenue != null){
           <h5 class="freeman text-white">{{pelicula!.revenue | currency: 'USD'}}</h5>
         }@else {
@@ -209,7 +209,7 @@
         }
       </div>
       <div>
-        <h4 class="jockeyOne text-black">Palabras clave:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('keywords')}}:</h4>
         <div class="d-flex flex-wrap">
           @if(keywords.length != 0){
             <div *ngFor="let keyword of keywords;">
@@ -218,7 +218,7 @@
               </a>
             </div>
           }@else {
-            <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
+            <h5 class="freeman text-white">{{getTexto('nokeywords')}}</h5>
           }
         <div>
       </div>

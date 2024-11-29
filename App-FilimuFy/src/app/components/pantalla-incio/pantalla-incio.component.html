@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <h1 class="jockeyOne m-0">Películas</h1>
+    <h1 class="jockeyOne m-0">{{getTexto('movies')}}</h1>
     <div class="row">
         @for (pelicula of listaPeliculas; track pelicula.id) {
             <div class="col-md-3 col-12 p-2 my-3 mt-2">
@@ -10,7 +10,7 @@
 </div>
 
 <div class="container mt-5">
-    <h1 class="jockeyOne m-0">Series</h1>
+    <h1 class="jockeyOne m-0">{{getTexto('shows')}}</h1>
     <div class="row">
         @for (item of listaSeries; track $index) {
             <div class="col-md-3 col-12 p-2 my-3 mt-2">
@@ -21,7 +21,7 @@
 </div>
 
 <div class="container my-5">
-    <h1 class="jockeyOne m-0">Actores</h1>
+    <h1 class="jockeyOne m-0">{{getTexto('actores')}}</h1>
     <div class="row">
         @for (item of listaActores; track $index) {
             <div class="col-md-3 col-12 p-2 my-3 mt-2">

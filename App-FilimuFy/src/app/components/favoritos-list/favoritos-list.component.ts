@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
 import { TVShow } from '../../interfaces/serie/tv.interface';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-favoritos-list',
@@ -22,6 +23,7 @@ export class FavoritosListComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
+    private configService: ConfigService
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +76,10 @@ export class FavoritosListComponent implements OnInit {
     cargarMasSeries(): void {
       this.currentPage++; // Incrementar la página
       this.cargarSeries(true); // Llamar a la función con `append = true`
+    }
+
+    getTexto(key: string): string {
+      return this.configService.getTexto(key);
     }
  
 }

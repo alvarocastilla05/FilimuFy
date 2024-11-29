@@ -10,6 +10,7 @@ import { Keyword } from '../../interfaces/serie/serie-keywords.interfaces';
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
 import { Ad8 } from '../../interfaces/serie/proveedorSerieAds.interfaces';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-serie-details',
@@ -42,7 +43,8 @@ export class SerieDetailsComponent implements OnInit{
   constructor(
     private serieService: TVShowService,
     private accountService: AccountService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private configService: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -111,6 +113,10 @@ export class SerieDetailsComponent implements OnInit{
 
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
 
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Actor } from '../../interfaces/actor/actores-list.interface';
 import { ActorService } from '../../services/actor.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-actor-list',
@@ -13,7 +14,9 @@ export class ActorListComponent {
   currentPage: number = 1; // Página inicial
   loading: boolean = false; // Estado de carga
 
-  constructor(private actorService: ActorService) { }
+  constructor(private actorService: ActorService,
+              private configService: ConfigService
+  ) { }
 
   ngOnInit(): void {
     this.cargarActores();
@@ -31,4 +34,9 @@ export class ActorListComponent {
         this.loading = false; // Terminar el estado de carga
       });
   }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
+  }
+  
 }
