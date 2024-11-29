@@ -13,7 +13,12 @@ export class ActorListComponent {
   currentPage: number = 1; // Página inicial
   loading: boolean = false; // Estado de carga
 
-  constructor(private actorService: ActorService) { }
+  nombre: string | undefined;
+  actorPorNombre: Actor[] = [];
+
+  constructor(
+    private actorService: ActorService
+  ) { }
 
   ngOnInit(): void {
     this.cargarActores();

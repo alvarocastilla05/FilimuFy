@@ -1,5 +1,16 @@
 <div class="container mt-5 pb-4">
-    <div class="row mt-5">
+    <div class="d-flex justify-content-center bg-dark w-100 py-3 pe-4 rounded-4">
+        <div class="widthSearchrBar">
+            <form class="d-flex w-100" role="search"> <!--(ngSubmit)="filtrarPorNombre()"-->
+                <input class="form-control me-2 rounded-5 w-100 jockeyOne" type="text"
+                    placeholder="Buscar actores..." [(ngModel)]="nombre" name="search" />
+                <button class="btn rounded-5 btnSearchrBar" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-5"> 
         @for (item of listaActores; track $index) {
             <div class="col-md-3 col-12 p-2 my-3">
                 <app-actor-card [actorId]="item"></app-actor-card>
