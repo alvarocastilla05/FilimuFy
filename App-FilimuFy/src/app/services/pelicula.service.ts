@@ -10,6 +10,7 @@ import { ProveedoreesPeliListResponse } from '../interfaces/pelicula/proveedorPe
 import { FechaSalidaResponse } from '../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { KeywordsListResponse } from '../interfaces/pelicula/pelicula-keywords.interfaces';
 import { environment } from '../../environments/environment';
+import { ConfigService } from './config.service';
 
 
 @Injectable({
@@ -19,38 +20,40 @@ export class PeliculaService {
  
   
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private configService: ConfigService
+  ) { }
 
   getPeliculas(page: number = 1): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/movie/popular?api_key=${environment.apiKey}&page=${page}&language=es-ES`);
+    return this.http.get<PeliculaListResponse>(`${environment.apiBaseUrl}/movie/popular?api_key=${environment.apiKey}&page=${page}&language=${this.configService.getLanguage()}`);
   }
 
   getPeliculaById(id: number): Observable<PeliculaDetailResponse>{
-    return this.http.get<PeliculaDetailResponse>(`${environment.apiBaseUrl}/movie/${id}?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<PeliculaDetailResponse>(`${environment.apiBaseUrl}/movie/${id}?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getGeneroById(id: number): Observable<GenreListResponse>{
-    return this.http.get<GenreListResponse>(`${environment.apiBaseUrl}/genre/movie/list?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<GenreListResponse>(`${environment.apiBaseUrl}/genre/movie/list?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getCreditosById(id: number): Observable<CreditosListResponse>{
-    return this.http.get<CreditosListResponse>(`${environment.apiBaseUrl}/movie/${id}/credits?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<CreditosListResponse>(`${environment.apiBaseUrl}/movie/${id}/credits?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getVideoById(id: string): Observable<VIdeoListResponse>{
-    return this.http.get<VIdeoListResponse>(`${environment.apiBaseUrl}/movie/${id}/videos?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<VIdeoListResponse>(`${environment.apiBaseUrl}/movie/${id}/videos?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getCertificationById(id: number): Observable<FechaSalidaResponse>{
-    return this.http.get<FechaSalidaResponse>(`${environment.apiBaseUrl}/movie/${id}/release_dates?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<FechaSalidaResponse>(`${environment.apiBaseUrl}/movie/${id}/release_dates?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getProveedoresById(id: number): Observable<ProveedoreesPeliListResponse>{
-    return this.http.get<ProveedoreesPeliListResponse>(`${environment.apiBaseUrl}/movie/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<ProveedoreesPeliListResponse>(`${environment.apiBaseUrl}/movie/${id}/watch/providers?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
   
   getKeywordsById(id: number): Observable<KeywordsListResponse>{
-    return this.http.get<KeywordsListResponse>(`${environment.apiBaseUrl}/movie/${id}/keywords?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<KeywordsListResponse>(`${environment.apiBaseUrl}/movie/${id}/keywords?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   searchPeliculas(query: string) {
@@ -66,7 +69,7 @@ export class PeliculaService {
 
   getPeliculasPorPalabraClave(keywordId: number, currentPage: number): Observable<PeliculaListResponse> {
     return this.http.get<PeliculaListResponse>(
-      `${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
+      `${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=${this.configService.getLanguage()}`
     );
   }
 
@@ -89,7 +92,7 @@ export class PeliculaService {
     if (providerIds && providerIds.length > 0) {
       url += `&with_watch_providers=${providerIds.join(',')}`;
     }
-    url += `&watch_region=ES`;
+    url += `&watch_region=${this.configService.getWatchRegion()}`;
   
     return this.http.get<PeliculaListResponse>(url);
   }

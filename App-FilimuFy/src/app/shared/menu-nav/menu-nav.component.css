@@ -18,6 +18,13 @@
     font-family: 'freeman';
 }
 
+mat-option img {
+    vertical-align: middle;
+    width: 20px; /* Ajusta el tamaño */
+    margin-right: 8px; /* Espacio entre la imagen y el texto */
+  }
+  
+
 /* HEADER -------------------------------------------------------------------------------------------------------------- */
 
 header {

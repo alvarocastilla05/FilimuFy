@@ -15,6 +15,30 @@
                 </button>
             </form>
         </div>
+        <mat-form-field appearance="fill">
+            <mat-select [(value)]="selectedLanguageAndRegion" (selectionChange)="changeLanguageAndRegion($event)">
+              <mat-select-trigger>
+                <img
+                  [src]="getSelectedLanguageFlag()"
+                  alt="Selected Language"
+                  style="width: 20px; margin-right: 8px;"
+                />
+                {{ selectedLanguageAndRegion.split(',')[1] }}
+              </mat-select-trigger>
+              <mat-option value="es-ES,ES">
+                <img src="/img/es.svg" alt="ES" style="width: 20px; margin-right: 8px;">ES
+              </mat-option>
+              <mat-option value="en-GB,GB">
+                <img src="/img/sh.svg" alt="EN" style="width: 20px; margin-right: 8px;">GB
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          
+          
+          
+          
+          
         <div class="pe-3 pt-1 w-25 text-end">
 
             @if(isLoggedIn()) {

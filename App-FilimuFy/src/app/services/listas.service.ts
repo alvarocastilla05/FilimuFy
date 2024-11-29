@@ -2,16 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListasService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private configService: ConfigService
+  ) { }
 
   getListas(): Observable<any> {
-    const url = `${environment.apiBaseUrl}/account/${environment.accountId}/lists?api_key=${environment.apiKey}&language=es-ES&session_id=${environment.sessionId}`;
+    const url = `${environment.apiBaseUrl}/account/${environment.accountId}/lists?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}&session_id=${environment.sessionId}`;
     return this.http.get(url);
   }
   
@@ -21,7 +24,7 @@ export class ListasService {
     const body = {
       name: nombre,
       description: descripcion,
-      iso_639_1: 'es',
+      iso_639_1: this.configService.getWatchRegion(),
     };
     return this.http.post(url, body);
   }
@@ -50,7 +53,7 @@ export class ListasService {
     return this.http.get<any>(url, {
       params: {
         api_key: environment.apiKey,
-        language: 'es-ES'
+        language: this.configService.getLanguage(),
       },
     });
   }

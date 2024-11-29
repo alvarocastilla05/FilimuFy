@@ -10,6 +10,7 @@ import { ProveedoreesSerieListResponse } from '../interfaces/serie/proveedorSeri
 import { KeywordsSeriesListResponse } from '../interfaces/serie/serie-keywords.interfaces';
 import { environment } from '../../environments/environment';
 import { ProveedoreesSerieAdsListResponse } from '../interfaces/serie/proveedorSerieAds.interfaces';
+import { ConfigService } from './config.service';
 
 
 @Injectable({
@@ -17,42 +18,44 @@ import { ProveedoreesSerieAdsListResponse } from '../interfaces/serie/proveedorS
 })
 export class TVShowService {
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private configService: ConfigService
+  ) { }
 
   getSeries(page: number = 1): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${page}&language=es-ES`);
+    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${page}&language=${this.configService.getLanguage()}`);
   }
 
   getSerieById(id: number): Observable<SerieDetailResponse>{
-    return this.http.get<SerieDetailResponse>(`${environment.apiBaseUrl}/tv/${id}?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<SerieDetailResponse>(`${environment.apiBaseUrl}/tv/${id}?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getGeneroById(id: number): Observable<TVShowListResponse>{
-    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/genre/tv/list?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<TVShowListResponse>(`${environment.apiBaseUrl}/genre/tv/list?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getVideoSerieById(id: string): Observable<VideoSerieListResponse>{
-    return this.http.get<VideoSerieListResponse>(`${environment.apiBaseUrl}/tv/${id}/videos?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<VideoSerieListResponse>(`${environment.apiBaseUrl}/tv/${id}/videos?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getCreditosSerieById(id: number): Observable<CreditosListResponse>{
-    return this.http.get<CreditosListResponse>(`${environment.apiBaseUrl}/tv/${id}/credits?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<CreditosListResponse>(`${environment.apiBaseUrl}/tv/${id}/credits?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getCertificationById(id: number): Observable<RatingsListResponse>{
-    return this.http.get<RatingsListResponse>(`${environment.apiBaseUrl}/tv/${id}/content_ratings?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<RatingsListResponse>(`${environment.apiBaseUrl}/tv/${id}/content_ratings?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getProveedoresById(id: number): Observable<ProveedoreesSerieListResponse>{
-    return this.http.get<ProveedoreesSerieListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<ProveedoreesSerieListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getProveedoresAdsById(id: number): Observable<ProveedoreesSerieAdsListResponse>{
-    return this.http.get<ProveedoreesSerieAdsListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<ProveedoreesSerieAdsListResponse>(`${environment.apiBaseUrl}/tv/${id}/watch/providers?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }  
 
   getKeywordsById(id: number): Observable<KeywordsSeriesListResponse>{
-    return this.http.get<KeywordsSeriesListResponse>(`${environment.apiBaseUrl}/tv/${id}/keywords?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<KeywordsSeriesListResponse>(`${environment.apiBaseUrl}/tv/${id}/keywords?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
   
   searchSeries(query: string) {
@@ -67,7 +70,7 @@ export class TVShowService {
 
   getSeriesPorPalabraClave(keywordId: number, currentPage: number): Observable<TVShowListResponse> {
     return this.http.get<TVShowListResponse>(
-      `${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
+      `${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=${this.configService.getLanguage()}`
     );
   }
 
@@ -90,7 +93,7 @@ export class TVShowService {
     if (providerIds && providerIds.length > 0) {
       url += `&with_watch_providers=${providerIds.join(',')}`;
     }
-    url += `&watch_region=ES`;
+    url += `&watch_region=${this.configService.getWatchRegion()}`;
   
     return this.http.get<TVShowListResponse>(url);
   }
