@@ -115,7 +115,8 @@ export class SerieDetailsComponent implements OnInit{
   }
 
   deleteRating() {
-    this.serieService.setSerieRating(parseInt(this.serieId!), 0).subscribe();
+    this.serieService.deleteSerieRating(parseInt(this.serieId!)).subscribe();
+    this.rating = 0;
   }
 
   isLoggedIn() {

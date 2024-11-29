@@ -87,7 +87,7 @@ export class PeliculaService {
 
   deletePeliculaRating(peliculaId: number): Observable<any>{
     return this.http.delete<any>(
-      `${environment.apiBaseUrl}movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
+      `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
     );
   }
 }

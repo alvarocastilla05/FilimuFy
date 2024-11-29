@@ -77,9 +77,9 @@ export class TVShowService {
     return this.http.post(url, { value: rating });
   }
 
-  deleteSerieRating(peliculaId: number): Observable<any>{
+  deleteSerieRating(serieId: number): Observable<any>{
     return this.http.delete<any>(
-      `${environment.apiBaseUrl}tv/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
+      `${environment.apiBaseUrl}/tv/${serieId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
     );
   }
 }

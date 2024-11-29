@@ -140,7 +140,6 @@
 
 .truncarLineas{
   display: -webkit-box;          /*Esta propiedad permite establecer un diseño de caja.*/
-  -webkit-line-clamp: 5;         /*Esta propiedad sirve para truncar el texto después de 5 líneas.*/
   -webkit-box-orient: vertical;  /*Esta propiedad sirve para establecerla orientación del contenido dentro de la caja.*/
   overflow: hidden;              /*Esta propiedad permite ocultar el contenido desbordado.*/
 }

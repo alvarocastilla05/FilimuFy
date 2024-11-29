@@ -143,7 +143,8 @@ export class PeliculaDetailsComponent implements OnInit{
   }
 
   deleteRating() {
-    this.peliculaService.setPeliculaRating(parseInt(this.peliculaId!), 0).subscribe();
+    this.peliculaService.deletePeliculaRating(parseInt(this.peliculaId!)).subscribe();
+    this.rating = 0;
   }
 
   isLoggedIn() {

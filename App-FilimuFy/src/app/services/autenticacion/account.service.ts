@@ -23,15 +23,15 @@ export class AccountService {
     );
   }
 
-  getRatedPeliculas(page: number = 1): Observable<PeliculaListResponse>{
-    return this.http.get<PeliculaListResponse>(
-      `${environment.apiBaseUrl}account/${environment.accountId}/rated/movies?api_key=${environment.apiKey}&session_id=${environment.accountId}&page=${page}&language=es-ES`
+  getRatedPeliculas(page: number = 1): Observable<RatedPeliculasResponse>{
+    return this.http.get<RatedPeliculasResponse>(
+      `${environment.apiBaseUrl}/account/${environment.accountId}/rated/movies?api_key=${environment.apiKey}&page=${page}&session_id=${environment.sessionId}&language=es-ES`
     );
   }
 
   getRatedSeries(page: number = 1): Observable<TVShowListResponse>{
     return this.http.get<TVShowListResponse>(
-      `${environment.apiBaseUrl}account/${environment.accountId}/rated/tv?api_key=${environment.apiKey}&session_id=${environment.accountId}&page=${page}&language=es-ES`
+      `${environment.apiBaseUrl}/account/${environment.accountId}/rated/tv?api_key=${environment.apiKey}&session_id=${environment.sessionId}&page=${page}&language=es-ES`
     );
   }
   

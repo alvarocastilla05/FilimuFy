@@ -13,7 +13,7 @@ import { TVShow } from '../../interfaces/serie/tv.interface';
 export class MisValoracionesListComponent {
 
   account_id: number | undefined;
-  listaPeliculas: Pelicula[] = [];
+  listaPeliculas: RatedPelicula[] = [];
   listaSeries: TVShow[] = [];
   currentPage: number = 1; // Página inicial para keyId
   loading: boolean = false; // Estado de carga
