@@ -7,9 +7,9 @@
         <!--PARTE SUPERIOR IZQUIERDA-->
         <div class="w-25">
             @if(serie!.poster_path != null) {
-                <img src="{{serie!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">
+            <img src="{{serie!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">
             } @else {
-                <img [src]="imgPlaceholderPelSer" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">  
+            <img [src]="imgPlaceholderPelSer" width="25%" class="rounded-4 card-img-top" alt="{{serie!.name}}">
             }
         </div>
 
@@ -19,44 +19,46 @@
             <!--Nombre y año de estreno-->
             <h1 class="mb-4 jockeyOne text-white">{{serie!.name}}
                 @if(serie!.first_air_date !== ''){
-                    <span class="gris">({{serie!.first_air_date| date:'yyyy'}})</span>
+                <span class="gris">({{serie!.first_air_date| date:'yyyy'}})</span>
                 }@else {
-                    <!--No hace nada.-->
+                <!--No hace nada.-->
                 }
             </h1>
             <!--PEGI y Géneros-->
             <div class="container w-100 px-3 d-flex align-items-center">
-                <h3 class="m-0 me-4 p-2 rounded-3 freeman sombraFuerte anchuraCalificacion text-center text-white" 
+                <h3 class="m-0 me-4 p-2 rounded-3 freeman sombraFuerte anchuraCalificacion text-center text-white"
                     [style]="getCertification() | edadFondoColor" [innerHTML]="getCertification()"></h3>
                 <h4 class="m-0 freeman gris">
                     @if(serie!.genres.length != 0){
-                        <span *ngFor="let genre of serie!.genres; let i = index">{{ genre.name }}
-                            <span *ngIf="i < serie!.genres.length - 1">/ </span>
-                        </span>
+                    <span *ngFor="let genre of serie!.genres; let i = index">{{ genre.name }}
+                        <span *ngIf="i < serie!.genres.length - 1">/ </span>
+                    </span>
                     }@else {
-                        Géneros sin especificar
+                    Géneros sin especificar
                     }
                 </h4>
             </div>
             <!--Nº de temporadas, Valoración y Estado-->
             <div class="d-flex">
                 <h4 class="m-0 poppins text-white p-3 me-3">
-                  <span *ngIf="serie!.number_of_seasons === 1">
+                    <span *ngIf="serie!.number_of_seasons === 1">
                         {{serie!.number_of_seasons}} temporada
-                  </span>
-                  <span *ngIf="serie!.number_of_seasons !== 1">
+                    </span>
+                    <span *ngIf="serie!.number_of_seasons !== 1">
                         {{serie!.number_of_seasons}} temporadas
-                  </span>
+                    </span>
                 </h4>
                 <h4 class="m-0 poppins text-white p-3 me-3">
-                  <i class="bi bi-star-fill text-warning"></i> {{serie!.vote_average|number:'1.0-1' }} /10
+                    <i class="bi bi-star-fill text-warning"></i> {{serie!.vote_average|number:'1.0-1' }} /10
                 </h4>
                 <h4 class="m-0 poppins text-white p-3">
-                  <i class="bi bi-circle-fill tamanhoCirculo" [style]="serie!.status | statusSeriesColor"></i> {{serie!.status}}
+                    <i class="bi bi-circle-fill tamanhoCirculo" [style]="serie!.status | statusSeriesColor"></i>
+                    {{serie!.status}}
                 </h4>
             </div>
 
             <!--Proveedores-->
+
             @if(listaProveedores && listaProveedores.length > 0 || regionAdsList && regionAdsList.length > 0) {
                 <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
                   <div *ngFor="let proveedor of listaProveedores">
@@ -65,48 +67,84 @@
                   <div *ngFor="let proveedor of regionAdsList">
                     <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen" [alt]="proveedor.provider_name">
                   </div>
+
                 </div>
             } @else {
-                <!--No hace nada-->
+            <!--No hace nada-->
             }
 
             <!--Descripción-->
             @if(serie!.overview !== ''){
-                <h5 class="poppins text-white p-3">{{serie!.overview}}</h5>
+            <h5 class="poppins text-white p-3">{{serie!.overview}}</h5>
             }@else {
-                <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
+            <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
             }
             <!--Tráiler y opciones de usuario-->
             <div class="container m-0 p-0 d-flex">
 
                 <div class="p-3 pt-2 me-4" *ngIf="selectedVideo">
-                <a type="button" class="btn d-inline-flex fondoRosa sombraFuerte p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
-                    [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
-                    <h5 class="m-0 freeman text-white align-middle d-flex align-items-center">
-                    <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir tráiler
-                    </h5>
-                </a>
+                    <a type="button"
+                        class="btn d-inline-flex fondoRosa sombraFuerte p-2 pe-3 rounded-3 d-flex align-items-center justify-content-center"
+                        [href]="'https://www.youtube.com/embed/' + selectedVideo.key">
+                        <h5 class="m-0 freeman text-white align-middle d-flex align-items-center">
+                            <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir tráiler
+                        </h5>
+                    </a>
                 </div>
 
                 @if(isLoggedIn()) {
                 <div class="m-0 p-3 pt-2 d-flex">
                     <!--Añadir a Favoritos-->
+
                     <button type="button" id="favorito" class="btn rounded rounded-circle sombra p-2 text-center d-flex w-100 align-items-center me-1" 
                     (click)="onFavoritosBotonClick(serie!.id)"
                     [ngClass]="estadoFav ? 'corazon' : 'boton'">
                     <i class="bi bi-suit-heart-fill tamanhoIcono pt-1 p-2 pb-0"></i>
                     </button>
-
-                    <!--Valorar-->
-                    <button type="button" class="btn rounded rounded-circle boton sombraFuerte p-2 text-center d-flex w-100 align-items-center ms-2 me-1">
-                    <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
-                    </button>
+                  
                     <!--Añadir a Watchlists-->
                     <button type="button" class="btn rounded rounded-circle boton sombraFuerte p-2 text-center d-flex w-100 align-items-center ms-2"
                     (click)="onWatchlistBotonClick(serie!.id)"
                     [ngClass]="estadoWatchlist ? 'etiqueta' : 'boton'">
                     <i class="bi bi-bookmark-fill tamanhoIcono py-0 p-2"></i>
+
                     </button>
+                    <!--Valorar-->
+                    <div ngbDropdown placement="end" class="d-inline-block">
+                        <button type="button" ngbDropdownToggle style="width: 57.6px; height: 57.6px;"
+                            class="btn rounded rounded-circle boton sombraFuerte p-2 text-center d-flex align-items-center ms-2 me-1">
+                            <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
+                        </button>
+                        <!--Dropdown menu-->
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1"
+                            class="ms-2 fondoBlanco bordeAmarillo sombra2">
+                            <div style="width: 500px;">
+                                <div class="row px-3 py-2">
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <h3 class="jockeyOne azulOscuro m-0">¡Valora esta película!</h3>
+                                        <button *ngIf="rating > 0" class="btn btn-link p-0 ms-2" (click)="deleteRating()"
+                                            title="Eliminar valoración">
+                                            <i class="bi bi-trash tamanhoIcono text-danger"></i>
+                                        </button>
+                                    </div>
+                                    <h5 class="freeman mb-4 text-black">¿Qué te ha parecido {{serie!.name}}?</h5>
+                                    <div class="d-flex">
+                                        <ngb-rating [(ngModel)]="rating" (rateChange)="setRating($event)">
+                                            <ng-template let-fill="fill" let-index="index">
+                                                <h2>
+                                                    <i class="text-warning me-1 bi-star{{ fill === 100 ? '-fill' : '' }}"
+                                                        [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                                                </h2>
+                                            </ng-template>
+                                        </ngb-rating>
+                                        <h2 class="ms-3 text-white rounded-3 px-4" [style]="rating | averageColor">
+                                            {{rating}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 }
             </div>
@@ -116,14 +154,14 @@
 
     <!--PARTE INFERIOR -------------------->
     <div class="container-fluid d-flex mt-4 pb-5">
-    
+
         <!--Reparto principal-->
         <div class="container w-75">
             <h2 class="m-0 jockeyOne azulOscuro">Reparto Principal</h2>
-        
+
             <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
                 @if(listaCreditos.length > 4){
-                    <div class="row d-flex flex-nowrap mt-1" style="
+                <div class="row d-flex flex-nowrap mt-1" style="
                         overflow: auto; 
                         white-space: nowrap; 
                         display: flex;
@@ -131,142 +169,147 @@
                         overscroll-behavior-x: contain;
                         scroll-snap-type: x proximity; 
                         margin: 50px auto 0;">
-                        <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
-                            <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
-                        </div>
+                    <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos"
+                        class="col-md-3 col-12 p-2 my-3">
+                        <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
                     </div>
-                }@else if (listaCreditos.length > 0 && listaCreditos.length <= 4) {
-                    <div class="row d-flex flex-nowrap mt-1">
-                        <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
-                            <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
-                        </div>
-                    </div>
-                }@else {
-                    <h5 class="poppins mt-5">No se han añadido personas al reparto principal de esta serie.</h5>
-                }
-            </div>
-        </div>
-    
-        <!--Datos de la serie-->
-        <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
-            <div class="mb-4">
-                <h4 class="jockeyOne text-black">Titulo original:</h4>
-                @if(serie!.original_name !== ''){
-                    <h5 class="freeman text-white">{{serie!.original_name}}</h5>
-                }@else {
-                    <h5 class="freeman text-white">-</h5>
-                }
-            </div>
-            <div class="mb-4">
-                <h4 class="jockeyOne text-black">Idioma original:</h4>
-                @if(serie!.spoken_languages.length != 0){
-                    <h5 class="freeman text-white">{{serie!.spoken_languages[0].english_name}}</h5>
-                }@else {
-                    <h5 class="freeman text-white">-</h5>
-                }
-            </div>
-            <div class="mb-4">
-                <h4 class="jockeyOne text-black">Tipo:</h4>
-                @if(serie!.type !== ''){
-                    <h5 class="freeman text-white">{{serie!.type}}</h5>
-                }@else {
-                    <h5 class="freeman text-white">-</h5>
-                }
-            </div>
-            <div class="mb-4">
-                <h4 class="jockeyOne text-black">Creador(es):</h4>
-                @if(serie!.created_by.length != 0){
-                    <div *ngFor="let creador of serie!.created_by;">
-                        <h5 class="freeman text-white">{{creador!.original_name}}</h5>
-                    </div>
-                }@else{
-                    <h5 class="freeman text-white">-</h5>
-                }
-            </div>
-            <div>
-                <h4 class="jockeyOne text-black">Palabras clave:</h4>
-                <div class="d-flex flex-wrap">
-                    @if(keywords.length != 0){
-                        <div *ngFor="let keyword of keywords;">
-                            <a [routerLink]="['/key', keyword.id]" [queryParams]="{ keyId: keyword.id, keyName: keyword.name}" class="palabraClave text-decoration-none">
-                                <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
-                            </a>
-                        </div>
-                    }@else {
-                        <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
-                    }
                 </div>
+                }@else if (listaCreditos.length > 0 && listaCreditos.length <= 4) { <div
+                    class="row d-flex flex-nowrap mt-1">
+                    <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos"
+                        class="col-md-3 col-12 p-2 my-3">
+                        <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
+                    </div>
             </div>
+            }@else {
+            <h5 class="poppins mt-5">No se han añadido personas al reparto principal de esta serie.</h5>
+            }
         </div>
     </div>
 
-    <!--SECCIÓN DE TEMPORADAS -------------------->
-    <div class="container-fluid d-flex mb-5 pb-5">
-        <div class="container-fluid">
-            <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
+    <!--Datos de la serie-->
+    <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
+        <div class="mb-4">
+            <h4 class="jockeyOne text-black">Titulo original:</h4>
+            @if(serie!.original_name !== ''){
+            <h5 class="freeman text-white">{{serie!.original_name}}</h5>
+            }@else {
+            <h5 class="freeman text-white">-</h5>
+            }
+        </div>
+        <div class="mb-4">
+            <h4 class="jockeyOne text-black">Idioma original:</h4>
+            @if(serie!.spoken_languages.length != 0){
+            <h5 class="freeman text-white">{{serie!.spoken_languages[0].english_name}}</h5>
+            }@else {
+            <h5 class="freeman text-white">-</h5>
+            }
+        </div>
+        <div class="mb-4">
+            <h4 class="jockeyOne text-black">Tipo:</h4>
+            @if(serie!.type !== ''){
+            <h5 class="freeman text-white">{{serie!.type}}</h5>
+            }@else {
+            <h5 class="freeman text-white">-</h5>
+            }
+        </div>
+        <div class="mb-4">
+            <h4 class="jockeyOne text-black">Creador(es):</h4>
+            @if(serie!.created_by.length != 0){
+            <div *ngFor="let creador of serie!.created_by;">
+                <h5 class="freeman text-white">{{creador!.original_name}}</h5>
+            </div>
+            }@else{
+            <h5 class="freeman text-white">-</h5>
+            }
+        </div>
+        <div>
+            <h4 class="jockeyOne text-black">Palabras clave:</h4>
+            <div class="d-flex flex-wrap">
+                @if(keywords.length != 0){
+                <div *ngFor="let keyword of keywords;">
+                    <a [routerLink]="['/key', keyword.id]" [queryParams]="{ keyId: keyword.id, keyName: keyword.name}"
+                        class="palabraClave text-decoration-none">
+                        <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
+                    </a>
+                </div>
+                }@else {
+                <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-            <div class="row d-flex">
-                @if(serie!.seasons.length != 0){
-                    <div class="col-md-6 col-12 my-3" *ngFor="let season of serie!.seasons">
-                        <div class="card mb-1 degradadoTemporada rounded-3 sombra" style="width: 700px; height: 250px">
-                            <div class="row g-0">
-                                <div style="max-width: 175px">
+<!--SECCIÓN DE TEMPORADAS -------------------->
+<div class="container-fluid d-flex mb-5 pb-5">
+    <div class="container-fluid">
+        <h2 class="m-0 jockeyOne azulOscuro">Temporadas</h2>
 
-                                    @if(season.poster_path != null) {
-                                        <img src="{{season.poster_path! | imagen}}" [style.height]="250+'px'" class="img-fluid rounded-start" alt="{{season.name}}">
-                                    } @else {
-                                        <img [src]="imgPlaceholderPelSer" [style.height]="250+'px'" class="img-fluid rounded-start" alt="{{season.name}}"> 
+        <div class="row d-flex">
+            @if(serie!.seasons.length != 0){
+            <div class="col-md-6 col-12 my-3" *ngFor="let season of serie!.seasons">
+                <div class="card mb-1 degradadoTemporada rounded-3 sombra" style="width: 700px; height: 250px">
+                    <div class="row g-0">
+                        <div style="max-width: 175px">
+
+                            @if(season.poster_path != null) {
+                            <img src="{{season.poster_path! | imagen}}" [style.height]="250+'px'"
+                                class="img-fluid rounded-start" alt="{{season.name}}">
+                            } @else {
+                            <img [src]="imgPlaceholderPelSer" [style.height]="250+'px'" class="img-fluid rounded-start"
+                                alt="{{season.name}}">
+                            }
+
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <!--Nombre y año-->
+                                <h2 class="jockeyOne text-white">{{season.name}}
+                                    @if((season!.air_date === '') || (season!.air_date == null)){
+                                    <!--No hace nada.-->
+                                    }@else {
+                                    &nbsp;<span class="negro">({{season!.air_date| date:'yyyy'}})</span>
                                     }
-
+                                </h2>
+                                <!--Valoración y Nº de episodios-->
+                                <div class="d-flex">
+                                    <h6 class="m-0 poppins text-white me-3 bg-black px-2 py-1 rounded-3"
+                                        [style]="season!.vote_average | averageColor">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {{season!.vote_average| number:'1.0-1' }} /10
+                                    </h6>
+                                    <h6 class="m-0 poppins text-white py-1">
+                                        <span *ngIf="season!.episode_count === 1">
+                                            {{season!.episode_count}} episodio
+                                        </span>
+                                        <span *ngIf="season!.episode_count !== 1">
+                                            {{season!.episode_count}} episodios
+                                        </span>
+                                    </h6>
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <!--Nombre y año-->
-                                        <h2 class="jockeyOne text-white">{{season.name}}
-                                            @if((season!.air_date === '') || (season!.air_date == null)){ 
-                                                <!--No hace nada.-->
-                                            }@else {
-                                                &nbsp;<span class="negro">({{season!.air_date| date:'yyyy'}})</span>
-                                            }
-                                        </h2>
-                                        <!--Valoración y Nº de episodios-->
-                                        <div class="d-flex">
-                                            <h6 class="m-0 poppins text-white me-3 bg-black px-2 py-1 rounded-3" 
-                                                [style]="season!.vote_average | averageColor">
-                                                <i class="bi bi-star-fill text-warning"></i> 
-                                                {{season!.vote_average| number:'1.0-1' }} /10
-                                            </h6>
-                                            <h6 class="m-0 poppins text-white py-1"> 
-                                            <span *ngIf="season!.episode_count === 1">
-                                                    {{season!.episode_count}} episodio
-                                            </span>
-                                            <span *ngIf="season!.episode_count !== 1">
-                                                    {{season!.episode_count}} episodios
-                                            </span>
-                                            </h6>
-                                        </div>
-                                        <!--Descripción-->
-                                        @if(season!.overview !== ''){
-                                            <h6 class="m-0 poppins mt-3 text-white truncarLineas">{{season.overview}}</h6>
-                                        }@else {
-                                            <h6 class="m-0 poppins mt-3 text-white">Sinopsis no disponible.</h6>
-                                        }
-                                        <!--h4 class="m-0 mt-3 freeman text-white">
+                                <!--Descripción-->
+                                @if(season!.overview !== ''){
+                                <h6 class="m-0 poppins mt-3 text-white truncarLineas">{{season.overview}}</h6>
+                                }@else {
+                                <h6 class="m-0 poppins mt-3 text-white">Sinopsis no disponible.</h6>
+                                }
+                                <!--h4 class="m-0 mt-3 freeman text-white">
                                             SI QUEDA TIEMPO, INCLUIR NOMBRE Y FECHA DE ESTRENO DEL ÚLTIMO CAPÍTULO DE TEMPORADA. 
                                             <i class="bi bi-play-circle-fill negro"></i> Último capítulo: 
                                             <span class="poppins negro">{{season!.}}</span>
                                         </h4-->
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                }@else {
-                    <h5 class="poppins mt-5 ms-4">No se han añadido temporadas a esta serie.</h5>
-                }
+                </div>
             </div>
+            }@else {
+            <h5 class="poppins mt-5 ms-4">No se han añadido temporadas a esta serie.</h5>
+            }
         </div>
-
     </div>
+
+</div>
 
 </div>
