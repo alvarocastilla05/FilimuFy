@@ -3,177 +3,154 @@
         <a [routerLink]="['/inicio']" class="text-decoration-none">
             <div class="d-flex align-items-center ps-3 w-25">
                 <img class="me-1" [src]="logoFilimuFy" alt="Logo de FilimuFy">
-                <h1 class="mb-0 ms-3 text-white py-3 h1Header jockeyOne">
-                    <span class="textFilimuFy">Filimu</span>Fy
-                </h1>
+                <h1 class="mb-0 ms-3 text-white py-3 h1Header jockeyOne"><span class="textFilimuFy">Filimu</span>Fy</h1>
             </div>
         </a>
         <div class="widthSearchrBar">
             <form class="d-flex align-items-center w-100" role="search" (ngSubmit)="filtrarPorNombre()">
-                <input 
-                    class="form-control me-2 rounded-5 w-100 jockeyOne" 
-                    type="text"
-                    [placeholder]="getTexto('searchPlaceholder')" 
-                    [(ngModel)]="nombre" 
-                    name="search" />
+                <input class="form-control me-2 rounded-5 w-100 jockeyOne" type="text"
+                    placeholder="Buscar películas o series..." [(ngModel)]="nombre" name="search" />
                 <button class="btn rounded-5 btnSearchrBar" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
         </div>
-        <mat-form-field appearance="fill">
-            <mat-select [(value)]="selectedLanguageAndRegion" (selectionChange)="changeLanguageAndRegion($event)">
-                <mat-select-trigger>
-                    <img 
-                        [src]="getSelectedLanguageFlag()" 
-                        alt="Selected Language" 
-                        style="width: 20px; margin-right: 8px;" />
-                    {{ selectedLanguageAndRegion.split(',')[1] }}
-                </mat-select-trigger>
-                <mat-option value="es-ES,ES">
-                    <img src="/img/es.svg" alt="ES" style="width: 20px; margin-right: 8px;">ES
-                </mat-option>
-                <mat-option value="en-GB,GB">
-                    <img src="/img/sh.svg" alt="EN" style="width: 20px; margin-right: 8px;">GB
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
         <div class="pe-3 pt-1 w-25 text-end">
-            <ng-container *ngIf="isLoggedIn(); else loginButton">
+
+            @if(isLoggedIn()) {
+                
                 <div class="row">
                     <div class="col">
                         <div ngbDropdown class="d-inline-block">
-                            <img 
-                                [src]="userPhoto | avatar" 
-                                type="button" 
-                                width="60px" 
-                                height="60px" 
-                                ngbDropdownToggle 
-                                alt="Avatar" 
-                                class="rounded-circle bg-white" />
+
+                            <img [src]="userPhoto | avatar" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
+
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="mt-1 bordeRosa rounded-3">
-                                <div style="width: 600px;">
+                                <div style="width: 710px;">
                                     <div class="row px-2">
                                         <div class="container ps-4 pt-2 pe-0" style="width: 38%;">
-                                            <img 
-                                                [src]="userPhoto | avatar" 
-                                                [style.width]="200 + 'px'" 
-                                                [style.height]="200 + 'px'" 
-                                                class="rounded-3" 
-                                                [alt]="userName">
-                                            <h3 
-                                                class="m-0 pt-1 jockeyOne azulOscuro text-center textFilimuFy puntosSuspensivos" 
-                                                style="width: 200px">
-                                                {{ userName }}
-                                            </h3>
+                                            <img [src]="userPhoto | avatar" [style.width]="240 + 'px'" [style.height]="240 + 'px'" class="rounded-3" [alt]="userName">
+                                            <h3 class="m-0 pt-1 jockeyOne azulOscuro text-center textFilimuFy puntosSuspensivos" 
+                                                style="width: 240px">{{userName}}</h3>
                                         </div>
                                         <div class="container mt-2 ps-0" style="width: 62%;">
+                                            <!--FAVORITOS-->
                                             <a routerLink="/favoritos" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 mt-1 p-1 me-2 g1">
-                                                    <h4 class="m-0 p-2 freeman">
-                                                        <i class="bi bi-suit-heart-fill corazon"></i>&nbsp;&nbsp;{{getTexto('favorites')}}
-                                                    </h4>
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-suit-heart-fill corazon"></i>&nbsp;&nbsp;Favoritos</h4>
                                                 </div>
                                             </a>
+                                            <!--MIS VALORACIONES-->
                                             <a [routerLink]="" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 p-1 me-2 g2">
-                                                    <h4 class="m-0 p-2 freeman">
-                                                        <i class="bi bi-star-fill text-warning"></i>&nbsp;&nbsp;{{getTexto('ratings')}}
-                                                    </h4>
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-star-fill text-warning"></i>&nbsp;&nbsp;Mis valoraciones</h4>
                                                 </div>
                                             </a>
+                                            <!--WATCHLISTS-->
                                             <a routerLink="/watchlist" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 p-1 me-2 g3">
-                                                    <h4 class="m-0 p-2 freeman">
-                                                        <i class="bi bi-bookmark-fill etiqueta"></i>&nbsp;&nbsp;{{getTexto('watchlist')}}
-                                                    </h4>
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-bookmark-fill etiqueta"></i>&nbsp;&nbsp;Watchlist</h4>
                                                 </div>
                                             </a>
+                                            <!--MIS LISTAS-->
                                             <a routerLink="/listas" class="text-decoration-none text-black">
-                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g3">
-                                                    <h4 class="m-0 p-2 freeman">
-                                                        <i class="bi bi-list-ul"></i>&nbsp;&nbsp;{{getTexto('listas')}}
-                                                    </h4>
+                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g4">
+                                                    <h4 class="m-0 p-2 freeman"><i class="bi bi-list-ul lista"></i>&nbsp;&nbsp;Mis Listas</h4>
                                                 </div>
                                             </a>
                                             <div class="d-flex justify-content-center">
-                                                <button 
-                                                    class="btn btnCerrarSesion w-50 mt-1 rounded-3 py-2" 
-                                                    (click)="logout()">
-                                                    <h5 class="m-0 jockeyOne">
-                                                        <i class="bi bi-power"></i>&nbsp;{{getTexto('logout')}}
-                                                    </h5>
+                                                <button class="btn btnCerrarSesion w-50 mt-1 rounded-3 py-2" (click)="logout()">
+                                                    <h5 class="m-0 jockeyOne"><i class="bi bi-power"></i>&nbsp;Cerrar sesión</h5>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
-            </ng-container>
-            <ng-template #loginButton>
+
+            } @else {
                 <button class="btn btnIniciarSesion" (click)="createRequestToken()">
-                    <h5 class="m-0 jockeyOne">
-                        <i class="bi bi-person-fill"></i>&nbsp;{{getTexto('login')}}
-                    </h5>
+                    <h5 class="m-0 jockeyOne"><i class="bi bi-person-fill"></i>&nbsp;Iniciar sesión</h5>
                 </button>
-            </ng-template>
+            }
         </div>
-    </header>
-    <nav class="w-100 d-flex justify-content-around align-items-center">
-        <div 
-            class="px-5 py-2 d-flex align-items-center justify-content-center"
-            [class.bg-warning]="getRutaSeleccionada('peliculas')" 
-            [class.romboide]="getRutaSeleccionada('peliculas')">
-            <h4 
-                class="mb-0 py-1 jockeyOne"
-                [class.textoAntiRomboide]="getRutaSeleccionada('peliculas')"
-                [class.text-black]="getRutaSeleccionada('peliculas')"
-                [class.text-white]="!getRutaSeleccionada('peliculas')">
-                <a class="text-decoration-none" 
-                   [class.text-black]="getRutaSeleccionada('peliculas')"
-                   [class.text-white]="!getRutaSeleccionada('peliculas')"
-                   routerLink="/peliculas">
-                    <i class="bi bi-film me-1"></i>&nbsp;{{ getTexto('popularMovies') }}
-                </a>
-            </h4>
-        </div>
-        <div 
-            class="px-5 py-2 d-flex align-items-center justify-content-center"
-            [class.bg-warning]="getRutaSeleccionada('series')" 
-            [class.romboide]="getRutaSeleccionada('series')">
-            <h4 
-                class="mb-0 py-1 jockeyOne"
-                [class.textoAntiRomboide]="getRutaSeleccionada('series')"
-                [class.text-black]="getRutaSeleccionada('series')"
-                [class.text-white]="!getRutaSeleccionada('series')">
-                <a class="text-decoration-none" 
-                   [class.text-black]="getRutaSeleccionada('series')"
-                   [class.text-white]="!getRutaSeleccionada('series')"
-                   routerLink="/series">
-                    <i class="bi bi-display me-1"></i>&nbsp;{{ getTexto('popularSeries') }}
-                </a>
-            </h4>
-        </div>
-        <div 
-            class="px-5 py-2 d-flex align-items-center justify-content-center"
-            [class.bg-warning]="getRutaSeleccionada('actores')" 
-            [class.romboide]="getRutaSeleccionada('actores')">
-            <h4 
-                class="mb-0 py-1 jockeyOne"
-                [class.textoAntiRomboide]="getRutaSeleccionada('actores')"
-                [class.text-black]="getRutaSeleccionada('actores')"
-                [class.text-white]="!getRutaSeleccionada('actores')">
-                <a class="text-decoration-none" 
-                   [class.text-black]="getRutaSeleccionada('actores')"
-                   [class.text-white]="!getRutaSeleccionada('actores')"
-                   routerLink="/actores">
-                    <i class="bi bi-people-fill me-1"></i>&nbsp;{{ getTexto('popularActors') }}
-                </a>
-            </h4>
-        </div>
-    </nav>
-    
+    </header> 
+
+    @if (getRutaSeleccionada("peliculas") === true) {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2 bg-warning romboide">
+                <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
+                    <a class="text-decoration-none text-black" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    } @else if(getRutaSeleccionada("series") === true) {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2 bg-warning romboide">
+                <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
+                    <a class="text-decoration-none text-black" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    } @else if(getRutaSeleccionada("actores") === true) {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2 bg-warning romboide">
+                <h4 class="mb-0 py-1 jockeyOne textoAntiRomboide">
+                    <a class="text-decoration-none text-black" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    } @else {
+        <nav class="w-100 d-flex justify-content-around align-items-center">
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/peliculas"><i class="bi bi-film me-1"></i>&nbsp;Películas populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/series"><i class="bi bi-display me-1"></i>&nbsp;Series populares</a>
+                </h4>
+            </div>
+            <div class="px-5 py-2">
+                <h4 class="mb-0 py-1 jockeyOne">
+                    <a class="text-decoration-none text-white" routerLink="/actores"><i class="bi bi-people-fill me-1"></i>&nbsp;Actores populares</a>
+                </h4>
+            </div>
+        </nav>
+    }
 </div>

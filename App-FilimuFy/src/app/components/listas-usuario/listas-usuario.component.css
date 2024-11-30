@@ -1,0 +1,65 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------- */
+
+
+@font-face {
+    font-family: 'jockeyOne';
+    src: url(../../fonts/JockeyOne-Regular.ttf);
+}
+
+
+.jockeyOne {
+    font-family: 'jockeyOne';
+}
+
+
+@font-face {
+    font-family: 'freeman';
+    src: url(../../fonts/Freeman-Regular.ttf);
+}
+
+
+.freeman {
+    font-family: 'freeman';
+}
+
+
+/* PÁGINA --------------------------------------------------------------------------------------------- */
+
+
+.sombra {
+    box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
+}
+
+
+.azulOscuro{
+    background-color: #000A1E;
+}
+
+
+.lista{
+    color: #20B7E5;
+}
+
+
+/* ACORDEÓN CREAR LISTA --------------------------------------------------------------------------------------------- */
+
+
+input, textarea {
+    font-size: 19px;
+}
+
+
+input::placeholder, textarea::placeholder {
+    color: #9b9b9b;
+    font-size: 19px;
+}  
+
+
+.fondoAzul{
+    background-color: #01a8db;
+}
+
+
+.fondoGris{
+    background-color: #9b9b9b;
+}

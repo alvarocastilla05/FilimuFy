@@ -1,4 +1,4 @@
-/* TIPOGRAFÍA (JOCKEY ONE) --------------------------------------------------------------------------------------------- */
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------- */
 
 @font-face {
     font-family: 'jockeyOne';
@@ -17,13 +17,6 @@
 .freeman {
     font-family: 'freeman';
 }
-
-mat-option img {
-    vertical-align: middle;
-    width: 20px; /* Ajusta el tamaño */
-    margin-right: 8px; /* Espacio entre la imagen y el texto */
-  }
-  
 
 /* HEADER -------------------------------------------------------------------------------------------------------------- */
 
@@ -119,6 +112,10 @@ nav {
     color: #00DBAF;
 }
 
+.lista{
+    color: #20B7E5;
+}
+
 .puntosSuspensivos{
     white-space: nowrap; 
     overflow: hidden; 
@@ -150,6 +147,11 @@ nav {
     color: white;
 }
 
-.g1:hover>h4>i, .g2:hover>h4>i, .g3:hover>h4>i{
+.g4:hover{
+    background-color: #20B7E5;
+    color: white;
+}
+
+.g1:hover>h4>i, .g2:hover>h4>i, .g3:hover>h4>i, .g4:hover>h4>i{
     color: white !important;
 }

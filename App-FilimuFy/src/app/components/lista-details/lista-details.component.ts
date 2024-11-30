@@ -58,9 +58,5 @@ export class ListaDetailsComponent implements OnInit {
       }
     );
   }
-  
-  
-  
-  
-  
+
 }
