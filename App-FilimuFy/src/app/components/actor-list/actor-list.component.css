@@ -7,9 +7,44 @@
     font-family: 'jockeyOne';
 }
 
+@font-face {
+    font-family: 'freeman';
+    src: url(../../fonts/Freeman-Regular.ttf);
+}
+
+.freeman {
+    font-family: 'freeman';
+}
+
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }
+
 .azulOscuro{
     background-color: #000A1E;
+}
+
+input {
+    font-size: 20px;
+}
+
+input::placeholder {
+    color: #aaaaaa;
+    font-size: 20px;
+}  
+
+.widthSearchrBar {
+    width: 37%;
+}
+
+.btnSearchrBar {
+    width: 41.6px;
+    height: 41.6px;
+    background-color: #E95573;
+    color: white;
+}
+
+.btnSearchrBar:hover {
+    background-color: #20B7E5;
+    color: white;
 }

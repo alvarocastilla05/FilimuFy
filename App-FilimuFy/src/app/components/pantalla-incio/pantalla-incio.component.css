@@ -1,3 +1,5 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
 @font-face {
     font-family: 'jockeyOne';
     src: url(../../fonts/JockeyOne-Regular.ttf);
@@ -14,4 +16,13 @@
 
 .freeman {
     font-family: 'freeman';
+}
+
+@font-face {
+    font-family: 'poppins';
+    src: url(../../fonts/Poppins-Medium.ttf);
+}
+
+.poppins {
+    font-family: 'poppins';
 }

@@ -4,6 +4,8 @@ import { PeliculaService } from '../../services/pelicula.service';
 import { TVShowService } from '../../services/tvshow.service';
 import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { TVShow } from '../../interfaces/serie/tv.interface';
+import { ActorService } from '../../services/actor.service';
+import { Actor } from '../../interfaces/actor/actores-list.interface';
 
 @Component({
   selector: 'app-search',
@@ -14,6 +16,7 @@ export class SearchComponent implements OnInit {
   query: string = '';
   listaPeliculas: Pelicula[] = [];
   listaSeries: TVShow[] = [];
+  listaActores: Actor[] = [];
   keyId: number | undefined;
   keyName: string | undefined;
 
@@ -22,11 +25,13 @@ export class SearchComponent implements OnInit {
 
   showPeliculas: boolean = true; // Mostrar películas al cargar la página
   showSeries: boolean | undefined; // Mostrar series al cargar la página
+  showActores: boolean | undefined; // Mostrar actores al cargar la página
 
   constructor(
     private route: ActivatedRoute,
     private peliculaService: PeliculaService,
-    private serieService: TVShowService
+    private serieService: TVShowService,
+    private actorService: ActorService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +46,7 @@ export class SearchComponent implements OnInit {
         // Buscar películas y series
         this.buscarPeliculas();
         this.buscarSeries();
+        this.buscarActores();
       }
 
       if (this.keyId) {
@@ -62,6 +68,13 @@ export class SearchComponent implements OnInit {
       this.listaSeries = resp.results;
     });
   }
+
+  buscarActores(): void {
+    this.actorService.searchActores(this.query).subscribe((resp) => {
+      this.listaActores = resp.results;
+    });
+  }
+
 
   filtrarPeliculasPorKeyId(append: boolean = false): void {
     this.loading = true; // Iniciar estado de carga

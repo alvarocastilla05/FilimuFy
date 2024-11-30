@@ -1,10 +1,30 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
 @font-face {
-    font-family: 'jockeyOne';
-    src: url(../../fonts/JockeyOne-Regular.ttf);
+  font-family: 'jockeyOne';
+  src: url(../../fonts/JockeyOne-Regular.ttf);
 }
 
 .jockeyOne {
-    font-family: 'jockeyOne';
+  font-family: 'jockeyOne';
+}
+
+@font-face {
+  font-family: 'freeman';
+  src: url(../../fonts/Freeman-Regular.ttf);
+}
+
+.freeman {
+  font-family: 'freeman';
+}
+
+@font-face {
+  font-family: 'poppins';
+  src: url(../../fonts/Poppins-Medium.ttf);
+}
+
+.poppins {
+  font-family: 'poppins';
 }
 
 @font-face {
@@ -28,50 +48,83 @@
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }
+
 .azulOscuro{
     background-color: #000A1E;
 }
 
 .genero-btn {
-    background-color: #E95573;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease;
+  background-color: #E95573;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
 }
 
 .nav-pills {
-    border-bottom: 2px solid #e0e0e0; /* Línea divisoria para las pestañas */
-    margin-bottom: 20px;
-  }
+  border-bottom: 2px solid #e0e0e0; /* Línea divisoria para las pestañas */
+  margin-bottom: 20px;
+}
   
-  .nav-pills .nav-link {
-    border-radius: 10px 10px 0 0; /* Bordes redondeados superiores */
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #555; /* Color del texto inactivo */
-    background-color: transparent; /* Fondo transparente para las pestañas inactivas */
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
+.nav-pills .nav-link {
+  border-radius: 10px 10px 0 0; /* Bordes redondeados superiores */
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555; /* Color del texto inactivo */
+  background-color: transparent; /* Fondo transparente para las pestañas inactivas */
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* FONDO DE PESTAÑAS ------------------------------------------------------------------------------------------------------------*/
   
-  .nav-pills .nav-link.active-tab {
-    background-color: #e05a78; /* Fondo rosado para la pestaña activa */
-    color: white; /* Texto blanco en la pestaña activa */
-    border-color: #e05a78 #e05a78 transparent; /* Sin borde inferior */
-    box-shadow: 0px -2px 5px rgba(224, 90, 120, 0.4); /* Sombra para dar efecto de levantamiento */
-  }
-  
-  .nav-pills .nav-link:hover {
-    background-color: #f8d0da; /* Fondo más claro al hacer hover */
-    color: #e05a78;
-  }
-  
-  .nav-pills .nav-link:not(.active-tab):focus {
-    outline: none;
-    border-color: #20b7e5;
-    background-color: #eef9fc;
-  }
+/*.nav-pills .nav-link.active-tab {
+  background-color: #e05a78; /* Fondo rosado para la pestaña activa 
+  color: white; /* Texto blanco en la pestaña activa 
+  border-color: #e05a78 #e05a78 transparent; /* Sin borde inferior 
+  box-shadow: 0px -2px 5px rgba(224, 90, 120, 0.4); /* Sombra para dar efecto de levantamiento 
+}*/
+
+.nav-pills  a#peliculas.nav-link.active-tab {
+  background-color: #d70f0f; /* Fondo para la pestaña activa */
+  color: white; /* Texto blanco en la pestaña activa */
+}
+
+.nav-pills  a#series.nav-link.active-tab {
+  background-color: #0b59cd; /* Fondo para la pestaña activa */
+  color: white; /* Texto blanco en la pestaña activa */
+}
+
+.nav-pills  a#actores.nav-link.active-tab {
+  background-color: #008b33; /* Fondo para la pestaña activa */
+  color: white; /* Texto blanco en la pestaña activa */
+}
+
+.nav-pills  a#peliculas.nav-link.inactive-tab:hover {
+  background-color: #fbd0d0; /* Fondo para la pestaña activa */
+  color: #d70f0f; /* Texto blanco en la pestaña activa */
+}
+
+.nav-pills  a#series.nav-link.inactive-tab:hover {
+  background-color: #d6e6ff; /* Fondo para la pestaña activa */
+  color: #0b59cd; /* Texto blanco en la pestaña activa */
+}
+
+.nav-pills  a#actores.nav-link.inactive-tab:hover {
+  background-color: #d0ffe1; /* Fondo para la pestaña activa */
+  color: #008b33; /* Texto blanco en la pestaña activa */
+}
+
+/*.nav-pills .nav-link.inactive-tab:hover {
+  background-color: #f8d0da; /* Fondo más claro al hacer hover 
+  color: #e05a78;
+}*/
+
+.nav-pills .nav-link:not(.active-tab):focus {
+  outline: none;
+  border-color: #20b7e5;
+  background-color: #eef9fc;
+}
   
