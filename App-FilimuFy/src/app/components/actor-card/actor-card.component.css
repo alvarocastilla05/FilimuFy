@@ -18,6 +18,15 @@
     font-family: 'freeman';
 }
 
+@font-face {
+    font-family: 'poppins';
+    src: url(../../fonts/Poppins-Medium.ttf);
+}
+
+.poppins {
+    font-family: 'poppins';
+}
+
 /* CARD DE ACTOR ---------------------------------------------------------------------------------------------------- */
 
 h6 {

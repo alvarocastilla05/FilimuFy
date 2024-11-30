@@ -3,35 +3,32 @@
   <h1 class="jockeyOne m-0" *ngIf="query">Resultados para "{{ query }}"</h1>
 
   <!-- Pestañas estilo Google -->
-  <ul class="nav nav-pills justify-content-center mb-5 pt-5">
-    <li class="nav-item">
-      <a
+  <ul class="nav nav-pills justify-content-around mb-5 pt-5">
+    <li class="nav-item w-25">
+      <a id="peliculas"
         class="nav-link"
         [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
         (click)="showPeliculas = true; showSeries = false; showActores = false"
-        role="button"
-      >
-        Películas
+        role="button">
+        <h4 class="m-0 freeman text-center">Películas</h4>
       </a>
     </li>
-    <li class="nav-item">
-      <a
+    <li class="nav-item w-25">
+      <a id="series"
         class="nav-link"
         [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
         (click)="showPeliculas = false; showSeries = true; showActores = false"
-        role="button"
-      >
-        Series
+        role="button">
+        <h4 class="m-0 freeman text-center">Series</h4>
       </a>
     </li>
-    <li class="nav-item">
-      <a
+    <li class="nav-item w-25">
+      <a id="actores"
         class="nav-link"
         [ngClass]="{'active-tab': showActores, 'inactive-tab': !showActores}"
         (click)="showActores = true; showPeliculas = false; showSeries = false"
-        role="button"
-      >
-        Actores
+        role="button">
+        <h4 class="m-0 freeman text-center">Actores</h4>
       </a>
     </li>
   </ul>
@@ -49,9 +46,9 @@
         </div>
       </div>
     } @else {
-      <!-- Mensaje de "No se encontraron resultados" -->
-      <div class="mt-5 text-center">
-        <h3>No se encontraron resultados.</h3>
+      <!--Mensaje de "Sin resultados"-->
+      <div class="mt-5 pt-5 text-center poppins">
+        <h4>No se han encontrado películas relacionadas.</h4>
       </div>
     }
   </div>
@@ -68,9 +65,9 @@
         </div>
       </div>
     } @else {
-      <!-- Mensaje de "No se encontraron resultados" -->
-      <div class="mt-5 text-center">
-        <h3>No se encontraron resultados.</h3>
+      <!--Mensaje de "Sin resultados"-->
+      <div class="mt-5 pt-5 text-center poppins">
+        <h4>No se han encontrado series relacionadas.</h4>
       </div>
     }
   </div>
@@ -87,9 +84,9 @@
         </div>
       </div>
     } @else {
-      <!-- Mensaje de "No se encontraron resultados" -->
-      <div class="mt-5 text-center">
-        <h3>No se encontraron resultados.</h3>
+      <!--Mensaje de "Sin resultados"-->
+      <div class="mt-5 pt-5 text-center poppins">
+        <h4>No se han encontrado actores relacionados.</h4>
       </div>
     }
   </div>
@@ -110,24 +107,22 @@
 
   <!-- Pestañas estilo Google -->
   <ul class="nav nav-pills justify-content-center mb-5 pt-5">
-    <li class="nav-item">
-      <a
+    <li class="nav-item w-25 me-5">
+      <a id="peliculas"
         class="nav-link"
         [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
         (click)="showPeliculas = true; showSeries = false"
-        role="button"
-      >
-        Películas
+        role="button">
+        <h4 class="m-0 freeman text-center">Películas</h4>
       </a>
     </li>
-    <li class="nav-item">
-      <a
+    <li class="nav-item w-25 ms-5">
+      <a id="series"
         class="nav-link"
         [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
         (click)="showPeliculas = false; showSeries = true"
-        role="button"
-      >
-        Series
+        role="button">
+        <h4 class="m-0 freeman text-center">Series</h4>
       </a>
     </li>
   </ul>
@@ -153,9 +148,9 @@
         </button>
       </div>
     } @else {
-      <!-- Mensaje de "No se encontraron resultados" -->
-      <div class="mt-5 text-center">
-        <h3>No se encontraron resultados.</h3>
+      <!--Mensaje de "Sin resultados"-->
+      <div class="mt-5 pt-5 text-center poppins">
+        <h4>No se han encontrado películas relacionadas.</h4>
       </div>
     }
   </div>
@@ -182,9 +177,9 @@
         </div>
       </div>
     } @else {
-      <!-- Mensaje de "No se encontraron resultados" -->
-      <div class="mt-5 text-center">
-        <h3>No se encontraron resultados.</h3>
+      <!--Mensaje de "Sin resultados"-->
+      <div class="mt-5 pt-5 text-center poppins">
+        <h4>No se han encontrado series relacionadas.</h4>
       </div>
     }
   </div>
