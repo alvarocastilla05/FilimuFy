@@ -35,11 +35,11 @@ export class PeliculaDetailsComponent implements OnInit{
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
 
-  /*@Output() estadoFavRecarga = new EventEmitter<boolean>();
+  @Output() estadoFavRecarga = new EventEmitter<boolean>();
 
   realizarEnvioAListPelicula() {
     this.estadoFavRecarga.emit(this.estadoFav);
-  }*/
+  }
 
   listaPeliculasValoradas: RatedPelicula[] = [];
 
