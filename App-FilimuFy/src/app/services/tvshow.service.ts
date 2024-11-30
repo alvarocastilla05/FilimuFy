@@ -9,6 +9,7 @@ import { RatingsListResponse } from '../interfaces/serie/contentRatingsCertifica
 import { ProveedoreesSerieListResponse } from '../interfaces/serie/proveedorSerie.interfaces';
 import { KeywordsSeriesListResponse } from '../interfaces/serie/serie-keywords.interfaces';
 import { environment } from '../../environments/environment';
+import { RatedSeriesResponse } from '../interfaces/serie/rated-series.interfaces';
 import { ProveedoreesSerieAdsListResponse } from '../interfaces/serie/proveedorSerieAds.interfaces';
 
 
@@ -68,6 +69,23 @@ export class TVShowService {
   getSeriesPorPalabraClave(keywordId: number, currentPage: number): Observable<TVShowListResponse> {
     return this.http.get<TVShowListResponse>(
       `${environment.apiBaseUrl}/discover/tv?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=es-ES`
+    );
+  }
+
+
+  getSerieRating(peliculaId: number): Observable<any> {
+    const url = `${environment.apiBaseUrl}/tv/${peliculaId}/account_states?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return this.http.get(url);
+  }
+
+  setSerieRating(peliculaId: number, rating: number): Observable<any> {
+    const url = `${environment.apiBaseUrl}/tv/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return this.http.post(url, { value: rating });
+  }
+
+  deleteSerieRating(serieId: number): Observable<any>{
+    return this.http.delete<any>(
+      `${environment.apiBaseUrl}/tv/${serieId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
     );
   }
 

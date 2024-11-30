@@ -13,6 +13,7 @@
         <h4 class="m-0 freeman text-center">Películas</h4>
       </a>
     </li>
+
     <li class="nav-item w-25">
       <a id="series"
         class="nav-link"
@@ -22,6 +23,7 @@
         <h4 class="m-0 freeman text-center">Series</h4>
       </a>
     </li>
+    
     <li class="nav-item w-25">
       <a id="actores"
         class="nav-link"
@@ -32,7 +34,6 @@
       </a>
     </li>
   </ul>
-  
 
   <!-- Sección de Películas -->
   <div *ngIf="showPeliculas">
@@ -190,6 +191,14 @@
   >
     <h3>No se encontraron resultados.</h3>
   </div-->
+
+    <!--/div>
+    <Mensaje de "Sin resultados">
+    <div *ngIf="listaSeries.length === 0 && (query || keyId)" class="mt-5 pt-5 text-center poppins">
+      <h4>No se han encontrado resultados relacionados con series.</h4>
+    </div>
+  </div-->
+
 </div>
 
 }
