@@ -1,31 +1,45 @@
 <div class="container mt-5 pb-4">
-    <h1 class="jockeyOne"><i class="bi bi-bookmark-fill lista"></i>&nbsp;&nbsp;Mis Listas</h1>
+    <h1 class="jockeyOne"><i class="bi bi-list-ul lista"></i>&nbsp;&nbsp;Mis Listas</h1>
   
     <!-- Crear Lista -->
-    <div class="mb-4">
-      <h3 class="jockeyOne">Crear Nueva Lista</h3>
-      <input
-        type="text"
-        class="form-control mb-2"
-        placeholder="Nombre de la lista"
-        [(ngModel)]="nuevaLista.nombre"
-      />
-      <textarea
-        class="form-control mb-2"
-        placeholder="Descripción de la lista"
-        [(ngModel)]="nuevaLista.descripcion"
-      ></textarea>
-      <button class="btn btn-primary sombra azulOscuro" (click)="crearLista()">
-        Crear Lista
-      </button>
+    <div class="container py-4">
+      <div ngbAccordion>
+        <div ngbAccordionItem>
+          <h2 ngbAccordionHeader>
+            <button ngbAccordionButton class="fondoAzul"><h3 class="m-0 jockeyOne text-white">Crear Nueva Lista</h3></button>
+          </h2>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody class="azulOscuro rounded-bottom-3">
+              <ng-template>
+                <div class="mb-0">
+                  <input
+                    type="text"
+                    class="form-control mb-3 mt-2 freeman"
+                    placeholder="Nombre de la lista"
+                    [(ngModel)]="nuevaLista.nombre"
+                  />
+                  <textarea
+                    class="form-control mb-3 freeman"
+                    placeholder="Descripción de la lista"
+                    [(ngModel)]="nuevaLista.descripcion"
+                    rows="4"
+                  ></textarea>
+                  <button class="btn btn-primary sombra fondoAzul mb-2" (click)="crearLista()">
+                    <h5 class="m-0 p-1"><i class="bi bi-sign-intersection-fill"></i>&nbsp;&nbsp;Crear lista</h5>
+                  </button>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  
-    <hr />
+
   
     <!-- Listas del Usuario -->
     <div *ngIf="listas.length > 0">
-      <h3 class="jockeyOne">Tus Listas</h3>
-      <ul class="list-group">
+
+      <ul class="list-group mt-4">
         <li *ngFor="let lista of listas" class="list-group-item d-flex justify-content-between align-items-center">
           {{ lista.name }}
           <button
@@ -41,9 +55,18 @@
         </li>
       </ul>
     </div>
+
+    <div class="row d-flex">
+      <div *ngFor="let lista of listas" class="col-md-4 col-12 my-3">
+        <div class="p-2 rounded-3 bg-secondary align-middle" style="height: 200px">
+          <h3 class="m-0 text-center jockeyOne">{{lista.name}}</h3>
+          <!--h6 class="m-0 text-center freeman">{{lista.results.length}} elementos</h6-->
+        </div>
+      </div>
+    </div>
   
     <div *ngIf="listas.length === 0" class="text-center mt-5">
-      <h4>No tienes listas creadas.</h4>
+      <h4>No se ha creado ninguna lista.</h4>
     </div>
   </div>
   

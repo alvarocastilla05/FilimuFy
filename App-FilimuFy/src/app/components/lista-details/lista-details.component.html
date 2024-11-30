@@ -1,13 +1,10 @@
 <div class="container mt-5 pb-4">
-    <h1 class="jockeyOne">
-      <i class="bi bi-bookmark-fill etiqueta"></i>&nbsp;&nbsp;Detalles de la Lista
-    </h1>
+    <h1 class="jockeyOne"><i class="bi bi-bookmark-fill etiqueta"></i>&nbsp;&nbsp;{{ listaDetalles.name }}</h1>
   
     <!-- Detalles de la Lista -->
     <div *ngIf="listaDetalles">
-      <div class="mb-4">
-        <h3 class="jockeyOne">{{ listaDetalles.name }}</h3>
-        <p class="poppins">{{ listaDetalles.description }}</p>
+      <div class="mb-4 mt-3">
+        <h5 class="poppins">{{ listaDetalles.description }}</h5>
       </div>
   
       <hr />
@@ -49,7 +46,7 @@
   
     <!-- Mensaje de Cargando -->
     <div *ngIf="!listaDetalles" class="text-center mt-5">
-      <p>Cargando detalles de la lista...</p>
+      <h4>Cargando detalles de la lista...</h4>
     </div>
   </div>
   

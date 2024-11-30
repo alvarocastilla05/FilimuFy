@@ -23,7 +23,7 @@ export class ListasService {
       description: descripcion,
       iso_639_1: 'es',
     };
-    return this.http.post(url, body);
+    return this.http.post(url, body); 
   }
 
   eliminarLista(id: string) {
@@ -68,9 +68,5 @@ export class ListasService {
       }
     );
   }
-  
-  
-  
-  
   
 }
