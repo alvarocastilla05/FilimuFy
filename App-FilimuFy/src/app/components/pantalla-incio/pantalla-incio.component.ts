@@ -11,33 +11,33 @@ import { Actor } from '../../interfaces/actor/actores-list.interface';
   templateUrl: './pantalla-incio.component.html',
   styleUrl: './pantalla-incio.component.css'
 })
-export class PantallaIncioComponent implements OnInit{
-  
+export class PantallaIncioComponent implements OnInit {
+
   listaPeliculas: Pelicula[] = [];
   listaSeries: TVShow[] = [];
   listaActores: Actor[] = [];
 
-  constructor(private peliculaService: PeliculaService,
-              private serieService: TVShowService,
-              private actorService: ActorService
+  constructor(
+    private peliculaService: PeliculaService,
+    private serieService: TVShowService,
+    private actorService: ActorService
   ) { }
 
   ngOnInit(): void {
     this.peliculaService.getPeliculas()
       .subscribe(resp => {
-        this.listaPeliculas = resp.results.slice(0, 4);
+        this.listaPeliculas = resp.results.slice(0, 5);
       });
-  
+
     this.serieService.getSeries()
       .subscribe(resp2 => {
-        this.listaSeries = resp2.results.slice(0, 4);
+        this.listaSeries = resp2.results.slice(0, 5);
       });
-  
+
     this.actorService.getActores()
       .subscribe(resp3 => {
-        this.listaActores = resp3.results.slice(0, 4);
+        this.listaActores = resp3.results.slice(0, 5);
       });
   }
-  
 
 }
