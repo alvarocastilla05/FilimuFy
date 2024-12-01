@@ -27,23 +27,7 @@
   font-family: 'poppins';
 }
 
-@font-face {
-  font-family: 'freeman';
-  src: url(../../fonts/Freeman-Regular.ttf);
-}
-
-.freeman {
-  font-family: 'freeman';
-}
-
-@font-face {
-  font-family: 'poppins';
-  src: url(../../fonts/Poppins-Medium.ttf);
-}
-
-.poppins {
-  font-family: 'poppins';
-}
+/* BOTÓN MOSTRAR MÁS --------------------------------------------------------------------------------------------------- */
 
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
@@ -53,14 +37,7 @@
     background-color: #000A1E;
 }
 
-.genero-btn {
-  background-color: #E95573;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  transition: all 0.3s ease;
-}
+/* PESTAÑAS -------------------------------------------------------------------------------------------------------------*/
 
 .nav-pills {
   border-bottom: 2px solid #e0e0e0; /* Línea divisoria para las pestañas */
@@ -77,8 +54,6 @@
   border: 2px solid transparent;
   transition: all 0.3s ease;
 }
-
-/* FONDO DE PESTAÑAS ------------------------------------------------------------------------------------------------------------*/
   
 /*.nav-pills .nav-link.active-tab {
   background-color: #e05a78; /* Fondo rosado para la pestaña activa 

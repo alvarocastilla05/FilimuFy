@@ -7,10 +7,10 @@
     <!--PARTE SUPERIOR IZQUIERDA-->
     <div class="w-25">
       @if(pelicula!.poster_path != null) {
-      <img src="{{pelicula!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top"
+        <img src="{{pelicula!.poster_path | imagen}}" width="25%" class="rounded-4 card-img-top"
         alt="{{pelicula!.title}}">
       } @else {
-      <img [src]="imgPlaceholderPelSer" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
+        <img [src]="imgPlaceholderPelSer" width="25%" class="rounded-4 card-img-top" alt="{{pelicula!.title}}">
       }
     </div>
 
@@ -20,25 +20,28 @@
       <!--Título y año de estreno-->
       <h1 class="mb-4 jockeyOne text-white">{{pelicula!.title}}
         @if(pelicula!.release_date !== ''){
-        <span class="gris">({{pelicula!.release_date | date:'yyyy'}})</span>
+          <span class="gris">({{pelicula!.release_date | date:'yyyy'}})</span>
         }@else {
-        <!--No hace nada.-->
+          <!--No hace nada.-->
         }
       </h1>
+
       <!--PEGI y Géneros-->
       <div class="container w-100 px-3 d-flex align-items-center">
         <h3 class="m-0 me-4 p-2 rounded-3 freeman sombra anchuraCalificacion text-center text-white"
-          [style]="getCertification() | edadFondoColor" [innerHTML]="getCertification()"></h3>
+          [style]="getCertification() | edadFondoColor" [innerHTML]="getCertification()">
+        </h3>
         <h4 class="m-0 freeman gris">
           @if(pelicula!.genres.length != 0){
-          <span *ngFor="let genre of pelicula!.genres; let i = index">{{ genre.name }}
-            <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
-          </span>
+            <span *ngFor="let genre of pelicula!.genres; let i = index">{{ genre.name }}
+              <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
+            </span>
           }@else {
-          Géneros sin especificar
+            Géneros sin especificar
           }
         </h4>
       </div>
+
       <!--Duración, Valoración y Status-->
       <div class="d-flex">
         <h4 class="m-0 poppins text-white p-3 me-3">Duración: {{pelicula!.runtime | horasMin}}</h4>
@@ -51,28 +54,28 @@
       </div>
 
       <!--Proveedores-->
-      @if((listaProveedores && listaProveedores.length > 0) || (listaProveedoresPago && listaProveedoresPago.length >
-      0)) {
-      <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
-        <div *ngFor="let proveedor of listaProveedores">
-          <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen"
-            [alt]="proveedor.provider_name">
+      @if((listaProveedores && listaProveedores.length > 0) || (listaProveedoresPago && listaProveedoresPago.length >0)){
+        <div class="container d-flex m-0 freeman gris ps-3 mt-2 mb-3">
+          <div *ngFor="let proveedor of listaProveedores">
+            <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen"
+              [alt]="proveedor.provider_name">
+          </div>
+          <div *ngFor="let proveedor of listaProveedoresPago">
+            <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen"
+              [alt]="proveedor.provider_name">
+          </div>
         </div>
-        <div *ngFor="let proveedor of listaProveedoresPago">
-          <img [ngClass]="'rounded-4 mx-2'" [style.width]="75 + 'px'" [src]="proveedor.logo_path | imagen"
-            [alt]="proveedor.provider_name">
-        </div>
-      </div>
       } @else {
-      <!--No hace nada-->
+        <!--No hace nada-->
       }
 
       <!--Descripción-->
       @if(pelicula!.overview !== ''){
-      <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
+        <h5 class="poppins text-white p-3">{{pelicula!.overview}}</h5>
       }@else {
-      <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
+        <h5 class="poppins text-white p-3">Sinopsis no disponible.</h5>
       }
+
       <!--Tráiler y opciones de usuario-->
       <div class="container m-0 p-0 d-flex">
 
@@ -89,55 +92,92 @@
         @if(isLoggedIn()) {
 
           <div class="m-0 p-3 pt-2 d-flex">
+
             <!--Añadir a Favoritos-->
-            <button type="button" id="favorito" class="btn rounded rounded-circle sombra p-2 text-center d-flex w-100 align-items-center me-1" 
-            (click)="onFavoritosBotonClick(pelicula!.id)"
-            [ngClass]="estadoFav ? 'corazon' : 'boton'">
+            <button type="button" id="favorito"
+              class="btn rounded rounded-circle sombra p-2 text-center d-flex w-100 align-items-center me-1"
+              (click)="onFavoritosBotonClick(pelicula!.id)" [ngClass]="estadoFav ? 'corazon' : 'boton'">
               <i class="bi bi-suit-heart-fill tamanhoIcono pt-1 p-2 pb-0"></i>
             </button>
-            
-             
+
             <!--Añadir a Watchlists-->
-            <button type="button" class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2"
-            (click)="onWatchlistBotonClick(pelicula!.id)"
-            [ngClass]="estadoWatchlist ? 'etiqueta' : 'boton'">
+            <button type="button"
+              class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2"
+              (click)="onWatchlistBotonClick(pelicula!.id)" [ngClass]="estadoWatchlist ? 'etiqueta' : 'boton'">
               <i class="bi bi-bookmark-fill tamanhoIcono py-0 p-2"></i>
             </button>
-            
+
             <!--Valorar-->
-<div ngbDropdown placement="end" class="d-inline-block">
-  <button type="button" ngbDropdownToggle style="width: 57.6px; height: 57.6px;"
-    class="btn rounded rounded-circle boton sombraFuerte p-2 text-center d-flex align-items-center ms-2 me-1">
-    <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
-  </button>
-  <!--Dropdown menu-->
-  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="ms-2 fondoBlanco bordeAmarillo sombra2">
-    <div style="width: 500px;">
-      <div class="row px-3 py-2">
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <h3 class="jockeyOne azulOscuro m-0">¡Valora esta película!</h3>
-          <button *ngIf="rating > 0" class="btn btn-link p-0 ms-2" (click)="deleteRating()" title="Eliminar valoración">
-            <i class="bi bi-trash tamanhoIcono text-danger"></i>
-          </button>
-        </div>
-        <h5 class="freeman mb-4 text-black">¿Qué te ha parecido {{pelicula!.title}}?</h5>
-        <div class="d-flex">
-          <ngb-rating [(ngModel)]="rating" (rateChange)="setRating($event)">
-            <ng-template let-fill="fill" let-index="index">
-              <h2>
-                <i class="text-warning me-1 bi-star{{ fill === 100 ? '-fill' : '' }}" [class.filled]="fill === 100" [class.low]="index < 3"></i>
-              </h2>
-            </ng-template>
-          </ngb-rating>
-          <h2 class="ms-3 text-white rounded-3 px-4" [style]="rating | averageColor">{{rating}}</h2>
-        </div>
-      </div>
-    </div>
-  </div>
+            @if(rating === 0) {
+              <div ngbDropdown placement="end" class="d-inline-block">
+                
+                <button type="button" ngbDropdownToggle style="width: 57.6px; height: 57.6px;"
+                  class="btn rounded rounded-circle boton sombraFuerte p-2 text-center d-flex align-items-center ms-2 me-1">
+                  <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
+                </button>
+
+                <!--Dropdown menu-->
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="ms-2 fondoBlanco bordeAmarillo sombra2">
+                  <div style="width: 500px;">
+                    <div class="row px-3 py-2">
+                      <div class="d-flex justify-content-between align-items-center w-100">
+                        <h3 class="jockeyOne azulOscuro m-0">¡Valora esta película!</h3>
+                      </div>
+                      <h5 class="freeman mb-4 text-black">¿Qué te ha parecido {{pelicula!.title}}?</h5>
+                      <div class="d-flex">
+                        <ngb-rating [(ngModel)]="rating" (rateChange)="setRating($event)">
+                          <ng-template let-fill="fill" let-index="index">
+                            <h2>
+                              <i class="text-warning me-1 bi-star{{ fill === 100 ? '-fill' : '' }}"
+                                [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                            </h2>
+                          </ng-template>
+                        </ngb-rating>
+                        <h2 class="ms-3 text-white rounded-3 px-4" [style]="rating | averageColor">{{rating}}</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            } @else {
+              <div ngbDropdown placement="end" class="d-inline-block">
+                
+                <button type="button" ngbDropdownToggle style="width: 57.6px; height: 57.6px;"
+                  class="btn rounded rounded-circle estrella sombraFuerte p-2 text-center d-flex align-items-center ms-2 me-1">
+                  <i class="bi bi-star-fill tamanhoIcono py-0 p-2"></i>
+                </button>
+
+                <!--Dropdown menu-->
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="ms-2 fondoBlanco bordeAmarillo sombra2">
+                  <div style="width: 500px;">
+                    <div class="row px-3 py-2">
+                      <div class="d-flex justify-content-between align-items-center w-100">
+                        <h3 class="jockeyOne azulOscuro m-0">¡Valora esta película!</h3>
+                        <button type="button" (click)="deleteRating()" title="Eliminar valoración" class="btn papelera">
+                          <h4 class="m-0 pt-1"><i class="bi bi-trash-fill"></i></h4>
+                        </button>
+                      </div>
+                      <h5 class="freeman mb-4 text-black">¿Qué te ha parecido {{pelicula!.title}}?</h5>
+                      <div class="d-flex">
+                        <ngb-rating [(ngModel)]="rating" (rateChange)="setRating($event)">
+                          <ng-template let-fill="fill" let-index="index">
+                            <h2>
+                              <i class="text-warning me-1 bi-star{{ fill === 100 ? '-fill' : '' }}"
+                                [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                            </h2>
+                          </ng-template>
+                        </ngb-rating>
+                        <h2 class="ms-3 text-white rounded-3 px-4" [style]="rating | averageColor">{{rating}}</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            }
 
           </div>
-
-        </div>
         }
       </div>
 
@@ -153,26 +193,27 @@
 
       <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
         @if(listaCreditos.length > 4){
-        <div class="row d-flex flex-nowrap mt-1" style="
-            overflow: auto; 
-            white-space: nowrap; 
-            display: flex;
-            overflow-x: scroll;
-            overscroll-behavior-x: contain;
-            scroll-snap-type: x proximity; 
-            margin: 50px auto 0;">
-          <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
-            <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
+          <div class="row d-flex flex-nowrap mt-1" style="
+                overflow: auto; 
+                white-space: nowrap; 
+                display: flex;
+                overflow-x: scroll;
+                overscroll-behavior-x: contain;
+                scroll-snap-type: x proximity; 
+                margin: 50px auto 0;">
+            <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
+              <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
+            </div>
           </div>
-        </div>
-        }@else if (listaCreditos.length > 0 && listaCreditos.length <= 4) { <div class="row d-flex flex-nowrap mt-1">
-          <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
-            <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
+        }@else if (listaCreditos.length > 0 && listaCreditos.length <= 4) { 
+          <div class="row d-flex flex-nowrap mt-1">
+            <div *ngFor="let actorCreditos of listaCreditos; track actorCreditos" class="col-md-3 col-12 p-2 my-3">
+              <app-actor-card class="w-auto" [actorCreditos]="actorCreditos"></app-actor-card>
+            </div>
           </div>
-      </div>
-      }@else {
-      <h5 class="poppins mt-5">No se han añadido personas al reparto principal de esta película.</h5>
-      }
+        }@else {
+          <h5 class="poppins mt-5">No se han añadido personas al reparto principal de esta película.</h5>
+        }
     </div>
   </div>
 
@@ -181,51 +222,53 @@
     <div class="mb-4">
       <h4 class="jockeyOne text-black">Título original:</h4>
       @if(pelicula!.original_title !== ''){
-      <h5 class="freeman text-white">{{pelicula!.original_title}}</h5>
+        <h5 class="freeman text-white">{{pelicula!.original_title}}</h5>
       }@else {
-      <h5 class="freeman text-white">-</h5>
+        <h5 class="freeman text-white">-</h5>
       }
     </div>
+
     <div class="mb-4">
       <h4 class="jockeyOne text-black">Idioma original:</h4>
       @if(pelicula!.spoken_languages.length != 0){
-      <h5 class="freeman text-white">{{pelicula!.spoken_languages[0].english_name}}</h5>
+        <h5 class="freeman text-white">{{pelicula!.spoken_languages[0].english_name}}</h5>
       }@else {
-      <h5 class="freeman text-white">-</h5>
+        <h5 class="freeman text-white">-</h5>
       }
     </div>
+
     <div class="mb-4">
       <h4 class="jockeyOne text-black">Presupuesto:</h4>
       @if(pelicula!.budget != null){
-      <h5 class="freeman text-white">{{pelicula!.budget | currency: 'USD'}}</h5>
+        <h5 class="freeman text-white">{{pelicula!.budget | currency: 'USD'}}</h5>
       }@else {
-      <h5 class="freeman text-white">-</h5>
+        <h5 class="freeman text-white">-</h5>
       }
     </div>
+
     <div class="mb-4">
       <h4 class="jockeyOne text-black">Ingresos:</h4>
       @if(pelicula!.revenue != null){
-      <h5 class="freeman text-white">{{pelicula!.revenue | currency: 'USD'}}</h5>
+        <h5 class="freeman text-white">{{pelicula!.revenue | currency: 'USD'}}</h5>
       }@else {
-      <h5 class="freeman text-white">-</h5>
+        <h5 class="freeman text-white">-</h5>
       }
     </div>
+
     <div>
       <h4 class="jockeyOne text-black">Palabras clave:</h4>
       <div class="d-flex flex-wrap">
         @if(keywords.length != 0){
-        <div *ngFor="let keyword of keywords;">
-          <a [routerLink]="['/key', keyword.id]" [queryParams]="{ keyId: keyword.id, keyName: keyword.name}"
-            class="palabraClave text-decoration-none">
-            <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
-          </a>
-        </div>
+          <div *ngFor="let keyword of keywords;">
+            <a [routerLink]="['/key', keyword.id]" [queryParams]="{ keyId: keyword.id, keyName: keyword.name}"
+              class="palabraClave text-decoration-none">
+              <h6 [ngClass]="'fondoNegro py-2 px-3 me-2 rounded-3 text-white'">{{keyword.name}}</h6>
+            </a>
+          </div>
         }@else {
-        <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
+          <h5 class="freeman text-white">No se han añadido palabras clave.</h5>
         }
-        <div>
-        </div>
       </div>
     </div>
-
   </div>
+</div>

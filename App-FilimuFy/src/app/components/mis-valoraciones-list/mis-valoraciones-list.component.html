@@ -23,56 +23,54 @@
   
     <!-- Sección de Películas -->
     <div *ngIf="showPeliculas">
+
       <div *ngIf="listaPeliculas.length > 0">
-        <!--h2 class="jockeyOne">Películas</h2-->
         <div class="row d-flex justify-content-center">
-          <div
-            class="col-6 col-md-3 col-lg-3 p-3 my-3"
-            *ngFor="let pelicula of listaPeliculas"
-          >
+          <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
+            *ngFor="let pelicula of listaPeliculas">
             <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
           </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
           <button
             class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
-            (click)="cargarMasPeliculas()"
-          >
+            (click)="cargarMasPeliculas()">
             Mostrar más películas
           </button>
         </div>
       </div>
+
       <!--Mensaje de "Sin resultados"-->
       <div *ngIf="listaPeliculas.length === 0" class="mt-5 pt-5 text-center poppins">
         <h4>No se ha valorado ninguna película.</h4>
       </div>
+
     </div>
   
     <!-- Sección de Series -->
     <div *ngIf="showSeries">
+
       <div *ngIf="listaSeries.length > 0">
-        <!--h2 class="jockeyOne">Series</h2-->
         <div class="row d-flex justify-content-center">
-          <div
-            class="col-6 col-md-3 col-lg-3 p-3 my-3"
-            *ngFor="let serie of listaSeries"
-          >
+          <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
+            *ngFor="let serie of listaSeries">
             <app-serie-card [serieId]="serie.id"></app-serie-card>
           </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
           <button
             class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
-            (click)="cargarMasSeries()"
-          >
+            (click)="cargarMasSeries()">
             Mostrar más series
           </button>
         </div>
       </div>
+
       <!--Mensaje de "Sin resultados"-->
       <div *ngIf="listaSeries.length === 0" class="mt-5 pt-5 text-center poppins">
         <h4>No se ha valorado ninguna serie.</h4>
       </div>
+
     </div>
   
-  </div>
+</div>

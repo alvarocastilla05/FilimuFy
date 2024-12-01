@@ -1,3 +1,5 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
 @font-face {
     font-family: 'jockeyOne';
     src: url(../../fonts/JockeyOne-Regular.ttf);
@@ -16,35 +18,21 @@
     font-family: 'freeman';
 }
 
+@font-face {
+    font-family: 'poppins';
+    src: url(../../fonts/Poppins-Medium.ttf);
+}
+
+.poppins {
+    font-family: 'poppins';
+}
+
+/* BOTÓN MOSTRAR MÁS --------------------------------------------------------------------------------------------------- */
+
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }
 
 .azulOscuro{
     background-color: #000A1E;
-}
-
-input {
-    font-size: 20px;
-}
-
-input::placeholder {
-    color: #aaaaaa;
-    font-size: 20px;
-}  
-
-.widthSearchrBar {
-    width: 37%;
-}
-
-.btnSearchrBar {
-    width: 41.6px;
-    height: 41.6px;
-    background-color: #E95573;
-    color: white;
-}
-
-.btnSearchrBar:hover {
-    background-color: #20B7E5;
-    color: white;
 }
