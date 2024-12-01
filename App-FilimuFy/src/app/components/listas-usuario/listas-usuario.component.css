@@ -61,5 +61,41 @@ input::placeholder, textarea::placeholder {
 
 
 .fondoGris{
-    background-color: #9b9b9b;
+    background-color: #444444;
+}
+
+.gris{
+    color: #9b9b9b;
+}
+
+/* CARTAS LISTA ------------------------------------------------------------------------------------------------------ */
+
+#tarjeta{
+    transition-duration: 0.2s;
+}
+
+#tarjeta:hover{
+    transform: scale(1.05);
+}
+
+.fondoTarjeta{
+    background: linear-gradient(45deg, #E95573 7%, #000A1E 7%, #000A1E 93%, #20B7E5 93%);
+    /*background-color: #040f3e;*/
+}
+
+.truncarLineas{
+    display: -webkit-box;          /*Esta propiedad permite establecer un diseño de caja.*/
+    -webkit-line-clamp: 3;         /*Esta propiedad sirve para truncar el texto después de 5 líneas.*/
+    -webkit-box-orient: vertical;  /*Esta propiedad sirve para establecerla orientación del contenido dentro de la caja.*/
+    overflow: hidden;              /*Esta propiedad permite ocultar el contenido desbordado.*/
+}
+
+.papelera{
+    background-color: #6c74a7;
+    color: white;
+}
+
+.papelera:hover{
+    background-color: #e40000;
+    color: rgb(255, 255, 255);
 }

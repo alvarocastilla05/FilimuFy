@@ -10,6 +10,13 @@ import { ListasService } from '../../services/listas.service';
 export class ListaDetailsComponent implements OnInit {
   listaId: string | null = null;
   listaDetalles: any | null = null;
+  listaDetallesItems: any[] = [];
+
+  listaPeliculasItems: any[] = [];
+  listaSeriesItems: any[] = [];
+
+  showPeliculas: boolean = true; // Mostrar películas al cargar la página
+  showSeries: boolean | undefined; // Mostrar series al cargar la página
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +32,8 @@ export class ListaDetailsComponent implements OnInit {
       this.listasService.getDetallesLista(this.listaId).subscribe(
         (response) => {
           this.listaDetalles = response;
+          this.listaDetallesItems = response.items;
+          this.dividePeliculasAndSeriesOfListaDetallesItems();
           console.log('Detalles de la lista:', this.listaDetalles);
         },
         (error) => {
@@ -49,14 +58,29 @@ export class ListaDetailsComponent implements OnInit {
   
         // Actualizar la lista localmente
         this.listaDetalles.items = this.listaDetalles.items.filter(
-          (item: any) => item.id !== elementoId
-        );
+          (item: any) => item.id !== elementoId);
+
+        this.listaPeliculasItems = this.listaPeliculasItems.filter(
+          (item: any) => item.id !== elementoId);
+
+        this.listaSeriesItems = this.listaSeriesItems.filter(
+          (item: any) => item.id !== elementoId);
       },
       (error) => {
         console.error('Error al eliminar el elemento:', error);
         alert('No se pudo eliminar el elemento. Por favor, intenta nuevamente.');
       }
     );
+  }
+
+  dividePeliculasAndSeriesOfListaDetallesItems() {
+    this.listaDetallesItems.forEach(item => {
+      if(item!.media_type === "movie") {
+        this.listaPeliculasItems.push(item);
+      } else {
+        this.listaSeriesItems.push(item);
+      }
+    });
   }
 
 }

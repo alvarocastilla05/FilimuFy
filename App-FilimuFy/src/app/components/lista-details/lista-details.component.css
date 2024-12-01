@@ -1,46 +1,67 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
 @font-face {
     font-family: 'jockeyOne';
     src: url(../../fonts/JockeyOne-Regular.ttf);
 }
 
-
 .jockeyOne {
     font-family: 'jockeyOne';
 }
-
 
 @font-face {
     font-family: 'freeman';
     src: url(../../fonts/Freeman-Regular.ttf);
 }
 
-
 .freeman {
     font-family: 'freeman';
 }
+
+@font-face {
+    font-family: 'poppins';
+    src: url(../../fonts/Poppins-Medium.ttf);
+}
+
+.poppins {
+    font-family: 'poppins';
+}
+
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }
+
 .azulOscuro{
     background-color: #000A1E;
 }
 
-
-.genero-btn {
-    background-color: #E95573;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease;
+.lista{
+    color: #20B7E5;
 }
 
+/* POSICIÓN Y DISEÑO DE LA PAPELERA ---------------------------------------------------------------------------- */
+
+.papelera{
+    background-color: #6c74a7;
+    color: white;
+}
+
+.papelera:hover{
+    background-color: #e40000;
+    color: white;
+}
+
+.papeleraPosition{
+    position: relative;
+    top: 9px;
+}
+
+/* PESTAÑAS ---------------------------------------------------------------------------------------------------- */
 
 .nav-pills {
     border-bottom: 2px solid #e0e0e0; /* Línea divisoria para las pestañas */
     margin-bottom: 20px;
 }
-
 
 .nav-pills .nav-link {
     border-radius: 10px 10px 0 0; /* Bordes redondeados superiores */
@@ -53,28 +74,18 @@
     transition: all 0.3s ease;
 }
 
-
 .nav-pills .nav-link.active-tab {
-    background-color: #e05a78; /* Fondo rosado para la pestaña activa */
+    background-color: #20b7e5; /* Fondo rosado para la pestaña activa */
     color: white; /* Texto blanco en la pestaña activa */
-    border-color: #e05a78 #e05a78 transparent; /* Sin borde inferior */
-    box-shadow: 0px -2px 5px rgba(224, 90, 120, 0.4); /* Sombra para dar efecto de levantamiento */
 }
 
-
-.nav-pills .nav-link:hover {
-    background-color: #f8d0da; /* Fondo más claro al hacer hover */
-    color: #e05a78;
+.nav-pills .nav-link.inactive-tab:hover {
+    background-color: #c7eefc; /* Fondo más claro al hacer hover */
+    color: #20b7e5;
 }
-
 
 .nav-pills .nav-link:not(.active-tab):focus {
     outline: none;
     border-color: #20b7e5;
     background-color: #eef9fc;
-}
-
-
-.corazon {
-    color: #e05a78;
 }

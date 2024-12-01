@@ -148,8 +148,19 @@ export class PeliculaDetailsComponent implements OnInit {
     return this.configService.getTexto(key);
   }
 
-  
-  
+  /*getIfPeliculaIsInLista(): boolean {
+    let isInLista = false;
+    this.listas.forEach(lista => {
+      lista.items.forEach(item => {
+        if(item.id === this.peliculaId) {
+          isInLista = true;
+        } else {
+          isInLista;
+        }
+      });
+    });
+    return isInLista;
+  }*/
 
 
 
