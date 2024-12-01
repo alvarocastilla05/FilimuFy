@@ -9,6 +9,7 @@ import { ActorDetailsComponent } from './components/actor-details/actor-details.
 import { PantallaIncioComponent } from './components/pantalla-incio/pantalla-incio.component';
 import { ApprovedComponent } from './shared/approved/approved.component';
 import { SearchComponent } from './components/search/search.component';
+import { MisValoracionesListComponent } from './components/mis-valoraciones-list/mis-valoraciones-list.component';
 import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
 import { WatchlistListComponent } from './components/watchlist-list/watchlist-list.component';
 import { ListasUsuarioComponent } from './components/listas-usuario/listas-usuario.component';
@@ -24,6 +25,9 @@ const routes: Routes = [
   {path: 'actores', component: ActorListComponent},
   {path: 'series/:id', component: SerieDetailsComponent},
   {path: 'approved', component: ApprovedComponent},
+  {path: 'valoraciones', component: MisValoracionesListComponent},
+  {path: 'search', component: SearchComponent },
+  {path: 'key/:id', component: SearchComponent},
   {path: 'favoritos', component: FavoritosListComponent},
   {path: 'watchlist', component: WatchlistListComponent},
   { path: 'search', component: SearchComponent },

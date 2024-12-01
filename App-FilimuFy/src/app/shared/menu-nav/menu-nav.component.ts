@@ -9,6 +9,7 @@ import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { TVShow } from '../../interfaces/serie/tv.interface';
 import { ConfigService } from '../../services/config.service';
 import { MatSelectChange } from '@angular/material/select';
+import { ActorService } from '../../services/actor.service';
 
 @Component({
   selector: 'app-menu-nav',
@@ -39,7 +40,8 @@ export class MenuNavComponent implements OnInit{
     private authService: AuthService, 
     private peliculaService: PeliculaService,
     private serieService: TVShowService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private actorService: ActorService
   ) { }
 
   
@@ -56,6 +58,11 @@ export class MenuNavComponent implements OnInit{
         this.options.push(serie.name);
       });
     });
+    this.actorService.getActores().subscribe((response) => {
+    response.results.forEach((actor) => {
+      this.options.push(actor.name);
+    });
+  });
 
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -88,6 +95,11 @@ export class MenuNavComponent implements OnInit{
 
       // Filtrar series por nombre
       this.serieService.searchSeries(this.nombre).subscribe((response) => {
+        this.seriesPorNombre = response.results;
+      });
+
+      // Filtrar actores por nombre
+      this.actorService.searchActores(this.nombre).subscribe((response) => {
         this.seriesPorNombre = response.results;
       });
 

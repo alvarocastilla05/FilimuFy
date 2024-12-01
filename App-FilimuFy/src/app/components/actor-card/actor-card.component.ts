@@ -16,6 +16,4 @@ export class ActorCardComponent {
   knownForDisplay: string[] = [];
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
 
-  constructor(private actorService: ActorService) { }
-
 }

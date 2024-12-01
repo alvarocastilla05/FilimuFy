@@ -12,8 +12,8 @@ import { ConfigService } from '../../services/config.service';
   templateUrl: './pantalla-incio.component.html',
   styleUrl: './pantalla-incio.component.css'
 })
-export class PantallaIncioComponent implements OnInit{
-  
+export class PantallaIncioComponent implements OnInit {
+
   listaPeliculas: Pelicula[] = [];
   listaSeries: TVShow[] = [];
   listaActores: Actor[] = [];
@@ -29,12 +29,12 @@ export class PantallaIncioComponent implements OnInit{
       .subscribe(resp => {
         this.listaPeliculas = resp.results.slice(0, 4);
       });
-  
+
     this.serieService.getSeries()
       .subscribe(resp2 => {
         this.listaSeries = resp2.results.slice(0, 4);
       });
-  
+
     this.actorService.getActores()
       .subscribe(resp3 => {
         this.listaActores = resp3.results.slice(0, 4);

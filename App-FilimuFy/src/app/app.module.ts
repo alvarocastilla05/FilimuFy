@@ -30,6 +30,7 @@ import { ApprovedComponent } from './shared/approved/approved.component';
 import { AvatarFotoPipe } from './pipes/avatarFoto.pipe';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
+import { MisValoracionesListComponent } from './components/mis-valoraciones-list/mis-valoraciones-list.component';
 import { FavoritosListComponent } from './components/favoritos-list/favoritos-list.component';
 import { WatchlistListComponent } from './components/watchlist-list/watchlist-list.component';
 import { ListasUsuarioComponent } from './components/listas-usuario/listas-usuario.component';
@@ -60,6 +61,7 @@ import { ListaDetailsComponent } from './components/lista-details/lista-details.
     ApprovedComponent,
     AvatarFotoPipe,
     SearchComponent,
+    MisValoracionesListComponent,
     FavoritosListComponent,
     WatchlistListComponent,
     ListasUsuarioComponent,

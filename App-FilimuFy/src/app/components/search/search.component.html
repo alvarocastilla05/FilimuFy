@@ -1,85 +1,152 @@
-<div class="container mt-5">
-  <h1 class="jockeyOne m-0" *ngIf="query">Resultados para "{{ query }}"</h1>
-  <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para la "{{ keyName }}"</h1>
+@if(keyName === undefined) {
 
-  <!-- Pestañas estilo Google -->
-  <ul class="nav nav-pills justify-content-center mb-5 pt-5">
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
-        (click)="showPeliculas = true; showSeries = false"
-        role="button"
-      >
-        Películas
-      </a>
-    </li>
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
-        (click)="showPeliculas = false; showSeries = true"
-        role="button"
-      >
-        Series
-      </a>
-    </li>
-  </ul>
-  
+  <div class="container mt-5">
+    <h1 class="jockeyOne m-0" *ngIf="query">Resultados para "{{ query }}"</h1>
 
-  <!-- Sección de Películas -->
-  <div *ngIf="showPeliculas">
-    <div *ngIf="listaPeliculas.length > 0">
-      <h2 class="jockeyOne">Películas</h2>
-      <div class="row d-flex justify-content-center">
-        <div
-          class="col-6 col-md-3 col-lg-3 p-3 my-3"
-          *ngFor="let pelicula of listaPeliculas"
-        >
-          <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+    <!-- Pestañas estilo Google -->
+    <ul class="nav nav-pills justify-content-around mb-5 pt-5">
+
+      <li class="nav-item w-25">
+        <a id="peliculas" class="nav-link" [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
+          (click)="showPeliculas = true; showSeries = false; showActores = false" role="button">
+          <h4 class="m-0 freeman text-center">Películas</h4>
+        </a>
+      </li>
+
+      <li class="nav-item w-25">
+        <a id="series" class="nav-link" [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
+          (click)="showPeliculas = false; showSeries = true; showActores = false" role="button">
+          <h4 class="m-0 freeman text-center">Series</h4>
+        </a>
+      </li>
+
+      <li class="nav-item w-25">
+        <a id="actores" class="nav-link" [ngClass]="{'active-tab': showActores, 'inactive-tab': !showActores}"
+          (click)="showActores = true; showPeliculas = false; showSeries = false" role="button">
+          <h4 class="m-0 freeman text-center">Actores</h4>
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- Sección de Películas -->
+    <div *ngIf="showPeliculas">
+      @if(listaPeliculas.length > 0) {
+        <div class="row d-flex justify-content-center">
+          <div class="col-6 col-md-3 col-lg-3 p-3 my-3" *ngFor="let pelicula of listaPeliculas">
+            <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+          </div>
         </div>
-      </div>
-      <div class="d-flex justify-content-center mt-3">
-        <button
-          *ngIf="keyId"
-          class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
-          (click)="cargarMasPeliculasFiltradas()"
-        >
-          Mostrar más películas
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sección de Series -->
-  <div *ngIf="showSeries">
-    <div *ngIf="listaSeries.length > 0">
-      <h2 class="jockeyOne">Series</h2>
-      <div class="row d-flex justify-content-center">
-        <div
-          class="col-6 col-md-3 col-lg-3 p-3 my-3"
-          *ngFor="let serie of listaSeries"
-        >
-          <app-serie-card [serieId]="serie.id"></app-serie-card>
+      } @else {
+        <!--Mensaje de "Sin resultados"-->
+        <div class="mt-5 pt-5 text-center poppins">
+          <h4>No se han encontrado películas relacionadas.</h4>
         </div>
-      </div>
-      <div class="d-flex justify-content-center mt-3">
-        <button
-          *ngIf="keyId"
-          class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100"
-          (click)="cargarMasSeriesFiltradas()"
-        >
-          Mostrar más series
-        </button>
-      </div>
+      }
     </div>
+
+    <!-- Sección de Series -->
+    <div *ngIf="showSeries">
+      @if(listaSeries.length > 0) {
+        <div class="row d-flex justify-content-center">
+          <div class="col-6 col-md-3 col-lg-3 p-3 my-3" *ngFor="let serie of listaSeries">
+            <app-serie-card [serieId]="serie.id"></app-serie-card>
+          </div>
+        </div>
+      } @else {
+        <!--Mensaje de "Sin resultados"-->
+        <div class="mt-5 pt-5 text-center poppins">
+          <h4>No se han encontrado series relacionadas.</h4>
+        </div>
+      }
+    </div>
+
+    <!-- Sección de Actores -->
+    <div *ngIf="showActores">
+      @if(listaActores.length > 0) {
+        <div class="row d-flex justify-content-center">
+          <div class="col-6 col-md-3 col-lg-3 p-3 my-3" *ngFor="let actor of listaActores">
+            <app-actor-card [actorId]="actor"></app-actor-card>
+          </div>
+        </div>
+      } @else {
+        <!--Mensaje de "Sin resultados"-->
+        <div class="mt-5 pt-5 text-center poppins">
+          <h4>No se han encontrado actores relacionados.</h4>
+        </div>
+      }
+    </div>
+
   </div>
 
-  <!-- Mensaje de "No se encontraron resultados" -->
-  <div
-    *ngIf="listaPeliculas.length === 0 && listaSeries.length === 0 && (query || keyId)"
-    class="mt-5 text-center"
-  >
-    <h3>No se encontraron resultados.</h3>
+} @else {
+
+  <div class="container mt-5 pb-4">
+    <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para "{{ keyName }}"</h1>
+
+    <!-- Pestañas estilo Google -->
+    <ul class="nav nav-pills justify-content-center mb-5 pt-5">
+
+      <li class="nav-item w-25 me-5">
+        <a id="peliculas" class="nav-link" [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
+          (click)="showPeliculas = true; showSeries = false" role="button">
+          <h4 class="m-0 freeman text-center">Películas</h4>
+        </a>
+      </li>
+
+      <li class="nav-item w-25 ms-5">
+        <a id="series" class="nav-link" [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
+          (click)="showPeliculas = false; showSeries = true" role="button">
+          <h4 class="m-0 freeman text-center">Series</h4>
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- Sección de Películas -->
+    <div *ngIf="showPeliculas">
+      @if(listaPeliculas.length > 0) {
+        <div class="row d-flex justify-content-center">
+          <div class="col-6 col-md-3 col-lg-3 p-3 my-3" *ngFor="let pelicula of listaPeliculas">
+            <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+          <button class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" (click)="cargarMasPeliculasFiltradas()">
+            Mostrar más películas
+          </button>
+        </div>
+      } @else {
+        <!--Mensaje de "Sin resultados"-->
+        <div class="mt-5 pt-5 text-center poppins">
+          <h4>No se han encontrado películas relacionadas.</h4>
+        </div>
+      }
+    </div>
+
+    <!-- Sección de Series -->
+    <div *ngIf="showSeries">
+      @if(listaSeries.length > 0) {
+        <div *ngIf="listaSeries.length > 0">
+          <div class="row d-flex justify-content-center">
+            <div class="col-6 col-md-3 col-lg-3 p-3 my-3" *ngFor="let serie of listaSeries">
+              <app-serie-card [serieId]="serie.id"></app-serie-card>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" (click)="cargarMasSeriesFiltradas()">
+              Mostrar más series
+            </button>
+          </div>
+        </div>
+      } @else {
+        <!--Mensaje de "Sin resultados"-->
+        <div class="mt-5 pt-5 text-center poppins">
+          <h4>No se han encontrado series relacionadas.</h4>
+        </div>
+      }
+    </div>
+
   </div>
-</div>
+
+}

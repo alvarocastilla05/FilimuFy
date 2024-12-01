@@ -5,19 +5,21 @@
 
     <!--PARTE SUPERIOR IZQUIERDA-->
     <div class="w-25">
-        @if(actor!.profile_path != null) {
-          <img id="profile-picture" src="{{actor!.profile_path | imagen}}" width="25%" 
-            class="rounded-4 card-img-top" alt="{{actor!.name}}">
-        } @else {
-          <img id="profile-picture" [src]="placeholderFoto" width="25%" 
-            class="rounded-4 card-img-top" alt="{{actor!.name}}">
-        }
+      @if(actor!.profile_path != null) {
+        <img id="profile-picture" src="{{actor!.profile_path | imagen}}" width="25%" class="rounded-4 card-img-top"
+          alt="{{actor!.name}}">
+      } @else {
+        <img id="profile-picture" [src]="placeholderFoto" width="25%" class="rounded-4 card-img-top"
+          alt="{{actor!.name}}">
+      }
     </div>
 
     <!--PARTE SUPERIOR DERECHA-->
     <div class="container w-75 mb-3 p-4">
+
       <!--Nombre-->
       <h1 class="mb-4 jockeyOne text-white">{{actor!.name | uppercase}}</h1>
+
       <!--Biografía-->
       <div class="mx-3">
         @if(actor!.biography !== '') {
@@ -26,6 +28,7 @@
           <h5 class="m-0 poppins text-white">{{getTexto('nobiografia')}}.</h5>
         }
       </div>
+
     </div>
 
   </div>
@@ -35,6 +38,7 @@
 
     <!--Datos de la serie-->
     <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
+
       <div class="mb-4">
         <h4 class="jockeyOne text-black">{{getTexto('fechanacimiento')}}:</h4>
         <h5 class="freeman text-white" *ngIf="actor?.birthday; else noData">{{ actor?.birthday | date:'dd/MM/yyyy' }}
@@ -43,6 +47,7 @@
           <h5 class="freeman text-white">-</h5>
         </ng-template>
       </div>
+
       <div class="mb-4">
         <h4 class="jockeyOne text-black" *ngIf="actor?.deathday; else noData2">{{getTexto('fechadefuncion')}}:</h4>
         <h5 class="freeman text-white">{{ actor?.deathday| date:'dd/MM/yyyy' }}
@@ -51,15 +56,18 @@
           <!--No hace nada-->
         </ng-template>
       </div>
+
       <div class="mb-4">
         <h4 class="jockeyOne text-black">{{getTexto('lugar')}}:</h4>
         <h5 class="freeman text-white" *ngIf="actor?.place_of_birth; else noData">{{ actor?.place_of_birth }}</h5>
       </div>
+
       <div class="mb-4">
         <h4 class="jockeyOne text-black">{{getTexto('conocido')}}:</h4>
         <h5 class="freeman text-white" *ngIf="actor?.known_for_department; else noData">{{ actor?.known_for_department
           }}</h5>
       </div>
+
       <div class="mb-4">
         <h4 class="jockeyOne text-black">{{getTexto('popularidad')}}:</h4>
         <h5 class="freeman text-white">{{ actor?.popularity }}</h5>
@@ -72,22 +80,23 @@
         </div>
         <h5 class="freeman text-white" *ngIf="!actor?.also_known_as?.length">{{ actor?.name }}</h5>
       </div>
+
     </div>
 
     <!--Reparto principal-->
 <div class="container w-75">
   <h2 class="m-0 jockeyOne azulOscuro ms-4 p-2 pb-0">{{getTexto('conocido')}}</h2>
 
-  <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
-    @if(actorPelis.length > 4){
+      <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
+    <div *ngIf="actorPelis.length > 4; else lessThanFour">
       <div class="row d-flex flex-nowrap mt-0 ms-4" style="
-          overflow: auto; 
-          white-space: nowrap; 
-          display: flex;
-          overflow-x: scroll;
-          overscroll-behavior-x: contain;
-          scroll-snap-type: x proximity; 
-          margin: 50px auto 0;">
+        overflow: auto; 
+        white-space: nowrap; 
+        display: flex;
+        overflow-x: scroll;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity; 
+        margin: 50px auto 0;">
         <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
           <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
             <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
@@ -97,19 +106,24 @@
           </ng-template>
         </div>
       </div>
-    }@else if (actorPelis!.length > 0 && actorPelis.length <= 4) {
-      <div class="row d-flex flex-nowrap mt-0 ms-4">
-        <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
-          <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
-            <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
-          </ng-container>
-          <ng-template #tvTemplate>
-            <app-serie-card [serieId]="peli.id"></app-serie-card>
-          </ng-template>
+    </div>
+    <ng-template #lessThanFour>
+      <div *ngIf="actorPelis!.length > 0; else noWorks">
+        <div class="row d-flex flex-nowrap mt-0 ms-4">
+          <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
+            <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
+              <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
+            </ng-container>
+            <ng-template #tvTemplate>
+              <app-serie-card [serieId]="peli.id"></app-serie-card>
+            </ng-template>
+          </div>
         </div>
       </div>
-    }@else {
-      <h5 class="poppins mt-4 ms-5">{{getTexto('noworks')}}.</h5>
-    }
+      <ng-template #noWorks>
+        <h5 class="poppins mt-4 ms-5">{{getTexto('noworks')}}.</h5>
+      </ng-template>
+    </ng-template>
   </div>
+
 </div>

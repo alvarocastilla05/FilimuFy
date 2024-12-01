@@ -1,10 +1,12 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
 @font-face {
-    font-family: 'jockeyOne';
-    src: url(../../fonts/JockeyOne-Regular.ttf);
+  font-family: 'jockeyOne';
+  src: url(../../fonts/JockeyOne-Regular.ttf);
 }
 
 .jockeyOne {
-    font-family: 'jockeyOne';
+  font-family: 'jockeyOne';
 }
 
 @font-face {
@@ -17,58 +19,49 @@
 }
 
 .sombra {
-    box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
-}
-.azulOscuro{
-    background-color: #000A1E;
+  box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }
 
-.genero-btn {
-    background-color: #E95573;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease;
+.azulOscuro{
+  background-color: #000A1E;
 }
+
+/* PESTAÑAS ------------------------------------------------------------------------------------------------------------ */
 
 .nav-pills {
-    border-bottom: 2px solid #e0e0e0; /* Línea divisoria para las pestañas */
-    margin-bottom: 20px;
-  }
-  
-  .nav-pills .nav-link {
-    border-radius: 10px 10px 0 0; /* Bordes redondeados superiores */
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #555; /* Color del texto inactivo */
-    background-color: transparent; /* Fondo transparente para las pestañas inactivas */
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
-  
-  .nav-pills .nav-link.active-tab {
-    background-color: #e05a78; /* Fondo rosado para la pestaña activa */
-    color: white; /* Texto blanco en la pestaña activa */
-    border-color: #e05a78 #e05a78 transparent; /* Sin borde inferior */
-    box-shadow: 0px -2px 5px rgba(224, 90, 120, 0.4); /* Sombra para dar efecto de levantamiento */
-  }
-  
-  .nav-pills .nav-link:hover {
-    background-color: #f8d0da; /* Fondo más claro al hacer hover */
-    color: #e05a78;
-  }
-  
-  .nav-pills .nav-link:not(.active-tab):focus {
-    outline: none;
-    border-color: #20b7e5;
-    background-color: #eef9fc;
-  }
+  border-bottom: 2px solid #e0e0e0; /* Línea divisoria para las pestañas */
+  margin-bottom: 20px;
+}
 
-  .corazon {
-    color: #e05a78;
-  }
-  .etiqueta{
-    color: #00DBAF;
+.nav-pills .nav-link {
+  border-radius: 10px 10px 0 0; /* Bordes redondeados superiores */
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555; /* Color del texto inactivo */
+  background-color: transparent; /* Fondo transparente para las pestañas inactivas */
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+  
+.nav-pills .nav-link.active-tab {
+  background-color: #00A785; /* Fondo rosado para la pestaña activa */
+  color: white; /* Texto blanco en la pestaña activa */
+  /*border-color: #e05a78 #e05a78 transparent; /* Sin borde inferior 
+  box-shadow: 0px -2px 5px rgba(224, 90, 120, 0.4); /* Sombra para dar efecto de levantamiento */
+}
+
+.nav-pills .nav-link.inactive-tab:hover {
+  background-color: #d9fef6; 
+  color: #00A785;
+}
+
+.nav-pills .nav-link:not(.active-tab):focus {
+  outline: none;
+  border-color: #20b7e5;
+  background-color: #eef9fc;
+}
+
+.etiqueta{
+  color: #00DBAF;
 }

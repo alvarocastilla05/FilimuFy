@@ -10,6 +10,8 @@ import { ProveedoreesPeliListResponse } from '../interfaces/pelicula/proveedorPe
 import { FechaSalidaResponse } from '../interfaces/pelicula/releaseDateCertifications.interfaces';
 import { KeywordsListResponse } from '../interfaces/pelicula/pelicula-keywords.interfaces';
 import { environment } from '../../environments/environment';
+import { RatedPelicula, RatedPeliculasResponse } from '../interfaces/pelicula/rated-peliculas.interfaces';
+import { AccountService } from './autenticacion/account.service';
 import { ConfigService } from './config.service';
 
 
@@ -17,8 +19,6 @@ import { ConfigService } from './config.service';
   providedIn: 'root'
 })
 export class PeliculaService {
- 
-  
 
   constructor(private http: HttpClient,
               private configService: ConfigService
@@ -72,6 +72,28 @@ export class PeliculaService {
       `${environment.apiBaseUrl}/discover/movie?api_key=${environment.apiKey}&page=${currentPage}&with_keywords=${keywordId}&language=${this.configService.getLanguage()}`
     );
   }
+
+  getPeliculaRating(peliculaId: number): Observable<any> {
+    const url = `${environment.apiBaseUrl}/movie/${peliculaId}/account_states?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return this.http.get(url);
+  }
+
+  getUrlPostPeliculaRated(peliculaId: number): string {
+    let url = `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return url;
+  }
+
+  setPeliculaRating(peliculaId: number, rating: number): Observable<RatedPelicula> {
+    const url = `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`;
+    return this.http.post<RatedPelicula>(url, { value: rating });
+  }
+
+  deletePeliculaRating(peliculaId: number): Observable<any>{
+    return this.http.delete<any>(
+      `${environment.apiBaseUrl}/movie/${peliculaId}/rating?api_key=${environment.apiKey}&session_id=${environment.sessionId}`
+    );
+  }
+
 
   getPelisFiltradas(
     page: number,

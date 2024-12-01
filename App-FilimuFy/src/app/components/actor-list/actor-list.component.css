@@ -1,3 +1,5 @@
+/* TIPOGRAFÍAS --------------------------------------------------------------------------------------------------------- */
+
 @font-face {
     font-family: 'jockeyOne';
     src: url(../../fonts/JockeyOne-Regular.ttf);
@@ -6,6 +8,26 @@
 .jockeyOne {
     font-family: 'jockeyOne';
 }
+
+@font-face {
+    font-family: 'freeman';
+    src: url(../../fonts/Freeman-Regular.ttf);
+}
+
+.freeman {
+    font-family: 'freeman';
+}
+
+@font-face {
+    font-family: 'poppins';
+    src: url(../../fonts/Poppins-Medium.ttf);
+}
+
+.poppins {
+    font-family: 'poppins';
+}
+
+/* BOTÓN MOSTRAR MÁS --------------------------------------------------------------------------------------------------- */
 
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);

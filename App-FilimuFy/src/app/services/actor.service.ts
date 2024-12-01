@@ -36,5 +36,11 @@ export class ActorService {
   getCombinedCredits(id: number): Observable<CombinedListResponse> {
     return this.http.get<CombinedListResponse>(`${environment.apiBaseUrl}/person/${id}/combined_credits?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
+
+  searchActores(query: string) {
+    return this.http.get<any>(
+      `${environment.apiBaseUrl}/search/person?query=${query}&api_key=${environment.apiKey}`
+    );
+  }
   
 }
