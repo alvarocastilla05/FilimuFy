@@ -12,6 +12,8 @@ export class ListasUsuarioComponent implements OnInit {
   listas: any[] = [];
   nuevaLista = { nombre: '', descripcion: '' };
 
+  alertMessages: Array<{ type: string, message: string }> = [];  // Array para almacenar alertas
+
   constructor(private listasService: ListasService,
               private configService: ConfigService
   ) {}
@@ -43,7 +45,7 @@ export class ListasUsuarioComponent implements OnInit {
     }
   }
   
-  
+  // ALERTS ------------------------------------------------------------------------------------------------------------------------------------------------------
 
   // Crear una nueva lista
   crearLista(): void {
@@ -52,7 +54,7 @@ export class ListasUsuarioComponent implements OnInit {
         .crearLista(this.nuevaLista.nombre, this.nuevaLista.descripcion)
         .subscribe(
           (resp) => {
-            alert('Lista creada con éxito.');
+            this.mostrarAlerta('success', this.getTexto('listCreated'));
             this.cargarListas();
             this.nuevaLista = { nombre: '', descripcion: '' };
           },
@@ -61,7 +63,7 @@ export class ListasUsuarioComponent implements OnInit {
           }
         );
     } else {
-      alert('Por favor, completa el nombre de la lista.');
+      this.mostrarAlerta('primary', this.getTexto('listUnnamed'));
     }
   }
 
@@ -70,7 +72,7 @@ export class ListasUsuarioComponent implements OnInit {
     if (confirm('¿Seguro que deseas eliminar esta lista?')) {
       this.listasService.eliminarLista(listId).subscribe(
         () => {
-          alert('Lista eliminada con éxito.');
+          this.mostrarAlerta('success', this.getTexto('listDeleted'));
           this.cargarListas();
         },
         (error) => {
@@ -79,6 +81,24 @@ export class ListasUsuarioComponent implements OnInit {
       );
     }
   }
+
+  mostrarAlerta(type: string, message: string): void {
+    this.alertMessages.push({ type, message });
+
+    // Opcional: si quieres que la alerta desaparezca después de cierto tiempo
+    setTimeout(() => {
+      this.alertMessages.shift(); // Elimina la alerta después de 3 segundos
+    }, 4000);
+  }
+
+  close(alert: any): void {
+    const index = this.alertMessages.indexOf(alert);
+    if (index !== -1) {
+      this.alertMessages.splice(index, 1);
+    }
+  }
+
+  // --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   getTexto(key: string): string {
     return this.configService.getTexto(key);

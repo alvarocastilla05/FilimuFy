@@ -1,32 +1,28 @@
-<div class="container mt-5">
-    <h1 class="jockeyOne m-0">{{getTexto('movies')}}</h1>
-    <div class="row">
-        @for (pelicula of listaPeliculas; track pelicula.id) {
-            <div class="col-md-3 col-12 p-2 my-3 mt-2">
-                <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
-            </div>
-        }
+<div class="py-5">
+    <div class="container">
+        <h1 class="jockeyOne m-0 mb-3">{{getTexto('movies')}}</h1>
+        <div class="d-flex flex-wrap justify-content-around w-100">
+            @for (pelicula of listaPeliculas; track pelicula.id) {
+                    <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+            }
+        </div>
     </div>
-</div>
 
-<div class="container mt-5">
-    <h1 class="jockeyOne m-0">{{getTexto('shows')}}</h1>
-    <div class="row">
-        @for (item of listaSeries; track $index) {
-            <div class="col-md-3 col-12 p-2 my-3 mt-2">
+    <div class="container my-5">
+        <h1 class="jockeyOne m-0 mb-3">{{getTexto('shows')}}</h1>
+        <div class="d-flex flex-wrap justify-content-around w-100">
+            @for (item of listaSeries; track $index) {
                 <app-serie-card [serieId]="item.id"></app-serie-card>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
 
-<div class="container my-5">
-    <h1 class="jockeyOne m-0">{{getTexto('actores')}}</h1>
-    <div class="row">
-        @for (item of listaActores; track $index) {
-            <div class="col-md-3 col-12 p-2 my-3 mt-2">
+    <div class="container">
+        <h1 class="jockeyOne m-0 mb-3">{{getTexto('actores')}}</h1>
+        <div class="d-flex flex-wrap justify-content-around w-100">
+            @for (item of listaActores; track $index) {
                 <app-actor-card [actorId]="item"></app-actor-card>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>

@@ -66,3 +66,16 @@
     <h4>{{getTexto('no list')}}.</h4>
   </div>
 </div>
+
+
+<div *ngFor="let alert of alertMessages" class="alert-container freeman" style=" position: fixed; bottom: 5px; right: 22px; z-index: 1050; width: auto; max-width: 800px; margin-bottom: 0px;">
+  <ngb-alert [type]="alert.type" (closed)="close(alert)">
+    @if(alert.message === getTexto('listCreated')) {
+      <h4 class="m-0"><i class="bi bi-check-square-fill" style="font-size: 30px;"></i>&nbsp;&nbsp;{{ alert.message }}</h4>
+    } @else if(alert.message === getTexto('listUnnamed')) {
+      <h4 class="m-0"><i class="bi bi-exclamation-square-fill" style="font-size: 30px;"></i>&nbsp;&nbsp;{{ alert.message }}</h4>
+    } @else {
+      <h4 class="m-0"><i class="bi bi-check-square-fill" style="font-size: 30px;"></i>&nbsp;&nbsp;{{ alert.message }}</h4>
+    }
+  </ngb-alert>
+</div>

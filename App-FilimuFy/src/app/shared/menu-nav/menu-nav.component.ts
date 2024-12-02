@@ -32,6 +32,7 @@ export class MenuNavComponent implements OnInit{
 
   selectedLanguageAndRegion = 'es-ES,ES';
 
+  alertMessages: Array<{ type: string, message: string }> = [];  // Array para almacenar alertas
 
   @Output() nombreSeleccionado = new EventEmitter<string>();
 
@@ -86,6 +87,8 @@ export class MenuNavComponent implements OnInit{
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  // ALERTS ------------------------------------------------------------------------------------------------------------------------------------------------------
+
   filtrarPorNombre() {
     if (this.nombre) {
       // Filtrar películas por nombre
@@ -108,9 +111,27 @@ export class MenuNavComponent implements OnInit{
         queryParams: { query: this.nombre },
       });
     } else {
-      alert('Por favor, ingresa un término de búsqueda.');
+      this.mostrarAlerta('primary', this.getTexto('searchEmpty'));
     }
   }
+
+  mostrarAlerta(type: string, message: string): void {
+    this.alertMessages.push({ type, message });
+
+    // Opcional: si quieres que la alerta desaparezca después de cierto tiempo
+    setTimeout(() => {
+      this.alertMessages.shift(); // Elimina la alerta después de 3 segundos
+    }, 4000);
+  }
+
+  close(alert: any): void {
+    const index = this.alertMessages.indexOf(alert);
+    if (index !== -1) {
+      this.alertMessages.splice(index, 1);
+    }
+  }
+
+  // --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   getRutaSeleccionada(pagina: string) {
     let rutaActual = this.router.url;

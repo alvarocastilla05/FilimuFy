@@ -63,39 +63,34 @@
 }*/
 
 .nav-pills  a#peliculas.nav-link.active-tab {
-  background-color: #d70f0f; /* Fondo para la pestaña activa */
+  background-color: #e4637d; /* Fondo para la pestaña activa */
   color: white; /* Texto blanco en la pestaña activa */
 }
 
 .nav-pills  a#series.nav-link.active-tab {
-  background-color: #0b59cd; /* Fondo para la pestaña activa */
+  background-color: #6c74a7; /* Fondo para la pestaña activa */
   color: white; /* Texto blanco en la pestaña activa */
 }
 
 .nav-pills  a#actores.nav-link.active-tab {
-  background-color: #008b33; /* Fondo para la pestaña activa */
+  background-color: #27B4DF; /* Fondo para la pestaña activa */
   color: white; /* Texto blanco en la pestaña activa */
 }
 
 .nav-pills  a#peliculas.nav-link.inactive-tab:hover {
-  background-color: #fbd0d0; /* Fondo para la pestaña activa */
-  color: #d70f0f; /* Texto blanco en la pestaña activa */
+  background-color: #ffd2db; /* Fondo para la pestaña activa */
+  color: #e4637d; /* Texto blanco en la pestaña activa */
 }
 
 .nav-pills  a#series.nav-link.inactive-tab:hover {
-  background-color: #d6e6ff; /* Fondo para la pestaña activa */
-  color: #0b59cd; /* Texto blanco en la pestaña activa */
+  background-color: rgb(202, 222, 255); /* Fondo para la pestaña activa */
+  color: #6c74a7; /* Texto blanco en la pestaña activa */
 }
 
 .nav-pills  a#actores.nav-link.inactive-tab:hover {
-  background-color: #d0ffe1; /* Fondo para la pestaña activa */
-  color: #008b33; /* Texto blanco en la pestaña activa */
+  background-color: #d1f4ff; /* Fondo para la pestaña activa */
+  color: #27B4DF; /* Texto blanco en la pestaña activa */
 }
-
-/*.nav-pills .nav-link.inactive-tab:hover {
-  background-color: #f8d0da; /* Fondo más claro al hacer hover 
-  color: #e05a78;
-}*/
 
 .nav-pills .nav-link:not(.active-tab):focus {
   outline: none;

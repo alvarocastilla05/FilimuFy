@@ -12,10 +12,10 @@ export class ConfigService {
       popularMovies: 'Películas populares',
       popularSeries: 'Series populares',
       popularActors: 'Actores populares',
-      searchPlaceholder: 'Buscar películas o series...',
+      searchPlaceholder: 'Buscar películas, series o actores...',
       favorites: 'Favoritos',
       ratings: 'Mis valoraciones',
-      watchlist: 'Mi watchlist',
+      watchlist: 'Watchlist',
       listas: 'Mis listas',
       logout: 'Cerrar sesión',
       login: 'Iniciar sesión',
@@ -28,8 +28,8 @@ export class ConfigService {
       movies: 'Películas',
       shows: 'Series',
       actores: 'Actores',
-      nofavmv: 'No se han encontrado resultados relacionados con películas.',
-      nofavsh: 'No se han encontrado resultados relacionados con series.',
+      nofavmv: 'No se han encontrado resultados relacionados con películas',
+      nofavsh: 'No se han encontrado resultados relacionados con series',
       more: 'Mostar más',
       originalTitle: 'Título original',
       originalLanguage: 'Idioma original',
@@ -69,10 +69,17 @@ export class ConfigService {
       rtfilm: '¡Valora esta película!',
       opinion: '¿Qué te ha parecido ',
       rtshow: '¡Valora esta serie!',
-      noactores: 'No se han encontrado actores relacionados'
+      noactores: 'No se han encontrado actores relacionados',
 
 
+      addPeliToList: ' añadida a la lista con éxito.',
+      addPeliToListAgain: ' ya está añadida a esa lista.',
 
+      searchEmpty: 'Por favor, ingrese un término de búsqueda.',
+
+      listCreated: 'Lista creada con exito.',
+      listUnnamed: 'Por favor, introduzca un nombre para la lista.',
+      listDeleted: 'Lista eliminada con éxito.'
 
     },
     'en-GB,GB': {
@@ -136,9 +143,17 @@ export class ConfigService {
       rtfilm: 'Rate this movie!',
       opinion: 'What did you think of ',
       rtshow: 'Rate this TV Show!',
-      noactores: 'No actors found'
+      noactores: 'No results found related to any actor',
 
 
+      addPeliToList: ' added to the list successfully.',
+      addPeliToListAgain: ' is already added to that list.',
+
+      searchEmpty: 'Enter a search term, please.',
+
+      listCreated: 'List created successfully.',
+      listUnnamed: 'Enter a name for the list, please.',
+      listDeleted: 'List deleted successfully.'
     },
   };
 
