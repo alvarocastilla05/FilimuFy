@@ -18,17 +18,6 @@
   font-family: 'freeman';
 }
 
-@font-face {
-  font-family: 'poppins';
-  src: url(../../fonts/Poppins-Medium.ttf);
-}
-
-.poppins {
-  font-family: 'poppins';
-}
-
-/* BOTÓN MOSTRAR MÁS --------------------------------------------------------------------------------------------------- */
-
 .sombra {
   box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }

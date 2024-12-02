@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneroListResponse } from '../interfaces/generoPelis.interfaces';
 import { environment } from '../../environments/environment';
+import { ConfigService } from './config.service';
 
  
 
@@ -11,13 +12,15 @@ import { environment } from '../../environments/environment';
 })
 export class GeneroService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private configService: ConfigService
+  ) { }
 
   getGenerosPelicula(): Observable<GeneroListResponse>{
-    return this.http.get<GeneroListResponse>(`${environment.apiBaseUrl}/genre/movie/list?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<GeneroListResponse>(`${environment.apiBaseUrl}/genre/movie/list?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 
   getGenerosSerie(): Observable<GeneroListResponse>{
-    return this.http.get<GeneroListResponse>(`${environment.apiBaseUrl}/genre/tv/list?api_key=${environment.apiKey}&language=es-ES`);
+    return this.http.get<GeneroListResponse>(`${environment.apiBaseUrl}/genre/tv/list?api_key=${environment.apiKey}&language=${this.configService.getLanguage()}`);
   }
 }

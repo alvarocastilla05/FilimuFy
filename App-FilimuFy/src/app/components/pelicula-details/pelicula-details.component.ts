@@ -9,13 +9,15 @@ import { Region } from '../../interfaces/pelicula/releaseDateCertifications.inte
 import { Keyword } from '../../interfaces/pelicula/pelicula-keywords.interfaces';
 import { RatedPelicula, RatedPeliculasResponse } from '../../interfaces/pelicula/rated-peliculas.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
+import { ListasService } from '../../services/listas.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-pelicula-details',
   templateUrl: './pelicula-details.component.html',
-  styleUrl: './pelicula-details.component.css'
+  styleUrls: ['./pelicula-details.component.css']
 })
-export class PeliculaDetailsComponent implements OnInit{
+export class PeliculaDetailsComponent implements OnInit {
 
   estadoFav: boolean = false;
   estadoWatchlist: boolean = false;
@@ -34,6 +36,7 @@ export class PeliculaDetailsComponent implements OnInit{
   keywords: Keyword[] = [];
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
+  listas: any[] = [];
 
   @Output() estadoFavRecarga = new EventEmitter<boolean>();
 
@@ -46,56 +49,89 @@ export class PeliculaDetailsComponent implements OnInit{
   rating: number = 0;
 
   constructor(
-    private peliculaService: PeliculaService, 
+    private peliculaService: PeliculaService,
     private accountService: AccountService,
-    private route: ActivatedRoute
+    private listasService: ListasService,
+    private route: ActivatedRoute,
+    private configService: ConfigService
   ) { }
 
   ngOnInit(): void {
     this.peliculaId = this.route.snapshot.paramMap.get('id');
 
-    this.peliculaService.getPeliculaById(parseInt(this.peliculaId!)).subscribe(respuesta => {
-      this.pelicula = respuesta;
-    });
+    if (this.peliculaId) {
+      const peliculaIdNum = parseInt(this.peliculaId);
 
-    this.peliculaService.getCreditosById(parseInt(this.peliculaId!)).subscribe(respuesta => {
-      this.credito = respuesta;
-      this.listaCreditos = respuesta.cast;
-    });
+      this.peliculaService.getPeliculaById(peliculaIdNum).subscribe(respuesta => {
+        this.pelicula = respuesta;
+      });
 
-    this.peliculaService.getKeywordsById(parseInt(this.peliculaId!)).subscribe(respuesta => {
-      this.keywords = respuesta.keywords;
-    });
+      this.peliculaService.getCreditosById(peliculaIdNum).subscribe(respuesta => {
+        this.credito = respuesta;
+        this.listaCreditos = respuesta.cast;
+      });
 
-    this.peliculaService.getVideoById(this.peliculaId!).subscribe(respuesta => {
-      this.video = respuesta;  
-      this.videos = respuesta.results;  
+      this.peliculaService.getKeywordsById(peliculaIdNum).subscribe(respuesta => {
+        this.keywords = respuesta.keywords;
+      });
 
-      const trailer = this.videos.find(video => video.type === 'Trailer');
-      if (trailer) {
-        this.seleccionarVideo(trailer);
-      }
-    });
+      this.peliculaService.getVideoById(this.peliculaId).subscribe(respuesta => {
+        this.video = respuesta;
+        this.videos = respuesta.results;
 
-    this.peliculaService.getProveedoresById(parseInt(this.peliculaId!)).subscribe(respuesta => {
-      this.listaProveedores = respuesta.results.ES.flatrate;
-      this.listaProveedoresPago = respuesta.results.ES.buy;
-    });
+        const trailer = this.videos.find(video => video.type === 'Trailer');
+        if (trailer) {
+          this.seleccionarVideo(trailer);
+        }
+      });
 
-    this.peliculaService.getCertificationById(parseInt(this.peliculaId!)).subscribe(resp => {
-      this.regionList = resp.results;
-    });
+      this.peliculaService.getProveedoresById(peliculaIdNum).subscribe(respuesta => {
+        this.listaProveedores = respuesta.results.ES?.flatrate || [];
+        this.listaProveedoresPago = respuesta.results.ES?.buy || [];
+      });
 
 
     this.getPeliculaRating(parseInt(this.peliculaId!));
     this.checkFavorito(parseInt(this.peliculaId!));
     this.checkWatchlist(parseInt(this.peliculaId!));
 
-    
+      this.checkFavorito(peliculaIdNum);
+      this.checkWatchlist(peliculaIdNum);
+    }
+
+    this.cargarListasUsuario();
   }
 
   seleccionarVideo(video: Video) {
     this.selectedVideo = video;
+  }
+
+  cargarListasUsuario(): void {
+    this.listasService.getListas().subscribe(
+      (response) => {
+        this.listas = response.results || [];
+      },
+      (error) => {
+        console.error('Error al cargar listas:', error);
+      }
+    );
+  }
+
+  agregarPeliculaALista(listaId: string): void {
+    if (!this.peliculaId) {
+      alert('No se encontró el ID de la película.');
+      return;
+    }
+
+    this.listasService.agregarPeliculaALista(listaId, parseInt(this.peliculaId)).subscribe(
+      (response) => {
+        alert('Película añadida a la lista con éxito.');
+      },
+      (error) => {
+        console.error('Error al añadir película a la lista:', error);
+        alert('Hubo un problema al añadir la película a la lista.');
+      }
+    );
   }
 
   getCertification() {
@@ -165,6 +201,24 @@ export class PeliculaDetailsComponent implements OnInit{
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
   }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
+  }
+
+  /*getIfPeliculaIsInLista(): boolean {
+    let isInLista = false;
+    this.listas.forEach(lista => {
+      lista.items.forEach(item => {
+        if(item.id === this.peliculaId) {
+          isInLista = true;
+        } else {
+          isInLista;
+        }
+      });
+    });
+    return isInLista;
+  }*/
 
 
 

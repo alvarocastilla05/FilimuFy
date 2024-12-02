@@ -7,6 +7,8 @@ import { PeliculaService } from '../../services/pelicula.service';
 import { TVShowService } from '../../services/tvshow.service';
 import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { TVShow } from '../../interfaces/serie/tv.interface';
+import { ConfigService } from '../../services/config.service';
+import { MatSelectChange } from '@angular/material/select';
 import { ActorService } from '../../services/actor.service';
 
 @Component({
@@ -28,6 +30,9 @@ export class MenuNavComponent implements OnInit{
   pelisPorNombre: Pelicula[] = [];
   seriesPorNombre: TVShow[] = [];
 
+  selectedLanguageAndRegion = 'es-ES,ES';
+
+
   @Output() nombreSeleccionado = new EventEmitter<string>();
 
   constructor(
@@ -35,6 +40,7 @@ export class MenuNavComponent implements OnInit{
     private authService: AuthService, 
     private peliculaService: PeliculaService,
     private serieService: TVShowService,
+    private configService: ConfigService,
     private actorService: ActorService
   ) { }
 
@@ -67,10 +73,15 @@ export class MenuNavComponent implements OnInit{
     this.rutaActual = this.router.url;
     this.userName = localStorage.getItem('user_name') ?? '';
     this.userPhoto = localStorage.getItem('user_photo') ?? '';
+
+    const language = localStorage.getItem('language') || 'es-ES';
+    const region = localStorage.getItem('region') || 'ES';
+    this.selectedLanguageAndRegion = `${language},${region}`;
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
@@ -110,6 +121,40 @@ export class MenuNavComponent implements OnInit{
       return false;
     }
   }
+
+  changeLanguageAndRegion(event: MatSelectChange): void {
+    const [language, region] = event.value.split(',');
+
+    // Guardar los valores seleccionados en el localStorage
+    localStorage.setItem('language', language);
+    localStorage.setItem('region', region);
+
+    // Actualizar la configuración global a través del servicio
+    this.configService.setLanguage(language);
+    this.configService.setWatchRegion(region);
+    this.selectedLanguageAndRegion = this.configService.getLanguage() + ',' + this.configService.getWatchRegion();
+
+    // Recargar la página para aplicar los cambios
+    window.location.reload();
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
+  }
+
+
+  getSelectedLanguageFlag(): string {
+    const language = this.selectedLanguageAndRegion?.split(',')[1];
+    switch (language) {
+      case 'ES':
+        return '/img/es.svg';
+      case 'GB':
+        return '/img/sh.svg';
+      default:
+        return ''; // O una imagen predeterminada
+    }
+  }
+  
 
   // AUTENTICACIÓN -----------------------------------------------------------------------------------
 

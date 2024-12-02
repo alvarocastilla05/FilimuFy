@@ -1,0 +1,68 @@
+<div class="container mt-5 pb-4">
+  <h1 class="jockeyOne"><i class="bi bi-list-ul lista"></i>&nbsp;&nbsp;{{getTexto('lists')}}</h1>
+
+  <!-- Crear Lista -->
+  <div class="container py-4">
+    <div ngbAccordion>
+      <div ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton class="fondoAzul"><h3 class="m-0 jockeyOne text-white">{{getTexto('newlist')}}</h3></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody class="fondoGris rounded-bottom-3">
+            <ng-template>
+              <div class="mb-0">
+                <input
+                  type="text"
+                  class="form-control mb-3 mt-2 freeman"
+                  placeholder="{{getTexto('listname')}}"
+                  [(ngModel)]="nuevaLista.nombre"
+                />
+                <textarea
+                  class="form-control mb-3 freeman"
+                  placeholder="{{getTexto('listdesc')}}"
+                  [(ngModel)]="nuevaLista.descripcion"
+                  rows="4"
+                ></textarea>
+                <button class="btn btn-primary sombra fondoAzul mb-2" (click)="crearLista()">
+                  <h5 class="m-0 p-1"><i class="bi bi-sign-intersection-fill"></i>&nbsp;&nbsp;{{getTexto('create')}}</h5>
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row d-flex">
+    <div *ngFor="let lista of listas" class="col-md-4 col-12 my-3">
+
+      <!--Carta lista-->
+      <div id="tarjeta" 
+        class="py-2 px-3 rounded-3 d-flex flex-column mx-1 fondoTarjeta sombra" style="height: 200px;">
+        <a [routerLink]="['/listas', lista.id]" class="text-decoration-none text-black h-100">
+          <div class="h-100 d-flex flex-column justify-content-center px-3">
+            <h3 class="m-0 mb-2 text-center jockeyOne truncarLineas text-white">{{lista.name}}</h3>
+            <span *ngIf="lista.item_count !== 1">
+              <h6 class="m-0 text-center freeman gris">{{lista.item_count}} {{getTexto('elementos')}}</h6>
+            </span>
+            <span *ngIf="lista.item_count === 1">
+              <h6 class="m-0 text-center freeman gris">{{lista.item_count}} {{getTexto('elemento')}}</h6>
+            </span>
+          </div>
+        </a>
+        <div class="text-end">
+          <button type="button" (click)="eliminarLista(lista.id)" class="btn papelera">
+            <h4 class="m-0 pt-1"><i class="bi bi-trash-fill"></i></h4>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="listas.length === 0" class="text-center mt-5">
+    <h4>{{getTexto('no list')}}.</h4>
+  </div>
+</div>

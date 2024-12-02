@@ -25,7 +25,7 @@
         @if(actor!.biography !== '') {
           <h5 class="m-0 poppins text-white">{{actor!.biography}}</h5>
         }@else {
-          <h5 class="m-0 poppins text-white">Biografía no disponible.</h5>
+          <h5 class="m-0 poppins text-white">{{getTexto('nobiografia')}}.</h5>
         }
       </div>
 
@@ -40,38 +40,41 @@
     <div class="container w-25 degradado rounded-5 p-4 h-25 mt-2">
 
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Fecha de nacimiento:</h4>
-        <h5 class="freeman text-white" *ngIf="actor?.birthday; else noData">{{ actor?.birthday | date:'dd/MM/yyyy' }}</h5>
+        <h4 class="jockeyOne text-black">{{getTexto('fechanacimiento')}}:</h4>
+        <h5 class="freeman text-white" *ngIf="actor?.birthday; else noData">{{ actor?.birthday | date:'dd/MM/yyyy' }}
+        </h5>
         <ng-template #noData>
           <h5 class="freeman text-white">-</h5>
         </ng-template>
       </div>
 
       <div class="mb-4">
-        <h4 class="jockeyOne text-black" *ngIf="actor?.deathday; else noData2">Fecha de defunción:</h4>
-        <h5 class="freeman text-white">{{ actor?.deathday| date:'dd/MM/yyyy' }}</h5>
+        <h4 class="jockeyOne text-black" *ngIf="actor?.deathday; else noData2">{{getTexto('fechadefuncion')}}:</h4>
+        <h5 class="freeman text-white">{{ actor?.deathday| date:'dd/MM/yyyy' }}
+        </h5>
         <ng-template #noData2>
           <!--No hace nada-->
         </ng-template>
       </div>
 
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Lugar de nacimiento:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('lugar')}}:</h4>
         <h5 class="freeman text-white" *ngIf="actor?.place_of_birth; else noData">{{ actor?.place_of_birth }}</h5>
       </div>
 
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Conocido por:</h4>
-        <h5 class="freeman text-white" *ngIf="actor?.known_for_department; else noData">{{ actor?.known_for_department}}</h5>
+        <h4 class="jockeyOne text-black">{{getTexto('conocido')}}:</h4>
+        <h5 class="freeman text-white" *ngIf="actor?.known_for_department; else noData">{{ actor?.known_for_department
+          }}</h5>
       </div>
 
       <div class="mb-4">
-        <h4 class="jockeyOne text-black">Popularidad:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('popularidad')}}:</h4>
         <h5 class="freeman text-white">{{ actor?.popularity }}</h5>
       </div>
 
       <div>
-        <h4 class="jockeyOne text-black">También conocido como:</h4>
+        <h4 class="jockeyOne text-black">{{getTexto('tambien')}}:</h4>
         <div *ngFor="let nombre of actor?.also_known_as">
           <h5 class="freeman text-white">{{ nombre }}</h5>
         </div>
@@ -81,20 +84,32 @@
     </div>
 
     <!--Reparto principal-->
-    <div class="container w-75">
-      <h2 class="m-0 jockeyOne azulOscuro ms-4 p-2 pb-0">Conocido por</h2>
+<div class="container w-75">
+  <h2 class="m-0 jockeyOne azulOscuro ms-4 p-2 pb-0">{{getTexto('conocido')}}</h2>
 
       <div class="container mt-2"><!--Esto es el scroll, NO TOCAR-->
-        @if(actorPelis.length > 4){
-
-        <div class="row d-flex flex-nowrap mt-0 ms-4" style="
-          overflow: auto; 
-          white-space: nowrap; 
-          display: flex;
-          overflow-x: scroll;
-          overscroll-behavior-x: contain;
-          scroll-snap-type: x proximity; 
-          margin: 50px auto 0;">
+    <div *ngIf="actorPelis.length > 4; else lessThanFour">
+      <div class="row d-flex flex-nowrap mt-0 ms-4" style="
+        overflow: auto; 
+        white-space: nowrap; 
+        display: flex;
+        overflow-x: scroll;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity; 
+        margin: 50px auto 0;">
+        <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
+          <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
+            <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
+          </ng-container>
+          <ng-template #tvTemplate>
+            <app-serie-card [serieId]="peli.id"></app-serie-card>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <ng-template #lessThanFour>
+      <div *ngIf="actorPelis!.length > 0; else noWorks">
+        <div class="row d-flex flex-nowrap mt-0 ms-4">
           <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
             <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
               <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
@@ -104,25 +119,11 @@
             </ng-template>
           </div>
         </div>
-
-        }@else if (actorPelis!.length > 0 && actorPelis.length <= 4) { 
-
-          <div class="row d-flex flex-nowrap mt-0 ms-4">
-            <div *ngFor="let peli of actorPelis; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
-              <ng-container *ngIf="peli.media_type === 'movie'; else tvTemplate">
-                <app-pelicula-card [peliculaId]="peli.id"></app-pelicula-card>
-              </ng-container>
-              <ng-template #tvTemplate>
-                <app-serie-card [serieId]="peli.id"></app-serie-card>
-              </ng-template>
-            </div>
-          </div>
-
-      }@else {
-        <h5 class="poppins mt-4 ms-5">No se han adjuntado películas o series por las que este actor haya sido reconocido.</h5>
-      }
-    </div>
-
+      </div>
+      <ng-template #noWorks>
+        <h5 class="poppins mt-4 ms-5">{{getTexto('noworks')}}.</h5>
+      </ng-template>
+    </ng-template>
   </div>
 
 </div>

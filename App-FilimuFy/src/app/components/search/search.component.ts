@@ -6,6 +6,7 @@ import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { TVShow } from '../../interfaces/serie/tv.interface';
 import { ActorService } from '../../services/actor.service';
 import { Actor } from '../../interfaces/actor/actores-list.interface';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-search',
@@ -31,7 +32,8 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private peliculaService: PeliculaService,
     private serieService: TVShowService,
-    private actorService: ActorService
+    private actorService: ActorService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -115,5 +117,9 @@ export class SearchComponent implements OnInit {
   cargarMasSeriesFiltradas(): void {
     this.currentPage++; // Incrementar la página
     this.filtrarSeriesPorKeyId(true); // Llamar a la función con `append = true`
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
 }

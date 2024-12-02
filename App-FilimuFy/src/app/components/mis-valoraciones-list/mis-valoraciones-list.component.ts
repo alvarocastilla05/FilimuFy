@@ -4,6 +4,7 @@ import { RatedSerie } from '../../interfaces/serie/rated-series.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
 import { Pelicula } from '../../interfaces/pelicula/pelicula-list.interfaces';
 import { TVShow } from '../../interfaces/serie/tv.interface';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-mis-valoraciones-list',
@@ -24,6 +25,7 @@ export class MisValoracionesListComponent {
 
   constructor(
     private accountService: AccountService,
+    private configService: ConfigService
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +73,10 @@ export class MisValoracionesListComponent {
   cargarMasSeries(): void {
     this.currentPage++; // Incrementar la página
     this.cargarSeries(true); // Llamar a la función con `append = true`
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
 
 }

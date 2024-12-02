@@ -1,0 +1,74 @@
+<div class="container mt-5 pb-4">
+  <h1 class="jockeyOne"><i class="bi bi-collection-fill lista"></i>&nbsp;&nbsp;{{ listaDetalles.name }}</h1>
+
+  <!-- Detalles de la Lista -->
+  <div *ngIf="listaDetalles">
+    <div class="mb-4 mt-3">
+      <h5 class="poppins">{{ listaDetalles.description }}</h5>
+    </div>
+
+    <!-- Pestañas estilo Google -->
+  <ul class="nav nav-pills justify-content-center mb-5 pt-5">
+    <li class="nav-item w-25 me-5">
+      <a class="nav-link"
+        [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
+        (click)="showPeliculas = true; showSeries = false"
+        role="button">
+        <h4 class="m-0 freeman text-center">Películas</h4>
+      </a>
+    </li>
+    <li class="nav-item w-25 ms-5">
+      <a class="nav-link"
+        [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
+        (click)="showPeliculas = false; showSeries = true"
+        role="button">
+        <h4 class="m-0 freeman text-center">Series</h4>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Sección de Películas -->
+  <div *ngIf="showPeliculas">
+
+    <div *ngIf="listaPeliculasItems.length > 0">
+      <div class="row d-flex justify-content-center">
+        <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
+          *ngFor="let pelicula of listaPeliculasItems">
+          <button type="button" (click)="eliminarElemento(pelicula.id)" class="btn rounded-bottom-0 papelera ms-4 pb-4 papeleraPosition">
+            <h4 class="m-0 pt-1"><i class="bi bi-trash-fill"></i></h4>
+          </button>
+          <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+        </div>
+      </div>
+    </div>
+
+    <!--Mensaje de "Sin resultados"-->
+    <div *ngIf="listaPeliculasItems.length === 0" class="mt-5 pt-5 text-center poppins">
+      <h4>No se han añadido películas a esta lista.</h4>
+    </div>
+
+  </div>
+
+  <!-- Sección de Series -->
+  <div *ngIf="showSeries">
+
+    <div *ngIf="listaSeriesItems.length > 0">
+      <div class="row d-flex justify-content-center">
+        <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
+          *ngFor="let serie of listaSeriesItems">
+          <button type="button" (click)="eliminarElemento(serie.id)" class="btn rounded-bottom-0 papelera ms-4 pb-4 papeleraPosition">
+            <h4 class="m-0 pt-1"><i class="bi bi-trash-fill"></i></h4>
+          </button>
+          <app-serie-card [serieId]="serie.id"></app-serie-card>
+        </div>
+      </div>
+    </div>
+
+    <!--Mensaje de "Sin resultados"-->
+    <div *ngIf="listaSeriesItems.length === 0" class="mt-5 pt-5 text-center poppins">
+      <h4>No se han añadido series a esta lista.</h4>
+    </div>
+    
+  </div>
+
+</div>
