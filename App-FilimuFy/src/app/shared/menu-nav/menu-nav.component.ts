@@ -149,7 +149,7 @@ export class MenuNavComponent implements OnInit{
       case 'ES':
         return '/img/es.svg';
       case 'GB':
-        return '/img/sh.svg';
+        return '/img/gb.svg';
       default:
         return ''; // O una imagen predeterminada
     }
