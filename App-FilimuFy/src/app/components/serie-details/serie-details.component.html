@@ -164,11 +164,11 @@
                     class="d-flex justify-content-between align-items-center w-100"
                   >
                     <h3 class="jockeyOne azulOscuro m-0">
-                      ¡Valora esta película!
+                      {{getTexto("rtshow")}}
                     </h3>
                   </div>
                   <h5 class="freeman mb-4 text-black">
-                    ¿Qué te ha parecido {{ serie!.name }}?
+                    {{getTexto('opinion')}}{{ serie!.name }}?
                   </h5>
                   <div class="d-flex">
                     <ngb-rating

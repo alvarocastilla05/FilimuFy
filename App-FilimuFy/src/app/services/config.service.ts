@@ -53,7 +53,24 @@ export class ConfigService {
       conocido: 'Conocido por',
       popularidad: 'Popularidad',
       tambien: 'También conocido como',
-      noworks: 'No se han adjuntado películas o series por las que este actor haya sido reconocido'
+      noworks: 'No se han adjuntado películas o series por las que este actor haya sido reconocido',
+      results: 'Resultados para ',
+      nortmv: 'No se ha valorado ninguna película',
+      norttv: 'No se ha valorado ninguna serie',
+      lists: 'Mis listas',
+      newlist: 'Crear Nueva Lista',
+      listname: 'Nombre de la lista',
+      listdesc: 'Descripción de la lista',
+      create: 'Crear lista',
+      elemento: 'elemento',
+      elementos: 'elementos',
+      nolist: 'No se ha creado ninguna lista',
+      myratings: 'Mis valoraciones',
+      rtfilm: '¡Valora esta película!',
+      opinion: '¿Qué te ha parecido ',
+      rtshow: '¡Valora esta serie!',
+      noactores: 'No se han encontrado actores relacionados'
+
 
 
 
@@ -103,7 +120,24 @@ export class ConfigService {
       conocido: 'Known for',
       popularidad: 'Popularity',
       tambien: 'Also known as',
-      noworks: 'No movies or TV Shows have been attached for which this actor has been recognized'
+      noworks: 'No movies or TV Shows have been attached for which this actor has been recognized',
+      results: 'Results for ',
+      nortmv: 'No movies have been rated',
+      norttv: 'No TV Shows have been rated',
+      lists: 'My lists',
+      newlist: 'Create New List',
+      listname: 'List name',
+      listdesc: 'List description',
+      create: 'Create list',
+      elemento: 'element',
+      elementos: 'elements',
+      nolist: 'No list has been created',
+      myratings: 'My ratings',
+      rtfilm: 'Rate this movie!',
+      opinion: 'What did you think of ',
+      rtshow: 'Rate this TV Show!',
+      noactores: 'No actors found'
+
 
     },
   };

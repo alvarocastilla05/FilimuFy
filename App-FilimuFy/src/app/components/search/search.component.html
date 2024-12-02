@@ -1,7 +1,7 @@
 @if(keyName === undefined) {
 
   <div class="container mt-5">
-    <h1 class="jockeyOne m-0" *ngIf="query">Resultados para "{{ query }}"</h1>
+    <h1 class="jockeyOne m-0" *ngIf="query">{{getTexto('results')}}"{{ query }}"</h1>
 
     <!-- Pestañas estilo Google -->
     <ul class="nav nav-pills justify-content-around mb-5 pt-5">
@@ -9,21 +9,21 @@
       <li class="nav-item w-25">
         <a id="peliculas" class="nav-link" [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
           (click)="showPeliculas = true; showSeries = false; showActores = false" role="button">
-          <h4 class="m-0 freeman text-center">Películas</h4>
+          <h4 class="m-0 freeman text-center">{{getTexto('movies')}}</h4>
         </a>
       </li>
 
       <li class="nav-item w-25">
         <a id="series" class="nav-link" [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
           (click)="showPeliculas = false; showSeries = true; showActores = false" role="button">
-          <h4 class="m-0 freeman text-center">Series</h4>
+          <h4 class="m-0 freeman text-center">{{getTexto('shows')}}</h4>
         </a>
       </li>
 
       <li class="nav-item w-25">
         <a id="actores" class="nav-link" [ngClass]="{'active-tab': showActores, 'inactive-tab': !showActores}"
           (click)="showActores = true; showPeliculas = false; showSeries = false" role="button">
-          <h4 class="m-0 freeman text-center">Actores</h4>
+          <h4 class="m-0 freeman text-center">{{getTexto('actores')}}</h4>
         </a>
       </li>
 
@@ -40,7 +40,7 @@
       } @else {
         <!--Mensaje de "Sin resultados"-->
         <div class="mt-5 pt-5 text-center poppins">
-          <h4>No se han encontrado películas relacionadas.</h4>
+          <h4>{{getTexto('nofavmv')}}.</h4>
         </div>
       }
     </div>
@@ -56,7 +56,7 @@
       } @else {
         <!--Mensaje de "Sin resultados"-->
         <div class="mt-5 pt-5 text-center poppins">
-          <h4>No se han encontrado series relacionadas.</h4>
+          <h4>{{getTexto('nofavshow')}}.</h4>
         </div>
       }
     </div>
@@ -72,7 +72,7 @@
       } @else {
         <!--Mensaje de "Sin resultados"-->
         <div class="mt-5 pt-5 text-center poppins">
-          <h4>No se han encontrado actores relacionados.</h4>
+          <h4>{{getTexto('noactores')}}.</h4>
         </div>
       }
     </div>
@@ -82,7 +82,7 @@
 } @else {
 
   <div class="container mt-5 pb-4">
-    <h1 class="jockeyOne m-0" *ngIf="keyId">Resultados para "{{ keyName }}"</h1>
+    <h1 class="jockeyOne m-0" *ngIf="keyId">{{getTexto('results')}}"{{ keyName }}"</h1>
 
     <!-- Pestañas estilo Google -->
     <ul class="nav nav-pills justify-content-center mb-5 pt-5">
@@ -90,14 +90,14 @@
       <li class="nav-item w-25 me-5">
         <a id="peliculas" class="nav-link" [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
           (click)="showPeliculas = true; showSeries = false" role="button">
-          <h4 class="m-0 freeman text-center">Películas</h4>
+          <h4 class="m-0 freeman text-center">{{getTexto('movies')}}</h4>
         </a>
       </li>
 
       <li class="nav-item w-25 ms-5">
         <a id="series" class="nav-link" [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
           (click)="showPeliculas = false; showSeries = true" role="button">
-          <h4 class="m-0 freeman text-center">Series</h4>
+          <h4 class="m-0 freeman text-center">{{getTexto('shows')}}</h4>
         </a>
       </li>
 
@@ -113,13 +113,13 @@
         </div>
         <div class="d-flex justify-content-center mt-3">
           <button class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" (click)="cargarMasPeliculasFiltradas()">
-            Mostrar más películas
+            {{getTexto('more')}}
           </button>
         </div>
       } @else {
         <!--Mensaje de "Sin resultados"-->
         <div class="mt-5 pt-5 text-center poppins">
-          <h4>No se han encontrado películas relacionadas.</h4>
+          <h4>{{getTexto('nofavmv')}}.</h4>
         </div>
       }
     </div>
@@ -135,14 +135,14 @@
           </div>
           <div class="d-flex justify-content-center mt-3">
             <button class="btn btn-primary btn-lg sombra azulOscuro jockeyOne w-100" (click)="cargarMasSeriesFiltradas()">
-              Mostrar más series
+              {{getTexto('more')}}
             </button>
           </div>
         </div>
       } @else {
         <!--Mensaje de "Sin resultados"-->
         <div class="mt-5 pt-5 text-center poppins">
-          <h4>No se han encontrado series relacionadas.</h4>
+          <h4>{{getTexto('nofavsh')}}.</h4>
         </div>
       }
     </div>

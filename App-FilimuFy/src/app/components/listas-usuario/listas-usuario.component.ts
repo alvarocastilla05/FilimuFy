@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListasService } from '../../services/listas.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-listas-usuario',
@@ -11,7 +12,9 @@ export class ListasUsuarioComponent implements OnInit {
   listas: any[] = [];
   nuevaLista = { nombre: '', descripcion: '' };
 
-  constructor(private listasService: ListasService) {}
+  constructor(private listasService: ListasService,
+              private configService: ConfigService
+  ) {}
 
   ngOnInit(): void {
     // Obtener el account_id
@@ -75,5 +78,9 @@ export class ListasUsuarioComponent implements OnInit {
         }
       );
     }
+  }
+
+  getTexto(key: string): string {
+    return this.configService.getTexto(key);
   }
 }

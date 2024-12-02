@@ -1,12 +1,12 @@
 <div class="container mt-5 pb-4">
-  <h1 class="jockeyOne"><i class="bi bi-list-ul lista"></i>&nbsp;&nbsp;Mis Listas</h1>
+  <h1 class="jockeyOne"><i class="bi bi-list-ul lista"></i>&nbsp;&nbsp;{{getTexto('lists')}}</h1>
 
   <!-- Crear Lista -->
   <div class="container py-4">
     <div ngbAccordion>
       <div ngbAccordionItem>
         <h2 ngbAccordionHeader>
-          <button ngbAccordionButton class="fondoAzul"><h3 class="m-0 jockeyOne text-white">Crear Nueva Lista</h3></button>
+          <button ngbAccordionButton class="fondoAzul"><h3 class="m-0 jockeyOne text-white">{{getTexto('newlist')}}</h3></button>
         </h2>
         <div ngbAccordionCollapse>
           <div ngbAccordionBody class="fondoGris rounded-bottom-3">
@@ -15,17 +15,17 @@
                 <input
                   type="text"
                   class="form-control mb-3 mt-2 freeman"
-                  placeholder="Nombre de la lista"
+                  placeholder="{{getTexto('listname')}}"
                   [(ngModel)]="nuevaLista.nombre"
                 />
                 <textarea
                   class="form-control mb-3 freeman"
-                  placeholder="Descripción de la lista"
+                  placeholder="{{getTexto('listdesc')}}"
                   [(ngModel)]="nuevaLista.descripcion"
                   rows="4"
                 ></textarea>
                 <button class="btn btn-primary sombra fondoAzul mb-2" (click)="crearLista()">
-                  <h5 class="m-0 p-1"><i class="bi bi-sign-intersection-fill"></i>&nbsp;&nbsp;Crear lista</h5>
+                  <h5 class="m-0 p-1"><i class="bi bi-sign-intersection-fill"></i>&nbsp;&nbsp;{{getTexto('create')}}</h5>
                 </button>
               </div>
             </ng-template>
@@ -45,10 +45,10 @@
           <div class="h-100 d-flex flex-column justify-content-center px-3">
             <h3 class="m-0 mb-2 text-center jockeyOne truncarLineas text-white">{{lista.name}}</h3>
             <span *ngIf="lista.item_count !== 1">
-              <h6 class="m-0 text-center freeman gris">{{lista.item_count}} elementos</h6>
+              <h6 class="m-0 text-center freeman gris">{{lista.item_count}} {{getTexto('elementos')}}</h6>
             </span>
             <span *ngIf="lista.item_count === 1">
-              <h6 class="m-0 text-center freeman gris">{{lista.item_count}} elemento</h6>
+              <h6 class="m-0 text-center freeman gris">{{lista.item_count}} {{getTexto('elemento')}}</h6>
             </span>
           </div>
         </a>
@@ -63,6 +63,6 @@
   </div>
 
   <div *ngIf="listas.length === 0" class="text-center mt-5">
-    <h4>No se ha creado ninguna lista.</h4>
+    <h4>{{getTexto('no list')}}.</h4>
   </div>
 </div>
