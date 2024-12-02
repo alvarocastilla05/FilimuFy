@@ -24,9 +24,9 @@
                   [(ngModel)]="nuevaLista.descripcion"
                   rows="4"
                 ></textarea>
-                <button class="btn btn-primary sombra fondoAzul mb-2" (click)="crearLista()">
-                  <h5 class="m-0 p-1"><i class="bi bi-sign-intersection-fill"></i>&nbsp;&nbsp;{{getTexto('create')}}</h5>
-                </button>
+                  <button class="btn btn-primary sombra fondoAzul mb-2" (click)="crearLista()">
+                    <h5 class="m-0 p-1"><i class="bi bi-sign-intersection-fill"></i>&nbsp;&nbsp;{{getTexto('create')}}</h5>
+                  </button>
               </div>
             </ng-template>
           </div>
@@ -53,7 +53,7 @@
           </div>
         </a>
         <div class="text-end">
-          <button type="button" (click)="eliminarLista(lista.id)" class="btn papelera">
+          <button type="button" (click)="abrirModalEliminar(lista.id)" class="btn papelera">
             <h4 class="m-0 pt-1"><i class="bi bi-trash-fill"></i></h4>
           </button>
         </div>
@@ -63,10 +63,9 @@
   </div>
 
   <div *ngIf="listas.length === 0" class="text-center mt-5">
-    <h4>{{getTexto('no list')}}.</h4>
+    <h4>{{getTexto('nolist')}}.</h4>
   </div>
 </div>
-
 
 <div *ngFor="let alert of alertMessages" class="alert-container freeman" style=" position: fixed; bottom: 5px; right: 22px; z-index: 1050; width: auto; max-width: 800px; margin-bottom: 0px;">
   <ngb-alert [type]="alert.type" (closed)="close(alert)">
@@ -79,3 +78,17 @@
     }
   </ngb-alert>
 </div>
+
+<!-- Modal de confirmación -->
+<ng-template #modalEliminar let-modal>
+  <div class="modal-header bg-danger">
+    <h3 class="modal-title text-white jockeyOne"><i class="bi bi-trash-fill"></i>&nbsp;&nbsp;{{getTexto('modalHeader')}}</h3>
+  </div>
+  <div class="modal-body">
+    <h5 class="m-0 freeman">{{getTexto('modalBodyList')}}</h5>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary freeman" (click)="modal.dismiss('Cancel')"><h5 class="m-0">{{getTexto('modalFooterNo')}}</h5></button>
+    <button type="button" class="btn btn-danger freeman" (click)="eliminarLista()" (click)="eliminarElementoConfirmado(modal)"><h5 class="m-0">{{getTexto('modalFooterYes')}}</h5></button>
+  </div>
+</ng-template>

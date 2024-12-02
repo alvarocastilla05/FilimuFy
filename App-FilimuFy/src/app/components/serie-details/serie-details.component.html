@@ -52,7 +52,7 @@
             >{{ genre.name }}
             <span *ngIf="i < serie!.genres.length - 1">/ </span>
           </span>
-          }@else { Géneros sin especificar }
+          }@else { {{getTexto('noGenresList')}} }
         </h4>
       </div>
       <!--Nº de temporadas, Valoración y Estado-->
@@ -120,8 +120,7 @@
             <h5
               class="m-0 freeman text-white align-middle d-flex align-items-center"
             >
-              <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;Reproducir
-              tráiler
+              <i class="bi bi-play-fill tamanhoPlay"></i>&nbsp;{{getTexto("trailer")}}
             </h5>
           </a>
         </div>

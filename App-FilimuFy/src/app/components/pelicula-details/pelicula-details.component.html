@@ -52,7 +52,7 @@
             >{{ genre.name }}
             <span *ngIf="i < pelicula!.genres.length - 1">/ </span>
           </span>
-          }@else { Géneros sin especificar }
+          }@else { {{getTexto('noGenresList')}} }
         </h4>
       </div>
       <!--Duración, Valoración y Status-->
@@ -104,7 +104,7 @@
       @if(pelicula!.overview !== ''){
       <h5 class="poppins text-white p-3">{{ pelicula!.overview }}</h5>
       }@else {
-      <h5 class="poppins text-white p-3"></h5>
+      <h5 class="poppins text-white p-3">{{getTexto("nosinopsis")}}</h5>
       }
       <!--Tráiler y opciones de usuario-->
       <div class="container m-0 p-0 d-flex">

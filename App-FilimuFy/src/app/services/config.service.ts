@@ -21,6 +21,7 @@ export class ConfigService {
       login: 'Iniciar sesión',
       filter: 'Filtros',
       genre: 'Géneros',
+      noGenresList: 'Géneros sin especificar',
       rating: 'Rango de valoración',
       duration: 'Duración',
       providers: 'Dónde ver',
@@ -71,7 +72,6 @@ export class ConfigService {
       rtshow: '¡Valora esta serie!',
       noactores: 'No se han encontrado actores relacionados',
 
-
       addPeliToList: ' añadida a la lista con éxito.',
       addPeliToListAgain: ' ya está añadida a esa lista.',
 
@@ -79,31 +79,45 @@ export class ConfigService {
 
       listCreated: 'Lista creada con exito.',
       listUnnamed: 'Por favor, introduzca un nombre para la lista.',
-      listDeleted: 'Lista eliminada con éxito.'
+      listDeleted: 'Lista eliminada con éxito.',
+      
+      listDetailPeliculaUndeleted: 'No se ha podido eliminar la película de la lista.',
+
+      listDetailPeliculaDeleted: 'La película ha sido eliminada de la lista correctamente.',
+
+      modalHeader: 'CONFIRMAR ELIMINACIÓN',
+      modalBodyPel: '¿Seguro que deseas eliminar esta película de la lista?',
+      modalBodyList: '¿Seguro que deseas eliminar esta lista y todo su contenido?',
+      modalFooterNo: 'Cancelar',
+      modalFooterYes: 'Eliminar',
+
+      listsNoListsPel: 'No se han añadido películas a esta lista.',
+      listsNoListsTv: 'No se han añadido series a esta lista.'
 
     },
     'en-GB,GB': {
       popularMovies: 'Popular Movies',
       popularSeries: 'Popular Series',
       popularActors: 'Popular Actors',
-      searchPlaceholder: 'Search movies or TV Shows...',
+      searchPlaceholder: 'Search movies, series or actors...',
       favorites: 'Favorites',
       ratings: 'My ratings',
-      watchlist: 'My watchlist',
+      watchlist: 'Watchlist',
       listas: 'My lists',
       logout: 'Log out',
       login: 'Log in',
       filter: 'Filters',
       genre: 'Genres',
+      noGenresList: 'Unspecified genres',
       rating: 'Rating range',
       duration: 'Duration',
       providers: 'Where to watch',
       filtrar: 'Filter',
       movies: 'Movies',
-      shows: 'TV Shows',
+      shows: 'Series',
       actores: 'Actors',
-      nofavmv: 'No results found related to movies.',
-      nofavsh: 'No results found related to TV Shows.',
+      nofavmv: 'No results found related to any movie.',
+      nofavsh: 'No results found related to any TV show.',
       more: 'Show more',
       originalTitle: 'Original title',
       originalLanguage: 'Original language',
@@ -127,10 +141,10 @@ export class ConfigService {
       conocido: 'Known for',
       popularidad: 'Popularity',
       tambien: 'Also known as',
-      noworks: 'No movies or TV Shows have been attached for which this actor has been recognized',
+      noworks: 'No movies or series have been attached for which this actor has been recognized',
       results: 'Results for ',
       nortmv: 'No movies have been rated',
-      norttv: 'No TV Shows have been rated',
+      norttv: 'No series have been rated',
       lists: 'My lists',
       newlist: 'Create New List',
       listname: 'List name',
@@ -142,9 +156,8 @@ export class ConfigService {
       myratings: 'My ratings',
       rtfilm: 'Rate this movie!',
       opinion: 'What did you think of ',
-      rtshow: 'Rate this TV Show!',
+      rtshow: 'Rate this TV show!',
       noactores: 'No results found related to any actor',
-
 
       addPeliToList: ' added to the list successfully.',
       addPeliToListAgain: ' is already added to that list.',
@@ -153,7 +166,20 @@ export class ConfigService {
 
       listCreated: 'List created successfully.',
       listUnnamed: 'Enter a name for the list, please.',
-      listDeleted: 'List deleted successfully.'
+      listDeleted: 'List deleted successfully.',
+
+      listDetailItemUndeleted: 'The movie could not be removed from the list.',
+
+      listDetailPeliculaDeleted: 'The movie has been successfully removed from the list.',
+
+      modalHeader: 'CONFIRM DELETE',
+      modalBodyPel: 'Are you sure you want to remove this movie from the list?',
+      modalBodyList: 'Are you sure you want to delete this list and all of its content?',
+      modalFooterNo: 'Cancel',
+      modalFooterYes: 'Delete',
+
+      listsNoListsPel: 'No movies have been added to this list.',
+      listsNoListsTv: 'No series have been added to this list.'
     },
   };
 

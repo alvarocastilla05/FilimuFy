@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ListasService } from '../../services/listas.service';
 import { ConfigService } from '../../services/config.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-listas-usuario',
@@ -14,8 +15,13 @@ export class ListasUsuarioComponent implements OnInit {
 
   alertMessages: Array<{ type: string, message: string }> = [];  // Array para almacenar alertas
 
-  constructor(private listasService: ListasService,
-              private configService: ConfigService
+  listId: string = '';
+  @ViewChild('modalEliminar') modalEliminar!: TemplateRef<any>;
+
+  constructor(
+    private listasService: ListasService,
+    private configService: ConfigService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +57,7 @@ export class ListasUsuarioComponent implements OnInit {
   crearLista(): void {
     if (this.nuevaLista.nombre.trim()) {
       this.listasService
-        .crearLista(this.nuevaLista.nombre, this.nuevaLista.descripcion)
+        .crearLista(this.nuevaLista.nombre.trim(), this.nuevaLista.descripcion.trim())
         .subscribe(
           (resp) => {
             this.mostrarAlerta('success', this.getTexto('listCreated'));
@@ -67,19 +73,39 @@ export class ListasUsuarioComponent implements OnInit {
     }
   }
 
-  // Eliminar una lista
-  eliminarLista(listId: string): void {
-    if (confirm('¿Seguro que deseas eliminar esta lista?')) {
-      this.listasService.eliminarLista(listId).subscribe(
-        () => {
-          this.mostrarAlerta('success', this.getTexto('listDeleted'));
-          this.cargarListas();
-        },
-        (error) => {
-          console.error('Error al eliminar lista:', error);
+  // Método para abrir el modal usando la referencia de plantilla
+  abrirModalEliminar(listId: string) {
+    // Abre el modal usando la referencia local con ViewChild
+    const modalRef = this.modalService.open(this.modalEliminar);
+    this.listId = listId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'Eliminar') {
+          this.eliminarLista(); // Llama a eliminarLista solo si el usuario confirma
         }
-      );
-    }
+      },
+      (reason) => {
+        // Este bloque se ejecuta si el modal se cierra sin confirmación
+        console.log('Modal cerrado sin acción:', reason);
+      }
+    );
+  }
+
+  eliminarElementoConfirmado(modal: any) {
+    modal.close('Eliminar');
+  }
+
+  // Eliminar una lista
+  eliminarLista(): void {
+    this.listasService.eliminarLista(this.listId).subscribe(
+      () => {
+        this.mostrarAlerta('success', this.getTexto('listDeleted'));
+        this.cargarListas();
+      },
+      (error) => {
+        console.error('Error al eliminar lista:', error);
+      }
+    );
   }
 
   mostrarAlerta(type: string, message: string): void {
