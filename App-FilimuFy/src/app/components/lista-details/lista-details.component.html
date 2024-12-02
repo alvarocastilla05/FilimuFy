@@ -14,7 +14,7 @@
         [ngClass]="{'active-tab': showPeliculas, 'inactive-tab': !showPeliculas}"
         (click)="showPeliculas = true; showSeries = false"
         role="button">
-        <h4 class="m-0 freeman text-center">Películas</h4>
+        <h4 class="m-0 freeman text-center">{{getTexto('movies')}}</h4>
       </a>
     </li>
     <li class="nav-item w-25 ms-5">
@@ -22,7 +22,7 @@
         [ngClass]="{'active-tab': showSeries, 'inactive-tab': !showSeries}"
         (click)="showPeliculas = false; showSeries = true"
         role="button">
-        <h4 class="m-0 freeman text-center">Series</h4>
+        <h4 class="m-0 freeman text-center">{{getTexto('shows')}}</h4>
       </a>
     </li>
   </ul>
@@ -34,9 +34,24 @@
       <div class="row d-flex justify-content-center">
         <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
           *ngFor="let pelicula of listaPeliculasItems">
-          <button type="button" (click)="eliminarElemento(pelicula.id)" class="btn rounded-bottom-0 papelera ms-4 pb-4 papeleraPosition">
+          <button type="button" (click)="abrirModalEliminar(pelicula.id)" class="btn rounded-bottom-0 papelera ms-4 pb-4 papeleraPosition">
             <h4 class="m-0 pt-1"><i class="bi bi-trash-fill"></i></h4>
           </button>
+
+          <!-- Modal de confirmación -->
+          <ng-template #modalEliminar let-modal>
+            <div class="modal-header bg-danger">
+              <h3 class="modal-title text-white jockeyOne"><i class="bi bi-trash-fill"></i>&nbsp;&nbsp;{{getTexto('modalHeader')}}</h3>
+            </div>
+            <div class="modal-body">
+              <h5 class="m-0 freeman">{{getTexto('modalBodyPel')}}</h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary freeman" (click)="modal.dismiss('Cancel')"><h5 class="m-0">{{getTexto('modalFooterNo')}}</h5></button>
+              <button type="button" class="btn btn-danger freeman" (click)="eliminarElementoConfirmado(modal)"><h5 class="m-0">{{getTexto('modalFooterYes')}}</h5></button>
+            </div>
+          </ng-template>
+
           <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
         </div>
       </div>
@@ -44,7 +59,7 @@
 
     <!--Mensaje de "Sin resultados"-->
     <div *ngIf="listaPeliculasItems.length === 0" class="mt-5 pt-5 text-center poppins">
-      <h4>No se han añadido películas a esta lista.</h4>
+      <h4>{{getTexto('listsNoListsPel')}}</h4>
     </div>
 
   </div>
@@ -56,9 +71,6 @@
       <div class="row d-flex justify-content-center">
         <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
           *ngFor="let serie of listaSeriesItems">
-          <button type="button" (click)="eliminarElemento(serie.id)" class="btn rounded-bottom-0 papelera ms-4 pb-4 papeleraPosition">
-            <h4 class="m-0 pt-1"><i class="bi bi-trash-fill"></i></h4>
-          </button>
           <app-serie-card [serieId]="serie.id"></app-serie-card>
         </div>
       </div>
@@ -66,9 +78,20 @@
 
     <!--Mensaje de "Sin resultados"-->
     <div *ngIf="listaSeriesItems.length === 0" class="mt-5 pt-5 text-center poppins">
-      <h4>No se han añadido series a esta lista.</h4>
+      <h4>{{getTexto('listsNoListsTv')}}</h4>
     </div>
     
   </div>
 
 </div>
+
+<div *ngFor="let alert of alertMessages" class="alert-container freeman" style=" position: fixed; bottom: 5px; right: 22px; z-index: 1050; width: auto; max-width: 800px; margin-bottom: 0px;">
+  <ngb-alert [type]="alert.type" (closed)="close(alert)">
+    @if(alert.type === 'success') {
+      <h4 class="m-0"><i class="bi bi-check-square-fill" style="font-size: 30px;"></i>&nbsp;&nbsp;{{ alert.message }}</h4>
+    } @else {
+      <h4 class="m-0"><i class="bi bi-x-square-fill" style="font-size: 30px;"></i>&nbsp;&nbsp;{{ alert.message }}</h4>
+    }
+  </ngb-alert>
+</div>
+

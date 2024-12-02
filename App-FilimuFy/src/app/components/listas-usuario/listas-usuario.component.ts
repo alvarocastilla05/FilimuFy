@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ListasService } from '../../services/listas.service';
 import { ConfigService } from '../../services/config.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-listas-usuario',
@@ -12,8 +13,15 @@ export class ListasUsuarioComponent implements OnInit {
   listas: any[] = [];
   nuevaLista = { nombre: '', descripcion: '' };
 
-  constructor(private listasService: ListasService,
-              private configService: ConfigService
+  alertMessages: Array<{ type: string, message: string }> = [];  // Array para almacenar alertas
+
+  listId: string = '';
+  @ViewChild('modalEliminar') modalEliminar!: TemplateRef<any>;
+
+  constructor(
+    private listasService: ListasService,
+    private configService: ConfigService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -43,16 +51,16 @@ export class ListasUsuarioComponent implements OnInit {
     }
   }
   
-  
+  // ALERTS ------------------------------------------------------------------------------------------------------------------------------------------------------
 
   // Crear una nueva lista
   crearLista(): void {
     if (this.nuevaLista.nombre.trim()) {
       this.listasService
-        .crearLista(this.nuevaLista.nombre, this.nuevaLista.descripcion)
+        .crearLista(this.nuevaLista.nombre.trim(), this.nuevaLista.descripcion.trim())
         .subscribe(
           (resp) => {
-            alert('Lista creada con éxito.');
+            this.mostrarAlerta('success', this.getTexto('listCreated'));
             this.cargarListas();
             this.nuevaLista = { nombre: '', descripcion: '' };
           },
@@ -61,24 +69,62 @@ export class ListasUsuarioComponent implements OnInit {
           }
         );
     } else {
-      alert('Por favor, completa el nombre de la lista.');
+      this.mostrarAlerta('primary', this.getTexto('listUnnamed'));
     }
   }
 
-  // Eliminar una lista
-  eliminarLista(listId: string): void {
-    if (confirm('¿Seguro que deseas eliminar esta lista?')) {
-      this.listasService.eliminarLista(listId).subscribe(
-        () => {
-          alert('Lista eliminada con éxito.');
-          this.cargarListas();
-        },
-        (error) => {
-          console.error('Error al eliminar lista:', error);
+  // Método para abrir el modal usando la referencia de plantilla
+  abrirModalEliminar(listId: string) {
+    // Abre el modal usando la referencia local con ViewChild
+    const modalRef = this.modalService.open(this.modalEliminar);
+    this.listId = listId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'Eliminar') {
+          this.eliminarLista(); // Llama a eliminarLista solo si el usuario confirma
         }
-      );
+      },
+      (reason) => {
+        // Este bloque se ejecuta si el modal se cierra sin confirmación
+        console.log('Modal cerrado sin acción:', reason);
+      }
+    );
+  }
+
+  eliminarElementoConfirmado(modal: any) {
+    modal.close('Eliminar');
+  }
+
+  // Eliminar una lista
+  eliminarLista(): void {
+    this.listasService.eliminarLista(this.listId).subscribe(
+      () => {
+        this.mostrarAlerta('success', this.getTexto('listDeleted'));
+        this.cargarListas();
+      },
+      (error) => {
+        console.error('Error al eliminar lista:', error);
+      }
+    );
+  }
+
+  mostrarAlerta(type: string, message: string): void {
+    this.alertMessages.push({ type, message });
+
+    // Opcional: si quieres que la alerta desaparezca después de cierto tiempo
+    setTimeout(() => {
+      this.alertMessages.shift(); // Elimina la alerta después de 3 segundos
+    }, 4000);
+  }
+
+  close(alert: any): void {
+    const index = this.alertMessages.indexOf(alert);
+    if (index !== -1) {
+      this.alertMessages.splice(index, 1);
     }
   }
+
+  // --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   getTexto(key: string): string {
     return this.configService.getTexto(key);

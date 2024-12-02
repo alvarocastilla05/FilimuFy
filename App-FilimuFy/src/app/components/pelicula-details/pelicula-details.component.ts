@@ -38,6 +38,8 @@ export class PeliculaDetailsComponent implements OnInit {
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
   listas: any[] = [];
 
+  alertMessages: Array<{ type: string, message: string }> = [];  // Array para almacenar alertas
+
   @Output() estadoFavRecarga = new EventEmitter<boolean>();
 
   realizarEnvioAListPelicula() {
@@ -117,22 +119,42 @@ export class PeliculaDetailsComponent implements OnInit {
     );
   }
 
+  // ALERTS ------------------------------------------------------------------------------------------------------------------------------------------------------
+
   agregarPeliculaALista(listaId: string): void {
     if (!this.peliculaId) {
-      alert('No se encontró el ID de la película.');
+      this.mostrarAlerta('danger', 'No se encontró el ID de la película.');
       return;
     }
 
     this.listasService.agregarPeliculaALista(listaId, parseInt(this.peliculaId)).subscribe(
       (response) => {
-        alert('Película añadida a la lista con éxito.');
+        this.mostrarAlerta('success', '"'+this.pelicula!.title+'"'+ this.getTexto('addPeliToList'));
       },
       (error) => {
         console.error('Error al añadir película a la lista:', error);
-        alert('Hubo un problema al añadir la película a la lista.');
+        this.mostrarAlerta('danger', '"'+this.pelicula!.title+'"' + this.getTexto('addPeliToListAgain'));
       }
     );
   }
+
+  mostrarAlerta(type: string, message: string): void {
+    this.alertMessages.push({ type, message });
+
+    // Opcional: si quieres que la alerta desaparezca después de cierto tiempo
+    setTimeout(() => {
+      this.alertMessages.shift(); // Elimina la alerta después de 3 segundos
+    }, 4000);
+  }
+
+  close(alert: any): void {
+    const index = this.alertMessages.indexOf(alert);
+    if (index !== -1) {
+      this.alertMessages.splice(index, 1);
+    }
+  }
+
+  // --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   getCertification() {
     let certificacion = "N/A";  // Valor predeterminado si no se encuentra certificación
