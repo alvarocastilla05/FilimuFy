@@ -210,33 +210,36 @@
           <!-- Añadir a Watchlists -->
           <button
             type="button"
-            class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2"
+            class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center ms-2 me-1"
             (click)="onWatchlistBotonClick(pelicula!.id)"
             [ngClass]="estadoWatchlist ? 'etiqueta' : 'boton'"
           >
             <i class="bi bi-bookmark-fill tamanhoIcono py-0 p-2"></i>
           </button>
 
-          <!-- Botón de suma para añadir a una lista -->
-          <div class="dropdown ms-2">
-            <button
-              type="button"
-              class="btn rounded rounded-circle boton sombra p-2 text-center d-flex w-100 align-items-center dropdown-toggle"
-              id="listasDropdown"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-plus-lg tamanhoIcono py-0 p-2"></i>
+          <!-- Añadir a mis listas -->
+          <div ngbDropdown placement="top" class="d-inline-block">
+            <button type="button" ngbDropdownToggle style="width: 57.6px; height: 57.6px;"
+              class="btn rounded rounded-circle boton sombra p-2 text-center d-flex align-items-center ms-2 me-1">
+              <i class="bi bi-list-ul tamanhoIcono py-0 p-2 mt-1"></i>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="listasDropdown">
-              <li
-                *ngFor="let lista of listas"
-                class="dropdown-item"
-                (click)="agregarPeliculaALista(lista.id)"
-              >
-                {{ lista.name }}
-              </li>
-            </ul>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic2" 
+              class="mb-2 bordeAzul sombra2 scroll-container" style="width: 515px;">
+              <h3 class="jockeyOne azulOscuro m-0 ms-3 mb-1 mt-2">¡Añade a una de tus listas!</h3>
+              <h5 class="freeman ms-3 mb-3 text-black">Agrega: {{pelicula!.title}}.</h5>
+              @if(listas.length > 0){
+                <ul class="p-0 m-0">
+                  <a class="text-decoration-none" style="cursor: pointer">
+                    <li *ngFor="let lista of listas" style="width: 476px;" (click)="agregarPeliculaALista(lista.id)"
+                      class="dropdown-item m-2 py-2 rounded-3 freeman fondoGris">
+                      <h5 class="m-0 puntosSuspensivos py-1">{{ lista.name }}</h5>
+                    </li>
+                  </a>
+                </ul>
+              }@else {
+                <h6 class="poppins m-0 ms-3 mb-3 mt-2">No hay ninguna lista creada.</h6>
+              }
+            </div>
           </div>
         </div>
 
