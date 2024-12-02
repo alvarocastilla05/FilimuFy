@@ -21,9 +21,10 @@
                 </button>
             </form>
         </div>
-        <mat-form-field appearance="fill">
+
+        <mat-form-field appearance="fill" class="mt-3">
             <mat-select [(value)]="selectedLanguageAndRegion" (selectionChange)="changeLanguageAndRegion($event)">
-                <mat-select-trigger>
+                <mat-select-trigger class="rounded-5">
                     <img 
                         [src]="getSelectedLanguageFlag()" 
                         alt="Selected Language" 
@@ -31,43 +32,32 @@
                     {{ selectedLanguageAndRegion.split(',')[1] }}
                 </mat-select-trigger>
                 <mat-option value="es-ES,ES">
-                    <img src="/img/es.svg" alt="ES" style="width: 20px; margin-right: 8px;">ES
+                    <img src="/img/es.svg" alt="ES" style="width: 20px; margin-right: 8px;">Español
                 </mat-option>
                 <mat-option value="en-GB,GB">
-                    <img src="/img/sh.svg" alt="EN" style="width: 20px; margin-right: 8px;">GB
+                    <img src="/img/gb.svg" alt="EN" style="width: 20px; margin-right: 8px;">Inglés
                 </mat-option>
             </mat-select>
         </mat-form-field>
+
         <div class="pe-3 pt-1 w-25 text-end">
             <ng-container *ngIf="isLoggedIn(); else loginButton">
                 <div class="row">
                     <div class="col">
                         <div ngbDropdown class="d-inline-block">
-                            <img 
-                                [src]="userPhoto | avatar" 
-                                type="button" 
-                                width="60px" 
-                                height="60px" 
-                                ngbDropdownToggle 
-                                alt="Avatar" 
-                                class="rounded-circle bg-white" />
+
+                            <img [src]="userPhoto | avatar" type="button" width="60px" height="60px" ngbDropdownToggle alt="Avatar" class="rounded-circle bg-white"/>
+
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="mt-1 bordeRosa rounded-3">
-                                <div style="width: 600px;">
+                                <div style="width: 710px;">
                                     <div class="row px-2">
                                         <div class="container ps-4 pt-2 pe-0" style="width: 38%;">
-                                            <img 
-                                                [src]="userPhoto | avatar" 
-                                                [style.width]="200 + 'px'" 
-                                                [style.height]="200 + 'px'" 
-                                                class="rounded-3" 
-                                                [alt]="userName">
-                                            <h3 
-                                                class="m-0 pt-1 jockeyOne azulOscuro text-center textFilimuFy puntosSuspensivos" 
-                                                style="width: 200px">
-                                                {{ userName }}
-                                            </h3>
+                                            <img [src]="userPhoto | avatar" [style.width]="240 + 'px'" [style.height]="240 + 'px'" class="rounded-3" [alt]="userName">
+                                            <h3 class="m-0 pt-1 jockeyOne azulOscuro text-center textFilimuFy puntosSuspensivos" 
+                                                style="width: 240px">{{userName}}</h3>
                                         </div>
                                         <div class="container mt-2 ps-0" style="width: 62%;">
+                                            <!--FAVORITOS-->
                                             <a routerLink="/favoritos" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 mt-1 p-1 me-2 g1">
                                                     <h4 class="m-0 p-2 freeman">
@@ -83,6 +73,7 @@
                                                     </h4>
                                                 </div>
                                             </a>
+                                            <!--WATCHLIST-->
                                             <a routerLink="/watchlist" class="text-decoration-none text-black">
                                                 <div class="fondoGris rounded-3 m-2 p-1 me-2 g3">
                                                     <h4 class="m-0 p-2 freeman">
@@ -90,10 +81,11 @@
                                                     </h4>
                                                 </div>
                                             </a>
+                                            <!--MIS LISTAS-->
                                             <a routerLink="/listas" class="text-decoration-none text-black">
-                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g3">
+                                                <div class="fondoGris rounded-3 m-2 p-1 me-2 g4">
                                                     <h4 class="m-0 p-2 freeman">
-                                                        <i class="bi bi-list-ul"></i>&nbsp;&nbsp;{{getTexto('listas')}}
+                                                        <i class="bi bi-list-ul lista"></i>&nbsp;&nbsp;{{getTexto('listas')}}
                                                     </h4>
                                                 </div>
                                             </a>
