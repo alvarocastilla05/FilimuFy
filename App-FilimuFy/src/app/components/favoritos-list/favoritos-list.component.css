@@ -18,6 +18,28 @@
   font-family: 'freeman';
 }
 
+/* GRID LAYOUT --------------------------------------------------------------------------------------------------------- */
+
+.favoritos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .favoritos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favoritos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }

@@ -25,9 +25,8 @@
     <div *ngIf="showPeliculas">
 
       <div *ngIf="listaPeliculas.length > 0">
-        <div class="row d-flex justify-content-center">
-          <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
-            *ngFor="let pelicula of listaPeliculas">
+        <div class="valoraciones-grid">
+          <div *ngFor="let pelicula of listaPeliculas">
             <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
           </div>
         </div>
@@ -51,9 +50,8 @@
     <div *ngIf="showSeries">
 
       <div *ngIf="listaSeries.length > 0">
-        <div class="row d-flex justify-content-center">
-          <div class="col-6 col-md-3 col-lg-3 p-3 my-3"
-            *ngFor="let serie of listaSeries">
+        <div class="valoraciones-grid">
+          <div *ngFor="let serie of listaSeries">
             <app-serie-card [serieId]="serie.id"></app-serie-card>
           </div>
         </div>

@@ -34,6 +34,9 @@ export class MenuNavComponent implements OnInit{
 
   alertMessages: Array<{ type: string, message: string }> = [];  // Array para almacenar alertas
 
+  // Mobile menu state
+  mobileMenuOpen = false;
+
   @Output() nombreSeleccionado = new EventEmitter<string>();
 
   constructor(
@@ -143,7 +146,7 @@ export class MenuNavComponent implements OnInit{
     }
   }
 
-  changeLanguageAndRegion(event: MatSelectChange): void {
+  changeLanguageAndRegion(event: MatSelectChange | {value: string}): void {
     const [language, region] = event.value.split(',');
 
     // Guardar los valores seleccionados en el localStorage
@@ -184,7 +187,7 @@ export class MenuNavComponent implements OnInit{
       localStorage.setItem('token', response.request_token);
 
       // STEP 2 de la autenticación en TMDB (firma del token iniciando sesión en TMDB)
-      window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=http://localhost:4200/approved`;
+      window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=${window.location.origin}/approved`;
     });
   }
 
@@ -195,6 +198,19 @@ export class MenuNavComponent implements OnInit{
   logout() {
     localStorage.clear();
     window.location.href = 'http://localhost:4200';
+  }
+
+  // MOBILE MENU FUNCTIONALITY ------------------------------------------------------------------
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+    
+    // Prevent body scrolling when menu is open
+    if (this.mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 
 }

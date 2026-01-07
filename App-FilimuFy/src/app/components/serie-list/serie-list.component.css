@@ -27,6 +27,28 @@
     font-family: 'poppins';
 }
 
+/* GRID LAYOUT --------------------------------------------------------------------------------------------------------- */
+
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .series-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .series-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* BOTÓN MOSTRAR MÁS --------------------------------------------------------------------------------------------------- */
 
 .sombra {
@@ -82,4 +104,3 @@
   .scroll-container::-webkit-scrollbar-thumb:hover {
     background-color: #888888; /* Color al pasar el cursor */
   }
-  

@@ -49,8 +49,86 @@ h6 {
 
 #tarjeta{
     transition-duration: 0.2s;
+    width: 15rem; /* Ancho base para desktop */
+    max-width: 100%;
 }
 
 #tarjeta:hover{
     transform: scale(1.07);
+}
+
+/* RESPONSIVE DESIGN - MOBILE FIRST */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    #tarjeta {
+        width: 13rem; /* Reducir ligeramente en tablets */
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile (hasta 768px) */
+@media (max-width: 768px) {
+    #tarjeta {
+        width: 100%;
+        min-width: 140px;
+        max-width: 180px;
+        margin: 0 auto;
+    }
+    
+    /* Imágenes más compactas en móvil */
+    .card-img-top {
+        height: auto;
+        aspect-ratio: 2/3; /* Mantiene proporción correcta */
+        object-fit: cover;
+    }
+    
+    /* Espaciados más compactos */
+    .card-body {
+        padding-top: 0.5rem !important;
+    }
+    
+    /* Texto optimizado para móvil */
+    .card-title {
+        font-size: 1rem;
+        padding-top: 0.5rem !important;
+        line-height: 1.2;
+    }
+    
+    .card-text {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+    
+    /* Reducir padding general */
+    .p-2 {
+        padding: 0.5rem !important;
+    }
+    
+    /* Hover suave en móvil */
+    #tarjeta:hover {
+        transform: scale(1.03);
+    }
+}
+
+/* Mobile pequeño (hasta 480px) */
+@media (max-width: 480px) {
+    #tarjeta {
+        max-width: 160px;
+    }
+    
+    .card-title {
+        font-size: 0.9rem;
+    }
+    
+    .card-text {
+        font-size: 0.75rem;
+    }
 }
