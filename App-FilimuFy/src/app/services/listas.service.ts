@@ -48,6 +48,21 @@ export class ListasService {
     });
   }
 
+  agregarSerieALista(listaId: string, tvId: number) {
+    const url = `${environment.apiBaseUrl}/list/${listaId}/add_item`;
+    const body = {
+      media_id: tvId,
+      media_type: 'tv'
+    };
+
+    return this.http.post<any>(url, body, {
+      params: {
+        api_key: environment.apiKey,
+        session_id: localStorage.getItem('session_id') || '',
+      },
+    });
+  }
+
   getDetallesLista(listaId: string) {
     const url = `${environment.apiBaseUrl}/list/${listaId}`
     return this.http.get<any>(url, {
