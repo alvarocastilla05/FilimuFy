@@ -27,6 +27,37 @@
     font-family: 'poppins';
 }
 
+/* RESPONSIVE WIDTHS - Para mantener diseño original de desktop -------------------------------------------------------- */
+
+@media (min-width: 768px) {
+    .w-md-25 {
+        width: 25% !important;
+    }
+    
+    .w-md-75 {
+        width: 75% !important;
+    }
+}
+
+/* DROPDOWN POSITIONING - Forzar posicionamiento correcto en móvil ------------------------------------------------- */
+
+@media (max-width: 767px) {
+    .dropdown-menu {
+        position: fixed !important;
+        right: 10px !important;
+        left: auto !important;
+        transform: none !important;
+        margin-top: 5px !important;
+    }
+    
+    /* Para centrar los dropdowns si es necesario */
+    .dropdown-menu.center-mobile {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+    }
+}
+
 /* INFORMACIÓN DE LA SERIE -------------------------------------------------------------------------------------------- */
 
 .gris{

@@ -1,10 +1,17 @@
-<div class="container mt-5 pb-4">
-    <div class="row mt-5"> 
-        @for (item of listaActores; track $index) {
-            <div class="col-md-3 col-12 p-2 my-3">
-                <app-actor-card [actorId]="item"></app-actor-card>
-            </div>
-        }
-        <button class="btn btn-primary btn-block btn-lg m-3 sombra azulOscuro justify-content-center jockeyOne" (click)="cargarActores()">{{getTexto('more')}}</button>
+<div class="mobile-optimized-container">
+    <div class="actors-section">
+        <div class="netflix-grid">
+            @for (item of listaActores; track $index) {
+                <div class="card-container">
+                    <app-actor-card [actorId]="item"></app-actor-card>
+                </div>
+            }
+        </div>
+        
+        <div class="load-more-container">
+            <button class="load-more-btn jockeyOne" (click)="cargarActores()">
+                {{getTexto('more')}}
+            </button>
+        </div>
     </div>
 </div>

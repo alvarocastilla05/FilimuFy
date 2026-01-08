@@ -1,16 +1,16 @@
 <div class="py-5">
     <div class="container">
         <h1 class="jockeyOne m-0 mb-3">{{getTexto('movies')}}</h1>
-        <div class="d-flex flex-wrap justify-content-around w-100">
+        <div class="netflix-grid">
             @for (pelicula of listaPeliculas; track pelicula.id) {
-                    <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
+                <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
             }
         </div>
     </div>
 
     <div class="container my-5">
         <h1 class="jockeyOne m-0 mb-3">{{getTexto('shows')}}</h1>
-        <div class="d-flex flex-wrap justify-content-around w-100">
+        <div class="netflix-grid">
             @for (item of listaSeries; track $index) {
                 <app-serie-card [serieId]="item.id"></app-serie-card>
             }
@@ -19,7 +19,7 @@
 
     <div class="container">
         <h1 class="jockeyOne m-0 mb-3">{{getTexto('actores')}}</h1>
-        <div class="d-flex flex-wrap justify-content-around w-100">
+        <div class="actors-grid">
             @for (item of listaActores; track $index) {
                 <app-actor-card [actorId]="item"></app-actor-card>
             }

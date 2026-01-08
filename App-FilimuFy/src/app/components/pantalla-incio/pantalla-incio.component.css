@@ -26,3 +26,49 @@
 .poppins {
     font-family: 'poppins';
 }
+
+/* GRID ADAPTABLE PARA CARTAS ------------------------------------------------------------------- */
+
+.netflix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: clamp(8px, 2vw, 25px);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.actors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: clamp(8px, 2vw, 25px);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+/* RESPONSIVIDAD BÁSICA -------------------------------------------------------------------------- */
+
+@media (max-width: 400px) {
+    .netflix-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: clamp(6px, 1.5vw, 12px);
+    }
+    
+    .actors-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: clamp(6px, 1.5vw, 12px);
+    }
+}
+
+@media (min-width: 1440px) {
+    .netflix-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: clamp(18px, 2vw, 25px);
+    }
+    
+    .actors-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: clamp(18px, 2vw, 25px);
+    }
+}

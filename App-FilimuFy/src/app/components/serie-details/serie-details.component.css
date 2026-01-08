@@ -447,3 +447,25 @@
   -webkit-box-orient: vertical;  /*Esta propiedad sirve para establecerla orientación del contenido dentro de la caja.*/
   overflow: hidden;              /*Esta propiedad permite ocultar el contenido desbordado.*/
 }
+
+/* RESPONSIVE CLASSES ------------------------------------------------------------------------------------------------- */
+
+/* Custom responsive width classes */
+@media (min-width: 992px) {
+  .w-md-25 {
+    width: 25% !important;
+  }
+  .w-md-75 {
+    width: 75% !important;
+  }
+}
+
+/* Mobile dropdown positioning fixes */
+@media (max-width: 991px) {
+  .dropdown-menu {
+    position: fixed !important;
+    right: 20px !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}
