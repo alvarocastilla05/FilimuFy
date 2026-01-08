@@ -183,21 +183,16 @@ export class MenuNavComponent implements OnInit {
     this.authService.createRequestToken().subscribe((response) => {
       localStorage.setItem('token', response.request_token);
 
-      // 1. Por defecto, usamos la dirección actual (Netlify o Localhost)
-      let urlDestino = window.location.origin + '/approved';
+      // ESTA ES LA CLAVE:
+      // window.location.origin detecta automáticamente dónde estás:
+      // - En tu PC será: http://localhost:4200
+      // - En Vercel será: https://filimufy-tu-nombre.vercel.app
+      const urlActual = window.location.origin;
 
-      // 2. PARCHE SOLO PARA LOCAL:
-      // Si el navegador detecta que estamos en 'localhost', cambiamos a la IP 127.0.0.1
-      // para evitar el bloqueo del firewall de TMDB.
-      if (window.location.hostname === 'localhost') {
-        urlDestino = 'http://127.0.0.1:4200/approved';
-      }
-
-      // 3. Codificamos la URL final
-      const redirectEncoded = encodeURIComponent(urlDestino);
-
-      // 4. Redirigimos
-      window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=${redirectEncoded}`;
+      // Construimos la URL de redirección
+      // No hace falta encodeURIComponent manual aquí generalmente, 
+      // pero si TMDB lo pide estricto, el navegador lo suele manejar bien así:
+      window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=${urlActual}/approved`;
 
     }, (error) => console.error('Error al pedir token:', error));
   }
