@@ -1,52 +1,67 @@
-<div id="tarjeta" class="p-2" style="width: 15rem;">
-  <a [routerLink]="['/series', serieId]" class="text-decoration-none text-black">
+<div class="netflix-movie-card">
+    <a [routerLink]="['/series', serieId]" class="card-link">
+        <!-- Imagen con aspect ratio fijo -->
+        <div class="poster-container">
+            @if(serieDetalle!.poster_path != null) {
+                <img src="{{serieDetalle!.poster_path | imagen}}" 
+                     class="poster-image"
+                     alt="{{serieDetalle!.name}}">
+            } @else {
+                <img [src]="imgPlaceholderPelSer" 
+                     class="poster-image" 
+                     alt="{{serieDetalle!.name}}">
+            }
+            
+            <!-- Overlay de rating -->
+            <div class="rating-overlay" [style]="serieDetalle!.vote_average | averageColor">
+                <span class="rating-text">
+                    <i class="bi bi-star-fill"></i> {{serieDetalle!.vote_average | number:'1.0-1' }}
+                </span>
+            </div>
+        </div>
 
-    @if(serieDetalle!.poster_path != null) {
-      <img src="{{serieDetalle!.poster_path | imagen}}" class="rounded-4 card-img-top sombra" height="336px"
-        alt="{{serieDetalle!.name}}">
-    } @else {
-      <img [src]="imgPlaceholderPelSer" class="rounded-4 card-img-top sombra" height="336px" alt="{{serieDetalle!.name}}">
-    }
+        <!-- Información de la serie -->
+        <div class="card-info">
+            <h5 class="movie-title freeman">{{serieDetalle!.name}}</h5>
 
-    <div class="card-body px-0 pt-2">
-      <div class="text-white rounded-4 freeman mt-1 py-1 text-center"
-        [style]="serieDetalle!.vote_average | averageColor">
-        <h6 class="m-0"><i class="bi bi-star-fill text-warning"></i> {{serieDetalle!.vote_average |
-          number:'1.0-1' }} /10</h6>
-      </div>
-      <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{serieDetalle!.name}}</h5>
+            <!-- Año y géneros -->
+            <div class="movie-meta">
+                @if(serieDetalle!.genres.length > 0 && serieDetalle!.first_air_date !== ''){
+                    <p class="meta-text gris freeman">
+                        {{serieDetalle!.first_air_date | date:'yyyy'}} - 
+                        <span *ngFor="let genre of serieDetalle!.genres; let i = index">{{ genre.name }}
+                            <span *ngIf="i < serieDetalle!.genres.length - 1"> / </span>
+                        </span>
+                    </p>
+                }@else if(serieDetalle!.genres.length > 0 && serieDetalle!.first_air_date === ''){
+                    <p class="meta-text gris freeman">
+                        <span *ngFor="let genre of serieDetalle!.genres; let i = index">{{ genre.name }}
+                            <span *ngIf="i < serieDetalle!.genres.length - 1"> / </span>
+                        </span>
+                    </p>
+                }@else if(serieDetalle!.genres.length == 0 && serieDetalle!.first_air_date === ''){
+                    <p class="meta-text gris freeman">-</p>
+                }@else {
+                    <p class="meta-text gris freeman">{{serieDetalle!.first_air_date | date:'yyyy'}}</p>
+                }
+            </div>
 
-      <!--Año de estreno y géneros-->
-      @if(serieDetalle!.genres.length > 0 && serieDetalle!.first_air_date !== ''){
-        <p class="card-text gris freeman m-0 puntosSuspensivos">{{serieDetalle!.first_air_date | date:'yyyy'}} - 
-          <span *ngFor="let genre of serieDetalle!.genres; let i = index">{{ genre.name }}
-            <span *ngIf="i < serieDetalle!.genres.length - 1"> / </span>
-          </span>
-        </p>
-      }@else if(serieDetalle!.genres.length > 0 && serieDetalle!.first_air_date === ''){
-        <p class="card-text gris freeman m-0 puntosSuspensivos">
-          <span *ngFor="let genre of serieDetalle!.genres; let i = index">{{ genre.name }}
-            <span *ngIf="i < serieDetalle!.genres.length - 1"> / </span>
-          </span>
-        </p>
-      }@else if(serieDetalle!.genres.length == 0 && serieDetalle!.first_air_date === ''){
-        <p class="card-text gris freeman m-0 puntosSuspensivos">-</p>
-      }@else {
-        <p class="card-text gris freeman m-0 puntosSuspensivos">{{serieDetalle!.first_air_date | date:'yyyy'}}</p>
-      }
-
-      <div class="d-flex">
-        <p class="card-text gris freeman m-0 me-2">
-          <span *ngIf="serieDetalle!.number_of_seasons === 1">
-            {{serieDetalle!.number_of_seasons}} temporada
-          </span>
-          <span *ngIf="serieDetalle!.number_of_seasons !== 1">
-            {{serieDetalle!.number_of_seasons}} temporadas
-          </span>
-        </p>
-        <p class="card-text gris freeman m-0" [style]="getCertification() | edadColor" [innerHTML]="getCertification()"></p>
-      </div>
-    </div>
-    
-  </a>
+            <!-- Información adicional -->
+            <div class="additional-info">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="meta-text gris freeman m-0">
+                        <span *ngIf="serieDetalle!.number_of_seasons === 1">
+                            {{serieDetalle!.number_of_seasons}} temporada
+                        </span>
+                        <span *ngIf="serieDetalle!.number_of_seasons !== 1">
+                            {{serieDetalle!.number_of_seasons}} temporadas
+                        </span>
+                    </p>
+                    <p class="meta-text gris freeman m-0" 
+                       [style]="getCertification() | edadColor" 
+                       [innerHTML]="getCertification()"></p>
+                </div>
+            </div>
+        </div>
+    </a>
 </div>

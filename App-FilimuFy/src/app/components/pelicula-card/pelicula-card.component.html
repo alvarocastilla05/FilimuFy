@@ -1,46 +1,58 @@
-<div id="tarjeta" class="p-2" style="width: 15rem;">
-    <a [routerLink]="['/peliculas', peliculaId]" class="text-decoration-none text-black">
-
-        @if(peliculaDetalle!.poster_path != null) {
-            <img src="{{peliculaDetalle!.poster_path | imagen}}" class="rounded-4 card-img-top sombra"
-                height="336px" alt="{{peliculaDetalle!.title}}">
-        } @else {
-            <img [src]="imgPlaceholderPelSer" class="rounded-4 card-img-top sombra" 
-                height="336px" alt="{{peliculaDetalle!.title}}">
-        }
-
-        <div class="card-body px-0 pt-2">
-            <div class="text-white rounded-4 freeman mt-1 py-1 text-center" 
-                [style]="peliculaDetalle!.vote_average | averageColor">
-                <h6 class="m-0"><i class="bi bi-star-fill text-warning"></i> {{peliculaDetalle!.vote_average |
-                    number:'1.0-1' }} /10</h6>
-            </div>
-            <h5 class="card-title freeman text-start pt-2 m-0 puntosSuspensivos">{{peliculaDetalle!.title}}</h5>
-
-            <!--Año de estreno y géneros-->
-            @if(peliculaDetalle!.genres.length > 0 && peliculaDetalle!.release_date !== ''){
-                <p class="card-text gris freeman m-0 puntosSuspensivos">{{peliculaDetalle!.release_date | date:'yyyy'}} - 
-                    <span *ngFor="let genre of peliculaDetalle!.genres; let i = index">{{ genre.name }}
-                        <span *ngIf="i < peliculaDetalle!.genres.length - 1"> / </span>
-                    </span>
-                </p>
-            }@else if(peliculaDetalle!.genres.length > 0 && peliculaDetalle!.release_date === ''){
-                <p class="card-text gris freeman m-0 puntosSuspensivos">
-                    <span *ngFor="let genre of peliculaDetalle!.genres; let i = index">{{ genre.name }}
-                        <span *ngIf="i < peliculaDetalle!.genres.length - 1"> / </span>
-                    </span>
-                </p>
-            }@else if(peliculaDetalle!.genres.length == 0 && peliculaDetalle!.release_date === ''){
-                <p class="card-text gris freeman m-0 puntosSuspensivos">-</p>
-            }@else{
-                <p class="card-text gris freeman m-0 puntosSuspensivos">{{peliculaDetalle!.release_date | date:'yyyy'}}</p>
+<div class="netflix-movie-card">
+    <a [routerLink]="['/peliculas', peliculaId]" class="card-link">
+        <!-- Imagen con aspect ratio fijo -->
+        <div class="poster-container">
+            @if(peliculaDetalle!.poster_path != null) {
+                <img src="{{peliculaDetalle!.poster_path | imagen}}" 
+                     class="poster-image"
+                     alt="{{peliculaDetalle!.title}}">
+            } @else {
+                <img [src]="imgPlaceholderPelSer" 
+                     class="poster-image" 
+                     alt="{{peliculaDetalle!.title}}">
             }
-
-            <div class="d-flex">
-                <p class="card-text gris freeman m-0 me-2">{{peliculaDetalle!.runtime | horasMin}}</p>
-                <p class="card-text gris freeman m-0" [style]="getCertification() | edadColor" [innerHTML]="getCertification()"></p>
+            
+            <!-- Overlay de rating -->
+            <div class="rating-overlay" [style]="peliculaDetalle!.vote_average | averageColor">
+                <span class="rating-text">
+                    <i class="bi bi-star-fill"></i> {{peliculaDetalle!.vote_average | number:'1.0-1' }}
+                </span>
             </div>
         </div>
-        
+
+        <!-- Información de la película -->
+        <div class="card-info">
+            <h5 class="movie-title freeman">{{peliculaDetalle!.title}}</h5>
+
+            <!-- Año y géneros -->
+            <div class="movie-meta">
+                @if(peliculaDetalle!.genres.length > 0 && peliculaDetalle!.release_date !== ''){
+                    <p class="meta-text gris freeman">
+                        {{peliculaDetalle!.release_date | date:'yyyy'}} • 
+                        <span *ngFor="let genre of peliculaDetalle!.genres; let i = index">
+                            {{ genre.name }}<span *ngIf="i < peliculaDetalle!.genres.length - 1"> / </span>
+                        </span>
+                    </p>
+                }@else if(peliculaDetalle!.genres.length > 0 && peliculaDetalle!.release_date === ''){
+                    <p class="meta-text gris freeman">
+                        <span *ngFor="let genre of peliculaDetalle!.genres; let i = index">
+                            {{ genre.name }}<span *ngIf="i < peliculaDetalle!.genres.length - 1"> / </span>
+                        </span>
+                    </p>
+                }@else if(peliculaDetalle!.genres.length == 0 && peliculaDetalle!.release_date === ''){
+                    <p class="meta-text gris freeman">-</p>
+                }@else{
+                    <p class="meta-text gris freeman">{{peliculaDetalle!.release_date | date:'yyyy'}}</p>
+                }
+            </div>
+
+            <!-- Duración y certificación -->
+            <div class="movie-details">
+                <span class="detail-item gris freeman">{{peliculaDetalle!.runtime | horasMin}}</span>
+                <span class="detail-item gris freeman certification" 
+                      [style]="getCertification() | edadColor" 
+                      [innerHTML]="getCertification()"></span>
+            </div>
+        </div>
     </a>
 </div>

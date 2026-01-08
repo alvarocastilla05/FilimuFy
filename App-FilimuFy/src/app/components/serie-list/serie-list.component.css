@@ -27,80 +27,440 @@
     font-family: 'poppins';
 }
 
-/* GRID LAYOUT --------------------------------------------------------------------------------------------------------- */
+/* CONTENEDOR PRINCIPAL FLUIDO ------------------------------------------------------------------- */
 
-.series-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 0;
+.mobile-optimized-container {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+    padding: clamp(8px, 2vw, 40px); /* Padding adaptable */
+    box-sizing: border-box;
+    min-height: 100vh;
 }
 
-@media (max-width: 768px) {
-  .series-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+/* HEADER ADAPTABLE UNIVERSAL -------------------------------------------------------------------------- */
+
+.filters-header {
+    background: linear-gradient(135deg, rgba(0, 10, 30, 0.95), rgba(26, 26, 62, 0.95));
+    border-radius: clamp(8px, 1.5vw, 16px);
+    margin: clamp(8px, 2vw, 20px) 0 clamp(15px, 3vw, 25px) 0;
+    padding: clamp(12px, 3vw, 25px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    box-sizing: border-box;
 }
 
-@media (max-width: 480px) {
-  .series-grid {
+.mobile-header {
+    text-align: center;
+    margin-bottom: clamp(10px, 2vw, 20px);
+}
+
+.filter-title {
+    color: white; /* Cambio de azul a blanco */
+    font-size: clamp(1.2rem, 4vw, 2.2rem);
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.filters-row {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 2vw, 20px);
+    width: 100%;
+}
+
+/* Responsive para tablets y desktop */
+@media (min-width: 768px) {
+    .filters-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    
+    .filters-main {
+        flex: 1 1 60%;
+        min-width: 300px;
+    }
+    
+    .filters-advanced {
+        flex: 1 1 35%;
+        min-width: 250px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .filters-row {
+        flex-wrap: nowrap;
+    }
+    
+    .filters-main {
+        flex: 1 1 65%;
+    }
+    
+    .filters-advanced {
+        flex: 1 1 30%;
+    }
+}
+
+.filter-section {
+    margin-bottom: clamp(8px, 1.5vw, 15px);
+    width: 100%;
+}
+
+.filter-label {
+    color: white;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    margin: 0 0 clamp(6px, 1vw, 12px) 0;
+    padding: 0;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para mejor legibilidad */
+}
+
+/* GÉNEROS - SCROLL HORIZONTAL ADAPTABLE -------------------------------------------------------- */
+
+.genres-scroll-container,
+.providers-scroll-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.genres-scroll-wrapper,
+.providers-scroll-wrapper {
+    display: flex;
+    gap: clamp(6px, 1.5vw, 15px);
+    overflow-x: auto;
+    padding: clamp(4px, 1vw, 8px) 0 clamp(8px, 1.5vw, 15px) 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+}
+
+.genres-scroll-wrapper::-webkit-scrollbar,
+.providers-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.genre-item,
+.provider-item {
+    flex: 0 0 auto;
+}
+
+.genero-btn,
+.genre-btn {
+    background: linear-gradient(135deg, #E95573, #c44569);
+    color: white;
+    border: none;
+    padding: clamp(6px, 1.5vw, 12px) clamp(12px, 3vw, 20px);
+    border-radius: clamp(15px, 4vw, 25px);
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: block;
+    text-align: center;
+    min-width: fit-content;
+}
+
+.provider-btn {
+    display: block;
+    padding: clamp(6px, 1.5vw, 12px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: clamp(8px, 2vw, 15px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.provider-btn img {
+    width: clamp(35px, 8vw, 55px);
+    height: clamp(35px, 8vw, 55px);
+    border-radius: clamp(6px, 1.5vw, 10px);
+    object-fit: cover;
+    display: block;
+}
+
+/* BOTONES Y CONTROLES ADAPTABLES ----------------------------------------------------------------- */
+
+.filter-button-container {
+    margin-top: clamp(10px, 2vw, 20px);
+    width: 100%;
+}
+
+.filter-btn {
+    width: 100%;
+    padding: clamp(10px, 2.5vw, 16px);
+    background: linear-gradient(135deg, #000A1E, #1a1a3e);
+    color: white;
+    border: none;
+    border-radius: clamp(20px, 5vw, 30px);
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 10, 30, 0.4);
+    min-height: clamp(40px, 8vw, 50px);
+}
+
+.load-more-container {
+    margin: clamp(20px, 4vw, 35px) 0;
+    text-align: center;
+    width: 100%;
+}
+
+.load-more-btn {
+    width: 100%;
+    max-width: clamp(250px, 50vw, 400px);
+    padding: clamp(12px, 3vw, 18px);
+    background: linear-gradient(135deg, #000A1E, #1a1a3e);
+    color: white;
+    border: none;
+    border-radius: clamp(20px, 5vw, 30px);
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 10, 30, 0.4);
+    min-height: clamp(45px, 8vw, 55px);
+}
+
+/* FILTROS AVANZADOS (SLIDERS) ADAPTABLES -------------------------------------------------------- */
+
+.filters-advanced {
+    display: grid;
     grid-template-columns: 1fr;
-  }
+    gap: clamp(12px, 2.5vw, 20px);
+    margin-top: clamp(8px, 2vw, 15px);
+    width: 100%;
 }
 
-/* BOTÓN MOSTRAR MÁS --------------------------------------------------------------------------------------------------- */
+@media (min-width: 600px) {
+    .filters-advanced {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+.advanced-filter {
+    background: rgba(255, 255, 255, 0.05);
+    padding: clamp(10px, 2.5vw, 18px);
+    border-radius: clamp(8px, 2vw, 12px);
+    backdrop-filter: blur(5px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.slider-container {
+    width: 100%;
+    margin-top: clamp(6px, 1.5vw, 12px);
+}
+
+/* GRID DE SERIES FLUIDO Y ADAPTABLE ---------------------------------------------------------- */
+
+.movies-section {
+    width: 100%;
+    container-type: inline-size; /* Container queries support */
+}
+
+.loading-state {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.movies-content {
+    width: 100%;
+}
+
+.netflix-grid,
+.series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* FLUIDO: Se adapta automáticamente */
+    gap: clamp(8px, 2vw, 25px); /* Gap adaptable */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+/* Grid alternativo para pantallas muy pequeñas */
+@media (max-width: 400px) {
+    .netflix-grid,
+    .series-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: clamp(6px, 1.5vw, 12px);
+    }
+}
+
+/* Optimizaciones para diferentes rangos */
+@media (min-width: 480px) and (max-width: 767px) {
+    .netflix-grid,
+    .series-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: clamp(10px, 2.5vw, 15px);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .netflix-grid,
+    .series-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: clamp(12px, 2.5vw, 18px);
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .netflix-grid,
+    .series-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: clamp(15px, 2.5vw, 20px);
+    }
+}
+
+@media (min-width: 1440px) {
+    .netflix-grid,
+    .series-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: clamp(18px, 2vw, 25px);
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+}
+
+.movie-card-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* ESTADOS HOVER Y FOCUS ADAPTATIVOS -------------------------------------------------------------- */
+
+.btn-check:checked + .genero-btn,
+.btn-check:checked + .genre-btn {
+    background: linear-gradient(135deg, #20B7E5, #1e90ff);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(32, 183, 229, 0.4);
+}
+
+.genero-btn:hover,
+.genre-btn:hover,
+.filter-btn:hover,
+.load-more-btn:hover {
+    background: linear-gradient(135deg, #20B7E5, #1e90ff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(32, 183, 229, 0.4);
+}
+
+.btn-check:checked + .provider-btn {
+    border-color: #20B7E5;
+    background: rgba(32, 183, 229, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(32, 183, 229, 0.3);
+}
+
+.provider-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* SCROLL CONTAINERS LEGACY (mantenidos por compatibilidad) -------------------------------------- */
+
+.scroll-container {
+    max-height: calc(4 * 90px);
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: #888888;
+}
+
+/* UTILIDADES GENERALES ADAPTABLES ---------------------------------------------------------------- */
+
+.azul {
+    color: #001743;
+}
+
+.gris {
+    color: #909090;
+}
 
 .sombra {
     box-shadow: 4px 4px 4px rgb(0, 0, 0, 25%);
 }
 
-.azulOscuro{
+.azulOscuro {
     background-color: #000A1E;
 }
 
-.azul{
-    color: #001743;
+/* SMOOTH SCROLLING Y PERFORMANCE ----------------------------------------------------------------- */
+
+.genres-scroll-wrapper,
+.providers-scroll-wrapper {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* FILTROS ------------------------------------------------------------------------------------------------------------- */
+/* LOADING STATE MEJORADO ------------------------------------------------------------------------- */
 
-.genero-btn {
-    background-color: #E95573;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease;
+.loading-state .spinner-border {
+    color: #20B7E5;
+    width: clamp(2rem, 5vw, 4rem);
+    height: clamp(2rem, 5vw, 4rem);
 }
 
-/* Color del botón al estar seleccionado */
-.btn-check:checked + .genero-btn {
-    background-color: #20B7E5;
-    color: white;
-    border: none;
+/* ACCESIBILIDAD Y FOCUS STATES ------------------------------------------------------------------ */
+
+.genero-btn:focus,
+.genre-btn:focus,
+.provider-btn:focus,
+.filter-btn:focus,
+.load-more-btn:focus {
+    outline: 2px solid #20B7E5;
+    outline-offset: 2px;
 }
 
-.genero-btn:hover {
-    background-color: #20B7E5; 
-    color: white;
+/* PREFERS REDUCED MOTION ------------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .genero-btn:hover,
+    .genre-btn:hover,
+    .provider-btn:hover,
+    .filter-btn:hover,
+    .load-more-btn:hover {
+        transform: none;
+    }
 }
 
-.scroll-container {
-    max-height: calc(4 * 90px); /* Ajusta según la altura de una fila */
-    overflow-y: auto;
-    padding-right: 10px; /* Espacio para evitar que el scroll tape el contenido */
-  }
-  
-  .scroll-container::-webkit-scrollbar {
-    width: 6px; /* Ancho de la barra de scroll */
-  }
-  
-  .scroll-container::-webkit-scrollbar-thumb {
-    background-color: #cccccc; /* Color del thumb */
-    border-radius: 3px; /* Bordes redondeados */
-  }
-  
-  .scroll-container::-webkit-scrollbar-thumb:hover {
-    background-color: #888888; /* Color al pasar el cursor */
-  }
+/* HIGH CONTRAST MODE ---------------------------------------------------------------------------- */
+
+@media (prefers-contrast: high) {
+    .filters-header {
+        border: 2px solid white;
+    }
+    
+    .genero-btn,
+    .genre-btn,
+    .filter-btn,
+    .load-more-btn {
+        border: 1px solid white;
+    }
+    
+    .filter-label {
+        color: white !important;
+    }
+}
