@@ -85,9 +85,9 @@
 
     <!-- Mostrar películas -->
     <div *ngIf="!loading">
-      <div class="row">
+      <div class="series-grid">
         <!-- Respetar el bucle original para las cartas -->
-        <div *ngFor="let serie of listaSeries; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
+        <div *ngFor="let serie of listaSeries; trackBy: trackById">
           <app-serie-card [serieId]="serie.id"></app-serie-card>
         </div>
       </div>

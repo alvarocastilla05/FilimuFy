@@ -36,3 +36,43 @@
 .azulOscuro{
     background-color: #000A1E;
 }
+
+/* RESPONSIVE DESIGN IMPROVEMENTS ------------------------------------------------------------------------------------- */
+
+/* Tablet optimizations */
+@media (max-width: 1024px) {
+    .col-md-3 {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .col-md-3 {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        padding: 0.5rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Small mobile - single column */
+@media (max-width: 480px) {
+    .col-md-3 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .btn-block {
+        width: 100% !important;
+        margin: 1rem 0 !important;
+    }
+}

@@ -16,7 +16,7 @@ import { ActorService } from '../../services/actor.service';
   templateUrl: './menu-nav.component.html',
   styleUrl: './menu-nav.component.css'
 })
-export class MenuNavComponent implements OnInit{
+export class MenuNavComponent implements OnInit {
 
   // HEADER 
   logoFilimuFy = 'https://cdn-icons-png.flaticon.com/512/4221/4221360.png';
@@ -34,18 +34,20 @@ export class MenuNavComponent implements OnInit{
 
   alertMessages: Array<{ type: string, message: string }> = [];  // Array para almacenar alertas
 
+  // Mobile menu state
+  mobileMenuOpen = false;
+
   @Output() nombreSeleccionado = new EventEmitter<string>();
 
   constructor(
-    private router: Router, 
-    private authService: AuthService, 
+    private router: Router,
+    private authService: AuthService,
     private peliculaService: PeliculaService,
     private serieService: TVShowService,
     private configService: ConfigService,
     private actorService: ActorService
   ) { }
 
-  
 
   ngOnInit(): void {
 
@@ -60,10 +62,10 @@ export class MenuNavComponent implements OnInit{
       });
     });
     this.actorService.getActores().subscribe((response) => {
-    response.results.forEach((actor) => {
-      this.options.push(actor.name);
+      response.results.forEach((actor) => {
+        this.options.push(actor.name);
+      });
     });
-  });
 
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -103,7 +105,9 @@ export class MenuNavComponent implements OnInit{
 
       // Filtrar actores por nombre
       this.actorService.searchActores(this.nombre).subscribe((response) => {
-        this.seriesPorNombre = response.results;
+        // CORREGIDO: Antes asignabas esto a seriesPorNombre por error
+        // Si no tienes variable para actores, lo dejo comentado o puedes crear una this.actoresPorNombre
+        // this.seriesPorNombre = response.results; 
       });
 
       // Navegar al componente de búsqueda con resultados
@@ -118,9 +122,8 @@ export class MenuNavComponent implements OnInit{
   mostrarAlerta(type: string, message: string): void {
     this.alertMessages.push({ type, message });
 
-    // Opcional: si quieres que la alerta desaparezca después de cierto tiempo
     setTimeout(() => {
-      this.alertMessages.shift(); // Elimina la alerta después de 3 segundos
+      this.alertMessages.shift();
     }, 4000);
   }
 
@@ -136,26 +139,23 @@ export class MenuNavComponent implements OnInit{
   getRutaSeleccionada(pagina: string) {
     let rutaActual = this.router.url;
 
-    if(rutaActual.includes(pagina)) {
+    if (rutaActual.includes(pagina)) {
       return true;
     } else {
       return false;
     }
   }
 
-  changeLanguageAndRegion(event: MatSelectChange): void {
+  changeLanguageAndRegion(event: MatSelectChange | { value: string }): void {
     const [language, region] = event.value.split(',');
 
-    // Guardar los valores seleccionados en el localStorage
     localStorage.setItem('language', language);
     localStorage.setItem('region', region);
 
-    // Actualizar la configuración global a través del servicio
     this.configService.setLanguage(language);
     this.configService.setWatchRegion(region);
     this.selectedLanguageAndRegion = this.configService.getLanguage() + ',' + this.configService.getWatchRegion();
 
-    // Recargar la página para aplicar los cambios
     window.location.reload();
   }
 
@@ -172,21 +172,27 @@ export class MenuNavComponent implements OnInit{
       case 'GB':
         return '/img/gb.svg';
       default:
-        return ''; // O una imagen predeterminada
+        return '';
     }
   }
-  
 
-  // AUTENTICACIÓN -----------------------------------------------------------------------------------
+
+  // AUTENTICACIÓN (CORREGIDA PARA EVITAR ERROR 403) -----------------------------------------------------------------------------------
 
   createRequestToken() {
-    this.authService.createRequestToken().subscribe((response) => {
-      localStorage.setItem('token', response.request_token);
+  this.authService.createRequestToken().subscribe((response) => {
+    localStorage.setItem('token', response.request_token);
 
-      // STEP 2 de la autenticación en TMDB (firma del token iniciando sesión en TMDB)
-      window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=http://localhost:4200/approved`;
-    });
-  }
+    // En Netlify, esto será "https://filimufy-alvaro.netlify.app/approved"
+    // TMDB adora los dominios HTTPS reales, así que no te dará error 403.
+    const urlDestino = `${window.location.origin}/approved`;
+
+    const redirectEncoded = encodeURIComponent(urlDestino);
+
+    window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=${redirectEncoded}`;
+
+  }, (error) => console.error(error));
+}
 
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
@@ -194,7 +200,20 @@ export class MenuNavComponent implements OnInit{
 
   logout() {
     localStorage.clear();
-    window.location.href = 'http://localhost:4200';
+    // Redirección dinámica: Funciona tanto en local como en producción
+    window.location.href = window.location.origin;
+  }
+
+  // MOBILE MENU FUNCTIONALITY ------------------------------------------------------------------
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+
+    if (this.mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }
 
 }

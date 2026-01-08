@@ -164,3 +164,387 @@ nav {
 .g1:hover>h4>i, .g2:hover>h4>i, .g3:hover>h4>i, .g4:hover>h4>i{
     color: white !important;
 }
+
+/* RESPONSIVE DESIGN -------------------------------------------------------------------------------------------------- */
+
+/* MOBILE HAMBURGER MENU */
+.mobile-hamburger {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1002;
+    background: linear-gradient(to right, #E95573, #20B7E5);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* MOBILE MENU OVERLAY */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100vh;
+    background: linear-gradient(135deg, #000A1E 0%, #1a1a3e 100%);
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-overlay.active .mobile-menu {
+    transform: translateX(0);
+}
+
+/* MOBILE SEARCH */
+.mobile-search-container {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-search-container input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+}
+
+.mobile-search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* MOBILE NAVIGATION ITEMS */
+.mobile-nav-items {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-item {
+    display: block;
+    padding: 1rem 0;
+    color: white;
+    text-decoration: none;
+    font-family: 'jockeyOne';
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-item:hover {
+    color: #FFC107;
+    background: linear-gradient(to right, rgba(233, 85, 115, 0.1), rgba(32, 183, 229, 0.1));
+    padding-left: 1rem;
+}
+
+.mobile-nav-item:last-child {
+    border-bottom: none;
+}
+
+/* MOBILE USER SECTION */
+.mobile-user-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-user-profile {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.mobile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #E95573;
+    margin-bottom: 0.5rem;
+}
+
+.mobile-username {
+    color: white;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.mobile-user-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mobile-option {
+    display: block;
+    padding: 0.8rem 0;
+    color: white;
+    text-decoration: none;
+    font-family: 'freeman';
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.mobile-option:hover {
+    color: #FFC107;
+    background: linear-gradient(to right, rgba(233, 85, 115, 0.1), rgba(32, 183, 229, 0.1));
+    padding-left: 1rem;
+}
+
+.mobile-logout-btn,
+.mobile-login-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(to right, #E95573, #20B7E5);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'jockeyOne';
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.mobile-logout-btn:hover,
+.mobile-login-btn:hover {
+    background: linear-gradient(to right, #FFC107, #FFC107);
+    color: black;
+}
+
+/* MOBILE LANGUAGE SELECTOR */
+.mobile-language-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 0;
+    color: white;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.language-option:hover {
+    color: #FFC107;
+    background: linear-gradient(to right, rgba(233, 85, 115, 0.1), rgba(32, 183, 229, 0.1));
+    padding-left: 1rem;
+}
+
+.language-option img {
+    width: 24px;
+    height: auto;
+    margin-right: 12px;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+
+/* TABLET (768px - 991px) */
+@media (max-width: 991.98px) and (min-width: 768px) {
+    .header-responsive {
+        padding: 0.5rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .logo-container {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .logo-text {
+        font-size: 2rem !important;
+    }
+
+    .logo-img {
+        width: 45px !important;
+    }
+
+    .search-container {
+        flex: 2;
+        max-width: 400px;
+        margin: 0 1rem;
+    }
+
+    .language-selector {
+        margin: 0.5rem 0 !important;
+    }
+
+    .profile-section {
+        width: auto !important;
+        min-width: 120px;
+    }
+}
+
+/* MOBILE (up to 767px) */
+@media (max-width: 767.98px) {
+    /* Hide desktop elements */
+    .search-container,
+    .language-selector,
+    .profile-section,
+    .main-nav {
+        display: none !important;
+    }
+
+    /* Header adjustments */
+    .header-responsive {
+        padding: 1rem 1rem 1rem 1rem !important;
+        position: relative;
+        min-height: 80px;
+    }
+
+    .logo-container {
+        width: calc(100% - 60px) !important;
+        max-width: none !important;
+    }
+
+    .logo-content {
+        padding-left: 0.5rem !important;
+        justify-content: flex-start;
+    }
+
+    .logo-img {
+        width: 40px !important;
+        height: 40px !important;
+        margin-right: 0.5rem !important;
+    }
+
+    .logo-text {
+        font-size: 1.8rem !important;
+        margin-left: 0.5rem !important;
+    }
+
+    /* Ensure mobile menu is visible */
+    .mobile-hamburger {
+        display: block !important;
+    }
+
+    .mobile-menu-overlay {
+        display: block !important;
+    }
+
+    /* Dropdown adjustments for mobile when it appears */
+    .bordeRosa {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-width: 400px !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+        z-index: 1050 !important;
+    }
+
+    /* Alert positioning for mobile */
+    .alert-container {
+        right: 10px !important;
+        bottom: 10px !important;
+        max-width: calc(100vw - 20px) !important;
+        left: 10px !important;
+        right: auto !important;
+    }
+}
+
+/* SMALL MOBILE (up to 480px) */
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 1.4rem !important;
+    }
+
+    .logo-img {
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    .mobile-menu {
+        width: 100vw !important;
+    }
+
+    .mobile-search-container input {
+        font-size: 14px;
+    }
+
+    .mobile-nav-item {
+        font-size: 1rem;
+        padding: 0.8rem 0;
+    }
+
+    .mobile-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .mobile-username {
+        font-size: 1rem;
+    }
+
+    .alert-container h4 {
+        font-size: 0.9rem !important;
+    }
+
+    .alert-container i {
+        font-size: 20px !important;
+    }
+}
+
+/* WIDE SCREEN ADJUSTMENTS (1400px+) */
+@media (min-width: 1400px) {
+    .widthSearchrBar,
+    .search-container {
+        width: 45% !important;
+    }
+
+    .header-responsive {
+        padding: 0 2rem;
+    }
+}
+
+/* PRINT STYLES */
+@media print {
+    .mobile-hamburger,
+    .mobile-menu-overlay,
+    header,
+    nav {
+        display: none !important;
+    }
+}

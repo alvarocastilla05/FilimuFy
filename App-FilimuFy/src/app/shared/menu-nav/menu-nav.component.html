@@ -1,17 +1,26 @@
 <div class="container-fluid p-0">
-    <header class="w-100 d-flex justify-content-between align-items-center">
-        <a [routerLink]="['/inicio']" class="text-decoration-none">
-            <div class="d-flex align-items-center ps-3 w-25">
-                <img class="me-1" [src]="logoFilimuFy" alt="Logo de FilimuFy">
-                <h1 class="mb-0 ms-3 text-white py-3 h1Header jockeyOne">
+    <!-- MOBILE HAMBURGER MENU -->
+    <div class="mobile-hamburger d-lg-none">
+        <button class="hamburger-btn" type="button" (click)="toggleMobileMenu()">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+    
+    <header class="w-100 d-flex justify-content-between align-items-center header-responsive">
+        <a [routerLink]="['/inicio']" class="text-decoration-none logo-container">
+            <div class="d-flex align-items-center ps-3 logo-content">
+                <img class="logo-img" [src]="logoFilimuFy" alt="Logo de FilimuFy">
+                <h1 class="mb-0 ms-3 text-white py-3 h1Header jockeyOne logo-text">
                     <span class="textFilimuFy">Filimu</span>Fy
                 </h1>
             </div>
         </a>
-        <div class="widthSearchrBar">
+        <div class="search-container d-none d-lg-flex">
             <form class="d-flex align-items-center w-100" role="search" (ngSubmit)="filtrarPorNombre()">
                 <input 
-                    class="form-control me-2 rounded-5 w-100 jockeyOne" 
+                    class="form-control me-2 rounded-5 w-100 jockeyOne search-input" 
                     type="text"
                     [placeholder]="getTexto('searchPlaceholder')" 
                     [(ngModel)]="nombre" 
@@ -21,7 +30,7 @@
                 </button>
             </form>
         </div>
-        <mat-form-field appearance="fill" class="mt-3">
+        <mat-form-field appearance="fill" class="mt-3 language-selector d-none d-md-block">
             <mat-select [(value)]="selectedLanguageAndRegion" (selectionChange)="changeLanguageAndRegion($event)">
                 <mat-select-trigger>
                     <div class="d-flex">
@@ -48,7 +57,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <div class="pe-3 pt-1 text-end" style="width: 15%;">
+        <div class="profile-section pe-3 pt-1 text-end d-none d-lg-block">
             <ng-container *ngIf="isLoggedIn(); else loginButton">
                 <div class="row">
                     <div class="col">
@@ -123,13 +132,13 @@
             </ng-template>
         </div>
     </header>
-    <nav class="w-100 d-flex justify-content-around align-items-center">
+    <nav class="w-100 main-nav d-none d-lg-flex justify-content-around align-items-center">
         <div 
-            class="px-5 py-2 d-flex align-items-center justify-content-center"
+            class="nav-item px-5 py-2 d-flex align-items-center justify-content-center"
             [class.bg-warning]="getRutaSeleccionada('peliculas')" 
             [class.romboide]="getRutaSeleccionada('peliculas')">
             <h4 
-                class="mb-0 py-1 jockeyOne"
+                class="mb-0 py-1 jockeyOne nav-text"
                 [class.textoAntiRomboide]="getRutaSeleccionada('peliculas')"
                 [class.text-black]="getRutaSeleccionada('peliculas')"
                 [class.text-white]="!getRutaSeleccionada('peliculas')">
@@ -142,11 +151,11 @@
             </h4>
         </div>
         <div 
-            class="px-5 py-2 d-flex align-items-center justify-content-center"
+            class="nav-item px-5 py-2 d-flex align-items-center justify-content-center"
             [class.bg-warning]="getRutaSeleccionada('series')" 
             [class.romboide]="getRutaSeleccionada('series')">
             <h4 
-                class="mb-0 py-1 jockeyOne"
+                class="mb-0 py-1 jockeyOne nav-text"
                 [class.textoAntiRomboide]="getRutaSeleccionada('series')"
                 [class.text-black]="getRutaSeleccionada('series')"
                 [class.text-white]="!getRutaSeleccionada('series')">
@@ -159,11 +168,11 @@
             </h4>
         </div>
         <div 
-            class="px-5 py-2 d-flex align-items-center justify-content-center"
+            class="nav-item px-5 py-2 d-flex align-items-center justify-content-center"
             [class.bg-warning]="getRutaSeleccionada('actores')" 
             [class.romboide]="getRutaSeleccionada('actores')">
             <h4 
-                class="mb-0 py-1 jockeyOne"
+                class="mb-0 py-1 jockeyOne nav-text"
                 [class.textoAntiRomboide]="getRutaSeleccionada('actores')"
                 [class.text-black]="getRutaSeleccionada('actores')"
                 [class.text-white]="!getRutaSeleccionada('actores')">
@@ -176,6 +185,92 @@
             </h4>
         </div>
     </nav>
+    
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu-overlay d-lg-none" [class.active]="mobileMenuOpen" (click)="toggleMobileMenu()">
+        <div class="mobile-menu" (click)="$event.stopPropagation()">
+            <!-- Mobile Search -->
+            <div class="mobile-search-container">
+                <form class="d-flex align-items-center" role="search" (ngSubmit)="filtrarPorNombre(); toggleMobileMenu()">
+                    <input 
+                        class="form-control me-2 rounded-5 jockeyOne" 
+                        type="text"
+                        [placeholder]="getTexto('searchPlaceholder')" 
+                        [(ngModel)]="nombre" 
+                        name="search" />
+                    <button class="btn rounded-5 btnSearchrBar" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav-items">
+                <a class="mobile-nav-item" routerLink="/peliculas" (click)="toggleMobileMenu()">
+                    <i class="bi bi-film me-2"></i>
+                    {{ getTexto('popularMovies') }}
+                </a>
+                <a class="mobile-nav-item" routerLink="/series" (click)="toggleMobileMenu()">
+                    <i class="bi bi-display me-2"></i>
+                    {{ getTexto('popularSeries') }}
+                </a>
+                <a class="mobile-nav-item" routerLink="/actores" (click)="toggleMobileMenu()">
+                    <i class="bi bi-people-fill me-2"></i>
+                    {{ getTexto('popularActors') }}
+                </a>
+            </div>
+            
+            <!-- Mobile User Section -->
+            <div class="mobile-user-section">
+                <ng-container *ngIf="isLoggedIn(); else mobileLoginButton">
+                    <div class="mobile-user-profile">
+                        <img [src]="userPhoto | avatar" class="mobile-avatar" alt="Avatar">
+                        <h5 class="mobile-username jockeyOne">{{userName}}</h5>
+                    </div>
+                    <div class="mobile-user-options">
+                        <a class="mobile-option" routerLink="/favoritos" (click)="toggleMobileMenu()">
+                            <i class="bi bi-suit-heart-fill corazon me-2"></i>
+                            {{getTexto('favorites')}}
+                        </a>
+                        <a class="mobile-option" routerLink="/valoraciones" (click)="toggleMobileMenu()">
+                            <i class="bi bi-star-fill text-warning me-2"></i>
+                            {{getTexto('ratings')}}
+                        </a>
+                        <a class="mobile-option" routerLink="/watchlist" (click)="toggleMobileMenu()">
+                            <i class="bi bi-bookmark-fill etiqueta me-2"></i>
+                            {{getTexto('watchlist')}}
+                        </a>
+                        <a class="mobile-option" routerLink="/listas" (click)="toggleMobileMenu()">
+                            <i class="bi bi-list-ul lista me-2"></i>
+                            {{getTexto('listas')}}
+                        </a>
+                        <button class="mobile-logout-btn" (click)="logout(); toggleMobileMenu()">
+                            <i class="bi bi-power me-2"></i>
+                            {{getTexto('logout')}}
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-template #mobileLoginButton>
+                    <button class="mobile-login-btn" (click)="createRequestToken(); toggleMobileMenu()">
+                        <i class="bi bi-person-fill me-2"></i>
+                        {{getTexto('login')}}
+                    </button>
+                </ng-template>
+            </div>
+            
+            <!-- Mobile Language Selector -->
+            <div class="mobile-language-selector">
+                <div class="language-option" (click)="changeLanguageAndRegion({value: 'es-ES,ES'}); toggleMobileMenu()">
+                    <img src="/img/es.svg" alt="ES">
+                    <span class="freeman">Español</span>
+                </div>
+                <div class="language-option" (click)="changeLanguageAndRegion({value: 'en-GB,GB'}); toggleMobileMenu()">
+                    <img src="/img/gb.svg" alt="EN">
+                    <span class="freeman">English</span>
+                </div>
+            </div>
+        </div>
+    </div>
     
 </div>
 

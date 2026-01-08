@@ -57,6 +57,300 @@
     font-size: 16px;
 }
 
+/* RESPONSIVE DESIGN -------------------------------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    /* CONTENEDOR PRINCIPAL - OCUPAR TODO EL ANCHO MÓVIL */
+    .container,
+    .container-fluid,
+    :host {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Ajuste específico para containers dentro del componente */
+    .container.w-25,
+    .container.w-75,
+    .container.w-100 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Hero Section - Mobile Layout */
+    .row.p-4.fondoCubierto {
+        flex-direction: column !important;
+        text-align: center;
+        padding: 1rem 10px !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Poster Image Container */
+    .w-25 {
+        width: 100% !important;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .w-25 img {
+        max-width: 250px !important;
+        width: auto !important;
+        height: auto;
+    }
+
+    /* Content Container */
+    .container.w-75 {
+        width: 100% !important;
+        padding: 0 10px !important;
+    }
+
+    /* Title */
+    .container.w-75 h1 {
+        font-size: 2rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Genre and Rating Info */
+    .container.w-100.px-3 {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1rem;
+        padding: 0 10px !important;
+    }
+
+    .container.w-100.px-3 h4 {
+        font-size: 1rem !important;
+        text-align: center;
+    }
+
+    /* Stats Row */
+    .d-flex h4.poppins {
+        font-size: 0.9rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+
+    /* Synopsis */
+    .poppins.text-white.p-3 {
+        font-size: 0.9rem !important;
+        padding: 1rem 0 !important;
+        text-align: justify;
+    }
+
+    /* Buttons Container */
+    .container.m-0.p-0.d-flex {
+        flex-direction: column !important;
+        align-items: center;
+        gap: 1rem;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 10px !important;
+    }
+
+    .container.m-0.p-0.d-flex > div {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Bottom Section */
+    .container-fluid.d-flex.mt-4 {
+        flex-direction: column !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 10px !important;
+    }
+
+    /* Cast Section */
+    .container.w-75 {
+        width: 100% !important;
+        margin-bottom: 2rem;
+    }
+
+    /* ===== REFACTORIZACIÓN ESPECÍFICA PARA LA CAJA DE INFORMACIÓN TÉCNICA ===== */
+    
+    /* CONTENEDOR PRINCIPAL - RESETEO COMPLETO */
+    .container.w-25.degradado {
+        width: 100% !important;
+        height: auto !important; /* CRÍTICO: Permite crecimiento vertical */
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    /* CADA BLOQUE DE INFORMACIÓN (.mb-4) */
+    .container.w-25.degradado .mb-4,
+    .container.w-25.degradado > div {
+        width: 100% !important;
+        margin: 0 0 1rem 0 !important; /* Solo margen inferior */
+        padding: 0.75rem !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        clear: both !important;
+    }
+
+    /* TÍTULOS DE CADA CAMPO (h4.jockeyOne) */
+    .container.w-25.degradado h4.jockeyOne.text-black {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+        margin: 0 0 0.5rem 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        width: 100% !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        color: rgba(0, 0, 0, 0.9) !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    /* VALORES DE CADA CAMPO (h5.freeman) */
+    .container.w-25.degradado h5.freeman.text-white {
+        font-size: 0.75rem !important;
+        line-height: 1.4 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        width: 100% !important;
+        white-space: normal !important; /* CRÍTICO: Permite wrap de texto */
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        color: white !important;
+        font-weight: normal !important;
+        text-align: left !important;
+    }
+
+    /* SECCIÓN DE KEYWORDS - TRATAMIENTO ESPECIAL */
+    .container.w-25.degradado .d-flex.flex-wrap {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        margin-top: 0.5rem !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+
+    /* CADA KEYWORD INDIVIDUAL */
+    .container.w-25.degradado .palabraClave {
+        display: inline-block !important;
+        margin: 0.2rem !important;
+        text-decoration: none !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* ESTILO DE LAS KEYWORDS (h6) */
+    .container.w-25.degradado .palabraClave h6 {
+        font-size: 0.65rem !important;
+        margin: 0 !important;
+        padding: 0.4rem 0.8rem !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important; /* Keywords no se rompen */
+        border-radius: 15px !important;
+        background-color: rgba(0, 10, 30, 0.9) !important;
+        color: white !important;
+        display: block !important;
+    }
+
+    /* KEYWORDS SIN DATOS */
+    .container.w-25.degradado .d-flex.flex-wrap h5.freeman.text-white {
+        font-size: 0.75rem !important;
+        margin: 0 !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-style: italic !important;
+    }
+
+    /* RESETEAR CUALQUIER FLOAT O POSITION PROBLEMÁTICO */
+    .container.w-25.degradado * {
+        float: none !important;
+        position: relative !important;
+    }
+
+    /* Seasons Section */
+    .container-fluid.d-flex.mb-5 {
+        flex-direction: column !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 10px !important;
+    }
+
+    /* Season Cards */
+    .card.degradadoTemporada {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 0 0 1rem 0 !important;
+    }
+
+    .card.degradadoTemporada .row {
+        flex-direction: column !important;
+        margin: 0 !important;
+    }
+
+    .card.degradadoTemporada img {
+        width: 100% !important;
+        max-width: 200px;
+        height: auto !important;
+        margin: 0 auto;
+    }
+
+    .card.degradadoTemporada .col-md-8 {
+        width: 100% !important;
+        padding: 1rem !important;
+    }
+
+    .card.degradadoTemporada h2 {
+        font-size: 1.5rem !important;
+        text-align: center;
+    }
+
+    .card.degradadoTemporada .d-flex {
+        flex-direction: column !important;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .card.degradadoTemporada h6 {
+        font-size: 0.9rem !important;
+    }
+
+    /* PARA MÓVILES MUY PEQUEÑOS (480px) */
+    @media (max-width: 480px) {
+        .container.w-25.degradado {
+            padding: 0.75rem !important;
+        }
+        
+        .container.w-25.degradado .mb-4,
+        .container.w-25.degradado > div {
+            padding: 0.5rem !important;
+            margin: 0 0 0.75rem 0 !important;
+        }
+        
+        .container.w-25.degradado h4.jockeyOne.text-black {
+            font-size: 0.75rem !important;
+        }
+        
+        .container.w-25.degradado h5.freeman.text-white {
+            font-size: 0.7rem !important;
+        }
+        
+        .container.w-25.degradado .palabraClave h6 {
+            font-size: 0.6rem !important;
+            padding: 0.3rem 0.6rem !important;
+        }
+    }
+}
+
 /* DATOS DE LA SERIE ----------------------------------------------------------------------------------------- */
 
 .grisClaroFondo{

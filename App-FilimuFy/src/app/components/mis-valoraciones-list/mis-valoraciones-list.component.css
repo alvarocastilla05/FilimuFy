@@ -27,6 +27,28 @@
   font-family: 'poppins';
 }
 
+/* GRID LAYOUT --------------------------------------------------------------------------------------------------------- */
+
+.valoraciones-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .valoraciones-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .valoraciones-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* BOTÓN MOSTRAR MÁS --------------------------------------------------------------------------------------------------- */
 
 .sombra {

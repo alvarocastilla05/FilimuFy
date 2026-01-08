@@ -87,9 +87,9 @@
 
     <!-- Mostrar películas -->
     <div *ngIf="!loading">
-      <div class="row">
+      <div class="peliculas-grid">
         <!-- Respetar el bucle original para las cartas -->
-        <div *ngFor="let pelicula of listaPeliculas; trackBy: trackById" class="col-md-3 col-12 p-2 my-3">
+        <div *ngFor="let pelicula of listaPeliculas; trackBy: trackById">
           <app-pelicula-card [peliculaId]="pelicula.id"></app-pelicula-card>
         </div>
       </div>
