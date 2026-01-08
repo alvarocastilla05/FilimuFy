@@ -180,19 +180,27 @@ export class MenuNavComponent implements OnInit {
   // AUTENTICACIÓN (CORREGIDA PARA EVITAR ERROR 403) -----------------------------------------------------------------------------------
 
   createRequestToken() {
-  this.authService.createRequestToken().subscribe((response) => {
-    localStorage.setItem('token', response.request_token);
+    this.authService.createRequestToken().subscribe((response) => {
+      localStorage.setItem('token', response.request_token);
 
-    // En Netlify, esto será "https://filimufy-alvaro.netlify.app/approved"
-    // TMDB adora los dominios HTTPS reales, así que no te dará error 403.
-    const urlDestino = `${window.location.origin}/approved`;
+      // 1. Por defecto, usamos la dirección actual (Netlify o Localhost)
+      let urlDestino = window.location.origin + '/approved';
 
-    const redirectEncoded = encodeURIComponent(urlDestino);
+      // 2. PARCHE SOLO PARA LOCAL:
+      // Si el navegador detecta que estamos en 'localhost', cambiamos a la IP 127.0.0.1
+      // para evitar el bloqueo del firewall de TMDB.
+      if (window.location.hostname === 'localhost') {
+        urlDestino = 'http://127.0.0.1:4200/approved';
+      }
 
-    window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=${redirectEncoded}`;
+      // 3. Codificamos la URL final
+      const redirectEncoded = encodeURIComponent(urlDestino);
 
-  }, (error) => console.error(error));
-}
+      // 4. Redirigimos
+      window.location.href = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=${redirectEncoded}`;
+
+    }, (error) => console.error('Error al pedir token:', error));
+  }
 
   isLoggedIn() {
     return localStorage.getItem('logged_in') === 'true';
