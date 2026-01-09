@@ -8,7 +8,6 @@ import { Pais } from '../../interfaces/serie/contentRatingsCertifications.interf
 import { Region } from '../../interfaces/serie/proveedorSerie.interfaces';
 import { Keyword } from '../../interfaces/serie/serie-keywords.interfaces';
 import { Buy, Flatrate } from '../../interfaces/pelicula/proveedorPeli.interfaces';
-import { RatedSerie } from '../../interfaces/serie/rated-series.interfaces';
 import { AccountService } from '../../services/autenticacion/account.service';
 import { Ad8 } from '../../interfaces/serie/proveedorSerieAds.interfaces';
 import { ConfigService } from '../../services/config.service';
@@ -18,13 +17,14 @@ import { ConfigService } from '../../services/config.service';
   templateUrl: './serie-details.component.html',
   styleUrl: './serie-details.component.css'
 })
-export class SerieDetailsComponent implements OnInit{
+export class SerieDetailsComponent implements OnInit {
 
+  // Estados visuales del usuario
   estadoFav: boolean = false;
   estadoWatchlist: boolean = false;
+  rating: number = 0;
 
   regionAdsList: Ad8[] = [];
-
   serieId: string | null = '';
   serie: SerieDetailResponse | undefined;
   video: VideoSerieListResponse | undefined;
@@ -38,12 +38,9 @@ export class SerieDetailsComponent implements OnInit{
   keywords: Keyword[] = [];
   listaProveedores: Flatrate[] = [];
   listaProveedoresPago: Buy[] = [];
+  
   placeholderFoto = 'https://png.pngtree.com/png-vector/20220618/ourmid/pngtree-default-photo-placeholder-account-anonymous-png-image_5130471.png';
   imgPlaceholderPelSer = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/800px-No-Image-Placeholder.svg.png';
-
-  listaSeriesValoradas: RatedSerie[] = [];
-
-  rating: number = 0;
 
   constructor(
     private serieService: TVShowService,
@@ -55,56 +52,126 @@ export class SerieDetailsComponent implements OnInit{
   ngOnInit(): void {
     this.serieId = this.route.snapshot.paramMap.get('id');
 
-    this.serieService.getSerieById(parseInt(this.serieId!)).subscribe((response) => {
-      this.serie = response;
+    if (this.serieId) {
+      const serieIdNum = parseInt(this.serieId);
 
+      // 1. Carga de datos de la serie (Sin cambios)
+      this.serieService.getSerieById(serieIdNum).subscribe((response) => {
+        this.serie = response;
+      });
+
+      this.serieService.getVideoSerieById(this.serieId).subscribe(respuesta => {
+        this.video = respuesta;
+        this.videos = respuesta.results;
+        const trailer = this.videos.find(video => video.type === 'Trailer');
+        if (trailer) {
+          this.seleccionarVideo(trailer);
+        }
+      });
+
+      this.serieService.getCreditosSerieById(serieIdNum).subscribe(respuesta => {
+        this.credito = respuesta;
+        this.listaCreditos = respuesta.cast;
+      });
+
+      this.serieService.getCertificationById(serieIdNum).subscribe(resp => {
+        this.paisesList = resp.results;
+      });
+
+      this.serieService.getProveedoresById(serieIdNum).subscribe(resp => {
+        this.regionList = resp.results;
+        // Proveedores streaming españa
+        this.listaProveedores = resp.results.ES?.flatrate || [];
+      });
+
+      this.serieService.getKeywordsById(serieIdNum).subscribe(respuesta => {
+        this.keywords = respuesta.results;
+      });
+
+      this.serieService.getProveedoresAdsById(serieIdNum).subscribe(resp => {
+        this.regionAdsList = resp.results.ES?.ads || [];
+      });
+
+      // 2. MAGIA AQUÍ: Comprobar estado del usuario con la serie
+      if (this.isLoggedIn()) {
+        this.checkAccountStates(serieIdNum);
+      }
+    }
+  }
+
+  // --- NUEVO MÉTODO UNIFICADO: Comprueba todo de una vez ---
+  checkAccountStates(id: number) {
+    this.accountService.getTVAccountStates(id).subscribe({
+      next: (states) => {
+        // 1. ¿Es Favorito?
+        this.estadoFav = states.favorite;
+        
+        // 2. ¿Está en Watchlist?
+        this.estadoWatchlist = states.watchlist;
+        
+        // 3. ¿Tiene nota?
+        if (states.rated) {
+          this.rating = states.rated.value;
+        } else {
+          this.rating = 0;
+        }
+      },
+      error: (err) => console.error('Error obteniendo estados de la serie:', err)
     });
+  }
 
-    this.serieService.getVideoSerieById(this.serieId!).subscribe(respuesta => {
-      this.video = respuesta;  
-      this.videos = respuesta.results;  
+  // --- ACCIONES DE USUARIO (USANDO EL NUEVO SERVICIO) ---
 
-      const trailer = this.videos.find(video => video.type === 'Trailer');
-      if (trailer) {
-        this.seleccionarVideo(trailer);
+  onFavoritosBotonClick(serieId: number): void {
+    // Cambio visual optimista
+    this.estadoFav = !this.estadoFav;
+
+    // Enviamos 'tv' como tipo
+    this.accountService.markAsFavorite(serieId, 'tv', this.estadoFav).subscribe({
+      next: (res) => console.log('Favorito actualizado', res),
+      error: (err) => {
+        console.error('Error al marcar favorito', err);
+        // Revertir si falla
+        this.estadoFav = !this.estadoFav;
       }
     });
-
-    this.serieService.getCreditosSerieById(parseInt(this.serieId!)).subscribe(respuesta => {
-      this.credito = respuesta;
-      this.listaCreditos = respuesta.cast;
-    });
-
-    this.serieService.getCertificationById(parseInt(this.serieId!)).subscribe(resp => {
-      this.paisesList = resp.results;
-    });
-
-    this.serieService.getProveedoresById(parseInt(this.serieId!)).subscribe(resp => {
-      this.regionList = resp.results;
-    });
-
-    this.serieService.getKeywordsById(parseInt(this.serieId!)).subscribe(respuesta => {
-      this.keywords = respuesta.results;
-    });
-
-    this.serieService.getProveedoresById(parseInt(this.serieId!)).subscribe(respuesta => {
-      this.listaProveedores = respuesta.results.ES.flatrate;
-    });
-
-
-    
-
-
-    this.serieService.getProveedoresAdsById(parseInt(this.serieId!)).subscribe(resp => {
-      this.regionAdsList = resp.results.ES.ads;
-    });
-
-    this.checkFavorito(parseInt(this.serieId!));
-    this.checkWatchlist(parseInt(this.serieId!));
-    this.getSerieRating(parseInt(this.serieId!));
-
-    
   }
+
+  onWatchlistBotonClick(serieId: number): void {
+    // Cambio visual optimista
+    this.estadoWatchlist = !this.estadoWatchlist;
+
+    this.accountService.addToWatchlist(serieId, 'tv', this.estadoWatchlist).subscribe({
+      next: (res) => console.log('Watchlist actualizada', res),
+      error: (err) => {
+        console.error('Error al actualizar watchlist', err);
+        this.estadoWatchlist = !this.estadoWatchlist;
+      }
+    });
+  }
+
+  setRating(rating: number) {
+    this.rating = rating;
+    const idNum = parseInt(this.serieId!);
+    
+    // Usamos rateTVShow
+    this.accountService.rateTVShow(idNum, rating).subscribe({
+      next: (res) => console.log('Valoración serie enviada', res),
+      error: (err) => console.error('Error al valorar serie', err)
+    });
+  }
+
+  deleteRating() {
+    this.rating = 0;
+    const idNum = parseInt(this.serieId!);
+
+    this.accountService.deleteRating(idNum, 'tv').subscribe({
+      next: (res) => console.log('Valoración eliminada', res),
+      error: (err) => console.error('Error al borrar valoración', err)
+    });
+  }
+
+  // --- UTILIDADES ---
 
   seleccionarVideo(video: VideoSerie) {
     this.selectedVideo = video;
@@ -112,32 +179,12 @@ export class SerieDetailsComponent implements OnInit{
 
   getCertification() {
     let esp;
-
     if (this.paisesList.find(pais => pais.iso_3166_1 === 'ES')) {
       esp = this.paisesList.find(pais => pais.iso_3166_1 === 'ES');
-      return '+'+esp!.rating;
+      return '+' + esp!.rating;
     } else {
       return 'N/A';
     }
-  }
-
-  getSerieRating(serieId: number): void {
-    this.serieService.getSerieRating(serieId).subscribe(response => {
-      if(response.rated){
-        this.rating = response.rated.value;
-      }
-    })
-  }
-
-  setRating(rating: number) {
-    this.serieService.setSerieRating(parseInt(this.serieId!), rating).subscribe();
-    
-    
-  }
-
-  deleteRating() {
-    this.serieService.deleteSerieRating(parseInt(this.serieId!)).subscribe();
-    this.rating = 0;
   }
 
   isLoggedIn() {
@@ -146,111 +193,5 @@ export class SerieDetailsComponent implements OnInit{
 
   getTexto(key: string): string {
     return this.configService.getTexto(key);
-  }
-
-
-
-  // BOTÓN FAVORITOS ------------------------------------------------------------------------------------------------------------------------
-
-  checkFavorito(serieId: number): void {
-    this.accountService.getFavoritosSerie().subscribe(response => {
-      const favoritos = response.results;
-      this.estadoFav = favoritos.some(serie => serie.id === serieId);
-    });
-  }
-
-  async addOrRemoveFavoritos(serieId: number): Promise<any> {
-    const urlAddFavoritos = this.accountService.getUrlAddFavoritos();
-    const data = {
-      media_type: "tv",  // Cambiar a "movie" si es una peli
-      media_id: serieId,
-      favorite: this.estadoFav, // true para añadir, false para quitar
-    };
-  
-    try {
-      const response = await fetch(urlAddFavoritos, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Error al añadir/quitar favorito: ${response.status} - ${errorMessage}`);
-      }
-  
-      const result = await response.json();
-      return result;
-    } catch (error) {
-      console.error('Error en la operación de favorito:', error);
-      throw error;
-    }
-  }
-
-  onFavoritosBotonClick(serieId: number): void {
-    this.toggleFavoritos(serieId);
-  }
-
-  toggleFavoritos(serieId: number): void {
-    this.estadoFav = !this.estadoFav;
-    this.addOrRemoveFavoritos(serieId).then(result => {
-      console.log('Estado de favoritos actualizado:', result);
-    }).catch(error => {
-      console.error('Error al actualizar favoritos:', error);
-    });
-  }
-
-  //Boton Watchlist ------------------------------------------------------------------------------------------------------------------------
-
-  checkWatchlist(serieId: number): void {
-    this.accountService.getWatchlistSerie().subscribe(response => {
-      const watchlist = response.results;
-      this.estadoWatchlist = watchlist.some(serie => serie.id === serieId);
-    });
-  }
-
-  async addOrRemoveWatchlist(serieId: number): Promise<any> {
-    const urlAddWatchlist = this.accountService.getUrlAddWatchlist();
-    const data = {
-      media_type: "tv",  // Cambiar a "movie" si es una peli
-      media_id: serieId,
-      watchlist: this.estadoWatchlist, // true para añadir, false para quitar
-    };
-  
-    try {
-      const response = await fetch(urlAddWatchlist, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Error al añadir/quitar watchlist: ${response.status} - ${errorMessage}`);
-      }
-  
-      const result = await response.json();
-      return result;
-    } catch (error) {
-      console.error('Error en la operación de watchlist:', error);
-      throw error;
-    }
-  }
-
-  onWatchlistBotonClick(serieId: number): void {
-    this.toggleWatchlist(serieId);
-  }
-
-  toggleWatchlist(serieId: number): void {
-    this.estadoWatchlist = !this.estadoWatchlist;
-    this.addOrRemoveWatchlist(serieId).then(result => {
-      console.log('Estado de watchlist actualizado:', result);
-    }).catch(error => {
-      console.error('Error al actualizar watchlist:', error);
-    });
   }
 }
