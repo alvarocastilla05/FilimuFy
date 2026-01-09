@@ -75,7 +75,7 @@ export class MenuNavComponent implements OnInit {
 
     this.rutaActual = this.router.url;
     this.userName = localStorage.getItem('user_name') ?? '';
-    this.userPhoto = localStorage.getItem('user_photo') ?? '';
+    this.userPhoto = localStorage.getItem('user_photo') || '';
 
     const language = localStorage.getItem('language') || 'es-ES';
     const region = localStorage.getItem('region') || 'ES';
